@@ -109,13 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('Sms_model');
-
-/*
- * Auto connect database
- * 
- */
-$autoload['libraries'] = array('database');
+$autoload['model'] = array();
 
 
 /* End of file autoload.php */
