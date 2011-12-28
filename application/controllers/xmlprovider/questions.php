@@ -3,6 +3,13 @@ require(APPPATH.'/libraries/REST_Controller.php');
 
 class Questions extends REST_Controller {
 
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->library('tank_auth');
+    }
+
 	/**
 	 * Index Page for this controller.
 	 *
