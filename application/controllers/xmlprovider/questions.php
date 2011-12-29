@@ -17,6 +17,10 @@ class Questions extends REST_Controller {
 	 */
 	public function all_questions_get($type)
 	{
+	    if (!$this->tank_auth->is_logged_in()) {                                 // logged in
+            $this->response($this->_log_in_first(), 200);
+        }
+        
         $questions = $this->Sms_model->get_all_questions($type);  
         if($questions && $type)  
         {  
@@ -47,6 +51,12 @@ class Questions extends REST_Controller {
         {  
             $this->response(NULL, 404);  
         }  
+    }
+    
+    private function _log_in_first()
+    {
+        $data['message'] = "U bent niet ingelogd!";
+        return $data;
     }
 }
 

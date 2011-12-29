@@ -4,6 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>jQuery UI Example Page</title>
         <link type="text/css" href="css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />   
+        <link type="text/css" href="css/webapp.css" rel="stylesheet" />   
         <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
         <script type="text/javascript" src="js/sms-question-selector.js"></script>
@@ -80,6 +81,19 @@
         
         <div data-role="page" id="login">
     <h1>Welkom bij Muis</h1>
+    <form id="form_login" method="post">
+    <p>Login om verder te gaan.</p>
+    <table>
+        <tr>
+            <td>Login</td><td><input name="login_name" id ="login_name"></td>
+        </tr>
+        <tr>
+            <td>Wachtwoord</td><td><input name="login_password" id ="login_password" type = "password"></td>
+        </tr>
+    </table>
+    <p id="error"></p>
+    <p><input name="login_submit" id="login_submit" type="submit" value="login"></p>
+    </form>
         </div>
         <div data-role="page" id="typechoice">
     <h1>Kies het type vragenlijst:</h1>
