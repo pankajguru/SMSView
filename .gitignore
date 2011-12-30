@@ -1,5 +1,4 @@
 *.class
 *.pyc
 *.pyo
-captcha/1325085117.9441.jpg
-captcha/1325085151.7846.jpg
+captcha/*.jpg
