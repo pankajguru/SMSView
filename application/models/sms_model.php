@@ -55,7 +55,7 @@ class Sms_model extends CI_Model {
 /********
  * 
  * DB aanpassingen:
- * alter table vraag add base_type int(11) default 0;
+ * alter table vraag add base_type_id int(11) default 0;
  * create table base_type(
  *   id int(11) auto_increment,
  *   desc_code varchar(100),
