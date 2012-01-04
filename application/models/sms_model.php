@@ -29,7 +29,8 @@ class Sms_model extends CI_Model {
     
     function get_answers_by_question_id($question_type_id)
     {
-        $query = $this->db->get_where('vraag_type_definition', array('vraag_type_id' => $question_type_id));
+        $query =  $this->db->where('vraag_type_definition', array('vraag_type_id' => $question_type_id));
+        $this->db->get();
         return $query->result();
         
     }
@@ -37,7 +38,7 @@ class Sms_model extends CI_Model {
     function get_all_questions($type)
     {
         //maak functie waarbij alle vragen opgehaald worden
-        $this->db->select('vraag.*')->from('vraag')->join('base_type','vraag.base_type_id = base_type.id')->where('base_type.desc_code', strtoupper($type));
+        $this->db->select('vraag.*, vraag.id as question_id')->from('vraag')->join('base_type','vraag.base_type_id = base_type.id')->where('base_type.desc_code', strtoupper($type));
         $query = $this->db->get();
         return $query->result();
     }
