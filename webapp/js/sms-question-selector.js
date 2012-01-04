@@ -1,5 +1,6 @@
 var basetype = "";
 var base_url = 'http://smsview';
+var school_id;
 
 $(document).ready(function() {
     //set all pages to display:none
@@ -8,12 +9,27 @@ $(document).ready(function() {
     $('#testpagebutton').click(function() {
         load_page('#testpage');
     });
-    init_login();
+    //init_login();
+    init_login_temp();
+    select_survey_type();
 
 });
 function load_page(page) {
     $("div[data-role='page']").hide();
     $(page).fadeIn(500);
+}
+
+function init_login_temp() {
+	$.ajax({
+		type: 'GET',
+  		url: base_url + '/xmlprovider/questions/school_id',
+  		dataType: 'xml',
+  		success: function(xml){
+    		$(xml).find('xml').each(function(){
+    			school_id = $(this).find('school_id').text();
+    		});
+  		}
+	});	
 }
 
 function init_login() {
@@ -50,4 +66,11 @@ function init_login() {
         });
         return false;
     });
+}
+
+function select_survey_type() {
+	$('#typechoice').fadeIn(500);
+	
+	$.post(base_url + 'index.php/')
+	
 }
