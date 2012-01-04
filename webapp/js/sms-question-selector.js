@@ -8,7 +8,8 @@ $(document).ready(function() {
     $('#testpagebutton').click(function() {
         load_page('#testpage');
     });
-    init_login();
+    //init_login();
+    select_survey_type();
 
 });
 function load_page(page) {
@@ -50,4 +51,8 @@ function init_login() {
         });
         return false;
     });
+}
+
+function select_survey_type() {
+	$('#typechoice').fadeIn(500);
 }
