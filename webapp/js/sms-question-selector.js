@@ -105,7 +105,10 @@ function createSorts() {
 	$('.sorts').sortable({
 		connectWith: '.connectedSortable',
 		update: function(event, ui) {
-			var order = $(this).sortable('toArray').toString();
+			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
+				var order = $(this).sortable('toArray').toString();
+				console.log(order);
+			}
 		}
 	}).disableSelection();
 }
