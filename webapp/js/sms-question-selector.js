@@ -83,7 +83,7 @@ function retrieve_questions_per_type( type ) {
   		success: function(xml){
     		$(xml).find('item').each(function() {
     			
-    			var li = '<li id="' + $(this).find('id').text() + '">' + $(this).find('description').text() + '</li>';
+    			var li = '<li id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
     			$(li).appendTo('#questions_container')    					
     		});
     		
