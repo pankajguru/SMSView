@@ -70,7 +70,41 @@ function init_login() {
 
 function select_survey_type() {
 	$('#typechoice').fadeIn(500);
+	wireTypeChange();
+}
+
+function retrieve_questions_per_type( type ) {
+	var questions = new Array();
+
+	$.ajax({
+		type: 'GET',
+  		url: base_url + '/xmlprovider/questions/all_questions/' + type,
+  		dataType: 'xml',
+  		success: function(xml){
+    		$(xml).find('item').each(function() {
+    			
+    			var li = '<li id="' + $(this).find('id').text() + '">' + $(this).find('description').text() + '</li>';
+    			$(li).appendTo('#questions_container')    					
+    		});
+    		
+			//$.each(questions).appendTo('#questions_container');
+  		}
+	});
 	
-	$.post(base_url + 'index.php/')
 	
+	
+	//$.each(questions, function(key, value) {
+	//	alert(key + ': ' + value);
+	//});
+	
+	//return questions;
+	
+}
+
+function wireTypeChange() {
+	$('#select_type').change(function() {
+		
+		retrieve_questions_per_type( $(this).val() );
+		
+	});
 }
