@@ -70,6 +70,7 @@ function init_login() {
 
 function select_survey_type() {
 	$('#typechoice').fadeIn(500);
+	createDrops();
 	wireTypeChange();
 }
 
@@ -91,14 +92,6 @@ function retrieve_questions_per_type( type ) {
   		}
 	});
 	
-	
-	
-	//$.each(questions, function(key, value) {
-	//	alert(key + ': ' + value);
-	//});
-	
-	//return questions;
-	
 }
 
 function wireTypeChange() {
@@ -114,5 +107,15 @@ function createDrags() {
 		addClasses: true,
 		distance: 10,
 		revert: 'invalid'
+	});
+}
+
+function createDrops() {
+	$(".droppable").droppable({
+		activeClass: "ui-state-hover",
+		hoverClass: "ui-state-active",
+		tolerance: 'intersect',
+		drop: function( event, ui ) {
+		}
 	});
 }
