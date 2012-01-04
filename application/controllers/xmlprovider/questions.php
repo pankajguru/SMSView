@@ -18,40 +18,51 @@ class Questions extends REST_Controller {
 	public function all_questions_get($type)
 	{
 	    if (!$this->tank_auth->is_logged_in()) {                                 // logged in
-            $this->response($this->_log_in_first(), 200);
+            //$this->response($this->_log_in_first(), 200);
         }
         
         $questions = $this->Sms_model->get_all_questions($type);  
+        foreach ($questions as $question)
+        {
+            $question->answers = $this->Sms_model->get_question_properties($question->vraag_type_id); 
+        }
         if($questions && $type)  
         {  
             $this->response($questions, 200); // 200 being the HTTP response code  
-        }  
-  
+        }    
         else  
         {  
             $this->response(NULL, 404);  
         }  
 	}
 
-    public function questions_get()
+    public function school_questions_get($type,$school_id)
     {
-        if(!$this->get('school_id'))  
+        if(!$school_id)  
         {  
             $this->response(NULL, 400);  
         }  
   
-        $questions = $this->Sms_model->get_all_questionaires_by_school(  );  
-  
-        if($questions)  
+        $questionaires = $this->Sms_model->get_all_questionaires_by_school($type,$school_id);  
+        foreach ($questionaires as $questionaire)
+        {
+            $questionaire->questions = $this->Sms_model->get_all_questions_by_peiling_type($questionaire->type_id);
+        }
+        if($questionaires)  
         {  
-            $this->response($questions, 200); // 200 being the HTTP response code  
-        }  
-  
+            $this->response($questionaires, 200); // 200 being the HTTP response code  
+        }    
         else  
         {  
             $this->response(NULL, 404);  
         }  
     }
+
+    public function school_id_get()
+    {
+        $data['school_id'] = 200;
+        $this->response($data, 200);  
+    }    
     
     private function _log_in_first()
     {

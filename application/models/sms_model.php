@@ -38,16 +38,31 @@ class Sms_model extends CI_Model {
     {
         //maak functie waarbij alle vragen opgehaald worden
         $this->db->select('vraag.*')->from('vraag')->join('base_type','vraag.base_type_id = base_type.id')->where('base_type.desc_code', strtoupper($type));
-        
         $query = $this->db->get();
         return $query->result();
-        
     }
     
-    function get_all_questionaires_by_school()
+    function get_question_properties($question_type_id)
+    {
+        $this->db->from('vraag_type_definition')->where('vraag_type_id',$question_type_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    function get_all_questionaires_by_school($type,$school_id)
     {
         //maak functie waarbij alle eerdere peilingen opgehaald worden
-        
+        $this->db->distinct()->select('type_id')->from('peiling')->join('peiling_type','peiling_type.id=peiling.type_id')->where('school_id', $school_id)->like('peiling_type.desc_code', $type)->order_by('type_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_all_questions_by_peiling_type($type_id)
+    {
+        //maak functie waarbij alle eerdere peilingen opgehaald worden
+        $this->db->select('formulier_type_definition.question_id')->from('formulier_type_definition')->join('formulier_type','formulier_type_definition.formulier_type_id= formulier_type.id')->where('peiling_type_id', $type_id);
+        $query = $this->db->get();
+        return $query->result();
     }
 }
 
