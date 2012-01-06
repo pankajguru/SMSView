@@ -23,7 +23,6 @@ class Questions extends REST_Controller {
 		$questions = $this -> Sms_model -> get_all_questions($type);
 		foreach ($questions as $question) {
 			$question -> answers = $this -> Sms_model -> get_question_properties($question -> vraag_type_id);
-            $question -> category = $this->Sms_model->get_category_details($question->vraag_groep_id);
 		}
 		if ($questions && $type) {
 			$this -> response($questions, 200);
@@ -50,6 +49,20 @@ class Questions extends REST_Controller {
 		}
 	}
 
+    public function category_get($category_id) {
+        if (!$category_id) {
+            $this -> response(NULL, 400);
+        }
+
+        $categories = $this -> Sms_model -> get_category_details($category_id);
+        if ($categories) {
+            $this -> response($categories, 200);
+            // 200 being the HTTP response code
+        } else {
+            $this -> response(NULL, 404);
+        }
+        
+    }
 	public function school_id_get() {
 		$data['school_id'] = 200;
 		$this -> response($data, 200);
