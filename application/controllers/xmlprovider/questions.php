@@ -23,6 +23,7 @@ class Questions extends REST_Controller {
 		$questions = $this -> Sms_model -> get_all_questions($type);
 		foreach ($questions as $question) {
 			$question -> answers = $this -> Sms_model -> get_question_properties($question -> vraag_type_id);
+            $question -> category = $this->Sms_model->get_category_details($question->vraag_groep_id);
 		}
 		if ($questions && $type) {
 			$this -> response($questions, 200);
