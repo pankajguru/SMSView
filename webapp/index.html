@@ -93,24 +93,39 @@
 			</form>
 		</div>
 		<div data-role="page" id="typechoice">
-			<h1>Kies het type vragenlijst:</h1>
-			<form id="survey_type" action="#">
-				<select id='select_type'>
-					<option value=''>Kies een type:</option>
-					<option value="otp">OTP</option>
-					<option value="ltp">LTP</option>
-					<option value="ptp">PTP</option>
-				</select>
-			</form>
-			
-			<ul id="questions_container" class="connectedSortable ui-sortable sorts">
-				<!-- All available question will be loaded here -->
-			</ul>
-			
-			<ul id="question_list_container" class="connectedSortable ui-sortable sorts">
-				<!-- All selected questions will be loaded here -->
-			</ul>
-			
+			<div class="list_container">
+				<div class="container_head">
+					<span class="left"> Alle vragen </span>
+					<form class="right">
+						<label for="filter_field" id="filter_field_label">Filter: </label>
+						<input name="filter_field" id="filter_field" type="text" value="" />
+					</form>
+					<div class="clear"></div>
+				</div>
+				<ul id="questions_container" class="connectedSortable ui-sortable sorts">
+						<form id="survey_type" action="#">
+							<label id="select_type_label" for="select_type" class="error">Kies het type vragenlijst:</label>
+							<select name="select_type" id='select_type'>
+								<option value=''>Kies een type:</option>
+								<option value="otp">OTP</option>
+								<option value="ltp">LTP</option>
+								<option value="ptp">PTP</option>
+							</select>
+						</form>
+					<!-- All available question will be loaded here -->
+				</ul>
+			</div>
+			<div class="list_container">
+				<div class="container_head">
+					Geselecteerde vragen
+				</div>
+				<ul id="question_list_container" class="connectedSortable ui-sortable sorts">
+					<li class="info error">
+						Sleep hier uw vragen heen:
+					</li>
+					<!-- All selected questions will be loaded here -->
+				</ul>
+			</div>
 		</div>
 		<div data-role="page" id="testpage">
 			<h1>Welcome to jQuery UI!</h1>

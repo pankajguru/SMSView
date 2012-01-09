@@ -95,9 +95,8 @@ function retrieve_questions_per_type( type ) {
 
 function wireTypeChange() {
 	$('#select_type').change(function() {
-		
 		retrieve_questions_per_type( $(this).val() );
-		
+		$('#survey_type').remove();
 	});
 }
 
@@ -109,6 +108,35 @@ function createSorts() {
 				var order = $(this).sortable('toArray').toString();
 				console.log(order);
 			}
+		},
+		stop: function(event, ui) {
+			console.log('klaar met sort');
+			var list = $('#question_list_container > li' );
+			if ( list.lenght > 1 ) {
+				console.log('groter dan 1');
+				$('.info').remove();
+			}
 		}
 	}).disableSelection();
+	
+	filter_questions();
+}
+
+function filter_questions() {
+	$('#filter_field').keyup( function() {
+		var re = $('#filter_field').val();
+
+		$('#questions_container > li').each( function() {
+			
+			var str = $(this).text();
+			var match = str.search(re);
+
+			if ( match == -1) {
+				$(this).addClass('hide');
+			}
+			else {
+				$(this).removeClass('hide');
+			}
+		});
+	});
 }
