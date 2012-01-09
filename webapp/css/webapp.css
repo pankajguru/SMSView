@@ -105,3 +105,22 @@ ul#question_list_container li.info {
 #error, .error {
 	color: red;
 }
+
+#choose_list, #survey_type {
+	padding: 10px;
+	margin: 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}

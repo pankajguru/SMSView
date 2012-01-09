@@ -95,9 +95,8 @@ function retrieve_questions_per_type( type ) {
 
 function wireTypeChange() {
 	$('#select_type').change(function() {
-		
 		retrieve_questions_per_type( $(this).val() );
-		
+		$('#survey_type').remove();
 	});
 }
 
@@ -124,7 +123,7 @@ function createSorts() {
 }
 
 function filter_questions() {
-	$('#filter_field').change( function() {
+	$('#filter_field').keyup( function() {
 		var re = $('#filter_field').val();
 
 		$('#questions_container > li').each( function() {
