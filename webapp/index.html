@@ -102,15 +102,26 @@
 					<option value="ptp">PTP</option>
 				</select>
 			</form>
-			
-			<ul id="questions_container" class="connectedSortable ui-sortable sorts">
-				<!-- All available question will be loaded here -->
-			</ul>
-			
-			<ul id="question_list_container" class="connectedSortable ui-sortable sorts">
-				<!-- All selected questions will be loaded here -->
-			</ul>
-			
+			<form>
+				<input id="filter_field" type="text" value="" />
+			</form>
+			<div class="list_container">
+				<div class="container_head">
+					Alle vragen
+				</div>
+				<ul id="questions_container" class="connectedSortable ui-sortable sorts">
+					<!-- All available question will be loaded here -->
+				</ul>
+			</div>
+			<div class="list_container">
+				<div class="container_head">
+					Geselecteerde vragen
+				</div>
+				<ul id="question_list_container" class="connectedSortable ui-sortable sorts">
+					<li class="info error">Sleep hier uw vragen heen:</li>
+					<!-- All selected questions will be loaded here -->
+				</ul>
+			</div>
 		</div>
 		<div data-role="page" id="testpage">
 			<h1>Welcome to jQuery UI!</h1>
