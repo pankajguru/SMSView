@@ -62,9 +62,14 @@ class Sms_model extends CI_Model {
     function get_all_categories() {
 
 	$query = $this -> db -> get('vraag_group');
-echo var_dump($query);
 	return $query -> result();
 
+    }
+
+    function get_category_questions( $category_id ) {
+        $this -> db -> from( 'vraag' ) -> where( 'vraag_groep_id', $category_id );
+        $query = $this -> db -> get();
+        return $query -> result();
     }
 
     function get_category_details($category_id) {
