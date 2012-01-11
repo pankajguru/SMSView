@@ -34,7 +34,7 @@ class Sms_model extends CI_Model {
 
     function get_all_questions($type) {
         //maak functie waarbij alle vragen opgehaald worden
-        $this -> db -> select('vraag.*, vraag.id as question_id, vraag.description as question_description, vraag_group.description as category_name, vraag_group.description as category_id') -> from('vraag') -> join('base_type', 'vraag.base_type_id = base_type.id') -> join('vraag_group', 'vraag_group.id=vraag_groep_id') -> where('base_type.desc_code', strtoupper($type));
+        $this -> db -> select('vraag.*, vraag.id as question_id, vraag.description as question_description, vraag_group.description as category_name, vraag_group.id as category_id') -> from('vraag') -> join('base_type', 'vraag.base_type_id = base_type.id') -> join('vraag_group', 'vraag_group.id=vraag_groep_id') -> where('base_type.desc_code', strtoupper($type));
         $query = $this -> db -> get();
         return $query -> result();
     }
