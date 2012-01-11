@@ -119,6 +119,11 @@ ul#question_list_container li.info {
 	height: 26px;
 }
 
+#questions_container li.category_name {
+	background-color: #FFF;
+	color: #29A8E3;
+}
+
 .left {
 	float: left;
 }
