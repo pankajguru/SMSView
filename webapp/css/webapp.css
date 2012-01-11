@@ -70,6 +70,10 @@ ul#question_list_container {
 	background: transparent;
 }
 
+ul#question_list_container {
+	padding-left: 30px;
+}
+
 ul#question_list_container li {
 	list-style-type: decimal;
 	list-style: decimal;
