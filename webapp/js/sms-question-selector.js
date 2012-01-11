@@ -131,7 +131,7 @@ function filter_questions() {
 	$('#filter_field').keyup( function() {
 		var re = $('#filter_field').val();
 
-		$('#questions_container > li').each( function() {
+		$('.ui-state-default').each( function() {
 			
 			var str = $(this).text();
 			var match = str.search(re);

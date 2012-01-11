@@ -120,8 +120,14 @@ ul#question_list_container li.info {
 }
 
 #questions_container li.category_name {
-	background-color: #FFF;
-	color: #29A8E3;
+	list-style: none;
+	list-style-type: none;
+	color: #F78E1C;
+}
+
+#questions_container li {
+	list-style: none;
+	list-style-type: none;
 }
 
 .left {
