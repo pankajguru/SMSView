@@ -61,13 +61,13 @@ class Sms_model extends CI_Model {
 
     function get_all_categories() {
 
-	$query = $this -> db -> get('vraag_group');
-	return $query -> result();
+        $query = $this -> db -> get('vraag_group');
+        return $query -> result();
 
     }
 
-    function get_category_questions( $category_id ) {
-        $this -> db -> from( 'vraag' ) -> where( 'vraag_groep_id', $category_id );
+    function get_category_questions($category_id) {
+        $this -> db -> from('vraag') -> where('vraag_groep_id', $category_id);
         $query = $this -> db -> get();
         return $query -> result();
     }
@@ -77,6 +77,22 @@ class Sms_model extends CI_Model {
         $query = $this -> db -> get();
         return $query -> result();
 
+    }
+
+    public function insert_questionaire($questionaire_xml) {
+        try {
+            $xmlobject = new SimpleXMLElement($questionaire_xml);
+            if ($xmlobject == false) {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        
+        //TODO::do stuf with $xmlobject
+        
+        
+        return true;
     }
 
 }
