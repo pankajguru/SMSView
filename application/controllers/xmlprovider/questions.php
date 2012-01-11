@@ -32,6 +32,15 @@ class Questions extends REST_Controller {
 		}
 	}
 
+    public function category_questions_get( $category_id ) {
+        if ( !$category_id ) {
+            $this -> response( NULL, 400 );
+        }
+
+        $questions = $this -> Sms_model -> get_category_questions( $category_id );
+        $this -> response( $questions, 200 );
+    }
+
 	public function school_questions_get($type, $school_id) {
 		if (!$school_id) {
 			$this -> response(NULL, 400);
@@ -50,10 +59,9 @@ class Questions extends REST_Controller {
 	}
 
     public function category_get($category_id = NULL) {
-	if ( !isset($category_id) ) {
-	    $categories = $this -> Sms_model -> get_all_categories();
-	    $this -> response($categories, 200);
-            #$this -> response(NULL, 400);
+	    if ( !isset($category_id) ) {
+	        $categories = $this -> Sms_model -> get_all_categories();
+	        $this -> response($categories, 200);
         }
 
         $categories = $this -> Sms_model -> get_category_details($category_id);
