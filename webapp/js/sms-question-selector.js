@@ -1,5 +1,4 @@
 var basetype = "";
-var base_url = 'http://smsview';
 var school_id;
 
 $(document).ready(function() {

@@ -4,3 +4,5 @@
 captcha/*.jpg
 .project
 .settings/*
+webapp/js/config.js
+application/config/database.php
