@@ -112,9 +112,11 @@ function createSorts() {
 			var list = $('#question_list_container > li' );
 			if ( list.length >= 1 ) {
 				$('.info').remove();
+				$('#clear_questions').toggleClass('hide');
 			}
 			else {
 				$('<li class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
+				$('#clear_questions').toggleClass('hide');
 			}
 		}
 	}).disableSelection();
