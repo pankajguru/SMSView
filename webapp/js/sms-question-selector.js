@@ -72,7 +72,7 @@ function expand_all() {
 	
 	$('#expand').click(function() {
 		( $( this ).text() === 'open' ) ? $( this ).text('close') : $( this ).text('open');
-		$('.ui-state-default').toggleClass('hide');
+		( $( this ).text() === 'open' ) ? $( '.ui-state-default' ).addClass('hide') : $( '.ui-state-default' ).removeClass('hide');
 	});
 }
 
@@ -91,7 +91,7 @@ function retrieve_questions_per_type( type ) {
   		success: function(xml){
     		$(xml).find('item').each(function() {
     			
-    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
+    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
     			$(li).appendTo('#questions_container');
     		});
     		sort_on_category();
@@ -121,6 +121,7 @@ function createSorts() {
 			}
 		},
 		stop: function(event, ui) {
+			
 			var list = $('#question_list_container > li' );
 			if ( list.length >= 1 ) {
 				$('.info').remove();
