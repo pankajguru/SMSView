@@ -1,5 +1,4 @@
 var basetype = "";
-var base_url = 'http://smsview';
 var school_id;
 
 $(document).ready(function() {
@@ -110,11 +109,14 @@ function createSorts() {
 			}
 		},
 		stop: function(event, ui) {
-			console.log('klaar met sort');
 			var list = $('#question_list_container > li' );
-			if ( list.lenght > 1 ) {
-				console.log('groter dan 1');
+			if ( list.length >= 1 ) {
 				$('.info').remove();
+				$('#clear_questions').toggleClass('hide');
+			}
+			else {
+				$('<li class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
+				$('#clear_questions').toggleClass('hide');
 			}
 		}
 	}).disableSelection();

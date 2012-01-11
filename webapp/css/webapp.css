@@ -89,11 +89,13 @@ ul#question_list_container li.info {
 	padding: 10px;
 	margin: 0px;
 	color: red;
+	height: 25px;
 }
 
 .container_head {
 	background-color: #F78E1C;
 	padding: 10px;
+	height: 20px;
 	color: #FFF;
 	font-size: 17px;
 	font-weight: bold;
@@ -111,6 +113,10 @@ ul#question_list_container li.info {
 	margin: 0;
 	font-size: 14px;
 	font-weight: bold;
+}
+
+#survey_type {
+	height: 26px;
 }
 
 .left {
