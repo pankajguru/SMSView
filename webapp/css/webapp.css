@@ -48,10 +48,7 @@ ul#icons span.ui-icon {
 
 ul {
 	margin-top: 0px;
-}
-
-ul li {
-	-webkit-margin-before: 0;
+	padding-left: 0px;
 }
 
 ul#question_list_container {
@@ -68,7 +65,7 @@ ul#question_list_container {
 	font-weight: bold;
 	list-style-type: disc;
 	margin: 0;
-	padding: 10px 0px;
+	padding: 10px;
 	border: none;
 	background: transparent;
 }
