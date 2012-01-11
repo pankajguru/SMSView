@@ -72,7 +72,7 @@ function expand_all() {
 	
 	$('#expand').click(function() {
 		( $( this ).text() === 'open' ) ? $( this ).text('close') : $( this ).text('open');
-		( $( this ).text() === 'open' ) ? $( '.ui-state-default' ).addClass('hide') : $( '.ui-state-default' ).removeClass('hide');
+		( $( this ).text() === 'open' ) ? $( '.question_not_selected' ).addClass('hide') : $( '.question_not_selected' ).removeClass('hide');
 	});
 }
 
@@ -116,8 +116,12 @@ function createSorts() {
 		connectWith: '.connectedSortable',
 		update: function(event, ui) {
 			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
+				ui.item.removeClass('question_not_selected');
 				var order = $(this).sortable('toArray').toString();
 				console.log(order);
+			}
+			else {
+				ui.item.addClass('question_not_selected');
 			}
 		},
 		stop: function(event, ui) {
