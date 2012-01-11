@@ -27,7 +27,7 @@ class Update extends CI_Controller {
         /** test db connectivity */
         $data['peilingen'] = $this -> Sms_model -> get_last_ten_entries();
 
-        $this -> load -> view('welcome_message');
+        $this -> load -> view('tools/update', $data);
     }
 
     public function otp() {
@@ -126,7 +126,7 @@ class Update extends CI_Controller {
             }
             $data['excel'][$rownr]['duplicates'] = $duplicates;
         }
-        $this -> load -> view('tools/update', $data);
+        $this -> load -> view('tools/update_otp', $data);
     }
 
     public function ptp() {
