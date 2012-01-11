@@ -126,13 +126,15 @@ function createSorts() {
 		},
 		stop: function(event, ui) {
 			
-			var list = $('#question_list_container > li' );
+			var list = $('#question_list_container > li.ui-state-default' );
 			if ( list.length >= 1 ) {
-				$('.info').remove();
+				$('#select_info').remove();
 				$('#clear_questions').toggleClass('hide');
 			}
 			else {
-				$('<li class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
+				if ( $( '#select_info' ).length === 0 ) {
+					$('<li id="select_info" class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
+				}
 				$('#clear_questions').toggleClass('hide');
 			}
 		}
@@ -145,7 +147,7 @@ function filter_questions() {
 	$('#filter_field').keyup( function() {
 		var re = $('#filter_field').val();
 
-		$('.ui-state-default').each( function() {
+		$('.question_not_selected').each( function() {
 			
 			var str = $(this).text();
 			var match = str.search(re);
@@ -194,6 +196,10 @@ function create_clicks() {
 	$('.category_name').click( function() {
 		$( this ).parent().children('.ui-state-default').toggleClass('hide');
 	});
+}
+
+function new_question() {
+	$('')
 }
 
 //function sort_on_category( a, b ) {
