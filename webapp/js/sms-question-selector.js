@@ -1,5 +1,4 @@
 var basetype = "";
-var base_url = 'http://smsview';
 var school_id;
 
 $(document).ready(function() {
@@ -83,7 +82,7 @@ function retrieve_questions_per_type( type ) {
   		success: function(xml){
     		$(xml).find('item').each(function() {
     			
-    			var li = '<li class="ui-state-default hide" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
+    			var li = '<li class="ui-state-default" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
     			$(li).appendTo('#questions_container');
     		});
     		
@@ -110,11 +109,12 @@ function createSorts() {
 			}
 		},
 		stop: function(event, ui) {
-			console.log('klaar met sort');
 			var list = $('#question_list_container > li' );
-			if ( list.lenght > 1 ) {
-				console.log('groter dan 1');
+			if ( list.length >= 1 ) {
 				$('.info').remove();
+			}
+			else {
+				$('<li class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
 			}
 		}
 	}).disableSelection();
