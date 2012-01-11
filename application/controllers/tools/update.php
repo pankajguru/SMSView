@@ -9,6 +9,7 @@ class Update extends CI_Controller {
      */
     public function __construct()
     {
+        require_once 'utilities/PHPExcel/PHPExcel/IOFactory.php';
         parent::__construct();
         //load html helper
         $this->load->helper('html');
@@ -26,8 +27,11 @@ class Update extends CI_Controller {
         /** test db connectivity */
         $data['peilingen'] = $this -> Sms_model -> get_last_ten_entries();
 
-        /** test PHPExcel_IOFactory */
-        require_once 'utilities/PHPExcel/PHPExcel/IOFactory.php';
+        $this -> load -> view('welcome_message');
+    }
+
+    public function otp() {
+        /** get PHPExcel_IOFactory object */
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/otp.xlsx");
@@ -125,11 +129,15 @@ class Update extends CI_Controller {
         $this -> load -> view('tools/update', $data);
     }
 
-    public function otp() {
-        $this -> load -> view('welcome_message');
-    }
-
     public function ptp() {
+        /** get PHPExcel_IOFactory object */
+        $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+        $objReader -> setReadDataOnly(true);
+        $objPHPExcel = $objReader -> load("source_docs/otp.xlsx");
+        $objWorksheet = $objPHPExcel -> getActiveSheet();
+        foreach ($objWorksheet->getRowIterator() as $row) {
+            print $objWorksheet -> getCell('A' . $rownr) -> getValue().'<BR>';
+        }
         $this -> load -> view('welcome_message');
     }
 
