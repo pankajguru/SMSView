@@ -67,6 +67,15 @@ function init_login() {
     });
 }
 
+function expand_all() {
+	$('<button id="expand" />').text('open').appendTo('#list_controls');
+	
+	$('#expand').click(function() {
+		( $( this ).text() === 'open' ) ? $( this ).text('close') : $( this ).text('open');
+		$('.ui-state-default').toggleClass('hide');
+	});
+}
+
 function select_survey_type() {
 	$('#typechoice').fadeIn(500);
 	wireTypeChange();
@@ -88,7 +97,7 @@ function retrieve_questions_per_type( type ) {
     		sort_on_category();
     		
     		//get_categories();
-    		
+    		expand_all();
     		createSorts();
   		}
 	});
