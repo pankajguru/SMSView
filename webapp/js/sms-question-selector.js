@@ -97,6 +97,7 @@ function retrieve_questions_per_type( type ) {
     		sort_on_category();
     		
     		//get_categories();
+    		new_question();
     		expand_all();
     		createSorts();
   		}
@@ -199,7 +200,9 @@ function create_clicks() {
 }
 
 function new_question() {
-	$('')
+	$('<button id="new_question" />').text('Add question').appendTo('#questionnaire_controls').click(function() {
+		$('<div>HALLO</div>').modal();
+	});
 }
 
 //function sort_on_category( a, b ) {
