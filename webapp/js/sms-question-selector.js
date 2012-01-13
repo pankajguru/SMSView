@@ -200,9 +200,46 @@ function create_clicks() {
 }
 
 function new_question() {
-	$('<button id="new_question" />').text('Add question').appendTo('#questionnaire_controls').click(function() {
-		$('<div>HALLO</div>').modal();
+	var options;
+	
+	$.ajax({
+		type: 'GET',
+  		url: base_url + '/xmlprovider/questions/category',
+  		dataType: 'xml',
+  		success: function(xml){
+    		$(xml).find('item').each(function() {
+    			options += '<option id="' + $(this).find('id').text() +'">' + $(this).find('description').text() + '</option>';
+    		});
+  		}
 	});
+	
+	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').click(function() {
+		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div id="answer_container"></div><div class="block"><input type="submit" value="Opslaan" /><input id=clear_new_question"" type="submit" value="Annuleren" /></div></form>').modal();
+		wire_clear_question();
+		wire_question_type();
+	});
+}
+
+function wire_question_type() {
+	// Listen for the a change in the question type selector. If changed we need to update the possible answer fields.
+	$('#answer_type').change( function() {
+		if ( $('#answer_type option:selected').val() === 'multiple choice' ) {
+			$('<button id="add_multiple_choice_answer">Voeg antwoord toe</button><div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>').appendTo('#answer_container');
+		}
+		
+		$("#add_multiple_choice_answer").click( function(e) {
+			var id = $('.multiple_choice_answer').length;
+			id++;
+			$('<div class="block"><label for="multiple_choice_answer_' + id + '">Optie ' + id + '</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_' + id + '" />').appendTo('#answer_container');
+			e.preventDefault();
+		});
+		
+		
+	});
+}
+
+function wire_clear_question() {
+	$('')
 }
 
 //function sort_on_category( a, b ) {
