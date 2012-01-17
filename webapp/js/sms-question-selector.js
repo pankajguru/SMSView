@@ -91,7 +91,7 @@ function retrieve_questions_per_type( type ) {
   		success: function(xml){
     		$(xml).find('item').each(function() {
     			
-    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
+    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected sorts" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
     			$(li).appendTo('#questions_container');
     		});
     		sort_on_category();
@@ -99,7 +99,7 @@ function retrieve_questions_per_type( type ) {
     		//get_categories();
     		new_question();
     		expand_all();
-    		createSorts();
+    		//createSorts();
   		}
 	});
 	
@@ -112,10 +112,23 @@ function wireTypeChange() {
 	});
 }
 
-function createSorts() {
+function create_selected_sorts() {
+	
 	$('.sorts').sortable({
-		items: "li:not(.category_name)",
-		connectWith: '.connectedSortable',
+		items: ".selected_sorts",
+		forcePlaceholderSize: true,
+	}).disableSelection();
+}
+
+function create_sorts(sortable_with) {
+	console.log('init: ' + sortable_with);
+	$('.sorts').sortable({
+		//items: "li:not(.category_name)",
+		forcePlaceholderSize: true,
+		connectWith: sortable_with,
+		start: function(e, ui) {
+			console.log($( this ).sortable( "option", "connectWith" ));
+		},
 		update: function(event, ui) {
 			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
 				ui.item.removeClass('question_not_selected');
@@ -182,13 +195,20 @@ function sort_on_category() {
 	});
   
  	for( group in groups ) {
-		var ul = $('<ul class="connectedSortable ui-sortable sorts" />').attr( 'id', group );
+		//var ul = $('<ul class="connectedSortable ui-sortable sorts sortable_with_'+ group + '" />').attr( 'id', group );
+		var ul = $('<ul class="connectedSortable ui-sortable" />').attr( 'id', group );
     	var lis = groups[ group ];
     
 		for( i = 0; i < lis.length; i++ ){
     		ul.append( lis[ i ] );
     	}
     	ul.appendTo('#questions_container');
+    	var sortable_with = '.sortable_with_' + group;
+    	var ul = $('<ul style="height: 10px;" class="connectedSortable ui-sortable sorts selected_sorts sortable_with_'+ group + '" />');
+    	ul.appendTo('#question_list_container');
+    	var li = $('<li class="ui-state-default" />').appendTo(ul);
+    	create_selected_sorts();
+    	create_sorts(sortable_with);
   	}
   	
   	create_clicks();
