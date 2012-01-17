@@ -91,7 +91,7 @@ function retrieve_questions_per_type( type ) {
   		success: function(xml){
     		$(xml).find('item').each(function() {
     			
-    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected sorts" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
+    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
     			$(li).appendTo('#questions_container');
     		});
     		sort_on_category();
@@ -112,12 +112,15 @@ function wireTypeChange() {
 	});
 }
 
-function create_selected_sorts() {
+function create_drags() {
 	
-	$('.sorts').sortable({
-		items: ".selected_sorts",
-		forcePlaceholderSize: true,
-	}).disableSelection();
+	$('.drags').draggable( {
+		connectToSortable: true,
+		// Documentation says we should do this: helper: 'clone',
+		helper: 'original', // But this looks better
+		revert: 'invalid',
+		distance: 30
+	});
 }
 
 function create_sorts(sortable_with) {
@@ -207,8 +210,9 @@ function sort_on_category() {
     	var ul = $('<ul style="height: 10px;" class="connectedSortable ui-sortable sorts selected_sorts sortable_with_'+ group + '" />');
     	ul.appendTo('#question_list_container');
     	var li = $('<li class="ui-state-default" />').appendTo(ul);
-    	create_selected_sorts();
-    	create_sorts(sortable_with);
+    	//create_selected_sorts();
+    	//create_sorts(sortable_with);
+    	create_drags();
   	}
   	
   	create_clicks();
