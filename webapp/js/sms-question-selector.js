@@ -114,6 +114,7 @@ function wireTypeChange() {
 
 function createSorts() {
 	$('.sorts').sortable({
+		items: "li:not(.category_name)",
 		connectWith: '.connectedSortable',
 		update: function(event, ui) {
 			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
@@ -215,9 +216,14 @@ function new_question() {
 	
 	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').click(function() {
 		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div id="answer_container"></div><div class="block"><input type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal();
+		wire_add_question();
 		wire_clear_question();
 		wire_question_type();
 	});
+}
+
+function wire_add_question() {
+	
 }
 
 function wire_question_type() {
