@@ -121,7 +121,8 @@ function create_drags( drag_selector, sortable_with ) {
 		//helper: 'original', // But this looks better
 		revert: 'invalid',
 		distance: 30,
-		start: function(e, ui) {
+		cursorAt: {'right' : 5 },
+		/*start: function(e, ui) {
 			var listclass = '.sortable_with_' + $(this).parent().attr('id');
 			var sortcontainer = listclass + ' > li'; 
 			var text = $( this ).parent().find('.category_name').text();
@@ -130,16 +131,17 @@ function create_drags( drag_selector, sortable_with ) {
 				$('<li class="category_name" />').text( text ).appendTo( listclass );
 			}
 			
-		},
+		},*/
 	});
 }
 
 function create_sorts() {
 	
 	$('.sorts').sortable({
-		//items: "li:not(.category_name)",
+		items: "li:not(.category_list_name)",
 		//forcePlaceholderSize: true,
 		dropOnEmpty: true,
+		tolerance: 'pointer',
 		update: function( event, ui ) {
 			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
 				ui.item.removeClass('question_not_selected');
@@ -150,7 +152,7 @@ function create_sorts() {
 			}
 		},
 		stop: function( event, ui ) {
-			
+			$( this ).removeClass('target');
 			var list = $('#question_list_container > li.ui-state-default' );
 			if ( list.length >= 1 ) {
 				$('#select_info').remove();
@@ -162,6 +164,18 @@ function create_sorts() {
 				}
 				$('#clear_questions').toggleClass('hide');
 			}
+		},
+		over: function( event, ui ) {
+			$( this ).addClass('target');
+		},
+		activate: function( event, ui ) {
+			$( this ).addClass('target');
+		},
+		out: function( event, ui ) {
+			$( this ).removeClass('target');
+		},
+		deactivate: function( event, ui ) {
+			$( this ).removeClass('target');
 		}
 	}).disableSelection();
 	
@@ -244,7 +258,7 @@ function create_clicks() {
 		if ( $( check_category ).length === 0 ) {
 			
 			//$( listclass ).parent().wrap('<span class="category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().text() +'</span>');
-			$( '<span class="category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
+			$( '<span class="category_list_name category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
 		}
 	});
 }
