@@ -126,7 +126,6 @@ function create_drags( drag_selector, sortable_with ) {
 			var sortcontainer = listclass + ' > li'; 
 			var text = $( this ).parent().find('.category_name').text();
 			
-			console.log('sort0: ' + $( sortcontainer ).length );
 			if ( $( sortcontainer ).length === 0 ) {
 				$('<li class="category_name" />').text( text ).appendTo( listclass );
 			}
@@ -138,7 +137,7 @@ function create_drags( drag_selector, sortable_with ) {
 function create_sorts() {
 	
 	$('.sorts').sortable({
-		items: "li:not(.category_name)",
+		//items: "li:not(.category_name)",
 		//forcePlaceholderSize: true,
 		dropOnEmpty: true,
 		update: function( event, ui ) {
@@ -238,6 +237,15 @@ function sort_on_category() {
 function create_clicks() {
 	$('.category_name').click( function() {
 		$( this ).parent().children('.ui-state-default').toggleClass('hide');
+		
+		var listclass = '.sortable_with_' + $( this ).parent().attr('id');
+		var check_category = '.category_list_name_' + $( this ).parent().attr('id');
+		console.log('num: ' +$( check_category ).length );
+		if ( $( check_category ).length === 0 ) {
+			
+			//$( listclass ).parent().wrap('<span class="category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().text() +'</span>');
+			$( '<span class="category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
+		}
 	});
 }
 
