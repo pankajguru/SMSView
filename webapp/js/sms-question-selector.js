@@ -112,37 +112,45 @@ function wireTypeChange() {
 	});
 }
 
-function create_drags() {
+function create_drags( drag_selector, sortable_with ) {
 	
-	$('.drags').draggable( {
-		connectToSortable: true,
-		// Documentation says we should do this: helper: 'clone',
-		helper: 'original', // But this looks better
+	$( drag_selector ).draggable( {
+		//connectToSortable: '.sorts',
+		connectToSortable: sortable_with,
+		helper: 'clone',
+		//helper: 'original', // But this looks better
 		revert: 'invalid',
-		distance: 30
+		distance: 30,
+		start: function(e, ui) {
+			var listclass = '.sortable_with_' + $(this).parent().attr('id');
+			var sortcontainer = listclass + ' > li'; 
+			var text = $( this ).parent().find('.category_name').text();
+			
+			console.log('sort0: ' + $( sortcontainer ).length );
+			if ( $( sortcontainer ).length === 0 ) {
+				$('<li class="category_name" />').text( text ).appendTo( listclass );
+			}
+			
+		},
 	});
 }
 
-function create_sorts(sortable_with) {
-	console.log('init: ' + sortable_with);
+function create_sorts() {
+	
 	$('.sorts').sortable({
-		//items: "li:not(.category_name)",
-		forcePlaceholderSize: true,
-		connectWith: sortable_with,
-		start: function(e, ui) {
-			console.log($( this ).sortable( "option", "connectWith" ));
-		},
-		update: function(event, ui) {
+		items: "li:not(.category_name)",
+		//forcePlaceholderSize: true,
+		dropOnEmpty: true,
+		update: function( event, ui ) {
 			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
 				ui.item.removeClass('question_not_selected');
-				var order = $(this).sortable('toArray').toString();
-				console.log(order);
+				var order = $( this ).sortable('toArray').toString();
 			}
 			else {
 				ui.item.addClass('question_not_selected');
 			}
 		},
-		stop: function(event, ui) {
+		stop: function( event, ui ) {
 			
 			var list = $('#question_list_container > li.ui-state-default' );
 			if ( list.length >= 1 ) {
@@ -158,7 +166,6 @@ function create_sorts(sortable_with) {
 		}
 	}).disableSelection();
 	
-	filter_questions();
 }
 
 function filter_questions() {
@@ -181,12 +188,12 @@ function filter_questions() {
 }
 
 function sort_on_category() {
-
 	var groups = [];
 	
 	$('#questions_container > li').each( function() {
     	var li			= $( this );
     	var title		= $( this ).attr('title');
+    	var classname	= title.replace(/ /g,"_");
     	var li_group	= 'list' + $(this).attr('title');
 
 		if( !groups[ li_group ] ) {
@@ -194,28 +201,38 @@ function sort_on_category() {
       		var first_li = $('<li title="' + title + '" class="category_name" />').text( title );
       		groups[ li_group ].push( first_li );
       	}
-      		groups[ li_group ].push( li );
+      	
+      	groups[ li_group ].push( li );
 	});
+	
+	for ( group in groups ) {
+		var groupname = group.replace(/ /g,"_");
+		var sortable_with = '.sortable_with_' + groupname;
+		var ul = $('<ul class="sortable_with_'+ groupname + ' sorts" />');
+    	ul.appendTo('#question_list_container');
+    	
+	}
+	
+	create_sorts();
   
  	for( group in groups ) {
-		//var ul = $('<ul class="connectedSortable ui-sortable sorts sortable_with_'+ group + '" />').attr( 'id', group );
-		var ul = $('<ul class="connectedSortable ui-sortable" />').attr( 'id', group );
+ 		var groupname = group.replace(/ /g,"_");
+		var ul = $('<ul class="drag_container_' + groupname + '" />').attr( 'id', groupname );
     	var lis = groups[ group ];
     
 		for( i = 0; i < lis.length; i++ ){
     		ul.append( lis[ i ] );
     	}
     	ul.appendTo('#questions_container');
-    	var sortable_with = '.sortable_with_' + group;
-    	var ul = $('<ul style="height: 10px;" class="connectedSortable ui-sortable sorts selected_sorts sortable_with_'+ group + '" />');
-    	ul.appendTo('#question_list_container');
-    	var li = $('<li class="ui-state-default" />').appendTo(ul);
-    	//create_selected_sorts();
-    	//create_sorts(sortable_with);
-    	create_drags();
+    	var sortable_with = '.sortable_with_' + groupname;
+    	var drag_selector = '.drag_container_' + groupname + '> li:not(.category_name)';
+    	//var ul = $('<ul class="sortable_with_'+ groupname + '" />');
+    	//ul.appendTo('#question_list_container');
+    	create_drags( drag_selector, sortable_with);
   	}
   	
   	create_clicks();
+  	filter_questions();
 }
 
 function create_clicks() {
@@ -275,7 +292,3 @@ function wire_clear_question() {
 		e.preventDefault();
 	});
 }
-
-//function sort_on_category( a, b ) {
-//    return $(a).attr('title').toLowerCase() > $(b).attr('title') ? 1 : -1;
-//};
