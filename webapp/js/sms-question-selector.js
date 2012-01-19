@@ -102,9 +102,9 @@ function retrieve_questions_per_type( type ) {
 }
 
 function wireTypeChange() {
-	$('#select_type').change(function() {
-		retrieve_questions_per_type( $(this).val() );
-		$('#survey_type').remove();
+	$( '#select_type' ).change( function() {
+		retrieve_questions_per_type( $( this ).val() );
+		$( '#survey_type' ).remove();
 	});
 }
 
