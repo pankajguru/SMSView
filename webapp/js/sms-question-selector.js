@@ -68,11 +68,11 @@ function init_login() {
 }
 
 function expand_all() {
-	$('<button id="expand" />').text('open').appendTo('#list_controls');
+	$('<button id="expand" />').text('Toon').appendTo('#list_controls');
 	
 	$('#expand').click(function() {
-		( $( this ).text() === 'open' ) ? $( this ).text('close') : $( this ).text('open');
-		( $( this ).text() === 'open' ) ? $( '.question_not_selected' ).addClass('hide') : $( '.question_not_selected' ).removeClass('hide');
+		( $( this ).text() === 'Toon' ) ? $( this ).text('Verberg') : $( this ).text('Toon');
+		( $( this ).text() === 'Toon' ) ? $( '.question_not_selected' ).addClass('hide') : $( '.question_not_selected' ).removeClass('hide');
 	});
 }
 
@@ -95,11 +95,8 @@ function retrieve_questions_per_type( type ) {
     			$(li).appendTo('#questions_container');
     		});
     		sort_on_category();
-    		
-    		//get_categories();
     		new_question();
     		expand_all();
-    		//createSorts();
   		}
 	});
 	
@@ -115,23 +112,11 @@ function wireTypeChange() {
 function create_drags( drag_selector, sortable_with ) {
 	
 	$( drag_selector ).draggable( {
-		//connectToSortable: '.sorts',
 		connectToSortable: sortable_with,
 		helper: 'clone',
-		//helper: 'original', // But this looks better
 		revert: 'invalid',
 		distance: 30,
-		cursorAt: {'right' : 5 },
-		/*start: function(e, ui) {
-			var listclass = '.sortable_with_' + $(this).parent().attr('id');
-			var sortcontainer = listclass + ' > li'; 
-			var text = $( this ).parent().find('.category_name').text();
-			
-			if ( $( sortcontainer ).length === 0 ) {
-				$('<li class="category_name" />').text( text ).appendTo( listclass );
-			}
-			
-		},*/
+		cursorAt: {'right' : 0 }
 	});
 }
 
@@ -139,11 +124,11 @@ function create_sorts() {
 	
 	$('.sorts').sortable({
 		items: "li:not(.category_list_name)",
-		//forcePlaceholderSize: true,
+		forcePlaceholderSize: true,
 		dropOnEmpty: true,
 		tolerance: 'pointer',
 		update: function( event, ui ) {
-			if ( $( this ).attr( 'id' ) === 'question_list_container' ) {
+			if ( $( this ).hasClass( 'sorts' ) === true ) {
 				ui.item.removeClass('question_not_selected');
 				var order = $( this ).sortable('toArray').toString();
 			}
@@ -278,7 +263,7 @@ function new_question() {
 	});
 	
 	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').click(function() {
-		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div id="answer_container"></div><div class="block"><input type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal();
+		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div id="answer_container"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal();
 		wire_add_question();
 		wire_clear_question();
 		wire_question_type();
@@ -286,7 +271,20 @@ function new_question() {
 }
 
 function wire_add_question() {
-	
+	$( '#add_new_question' ).click( function( event ) {
+		var category = $( '#new_question_category' ).val();
+		var parent_selector = '.sortable_with_list' + category;
+		var selector = '.category_list_name_list' + category;
+		var question = $( '#new_question_text' ).val();
+		
+		if ( $( selector ).length !== 0 ) {
+			$( '<li class="question_selected">' + question + '</li>' ).appendTo( selector );
+		}
+		
+		$('#simplemodal-container').detach();
+		$('#simplemodal-overlay').detach();
+		event.preventDefault();
+	});
 }
 
 function wire_question_type() {
