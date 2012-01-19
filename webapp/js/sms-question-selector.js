@@ -68,11 +68,11 @@ function init_login() {
 }
 
 function expand_all() {
-	$('<button id="expand" />').text('Toon').appendTo('#list_controls');
+	$( '<button id="expand" />' ).text( 'Toon' ).appendTo( '#list_controls' );
 	
-	$('#expand').click(function() {
-		( $( this ).text() === 'Toon' ) ? $( this ).text('Verberg') : $( this ).text('Toon');
-		( $( this ).text() === 'Toon' ) ? $( '.question_not_selected' ).addClass('hide') : $( '.question_not_selected' ).removeClass('hide');
+	$( '#expand' ).click( function() {
+		( $( this ).text() === 'Toon' ) ? $( this ).text( 'Verberg' ) : $( this ).text( 'Toon' );
+		( $( this ).text() === 'Toon' ) ? $( '.question_not_selected' ).addClass( 'hide' ) : $( '.question_not_selected' ).removeClass( 'hide' );
 	});
 }
 
