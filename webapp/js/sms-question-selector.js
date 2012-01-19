@@ -97,6 +97,7 @@ function retrieve_questions_per_type( type ) {
     		sort_on_category();
     		new_question();
     		expand_all();
+    		wire_save_question_list_button()
   		}
 	});
 }
@@ -276,28 +277,53 @@ function new_question() {
 
 function wire_add_question() {
 	$( '#add_new_question' ).click( function( event ) {
-		var category = $( '#new_question_category' ).val();
-		var parent_selector = '.sortable_with_list' + category;
-		var selector = '.category_list_name_list' + category;
-		var question = $( '#new_question_text' ).val();
+		event.preventDefault();
+		// Get the values of the new question fields.
+		var category		= $( '#new_question_category' ).val();
+		var question		= $( '#new_question_text' ).val();
+		var question_type	= $( '#answer_type' ).val();
+		
+		// Create the selector so we know where we have to append to.
+		var parent_selector	= '.sortable_with_list'	+ category;
+		var selector		= '.category_list_name_list' + category;
+		
+		var form_node = $( '#new_question_form' );
 		
 		if ( $( selector ).length !== 0 ) {
-			$( '<li class="question_selected">' + question + '</li>' ).appendTo( selector );
+			// The category already exists in the list so we can append our LI element directly.
+			var li = $( '<li refid="new" class="question_selected">' + question + '</li>' );
+			li.appendTo( selector );
+			var string = JSON.stringify( form_node.serializeArray() );
+			var div = $( '<div class="new_question_div hide">' + string + '</div>' );
+			div.appendTo( li );
+			
 		}
 		else if ( ( $( parent_selector ).length !== 0 ) && ( $( selector ).length === 0 ) ) {
+			// The UL element for the category exists, but there is no category text so we need to append that aswel as our LI element.
 			$( '<span class="category_list_name category_list_name_list' + category +'">' + category + '</span>' ).appendTo( parent_selector );
-			$( '<li class="question_selected">' + question + '</li>' ).appendTo( parent_selector );
+			var li = $( '<li refid="new" class="question_selected">' + question + '</li>' );
+			li.appendTo( parent_selector );
+			var string = JSON.stringify( form_node.serializeArray() );
+			var div = $( '<div class="new_question_div hide">' + string + '</div>' );
+			div.appendTo( li );
 		}
 		else {
+			// There is no UL and no category so we need to add append everything.
 			var ul = $( '<ul class="sortable_with_list' + category + ' sorts ui-sortable" />' );
 			ul.appendTo( $( '#question_list_container' ) );
 			$( '<span class="category_list_name category_list_name_list' + category +'">' + category + '</span>' ).appendTo( ul );
-			$( '<li class="question_selected">' + question + '</li>' ).appendTo( ul );
+			var li = $( '<li refid="new" class="question_selected">' + question + '</li>' );
+			li.appendTo( ul );
+			var string = JSON.stringify( form_node.serializeArray() );
+			var div = $( '<div class="new_question_div hide">' + string + '</div>' );
+			div.appendTo( li );
+			
+			// We need to call the sort function here because our dynamically added question wasn't available in the original create sorts process.
 			create_sorts( ul );
 		}
 		
+		// Close the overlay and prevent the button from submitting the form.
 		$.modal.close();
-		event.preventDefault();
 	});
 }
 
@@ -324,4 +350,41 @@ function wire_clear_question() {
 		$.modal.close();
 		e.preventDefault();
 	});
+}
+
+function wire_save_question_list_button() {
+	// This function parses the selected question list, converts the parsed object to JSON and send it to the server.
+	$( '#save_question_list' ).click( function() {
+		var json_string = new Array();
+		$( '#question_list_container > ul' ).find( 'li' ).each( function() {
+			json_string.push( process_question( $( this ) ) );
+		});
+		
+		$.ajax({
+		type: 'POST',
+  		url: base_url + '/xmlprovider/questions/questionaire',
+  		dataType: 'JSON',
+  		success: function( data ){
+    		$( data ).each(function() {
+    			console.log( this );
+    		});
+  		}
+	});
+		
+		console.log( JSON.stringify( json_string ) );
+	});
+}
+
+function process_question( node ) {
+    var question = node;
+    var retrieved_values = {
+        "id" : question.attr( 'refid' ),
+        "question_text" : question.text()
+    };
+    
+    node.find( '> .new_question_div' ).each( function() {
+        retrieved_values.new_question = $( this ).text();
+    });
+    
+    return retrieved_values;
 }
