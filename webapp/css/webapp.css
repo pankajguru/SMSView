@@ -46,6 +46,10 @@ ul#icons span.ui-icon {
 	display: none;
 }
 
+.hide_hard {
+	display: none;
+}
+
 ul {
 	margin-top: 0px;
 	padding-left: 0px;

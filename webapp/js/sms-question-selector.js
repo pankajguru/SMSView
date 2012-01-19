@@ -91,7 +91,7 @@ function retrieve_questions_per_type( type ) {
   		success: function(xml){
     		$(xml).find('item').each(function() {
     			
-    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
+    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags" refid="' + $(this).find('question_id').text() + '" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
     			$(li).appendTo('#questions_container');
     		});
     		sort_on_category();
@@ -131,12 +131,15 @@ function create_sorts( ul ) {
 		tolerance: 'pointer',
 		update: function( event, ui ) {
 			if ( $( this ).hasClass( 'sorts' ) === true ) {
+				console.log( ui.item.attr('refid') );
 				ui.item.removeClass('question_not_selected');
 				var order = $( this ).sortable('toArray').toString();
 			}
 			else {
 				ui.item.addClass('question_not_selected');
 			}
+			
+			$( '#' + ui.item.attr('refid') ).addClass( 'hide_hard' );
 		},
 		stop: function( event, ui ) {
 			$( this ).removeClass('target');
