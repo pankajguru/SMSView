@@ -281,8 +281,7 @@ function wire_add_question() {
 			$( '<li class="question_selected">' + question + '</li>' ).appendTo( selector );
 		}
 		
-		$('#simplemodal-container').detach();
-		$('#simplemodal-overlay').detach();
+		$.modal.close();
 		event.preventDefault();
 	});
 }
@@ -307,8 +306,7 @@ function wire_question_type() {
 function wire_clear_question() {
 	// This function deletes the modal container and overlay form the DOM.
 	$('#clear_new_question').click( function( e ) {
-		$('#simplemodal-container').detach();
-		$('#simplemodal-overlay').detach();
+		$.modal.close();
 		e.preventDefault();
 	});
 }
