@@ -116,13 +116,15 @@ function create_drags( drag_selector, sortable_with ) {
 		helper: 'clone',
 		revert: 'invalid',
 		distance: 30,
-		cursorAt: {'right' : 0 }
+		cursorAt: { 'right' : 0 }
 	});
 }
 
-function create_sorts() {
+function create_sorts( ul ) {
 	
-	$('.sorts').sortable({
+	var el = ( ul ) ? ul : '.sorts';
+	
+	$( el ).sortable({
 		items: "li:not(.category_list_name)",
 		forcePlaceholderSize: true,
 		dropOnEmpty: true,
@@ -279,6 +281,17 @@ function wire_add_question() {
 		
 		if ( $( selector ).length !== 0 ) {
 			$( '<li class="question_selected">' + question + '</li>' ).appendTo( selector );
+		}
+		else if ( ( $( parent_selector ).length !== 0 ) && ( $( selector ).length === 0 ) ) {
+			$( '<span class="category_list_name category_list_name_list' + category +'">' + category + '</span>' ).appendTo( parent_selector );
+			$( '<li class="question_selected">' + question + '</li>' ).appendTo( parent_selector );
+		}
+		else {
+			var ul = $( '<ul class="sortable_with_list' + category + ' sorts ui-sortable" />' );
+			ul.appendTo( $( '#question_list_container' ) );
+			$( '<span class="category_list_name category_list_name_list' + category +'">' + category + '</span>' ).appendTo( ul );
+			$( '<li class="question_selected">' + question + '</li>' ).appendTo( ul );
+			create_sorts( ul );
 		}
 		
 		$.modal.close();
