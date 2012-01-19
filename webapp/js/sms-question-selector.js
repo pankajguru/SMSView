@@ -77,7 +77,7 @@ function expand_all() {
 }
 
 function select_survey_type() {
-	$('#typechoice').fadeIn(500);
+	$( '#typechoice' ).fadeIn( 500 );
 	wireTypeChange();
 }
 
@@ -88,18 +88,17 @@ function retrieve_questions_per_type( type ) {
 		type: 'GET',
   		url: base_url + '/xmlprovider/questions/all_questions/' + type,
   		dataType: 'xml',
-  		success: function(xml){
-    		$(xml).find('item').each(function() {
+  		success: function( xml ){
+    		$( xml ).find( 'item' ).each( function() {
     			
-    			var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags" refid="' + $(this).find('question_id').text() + '" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
-    			$(li).appendTo('#questions_container');
+    			var li = '<li title="' + $( this ).find( 'category_name' ).text() + '" class="ui-state-default hide question_not_selected drags" refid="' + $( this ).find( 'question_id' ).text() + '" id="' + $( this ).find( 'question_id' ).text() + '">' + $( this ).find( 'question_description' ).text() + '</li>';
+    			$( li ).appendTo( '#questions_container' );
     		});
     		sort_on_category();
     		new_question();
     		expand_all();
   		}
 	});
-	
 }
 
 function wireTypeChange() {
