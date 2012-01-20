@@ -146,7 +146,7 @@ div#question_list_container li.info {
 	height: 26px;
 }
 
-#questions_container li.category_name, #question_list_container span.category_list_name {
+#questions_container ul li.category_name, #question_list_container span.category_list_name {
 	list-style: none;
 	list-style-type: none;
 	color: #F78E1C;
@@ -200,4 +200,35 @@ div#question_list_container li.info {
 
 .target span {
 	color: #FFF;
+}
+
+#questions_container ul li div.active_tooltip li, #questions_container ul li div.active_tooltip li:hover  {
+	color: #FFF;
+	background-color: #29A8E3;
+}
+
+.tooltip {
+	background-color: #29A8E3;
+	color: #FFF;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: none;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.tooltip:hover {
+	background-color: #29A8E3;
+	color: #FFF;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: none;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
