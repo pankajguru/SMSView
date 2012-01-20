@@ -13,6 +13,7 @@ $(document).ready(function() {
     select_survey_type();
 
 });
+
 function load_page(page) {
     $("div[data-role='page']").hide();
     $(page).fadeIn(500);
@@ -260,15 +261,15 @@ function new_question() {
 		type: 'GET',
   		url: base_url + '/xmlprovider/questions/category',
   		dataType: 'xml',
-  		success: function(xml){
-    		$(xml).find('item').each(function() {
-    			options += '<option id="' + $(this).find('id').text() +'">' + $(this).find('description').text() + '</option>';
+  		success: function( xml ) {
+    		$( xml ).find( 'item' ).each( function() {
+    			options += '<option id="' + $( this ).find( 'id' ).text() +'">' + $( this ).find( 'description' ).text() + '</option>';
     		});
   		}
 	});
 	
-	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').click(function() {
-		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div id="answer_container"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal();
+	$( '<button id="new_question" />' ).text( 'Nieuwe vraag' ).appendTo( '#questionnaire_controls' ).click( function() {
+		$( '<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div id="answer_container"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>' ).modal();
 		wire_add_question();
 		wire_clear_question();
 		wire_question_type();
