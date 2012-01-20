@@ -245,7 +245,7 @@ function create_clicks() {
 		
 		var listclass = '.sortable_with_' + $( this ).parent().attr('id');
 		var check_category = '.category_list_name_' + $( this ).parent().attr('id');
-		console.log('num: ' +$( check_category ).length );
+
 		if ( $( check_category ).length === 0 ) {
 			
 			//$( listclass ).parent().wrap('<span class="category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().text() +'</span>');
@@ -330,24 +330,23 @@ function wire_add_question() {
 
 function wire_question_type() {
 	// Listen for the a change in the question type selector. If changed we need to update the possible answer fields.
-	$('#answer_type').change( function() {
-		if ( $('#answer_type option:selected').val() === 'multiple choice' ) {
-			$('<button id="add_multiple_choice_answer">Voeg antwoord toe</button><div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>').appendTo('#answer_container');
+	$( '#answer_type' ).change( function() {
+		if ( $( '#answer_type option:selected' ).val() === 'multiple choice' ) {
+			$( '<button id="add_multiple_choice_answer">Voeg antwoord toe</button><div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>' ).appendTo( '#answer_container' );
 		}
 		
-		$("#add_multiple_choice_answer").click( function( e ) {
-			var id = $('.multiple_choice_answer').length;
+		$( "#add_multiple_choice_answer" ).click( function( e ) {
+			var id = $( '.multiple_choice_answer' ).length;
 			id++;
-			$('<div class="block"><label for="multiple_choice_answer_' + id + '">Optie ' + id + '</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_' + id + '" />').appendTo('#answer_container');
+			$( '<div class="block"><label for="multiple_choice_answer_' + id + '">Optie ' + id + '</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_' + id + '" />' ).appendTo( '#answer_container' );
 			e.preventDefault();
 		});
-		
 	});
 }
 
 function wire_clear_question() {
 	// This function deletes the modal container and overlay form the DOM.
-	$('#clear_new_question').click( function( e ) {
+	$( '#clear_new_question' ).click( function( e ) {
 		$.modal.close();
 		e.preventDefault();
 	});
