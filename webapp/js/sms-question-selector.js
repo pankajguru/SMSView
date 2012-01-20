@@ -131,42 +131,43 @@ function create_sorts( ul ) {
 		dropOnEmpty: true,
 		tolerance: 'pointer',
 		update: function( event, ui ) {
+			
+			// Check if we dropped on a sortable
 			if ( $( this ).hasClass( 'sorts' ) === true ) {
-				console.log( ui.item.attr('refid') );
-				ui.item.removeClass('question_not_selected');
-				var order = $( this ).sortable('toArray').toString();
+				ui.item.removeClass( 'question_not_selected' );
 			}
 			else {
-				ui.item.addClass('question_not_selected');
+				ui.item.addClass( 'question_not_selected' );
 			}
 			
-			$( '#' + ui.item.attr('refid') ).addClass( 'hide_hard' );
+			$( '#' + ui.item.attr( 'refid' ) ).draggable( 'option', 'disabled', true );
+			$( '#' + ui.item.attr( 'refid' ) ).addClass( 'hide_hard' );
 		},
 		stop: function( event, ui ) {
-			$( this ).removeClass('target');
-			var list = $('#question_list_container > li.ui-state-default' );
+			$( this ).removeClass( 'target' );
+			var list = $( '#question_list_container > li.ui-state-default' );
 			if ( list.length >= 1 ) {
-				$('#select_info').remove();
-				$('#clear_questions').toggleClass('hide');
+				$( '#select_info' ).remove();
+				$( '#clear_questions' ).toggleClass( 'hide' );
 			}
 			else {
 				if ( $( '#select_info' ).length === 0 ) {
-					$('<li id="select_info" class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
+					$( '<li id="select_info" class="info error">Sleep hier uw vragen heen</li>' ).appendTo( '#question_list_container' );
 				}
-				$('#clear_questions').toggleClass('hide');
+				$( '#clear_questions' ).toggleClass( 'hide' );
 			}
 		},
 		over: function( event, ui ) {
-			$( this ).addClass('target');
+			$( this ).addClass( 'target' );
 		},
 		activate: function( event, ui ) {
-			$( this ).addClass('target');
+			$( this ).addClass( 'target' );
 		},
 		out: function( event, ui ) {
-			$( this ).removeClass('target');
+			$( this ).removeClass( 'target' );
 		},
 		deactivate: function( event, ui ) {
-			$( this ).removeClass('target');
+			$( this ).removeClass( 'target' );
 		}
 	}).disableSelection();
 	
@@ -245,8 +246,7 @@ function create_clicks() {
 		var check_category = '.category_list_name_' + $( this ).parent().attr('id');
 
 		if ( $( check_category ).length === 0 ) {
-			
-			//$( listclass ).parent().wrap('<span class="category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().text() +'</span>');
+
 			$( '<span class="category_list_name category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
 		}
 	});
