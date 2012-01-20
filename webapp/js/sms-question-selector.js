@@ -388,3 +388,7 @@ function process_question( node ) {
     
     return retrieved_values;
 }
+
+function create_tooltips() {
+	
+}
