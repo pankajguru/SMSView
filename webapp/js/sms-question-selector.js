@@ -91,9 +91,19 @@ function retrieve_questions_per_type( type ) {
   		dataType: 'xml',
   		success: function( xml ){
     		$( xml ).find( 'item' ).each( function() {
-    			
+    			var id = $( this ).find( 'question_id' ).text();
     			var li = '<li title="' + $( this ).find( 'category_name' ).text() + '" class="ui-state-default hide question_not_selected drags" refid="' + $( this ).find( 'question_id' ).text() + '" id="' + $( this ).find( 'question_id' ).text() + '">' + $( this ).find( 'question_description' ).text() + '</li>';
     			$( li ).appendTo( '#questions_container' );
+
+    			$( this ).find( 'answers' ).each( function() {
+    				
+    				$( '<ol class="answer_container hide" id="answer_container_' + id + '"></ol>' ).appendTo( '#' + id );
+    				
+    				$( this ).find( 'answer' ).each( function() {
+    					$( '<li>' + $( this ).find( 'description' ).text() + '</li>' ).appendTo( '#answer_container_' + id );
+    				});
+    			});
+    			
     		});
     		sort_on_category();
     		new_question();
@@ -119,6 +129,8 @@ function create_drags( drag_selector, sortable_with ) {
 		distance: 30,
 		cursorAt: { 'right' : 0 }
 	});
+	
+	wire_answer_mouseover();
 }
 
 function create_sorts( ul ) {
@@ -387,6 +399,11 @@ function process_question( node ) {
     return retrieved_values;
 }
 
-function create_tooltips() {
-	
+function wire_answer_mouseover() {
+	$( '.drags' ).hover( function() {
+		$( this ).children( '.answer_container' ).removeClass( 'hide' );
+	},
+	function() {
+		$( this ).children( '.answer_container' ).addClass( 'hide' );
+	});
 }
