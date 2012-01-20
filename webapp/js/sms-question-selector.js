@@ -194,11 +194,11 @@ function filter_questions() {
 function sort_on_category() {
 	var groups = [];
 	
-	$('#questions_container > li').each( function() {
+	$( '#questions_container > li' ).each( function() {
     	var li			= $( this );
-    	var title		= $( this ).attr('title');
-    	var classname	= title.replace(/ /g,"_");
-    	var li_group	= 'list' + $(this).attr('title');
+    	var title		= $( this ).attr( 'title' );
+    	var classname	= title.replace( / /g, "_" );
+    	var li_group	= 'list' + $( this ).attr( 'title' );
 
 		if( !groups[ li_group ] ) {
       		groups[ li_group ] = [];
@@ -210,29 +210,27 @@ function sort_on_category() {
 	});
 	
 	for ( group in groups ) {
-		var groupname = group.replace(/ /g,"_");
+		var groupname = group.replace( / /g, "_" );
 		var sortable_with = '.sortable_with_' + groupname;
-		var ul = $('<ul class="sortable_with_'+ groupname + ' sorts" />');
-    	ul.appendTo('#question_list_container');
-    	
+		var ul = $( '<ul class="sortable_with_' + groupname + ' sorts" />' );
+    	ul.appendTo( '#question_list_container' );
 	}
 	
 	create_sorts();
   
  	for( group in groups ) {
- 		var groupname = group.replace(/ /g,"_");
-		var ul = $('<ul class="drag_container_' + groupname + '" />').attr( 'id', groupname );
+ 		var groupname = group.replace( / /g, "_" );
+		var ul = $( '<ul class="drag_container_' + groupname + '" />' ).attr( 'id', groupname );
     	var lis = groups[ group ];
     
 		for( i = 0; i < lis.length; i++ ){
     		ul.append( lis[ i ] );
     	}
-    	ul.appendTo('#questions_container');
+    	ul.appendTo( '#questions_container' );
     	var sortable_with = '.sortable_with_' + groupname;
     	var drag_selector = '.drag_container_' + groupname + '> li:not(.category_name)';
-    	//var ul = $('<ul class="sortable_with_'+ groupname + '" />');
-    	//ul.appendTo('#question_list_container');
-    	create_drags( drag_selector, sortable_with);
+
+    	create_drags( drag_selector, sortable_with );
   	}
   	
   	create_clicks();
