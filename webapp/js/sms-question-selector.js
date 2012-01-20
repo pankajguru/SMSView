@@ -97,10 +97,10 @@ function retrieve_questions_per_type( type ) {
 
     			$( this ).find( 'answers' ).each( function() {
     				
-    				$( '<ol class="answer_container hide" id="answer_container_' + id + '"></ol>' ).appendTo( '#' + id );
+    				$( '<ol class="answer_container tooltip" id="answer_container_' + id + '"></ol>' ).appendTo( '#' + id );
     				
     				$( this ).find( 'answer' ).each( function() {
-    					$( '<li>' + $( this ).find( 'description' ).text() + '</li>' ).appendTo( '#answer_container_' + id );
+    					$( '<li class="answer_option">' + $( this ).find( 'description' ).text() + '</li>' ).appendTo( '#answer_container_' + id );
     				});
     			});
     			
@@ -400,10 +400,16 @@ function process_question( node ) {
 }
 
 function wire_answer_mouseover() {
-	$( '.drags' ).hover( function() {
-		$( this ).children( '.answer_container' ).removeClass( 'hide' );
-	},
-	function() {
-		$( this ).children( '.answer_container' ).addClass( 'hide' );
+	$( '.drags' ).each( function() {
+		
+		var text = $( this ).find( '.answer_container' ).html();
+
+		$( this ).simpletip({
+			content: text,
+			position: 'right',
+			offset: [ 0, 0 ],
+			activeClass: 'active_tooltip',
+			persistent: true
+		});
 	});
 }
