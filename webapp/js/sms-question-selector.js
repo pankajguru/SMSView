@@ -106,6 +106,7 @@ function retrieve_questions_per_type( type ) {
     			
     		});
     		sort_on_category();
+    		check_mandatory_questions()
     		new_question();
     		expand_all();
     		wire_save_question_list_button()
@@ -186,19 +187,19 @@ function create_sorts( ul ) {
 }
 
 function filter_questions() {
-	$('#filter_field').keyup( function() {
-		var re = $('#filter_field').val();
+	$( '#filter_field' ).keyup( function() {
+		var re = $( '#filter_field' ).val();
 
-		$('.question_not_selected').each( function() {
+		$( '.question_not_selected' ).each( function() {
 			
-			var str = $(this).text();
-			var match = str.search(re);
+			var str = $( this ).text();
+			var match = str.search( re );
 
-			if ( match == -1) {
-				$(this).addClass('hide');
+			if ( match == -1 ) {
+				$( this ).addClass( 'hide' );
 			}
 			else {
-				$(this).removeClass('hide');
+				$( this ).removeClass( 'hide' );
 			}
 		});
 	});
@@ -417,7 +418,33 @@ function wire_answer_mouseover() {
 function check_mandatory_questions() {
 	var type = $( '#select_type' ).val();
 	
-	if ( type === '' ) {
+	if ( type === 'otp' ) {
 		
+		// Create mandatory question for OTP list
+		var listclass = '.sortable_with_' + $( '#1' ).parent().attr( 'id' );
+		$( '<span class="category_list_name category_list_name_' + $( '#1' ).parent().attr( 'id' ) +'">' + $( '#1' ).parent().find( '.category_name' ).text() + '</span>' ).prependTo( $( listclass ) );
+		var text = $( '<li refid="1" class="question_selected">Ik vul deze lijst in voor mijn kind in groep...</li><li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li>' );
+		text.appendTo( listclass );
+		$( '#1' ).draggable( 'option', 'disabled', true );
+		$( '#2' ).draggable( 'option', 'disabled', true );
+		
+	}
+	else if ( type === 'ltp' ) {
+		// Create mandatory question for LTP list
+		var listclass = '.sortable_with_' + $( '#71' ).parent().attr( 'id' );
+		$( '<span class="category_list_name category_list_name_' + $( '#71' ).parent().attr( 'id' ) +'">' + $( '#71' ).parent().find( '.category_name' ).text() + '</span>' ).prependTo( $( listclass ) );
+		var text = $( '<li refid="71" class="question_selected">Ben je een jongen of een meisje?</li><li refid="72" class="question_selected">In welke groep zit je?</li>' );
+		text.appendTo( listclass );
+		$( '#71' ).draggable( 'option', 'disabled', true );
+		$( '#72' ).draggable( 'option', 'disabled', true );
+	}
+	else {
+		// Create mandatory question for PTP list
+		var listclass = '.sortable_with_' + $( '#200' ).parent().attr( 'id' );
+		$( '<span class="category_list_name category_list_name_' + $( '#200' ).parent().attr( 'id' ) +'">' + $( '#200' ).parent().find( '.category_name' ).text() + '</span>' ).prependTo( $( listclass ) );
+		var text = $( '<li refid="200" class="question_selected">Wat is uw geslacht?</li><li refid="201" class="question_selected">Wat is uw leeftijd?</li>' );
+		text.appendTo( listclass );
+		$( '#200' ).draggable( 'option', 'disabled', true );
+		$( '#201' ).draggable( 'option', 'disabled', true );
 	}
 }
