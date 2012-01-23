@@ -116,7 +116,7 @@ function retrieve_questions_per_type( type ) {
 function wireTypeChange() {
 	$( '#select_type' ).change( function() {
 		retrieve_questions_per_type( $( this ).val() );
-		$( '#survey_type' ).remove();
+		$( '#survey_type' ).addClass( 'hide' );
 	});
 }
 
@@ -412,4 +412,12 @@ function wire_answer_mouseover() {
 			persistent: true
 		});
 	});
+}
+
+function check_mandatory_questions() {
+	var type = $( '#select_type' ).val();
+	
+	if ( type === '' ) {
+		
+	}
 }
