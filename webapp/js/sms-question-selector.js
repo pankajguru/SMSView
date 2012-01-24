@@ -155,10 +155,12 @@ function create_sorts( ul ) {
 			
 			$( '#' + ui.item.attr( 'refid' ) ).draggable( 'option', 'disabled', true );
 			$( '#' + ui.item.attr( 'refid' ) ).addClass( 'hide_hard' );
+			var id = ui.item.attr( 'refid' );
+			check_for_how_important( id );
 		},
 		stop: function( event, ui ) {
 			$( this ).removeClass( 'target' );
-			var list = $( '#question_list_container > li.ui-state-default' );
+			var list = $( '#question_list_container li.ui-state-default' );
 			if ( list.length >= 1 ) {
 				$( '#select_info' ).remove();
 				$( '#clear_questions' ).toggleClass( 'hide' );
@@ -446,5 +448,18 @@ function check_mandatory_questions() {
 		text.appendTo( listclass );
 		$( '#200' ).draggable( 'option', 'disabled', true );
 		$( '#201' ).draggable( 'option', 'disabled', true );
+	}
+}
+
+function check_for_how_important( id ) {
+	
+	var how_important = $( '#' + id ).parent().children( ':contains("Hoe belangrijk")' );
+	var how_important_class = $( how_important ).parent().attr( 'id' );
+	var how_important_id = $( how_important ).attr( 'id' );
+	var how_important_text = $( how_important ).clone().children().remove().end().text();
+	
+	if ( $( '.sorts > li[refid="' + how_important_id + '"]' ).length === 0 ) {
+		$( '<li refid="' + how_important_id + '">' + how_important_text + '</li>' ).appendTo( '.sortable_with_' + how_important_class );
+		$( how_important ).draggable( 'option', 'disabled', true );
 	}
 }
