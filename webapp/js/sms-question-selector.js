@@ -106,6 +106,7 @@ function retrieve_questions_per_type( type ) {
     			
     		});
     		sort_on_category();
+    		check_mandatory_questions()
     		new_question();
     		expand_all();
     		wire_save_question_list_button()
@@ -116,7 +117,7 @@ function retrieve_questions_per_type( type ) {
 function wireTypeChange() {
 	$( '#select_type' ).change( function() {
 		retrieve_questions_per_type( $( this ).val() );
-		$( '#survey_type' ).remove();
+		$( '#survey_type' ).addClass( 'hide' );
 	});
 }
 
@@ -154,10 +155,12 @@ function create_sorts( ul ) {
 			
 			$( '#' + ui.item.attr( 'refid' ) ).draggable( 'option', 'disabled', true );
 			$( '#' + ui.item.attr( 'refid' ) ).addClass( 'hide_hard' );
+			var id = ui.item.attr( 'refid' );
+			check_for_how_important( id );
 		},
 		stop: function( event, ui ) {
 			$( this ).removeClass( 'target' );
-			var list = $( '#question_list_container > li.ui-state-default' );
+			var list = $( '#question_list_container li.ui-state-default' );
 			if ( list.length >= 1 ) {
 				$( '#select_info' ).remove();
 				$( '#clear_questions' ).toggleClass( 'hide' );
@@ -186,19 +189,19 @@ function create_sorts( ul ) {
 }
 
 function filter_questions() {
-	$('#filter_field').keyup( function() {
-		var re = $('#filter_field').val();
+	$( '#filter_field' ).keyup( function() {
+		var re = $( '#filter_field' ).val();
 
-		$('.question_not_selected').each( function() {
+		$( '.question_not_selected' ).each( function() {
 			
-			var str = $(this).text();
-			var match = str.search(re);
+			var str = $( this ).text();
+			var match = str.search( re );
 
-			if ( match == -1) {
-				$(this).addClass('hide');
+			if ( match == -1 ) {
+				$( this ).addClass( 'hide' );
 			}
 			else {
-				$(this).removeClass('hide');
+				$( this ).removeClass( 'hide' );
 			}
 		});
 	});
@@ -252,14 +255,14 @@ function sort_on_category() {
 
 function create_clicks() {
 	$('.category_name').click( function() {
-		$( this ).parent().children('.ui-state-default').toggleClass('hide');
+		$( this ).parent().children( '.ui-state-default' ).toggleClass( 'hide' );
 		
-		var listclass = '.sortable_with_' + $( this ).parent().attr('id');
-		var check_category = '.category_list_name_' + $( this ).parent().attr('id');
+		var listclass = '.sortable_with_' + $( this ).parent().attr( 'id' );
+		var check_category = '.category_list_name_' + $( this ).parent().attr( 'id' );
 
 		if ( $( check_category ).length === 0 ) {
 
-			$( '<span class="category_list_name category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
+			$( '<span class="category_list_name category_list_name_' + $( this ).parent().attr( 'id' ) +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
 		}
 	});
 }
@@ -412,4 +415,51 @@ function wire_answer_mouseover() {
 			persistent: true
 		});
 	});
+}
+
+function check_mandatory_questions() {
+	var type = $( '#select_type' ).val();
+	
+	if ( type === 'otp' ) {
+		
+		// Create mandatory question for OTP list
+		var listclass = '.sortable_with_' + $( '#1' ).parent().attr( 'id' );
+		$( '<span class="category_list_name category_list_name_' + $( '#1' ).parent().attr( 'id' ) +'">' + $( '#1' ).parent().find( '.category_name' ).text() + '</span>' ).prependTo( $( listclass ) );
+		var text = $( '<li refid="1" class="question_selected">Ik vul deze lijst in voor mijn kind in groep...</li><li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li>' );
+		text.appendTo( listclass );
+		$( '#1' ).draggable( 'option', 'disabled', true );
+		$( '#2' ).draggable( 'option', 'disabled', true );
+		
+	}
+	else if ( type === 'ltp' ) {
+		// Create mandatory question for LTP list
+		var listclass = '.sortable_with_' + $( '#71' ).parent().attr( 'id' );
+		$( '<span class="category_list_name category_list_name_' + $( '#71' ).parent().attr( 'id' ) +'">' + $( '#71' ).parent().find( '.category_name' ).text() + '</span>' ).prependTo( $( listclass ) );
+		var text = $( '<li refid="71" class="question_selected">Ben je een jongen of een meisje?</li><li refid="72" class="question_selected">In welke groep zit je?</li>' );
+		text.appendTo( listclass );
+		$( '#71' ).draggable( 'option', 'disabled', true );
+		$( '#72' ).draggable( 'option', 'disabled', true );
+	}
+	else {
+		// Create mandatory question for PTP list
+		var listclass = '.sortable_with_' + $( '#200' ).parent().attr( 'id' );
+		$( '<span class="category_list_name category_list_name_' + $( '#200' ).parent().attr( 'id' ) +'">' + $( '#200' ).parent().find( '.category_name' ).text() + '</span>' ).prependTo( $( listclass ) );
+		var text = $( '<li refid="200" class="question_selected">Wat is uw geslacht?</li><li refid="201" class="question_selected">Wat is uw leeftijd?</li>' );
+		text.appendTo( listclass );
+		$( '#200' ).draggable( 'option', 'disabled', true );
+		$( '#201' ).draggable( 'option', 'disabled', true );
+	}
+}
+
+function check_for_how_important( id ) {
+	
+	var how_important = $( '#' + id ).parent().children( ':contains("Hoe belangrijk")' );
+	var how_important_class = $( how_important ).parent().attr( 'id' );
+	var how_important_id = $( how_important ).attr( 'id' );
+	var how_important_text = $( how_important ).clone().children().remove().end().text();
+	
+	if ( $( '.sorts > li[refid="' + how_important_id + '"]' ).length === 0 ) {
+		$( '<li refid="' + how_important_id + '">' + how_important_text + '</li>' ).appendTo( '.sortable_with_' + how_important_class );
+		$( how_important ).draggable( 'option', 'disabled', true );
+	}
 }
