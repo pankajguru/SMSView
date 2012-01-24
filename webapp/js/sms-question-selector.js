@@ -253,14 +253,14 @@ function sort_on_category() {
 
 function create_clicks() {
 	$('.category_name').click( function() {
-		$( this ).parent().children('.ui-state-default').toggleClass('hide');
+		$( this ).parent().children( '.ui-state-default' ).toggleClass( 'hide' );
 		
-		var listclass = '.sortable_with_' + $( this ).parent().attr('id');
-		var check_category = '.category_list_name_' + $( this ).parent().attr('id');
+		var listclass = '.sortable_with_' + $( this ).parent().attr( 'id' );
+		var check_category = '.category_list_name_' + $( this ).parent().attr( 'id' );
 
 		if ( $( check_category ).length === 0 ) {
 
-			$( '<span class="category_list_name category_list_name_' + $( this ).parent().attr('id') +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
+			$( '<span class="category_list_name category_list_name_' + $( this ).parent().attr( 'id' ) +'">' + $( this ).parent().find('.category_name').text() + '</span>' ).prependTo( $( listclass ) );
 		}
 	});
 }
