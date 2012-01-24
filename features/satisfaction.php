@@ -97,7 +97,7 @@ class satisfaction
         }
         
         $paramsTable = array(
-            'border' => 'single',
+            'border' => 'none',
             'border_sz' => 20,
             'jc'    => 'center',
             'TBLWtype' => 'center'
@@ -119,7 +119,7 @@ class satisfaction
 
         $satisfaction_docx->createDocx($temp.'satisfaction');
         unset($satisfaction_docx);
-        return $temp.'scores.docx';
+        return $temp.'satisfaction.docx';
         
     }
     
