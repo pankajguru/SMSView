@@ -8,3 +8,4 @@ webapp/js/config.js
 application/config/database.php
 temp
 tests
+output

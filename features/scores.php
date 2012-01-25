@@ -37,8 +37,6 @@ class scores
                 continue;
             }
 
-//only 1 for now!
-//if (!$first) continue;
             if ($first or ($question->{'group_name'} != $old_group_name)){
                 if (!$first){
                     //create pagebreak

@@ -3,7 +3,7 @@
 class satisfaction
 {
 
-    function render( &$data)
+    function render( &$data, $type='satisfaction')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -15,25 +15,22 @@ class satisfaction
         
         $paramsTextTitles = array(
             'b' => 'single',
-            'font' => 'Century Gothic',
-            'jc'    => 'right'
+            'font' => 'Century Gothic'
         );        
         
         $paramsTextTable = array(
             'color' => 'FFA100',
-            'font' => 'Century Gothic',
-            'jc'    => 'center'
+            'font' => 'Century Gothic'
         );        
         
         $paramsTextTableReference = array(
             'color' => '336EFF',
-            'font' => 'Century Gothic',
-            'jc'    => 'center'
+            'font' => 'Century Gothic'
         );        
         
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
-        $satisfaction_data  = json_decode($datastring)->{'satisfaction'};
+        $satisfaction_data  = json_decode($datastring)->{$type};
         
         //add graphic to docx
         $satisfaction_docx = new CreateDocx();
@@ -59,7 +56,6 @@ class satisfaction
         }
         
         $satisfaction_header = array(array('',''));
-        var_dump($satisfaction_data);
         
         foreach ($satisfaction_data as $key => $satisfaction_column){
                 $column_count++;
@@ -73,13 +69,6 @@ class satisfaction
                     $satisfaction_header[0][] = $text;
                 }
         }
-        function cmp_peiling($a, $b)
-        {
-            if ($a[2]->{'_embeddedText'}[0]["text"] == $b[2]->{'_embeddedText'}[0]["text"]) {
-                return 0;
-            }
-            return ($a[2]->{'_embeddedText'}[0]["text"] < $b[2]->{'_embeddedText'}[0]["text"]) ? 1 : -1;
-        }
         
         usort($satisfaction_table, 'cmp_peiling');
         
@@ -90,7 +79,6 @@ class satisfaction
         for ($i = 0 ; $i < count($satisfaction_table) ; $i++){
             $satisfaction_table[$i][0] = $count++.'.';
             //now do the formatting of the number (should be done AFTER sort)
-            var_dump( $satisfaction_table[$i][2]->{'_embeddedText'}[0]["text"]);
             for ($j=0 ; $j < $column_count ; $j++){
                 $satisfaction_table[$i][$j+2]->{'_embeddedText'}[0]["text"] = sprintf("%01.1f", $satisfaction_table[$i][$j+2]->{'_embeddedText'}[0]["text"]);
             }
@@ -98,9 +86,7 @@ class satisfaction
         
         $paramsTable = array(
             'border' => 'none',
-            'border_sz' => 20,
-            'jc'    => 'center',
-            'TBLWtype' => 'center'
+            'border_sz' => 20
         );
 
 
@@ -108,20 +94,25 @@ class satisfaction
             'b' => 'single',
             'font' => 'Arial'
         );        
-        
-        //var_dump($satisfaction_header);
+        //$satisfaction_docx->addText($type, $paramsText);
         $satisfaction_docx->addTable($satisfaction_header, $paramsTable);
-//        $satisfaction_docx->addText('dadas', $paramsText);
         $satisfaction_docx->addTable($satisfaction_table, $paramsTable);
+        //$satisfaction_docx->addText('test', $paramsText);
 
-//        var_dump($satisfaction_table);
         
 
-        $satisfaction_docx->createDocx($temp.'satisfaction');
+        $satisfaction_docx->createDocx($temp.$type);
         unset($satisfaction_docx);
-        return $temp.'satisfaction.docx';
+        return $temp.$type.'.docx';
         
     }
     
 
 }
+        function cmp_peiling($a, $b)
+        {
+            if ($a[2]->{'_embeddedText'}[0]["text"] == $b[2]->{'_embeddedText'}[0]["text"]) {
+                return 0;
+            }
+            return ($a[2]->{'_embeddedText'}[0]["text"] < $b[2]->{'_embeddedText'}[0]["text"]) ? 1 : -1;
+        }
