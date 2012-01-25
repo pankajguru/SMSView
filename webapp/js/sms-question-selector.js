@@ -458,8 +458,16 @@ function check_for_how_important( id ) {
 	var how_important_id = $( how_important ).attr( 'id' );
 	var how_important_text = $( how_important ).clone().children().remove().end().text();
 	
-	if ( $( '.sorts > li[refid="' + how_important_id + '"]' ).length === 0 ) {
-		$( '<li refid="' + how_important_id + '">' + how_important_text + '</li>' ).appendTo( '.sortable_with_' + how_important_class );
-		$( how_important ).draggable( 'option', 'disabled', true );
+	if ( $( '.sortable_with_' + how_important_class + '> li' ).length >= 4 ) {
+		$( '#notion_' + how_important_class ).remove();
+		if ( $( '.sorts > li[refid="' + how_important_id + '"]' ).length === 0 ) {
+			$( '<li refid="' + how_important_id + '">' + how_important_text + '</li>' ).appendTo( '.sortable_with_' + how_important_class );
+			$( how_important ).draggable( 'option', 'disabled', true );
+		}
+	}
+	else {
+		if ( $( '#notion_' + how_important_class ).length === 0 ) {
+			$( '<li id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>' ).appendTo( '.sortable_with_' + how_important_class );
+		}
 	}
 }
