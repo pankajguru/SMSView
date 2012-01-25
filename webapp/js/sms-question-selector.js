@@ -157,6 +157,7 @@ function create_sorts( ul ) {
 			$( '#' + ui.item.attr( 'refid' ) ).addClass( 'hide_hard' );
 			var id = ui.item.attr( 'refid' );
 			check_for_how_important( id );
+			process_question_numbering();
 		},
 		stop: function( event, ui ) {
 			$( this ).removeClass( 'target' );
@@ -467,7 +468,14 @@ function check_for_how_important( id ) {
 	}
 	else {
 		if ( $( '#notion_' + how_important_class ).length === 0 ) {
-			$( '<li id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>' ).appendTo( '.sortable_with_' + how_important_class );
+			$( '<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>' ).appendTo( '.sortable_with_' + how_important_class );
 		}
 	}
+}
+
+function process_question_numbering() {
+	$( '#question_list_container li:not(.answer_option, .info)' ).each( function( i ) {
+		i++;
+		$( this ).attr( 'value', i );
+	});
 }
