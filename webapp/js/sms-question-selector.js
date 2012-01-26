@@ -80,6 +80,7 @@ function expand_all() {
 function select_survey_type() {
 	$( '#typechoice' ).fadeIn( 500 );
 	wireTypeChange();
+	wire_delete_question_button();
 }
 
 function retrieve_questions_per_type( type ) {
@@ -109,7 +110,7 @@ function retrieve_questions_per_type( type ) {
     		check_mandatory_questions()
     		new_question();
     		expand_all();
-    		wire_save_question_list_button()
+    		wire_save_question_list_button();
   		}
 	});
 }
@@ -148,9 +149,12 @@ function create_sorts( ul ) {
 			// Check if we dropped on a sortable
 			if ( $( this ).hasClass( 'sorts' ) === true ) {
 				ui.item.removeClass( 'question_not_selected' );
+				ui.item.addClass( 'question_selected' );
+				//$( '<submit class="delete_button" />' ).prependTo( ui.item );
 			}
 			else {
 				ui.item.addClass( 'question_not_selected' );
+				ui.item.removeClass( 'question_selected' );
 			}
 			
 			$( '#' + ui.item.attr( 'refid' ) ).draggable( 'option', 'disabled', true );
@@ -158,6 +162,7 @@ function create_sorts( ul ) {
 			var id = ui.item.attr( 'refid' );
 			check_for_how_important( id );
 			process_question_numbering();
+			//wire_delete_question_button()
 		},
 		stop: function( event, ui ) {
 			$( this ).removeClass( 'target' );
@@ -185,7 +190,7 @@ function create_sorts( ul ) {
 		deactivate: function( event, ui ) {
 			$( this ).removeClass( 'target' );
 		}
-	}).disableSelection();
+	});//.disableSelection();
 	
 }
 
@@ -379,7 +384,7 @@ function wire_save_question_list_button() {
   		url: base_url + '/xmlprovider/questions/questionaire',
   		dataType: 'JSON',
   		success: function( data ){
-    		$( data ).each(function() {
+    		$( data ).each( function() {
     			console.log( this );
     		});
   		}
@@ -477,5 +482,20 @@ function process_question_numbering() {
 	$( '#question_list_container li:not(.answer_option, .info)' ).each( function( i ) {
 		i++;
 		$( this ).attr( 'value', i );
+	});
+}
+
+function wire_delete_question_button() {
+	$( '#question_list_container' ).delegate( 'li:not(".answer_option, .info")', 'hover', function() {
+		$( '.delete_button' ).remove();
+		var id = $( this ).attr( 'refid' );
+		var this_delete = $( '<input refid="' + id + '" type="submit" class="delete_button" value="" />' );
+		this_delete.insertAfter( this );
+		
+		$( this_delete ).click( function() {
+			$( 'li[refid="' + id + '"]:not("#' + id + '")' ).remove();
+			$( this ).remove();
+			$( '#' + id ).draggable( 'option', 'disabled', false );
+		} );
 	});
 }

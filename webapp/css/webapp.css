@@ -232,3 +232,12 @@ div#question_list_container li.info {
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 }
+
+.delete_button {
+	background-image: url('../img/delete.png');
+	width: 20px;
+	height: 20px;
+	float: right;
+	display: block;
+	margin-top: -28px;
+}
