@@ -277,7 +277,7 @@ function new_question() {
         dataType : 'xml',
         success : function(xml) {
             $(xml).find('item').each(function() {
-                options += '<option id="' + $(this).find('id').text() + '">' + $(this).find('description').text() + '</option>';
+                options += '<option value="' + $( this ).find( 'id' ).text() + '" id="' + $(this).find('id').text() + '">' + $(this).find('description').text() + '</option>';
             });
         }
     });
@@ -294,7 +294,7 @@ function wire_add_question() {
     $('#add_new_question').click(function(event) {
         event.preventDefault();
         // Get the values of the new question fields.
-        var category = $('#new_question_category').val();
+        var category = $('#new_question_category option:selected').text();
         var question = $('#new_question_text').val();
         var question_type = $('#answer_type').val();
 
