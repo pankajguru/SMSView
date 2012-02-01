@@ -79,20 +79,56 @@ class Sms_model extends CI_Model {
 
     }
 
-    public function insert_questionaire($questionaire_xml) {
-        try {
-            $xmlobject = new SimpleXMLElement($questionaire_xml);
-            if ($xmlobject == false) {
-                return false;
-            }
-        } catch (Exception $e) {
+    public function insert_questionaire($questionaire_json) {
+        $questionaire_object = json_decode($questionaire_json);
+        if ($questionaire_object == false) {
             return false;
         }
         
-        //TODO::do stuf with $xmlobject
+        //TODO::do stuf with $questionaire_object
+  
+        foreach ($questionaire_object as $question) {
+            if ($question->{"id"} == 'new'){
+                //new question, store question and answers in db and use newly created id
+                $text = $question->{"new_question"}; 
+                $new_question = json_decode($text);
+                $new_question_object = array();
+                //transform array to usefull array
+                foreach ($new_question as $value) {
+                    $new_question_object[$value->{'name'}] = $value->{'value'};
+                }
+                $category = $new_question_object->{'new_question_category'};
+                $new_question_text = $new_question_object->{'new_question_text'};
+                $answer_type = $new_question_object->{'answer_type'}; // 'multiple choice' en 'open vraag'
+                $answers = array();
+                $count = 1;
+                //transform answers to usefull array
+                while (isset($new_question_object['multiple_choice_answer_'.$count])){
+                error_log($new_question_object['multiple_choice_answer_'.$count]);
+                    array_push($answers,$new_question_object['multiple_choice_answer_'.$count]);
+                    $count++;
+                }
+                $this->_store_question($category, $new_question_text, $answer_type, $answers);
+            }
+        }
+                 
+        //store new questionaire and use newly created name
         
+        //send questionaire to questiontool
         
         return true;
+    }
+    
+    function _store_question($category, $new_question_text, $answer_type, $answers){
+        
+    }
+    
+    function _error_dump($object){
+        ob_start();
+        var_dump($object);
+        $contents = ob_get_contents();
+        ob_end_clean();
+        error_log($contents);
     }
 
 }

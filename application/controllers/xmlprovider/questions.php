@@ -80,8 +80,8 @@ class Questions extends REST_Controller {
     }
 
     function questionaire_post() {
-        $result = $this -> Sms_model -> insert_questionaire($this -> post('questionaire'));
-
+error_log($this -> post('data'));
+        $result = $this -> Sms_model -> insert_questionaire($this -> post('data'));
         if ($result === FALSE) {
             $this -> response(array('status' => 'failed'));
         } else {
