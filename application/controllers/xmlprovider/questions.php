@@ -1,6 +1,7 @@
 <?php
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+
 require (APPPATH . '/libraries/REST_Controller.php');
 
 class Questions extends REST_Controller {
@@ -80,12 +81,14 @@ class Questions extends REST_Controller {
     }
 
     function questionaire_post() {
-error_log($this -> post('data'));
-        $result = $this -> Sms_model -> insert_questionaire($this -> post('data'));
-        if ($result === FALSE) {
-            $this -> response(array('status' => 'failed'));
+        $questionaire_json = $this -> post('data');
+        $questionaire_object = json_decode($questionaire_json);
+        $result = $this -> Sms_model -> insert_questionaire($questionaire_object);
+        if ($result['success'] === FALSE) {
+            $this -> response(array('status' => 'failed', 'responseText' => $result['status']));
         } else {
-            $this -> response(array('status' => 'success'));
+            $qt_result = $this -> _questiontool_set_questionaire($result['peiling_type_id']);
+            $this -> response(array('status' => 'success', 'responseText' => $result['status'] . $qt_result));
         }
 
     }
@@ -93,6 +96,70 @@ error_log($this -> post('data'));
     private function _log_in_first() {
         $data['message'] = "U bent niet ingelogd!";
         return $data;
+    }
+
+    private function _questiontool_set_questionaire($peiling_type_id) {
+        $log = 'qt' . $peiling_type_id;
+        //get qestions id's from formulier_type_definition
+        $question_ids = $this -> Sms_model -> get_all_questions_by_peiling_type($peiling_type_id);
+        //foreach question, add to xml
+        $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
+        $xml_questions = $xml->addChild('questions');
+        foreach ($question_ids as $question_id) {
+            $question = $this -> Sms_model -> get_question_by_id($question_id -> question_id);
+            $answers = $this -> Sms_model -> get_answers_by_question_type_id($question[0] -> vraag_type_id);
+            $question_type = $this -> Sms_model -> get_question_type_by_id($question[0] -> vraag_type_id);
+            error_log($question_id -> question_id);
+            $xml_question = $xml_questions->addChild('question');
+            $xml_question->addChild('question', $question[0]->description);
+            error_log($question[0]->description);
+            $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
+            $xml_question->addChild('category', $category[0]->description); 
+            $xml_question->addChild('category_explanation', $category[0]->description); 
+            $xml_question->addChild('required', true);  //TODO:get required
+            $xml_question->addChild('inputnote',''); //TODO
+            $priority = ($question_type[0]->DESC_CODE == 'BELANGRIJK') ? 1 : 0;
+            $xml_question->addChild('priority',$priority); 
+            $question_type_description = (count($answers) > 0) ? 'answerlist':'open';
+            $xml_question->addChild('questiontype', $question_type_description); 
+            $this->_error_dump($question_type);
+            error_log('####'.$question_type[0]->DESC_CODE.' '.strpos($question_type[0]->DESC_CODE, 'MUIS_'));
+            $standard = (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) ? 0 : 1;
+            $xml_question->addChild('standard', $standard);  
+            //add answers
+            $xml_answers = $xml_question->addChild('answers');
+            foreach ($answers as $answer){
+                error_log($answer->description);
+                $xml_answer = $xml_answers->addChild('answer');
+                $xml_answer->addChild('answer', $answer->description);
+                $xml_answer->addChild('order', $answer->value);
+                $xml_answer->addChild('value', $answer->value);  //TODO:0-100
+            }
+        }
+        $xml = $xml->asXML();
+        $this->_error_dump($xml);
+        //send xml to QT
+        $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL,$url);     
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'xml='.$xml);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
+//        $response = $xml;     
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        //return OK/NOK from QT
+        return $response;
+    }
+
+    function _error_dump($object) {
+        ob_start();
+        var_dump($object);
+        $contents = ob_get_contents();
+        ob_end_clean();
+        error_log($contents);
     }
 
 }

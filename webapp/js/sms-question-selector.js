@@ -380,10 +380,17 @@ function wire_save_question_list_button() {
                 $(data).each(function() {
                     console.log(this);
                 });
+                    console.log(data.responseText);
+            },
+            error : function(data){
+                $(data).each(function() {
+                    console.log(this);
+                });
+                    console.log(data.responseText);
             }
         });
 
-        console.log(JSON.stringify(json_string));
+//        console.log(JSON.stringify(json_string));
     });
 }
 
