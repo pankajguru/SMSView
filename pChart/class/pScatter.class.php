@@ -441,6 +441,74 @@
       }
     }
 
+   /* Draw a scatter plot chart */
+   function drawScatterPlotChartSms($Format=NULL)
+    {
+     $PlotSize      = isset($Format["PlotSize"]) ? $Format["PlotSize"] : 3;
+     $PlotBorder    = isset($Format["PlotBorder"]) ? $Format["PlotBorder"] : FALSE;
+     $BorderR       = isset($Format["BorderR"]) ? $Format["BorderR"] : 250;
+     $BorderG       = isset($Format["BorderG"]) ? $Format["BorderG"] : 250;
+     $BorderB       = isset($Format["BorderB"]) ? $Format["BorderB"] : 250;
+     $BorderAlpha   = isset($Format["BorderAlpha"]) ? $Format["BorderAlpha"] : 30;
+     $BorderSize    = isset($Format["BorderSize"]) ? $Format["BorderSize"] : 1;
+     $Surrounding   = isset($Format["Surrounding"]) ? $Format["Surrounding"] : NULL;
+     $RecordImageMap    = isset($Format["RecordImageMap"]) ? $Format["RecordImageMap"] : FALSE;
+     $ImageMapTitle = isset($Format["ImageMapTitle"]) ? $Format["ImageMapTitle"] : NULL;
+     $ImageMapPrecision = isset($Format["ImageMapPrecision"]) ? $Format["ImageMapPrecision"] : 2;
+
+     $Data    = $this->pDataObject->getData();
+     $Palette = $this->pDataObject->getPalette();
+
+     $BorderColor = array("R"=>$BorderR,"G"=>$BorderG,"B"=>$BorderB,"Alpha"=>$BorderAlpha);
+
+     foreach($Data["ScatterSeries"] as $Key => $Series)
+      {
+       if ( $Series["isDrawable"] == TRUE )
+        {
+         $SerieX = $Series["X"]; $SerieValuesX = $Data["Series"][$SerieX]["Data"]; $SerieXAxis = $Data["Series"][$SerieX]["Axis"];
+         $SerieY = $Series["Y"]; $SerieValuesY = $Data["Series"][$SerieY]["Data"]; $SerieYAxis = $Data["Series"][$SerieY]["Axis"];
+
+         if ( $ImageMapTitle == NULL ) { $Description = $Data["Series"][$Series["X"]]["Description"]." / ".$Data["Series"][$Series["Y"]]["Description"]; } else { $Description = $ImageMapTitle; }
+         
+         if ( isset($Series["Picture"]) && $Series["Picture"] != "" )
+          { $Picture = $Series["Picture"]; list($PicWidth,$PicHeight,$PicType) = $this->pChartObject->getPicInfo($Picture); }
+         else
+          { $Picture = NULL; }
+
+         $PosArrayX = $this->getPosArray($SerieValuesX,$SerieXAxis);
+         if ( !is_array($PosArrayX) ) { $Value = $PosArrayX; $PosArrayX = ""; $PosArrayX[0] = $Value; }
+         $PosArrayY = $this->getPosArray($SerieValuesY,$SerieYAxis);
+         if ( !is_array($PosArrayY) ) { $Value = $PosArrayY; $PosArrayY = ""; $PosArrayY[0] = $Value; }
+
+         $Color = array("R"=>$Series["Color"]["R"],"G"=>$Series["Color"]["G"],"B"=>$Series["Color"]["B"],"Alpha"=>$Series["Color"]["Alpha"]);
+
+         foreach($PosArrayX as $Key => $Value)
+          {
+           $X = $Value; $Y = $PosArrayY[$Key];
+
+           if ( $X != VOID && $Y != VOID )
+            {
+             $RealValue = round($Data["Series"][$Series["X"]]["Data"][$Key],2)." / ".round($Data["Series"][$Series["Y"]]["Data"][$Key],2);
+             $this->pChartObject->drawText($X+5,$Y+5,$Key+1,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE, "FontName" => "./pChart/fonts/calibri.ttf",
+            "FontSize" => 20
+            ));
+             if ( $RecordImageMap ) { $this->pChartObject->addToImageMap("CIRCLE",floor($X).",".floor($Y).",".floor($PlotSize+$BorderSize),$this->pChartObject->toHTMLColor($Series["Color"]["R"],$Series["Color"]["G"],$Series["Color"]["B"]),$Description,$RealValue); }
+
+             if( isset($Series["Shape"]) )
+              { $this->pChartObject->drawShape($X,$Y,$Series["Shape"],$PlotSize,$PlotBorder,$BorderSize,$Series["Color"]["R"],$Series["Color"]["G"],$Series["Color"]["B"],$Series["Color"]["Alpha"],$BorderR,$BorderG,$BorderB,$BorderAlpha); }
+             elseif ( $Picture == NULL )
+              {
+               if ( $PlotBorder ) { $this->pChartObject->drawFilledCircle($X,$Y,$PlotSize+$BorderSize,$BorderColor); }
+               $this->pChartObject->drawFilledCircle($X,$Y,$PlotSize,$Color);
+              }
+             else
+              { $this->pChartObject->drawFromPicture($PicType,$Picture,$X-$PicWidth/2,$Y-$PicHeight/2); }
+            }
+          }
+        }
+      }
+    }
+
    /* Draw a scatter line chart */
    function drawScatterLineChart($Format=NULL)
     {

@@ -94,14 +94,13 @@ class percentages
                 'scaling' => 50,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
-                'spacingLeft' => 100,
+                'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
                 'border' => 0,
                 'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
-
         }
         $percentage_docx->createDocx($temp.'percentage');
         unset($percentage_docx);
@@ -130,20 +129,20 @@ class percentages
         ));
         
         /* Create the pChart object */
-        $picture_height = (1 + count($graphic_answer)) * 20 + 20;
-        $myPicture = new pImage(600, $picture_height, $MyData);
+        $picture_height = 2 * ( (1 + count($graphic_answer)) * 20);
+        $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
-            "FontSize" => 12,
+            "FontSize" => 20,
             "R" => 255,
             "G" => 255,
             "B" => 255,
-            "b" => "single"
+            "b" => "double"
         ));
         
         /* Draw the chart scale */
-        $graphic_height = (1 + count($graphic_answer)) * 20;
-        $myPicture->setGraphArea(300, 30, 480, $graphic_height);
+        $graphic_height = 2 * ( (1 + count($graphic_answer)) * 20 );
+        $myPicture->setGraphArea(600, 18, 960, $graphic_height);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => 0,
@@ -169,17 +168,17 @@ class percentages
         $myPicture->drawBarChart(array(
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
-            "Surrounding" => 0,
+            "Surrounding" => 10,
             "DisplayR" => 255,
             "DisplayG" => 255,
             "DisplayB" => 255,
                         
         ));
         for ($i=0;$i<count($graphic_answer);$i++){
-            $myPicture->drawText(160, 42 + ($i)*18,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(200, 42 + ($i)*18,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(245, 42 + ($i)*18,$graphic_percentage[$i]."%",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(290, 42 + ($i)*18,"(".$graphic_percentage_total[$i]."%)",array("R"=>80,"G"=>80,"B"=>80,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(320, 40 + ($i)*44,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(400, 40 + ($i)*44,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(490, 40 + ($i)*44,$graphic_percentage[$i]."%",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(580, 40 + ($i)*44,"(".$graphic_percentage_total[$i]."%)",array("R"=>80,"G"=>80,"B"=>80,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
         
         $myPicture->render($temp . "percentages$question_number.png");

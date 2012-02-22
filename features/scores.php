@@ -79,17 +79,16 @@ class scores
     
             $paramsImg = array(
                 'name' => $scores_graphic,
-                'scaling' => 50,
+                'scaling' => 25,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
-                'spacingLeft' => 100,
+                'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
                 'border' => 0,
                 'borderDiscontinuous' => 1
             );
             $scores_docx->addImage($paramsImg);
-
         }
         $scores_docx->createDocx($temp.'scores');
         unset($scores_docx);
@@ -114,10 +113,10 @@ class scores
         $MyData->setAxisDisplay(0, AXIS_FORMAT_DEFAULT);
 
         /* Create the pChart object */
-        $myPicture = new pImage(700, 100, $MyData);
+        $myPicture = new pImage(1200, 120, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
-            "FontSize" => 12,
+            "FontSize" => 24,
             "R" => 255,
             "G" => 255,
             "B" => 255,
@@ -125,7 +124,7 @@ class scores
         ));
         
         /* Draw the chart scale */
-        $myPicture->setGraphArea(200, 30, 480, 70);
+        $myPicture->setGraphArea(300, 30, 760, 110);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => $min_value,
@@ -152,9 +151,9 @@ class scores
             "Interleave" => 1
         ));
         for ($i=0;$i<count($names);$i++){
-            $myPicture->drawText(160, 42 + ($i)*18,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(550, 42 + ($i)*18,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(650, 42 + ($i)*18,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(900, 55 + ($i)*36,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1100, 55 + ($i)*36,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
         
         $myPicture->render($temp . "scores$question_number.png");

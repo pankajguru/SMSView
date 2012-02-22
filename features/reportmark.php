@@ -46,7 +46,7 @@ class reportmark
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
-                'scaling' => 50,
+                'scaling' => 0,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,
@@ -74,43 +74,47 @@ class reportmark
         $MyData->addPoints($graphic_data_reportmarks, "Answers");
         $MyData->setSerieDescription("Answers", "Answers");
         $MyData->setAbscissa("Percentages peiling");
-//        $MyData->setAxisDisplay(0, AXIS_FORMAT_DEFAULT);
+        $MyData->setAxisDisplay(0, AXIS_FORMAT_CUSTOM,"YAxisFormat");
         $MyData->setAxisColor(0, array(
             "R" => 0,
             "G" => 0,
             "B" => 0,
             "Alpha" => 0
         ));
+        $MyData->setAxisPosition(0,AXIS_POSITION_RIGHT);
+        $MyData->setAxisDisplay(0,AXIS_FORMAT_METRIC, 1); 
         
         /* Create the pChart object */
-        $picture_height = (1 + count($graphic_data_text)) * 40 + 20;
-        $myPicture = new pImage(600, $picture_height, $MyData);
+        $picture_height = (1 + count($graphic_data_text)) * 80 + 40;
+        $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
-            "FontSize" => 12,
-            "R" => 0,
-            "G" => 0,
-            "B" => 0,
+            "FontSize" => 20,
+            "R" => 255,
+            "G" => 255,
+            "B" => 255,
             "b" => "single"
         ));
         
+        function YAxisFormat($Value) { return(round($Value)); } 
         
         /* Draw the chart scale */
-        $graphic_height = (1 + count($graphic_data_text)) * 40;
+        $graphic_height = (1 + count($graphic_data_text)) * 60;
 
-        $myPicture->drawGradientArea(100,30,480,$graphic_height,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
-        $myPicture->drawGradientArea(100,30,480,$graphic_height,DIRECTION_HORIZONTAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>20));
+        $myPicture->drawGradientArea(100,30,960,$graphic_height,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
+        $myPicture->drawGradientArea(100,30,960,$graphic_height,DIRECTION_HORIZONTAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>20));
 
-        $myPicture->setGraphArea(100, 30, 480, $graphic_height);
+        $myPicture->setGraphArea(100, 30, 960, $graphic_height);
         $AxisBoundaries = array(
             0 => array(
-                "Min" => 0,
+                "Min" => 5,
                 "Max" => 10
             )
         );
+        
         $myPicture->drawScale(array(
             "ManualScale" => $AxisBoundaries,
-            "DrawSubTicks" => FALSE,
+//            "DrawSubTicks" => FALSE,
             "GridR" => 0,
             "GridG" => 0,
             "GridB" => 0,
@@ -121,9 +125,14 @@ class reportmark
             "Pos" => SCALE_POS_TOPBOTTOM,
             "Mode" => SCALE_MODE_MANUAL,
             "CycleBackground"=>TRUE,
+            "DrawXLines" => FALSE,
+            "MinDivHeight"=>40,
+//            "YMargin"=>20,
+            "XMargin"=>50
+//            "Formats"=>array(5,6,7,8,9,10)
         ));
         //
-        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
+//        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         /* Create the per bar palette */
         $Palette = array("0"=>array("R"=>254,"G"=>153,"B"=>41,"Alpha"=>100),
                  "1"=>array("R"=>48,"G"=>101,"B"=>250,"Alpha"=>100)
@@ -132,13 +141,20 @@ class reportmark
         $myPicture->drawBarChart(array(
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
-            "Surrounding" => 0,
+            //"Surrounding" => 255,
             "DisplayR" => 0,
             "DisplayG" => 0,
-            "DisplayB" => 0,"DisplayPos"=>LABEL_POS_INSIDE,"DisplayValues"=>TRUE,"OverrideColors"=>$Palette                        
+            "DisplayB" => 0,
+            "BorderR" => 255,
+            "BorderG" => 255,
+            "BorderB" => 255,
+            //"DisplayPos"=>LABEL_POS_INSIDE,
+            //"DisplayValues"=>TRUE,
+            "OverrideColors"=>$Palette  ,
+            "Interleave"=>0                      
         ));
-        for ($i=0;$i<count($graphic_answer);$i++){
-            $myPicture->drawText(160, 42 + ($i)*18,$graphic_data_text[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+        for ($i=0;$i<count($graphic_data_text);$i++){
+            $myPicture->drawText(120, 82 + ($i)*47,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         }
         
         $myPicture->render($temp . "reportmark$question_number.png");
@@ -146,4 +162,6 @@ class reportmark
         return $temp . "reportmark$question_number.png";
         
     }
+
+        
 }
