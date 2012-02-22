@@ -241,3 +241,12 @@ div#question_list_container li.info {
 	display: block;
 	margin-top: -28px;
 }
+
+.add_button {
+	background-image: url('../img/add.png');
+	width: 20px;
+	height: 20px;
+	float: right;
+	display: block;
+	margin-top: -28px;
+}
