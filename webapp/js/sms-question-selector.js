@@ -228,6 +228,8 @@ function sort_on_category() {
     });
     for(group in groups ) {
         var groupname = group.replace(/ /g, "_");
+        groupname = groupname.replace(/,/g, "_");
+        groupname = groupname.replace(/\//g, "_");
         var sortable_with = '.sortable_with_' + groupname;
         var ul = $('<ul class="sortable_with_' + groupname + ' sorts" />');
         ul.appendTo('#question_list_container');
@@ -237,6 +239,8 @@ function sort_on_category() {
 
     for(group in groups ) {
         var groupname = group.replace(/ /g, "_");
+        groupname = groupname.replace(/,/g, "_");
+        groupname = groupname.replace(/\//g, "_");
         var ul = $('<ul class="drag_container_' + groupname + '" />').attr('id', groupname);
         var lis = groups[group];
 
