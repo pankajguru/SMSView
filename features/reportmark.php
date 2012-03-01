@@ -46,7 +46,7 @@ class reportmark
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
-                'scaling' => 0,
+                'scaling' => 50,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,

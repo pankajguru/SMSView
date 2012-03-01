@@ -14,19 +14,89 @@ class satisfaction
         $column_count   = 0;
         
         $paramsTextTitles = array(
-            'b' => 'single',
-            'font' => 'Century Gothic'
+            'b' => 'double',
+            'font' => 'Century Gothic',
+            'cell_color' => '00A4E4',
+            'sz' => 9.5
+         );        
+        
+        $paramsTextTableHeader = array(
+            'color' => 'FFFFFF',
+            'font' => 'Century Gothic',
+            'b' => 'double',
+            'cell_color' => '00A4E4',         
+            'sz' => 9.5
+        );        
+
+        $paramsTextTableTitle = array(
+            'color' => '00A4E4',
+            'font' => 'Century Gothic',
+            'b' => 'double',
+            'cell_color' => 'DAEEF3',//lightbleu
+            'sz' => 9.5
         );        
         
         $paramsTextTable = array(
-            'color' => 'FFA100',
-            'font' => 'Century Gothic'
+            'color' => '00A4E4',
+            'font' => 'Century Gothic',
+            'border_color'=>'00A4E4',
+            'sz' => 9.5,
+            'jc' => 'center'
+        );        
+        
+        $paramsTextTableTitleReference = array(
+            'color' => 'F78E1E',
+            'font' => 'Century Gothic',
+            'b' => 'double',
+            'cell_color' => 'FDE9D9',//lightorange
+            'sz' => 9.5
         );        
         
         $paramsTextTableReference = array(
-            'color' => '336EFF',
-            'font' => 'Century Gothic'
+            'color' => 'F78E1E',
+            'sz' => 9.5,
+            'font' => 'Century Gothic',
+            'jc' => 'center'
         );        
+        
+        $paramsTextTableHeaderReference = array(
+            'color' => 'FFFFFF',
+            'b' => 'double',
+            'font' => 'Century Gothic',
+            'cell_color' => 'F78E1E',         
+            'sz' => 9.5
+        );        
+
+        $widthTableCols = array(
+            3200,
+            700,
+            700
+        );
+
+        $paramsTable = array(
+            'border' => 'single',
+            'border_sz' => 10,
+            'border_color'=>'00A4E4',
+            'size_col' => $widthTableCols,
+            'textWrap'=>0,
+        );
+
+        $paramsTableEmpty = array(
+            'border' => 'none',
+            'size_col' => 100,
+        );
+
+        $paramsTableReference = array(
+            'border' => 'single',
+            'border_sz' => 10,
+            'border_color'=>'F78E1E',
+            'size_col' => 700,
+            'textWrap'=>0,
+        );
+
+
+        
+        
         
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -36,37 +106,54 @@ class satisfaction
         $satisfaction_docx = new CreateDocx();
         
         $satisfaction_table = array();
+        $satisfaction_table_reference = array();
         for ($i=0 ; $i < 10 ; $i++){
             $count = 0;
-            $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
-            $paramsTextTitles['text'] = $satisfaction_data->{'alle_scholen'}[$i][1];
-            $text = $satisfaction_docx->addElement('addText', array($paramsTextTitles));
+ //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
+            $paramsTextTable['text'] = $satisfaction_data->{'alle_scholen'}[$i][1];
+            $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
             foreach ($satisfaction_data as $key => $satisfaction_column){
                 if ($key == 'alle_scholen'){
+                    $paramsTextTableReference['text'] = '';
+                    $text = $satisfaction_docx->addElement('addText', array());
+                    $text->{'border'} = $paramsTableEmpty;
+                    $satisfaction_table[$i][$count++] = $text;
+
                     $paramsTextTableReference['text'] = Scale10($satisfaction_column[$i][2], 4);
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTableReference));
+                    $text->{'border'} = $paramsTableReference;
+                    $satisfaction_table[$i][$count++] = $text;
                 } else {
                     $paramsTextTable['text'] = Scale10($satisfaction_column[$i][2], 4);
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
+                    $text->{'border'} = $paramsTable;
+                    $satisfaction_table[$i][$count++] = $text;
                 }
-                $satisfaction_table[$i][$count++] = $text;
             }
             
         }
         
-        $satisfaction_header = array(array('',''));
+        $satisfaction_titles = array();
+        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
+        $satisfaction_titles[0][] = $text;
         
         foreach ($satisfaction_data as $key => $satisfaction_column){
                 $column_count++;
                 if ($key == 'alle_scholen'){
-                    $paramsTextTableReference['text'] = $key;
-                    $text = $satisfaction_docx->addElement('addText', array($paramsTextTableReference));
-                    $satisfaction_header[0][] = $text;
+                    $paramsTextTableReference['text'] = '';
+                    $text = $satisfaction_docx->addElement('addText', array());
+                    $text->{'border'} = $paramsTableEmpty;
+                    $satisfaction_titles[0][] = $text;
+                    $paramsTextTableTitleReference['text'] = 'Alle scholen';
+                    $text = $satisfaction_docx->addElement('addText', array($paramsTextTableTitleReference));
+                    $text->{'border'} = $paramsTableReference;
+                    $satisfaction_titles[0][] = $text;
                 } else {
-                    $paramsTextTable['text'] = $key;
-                    $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
-                    $satisfaction_header[0][] = $text;
+                    $paramsTextTableTitle['text'] = $key;
+                    $text = $satisfaction_docx->addElement('addText', array($paramsTextTableTitle));
+                    $text->{'border'} = $paramsTable;
+                    $satisfaction_titles[0][] = $text;
                 }
         }
         
@@ -77,31 +164,65 @@ class satisfaction
         //set right number
         $count = 1;
         for ($i = 0 ; $i < count($satisfaction_table) ; $i++){
-            $satisfaction_table[$i][0] = $count++.'.';
+            //$satisfaction_table[$i][0] = $count++.'.';
+            $satisfaction_table[$i][0]->{'_embeddedText'}[0]["text"] = $count++.'. '.$satisfaction_table[$i][0]->{'_embeddedText'}[0]["text"] ;
             //now do the formatting of the number (should be done AFTER sort)
-            for ($j=0 ; $j < $column_count ; $j++){
-                $satisfaction_table[$i][$j+2]->{'_embeddedText'}[0]["text"] = sprintf("%01.1f", $satisfaction_table[$i][$j+2]->{'_embeddedText'}[0]["text"]);
+            for ($j=0 ; $j <= $column_count ; $j++){
+                $value = $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"];
+                var_dump($value);
+                if (isset($value)){
+                    $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"] = sprintf("%01.1f", $value);
+                }
             }
         }
         
-        $paramsTable = array(
-            'border' => 'none',
-            'border_sz' => 20
-        );
-
-
         $paramsText = array(
             'b' => 'single',
             'font' => 'Arial'
         );        
-        //$satisfaction_docx->addText($type, $paramsText);
-        $satisfaction_docx->addTable($satisfaction_header, $paramsTable);
-        $satisfaction_docx->addTable($satisfaction_table, $paramsTable);
-        //$satisfaction_docx->addText('test', $paramsText);
-
         
+        $widthTableColsHeader = array(
+            4600,
+        );
 
-        $satisfaction_docx->createDocx($temp.$type);
+        $paramsTableHeader = array(
+            'border' => 'single',
+            'border_sz' => 10,
+            'border_color'=>'00A4E4',
+            'size_col' => $widthTableColsHeader,
+            'textWrap'=>0
+            
+        );
+
+        $satisfaction_header = array();
+        $paramsTextTableHeader['text'] = 'Onze school';
+        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
+        $text->{'border'} = $paramsTable;
+        $satisfaction_header[0][] = $text;
+        $paramsTextTableHeader['text'] = '';
+        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
+        $text->{'border'} = $paramsTable;
+        $satisfaction_header[0][] = $text;
+        $paramsTextTableHeader['text'] = '';
+        $text = $satisfaction_docx->addElement('addText', array());
+        $text->{'border'} = $paramsTableEmpty;
+        $satisfaction_header[0][] = $text;
+        
+        
+        
+        $paramsTextTableHeaderReference['text'] = 'Referentie';
+        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeaderReference));
+        $text->{'border'} = $paramsTableReference;
+        $satisfaction_header[0][] = $text;
+        
+        
+        //$satisfaction_docx->addText($type, $paramsText);
+        $table1 = $satisfaction_docx->addTable($satisfaction_header);
+        $table2 = $satisfaction_docx->addTable($satisfaction_titles);
+        $table3 = $satisfaction_docx->addTable($satisfaction_table);
+
+
+       // $satisfaction_docx->createDocx($temp.$type);
         unset($satisfaction_docx);
         return $temp.$type.'.docx';
         
@@ -111,8 +232,8 @@ class satisfaction
 }
         function cmp_peiling($a, $b)
         {
-            if ($a[2]->{'_embeddedText'}[0]["text"] == $b[2]->{'_embeddedText'}[0]["text"]) {
+            if ($a[1]->{'_embeddedText'}[0]["text"] == $b[1]->{'_embeddedText'}[0]["text"]) {
                 return 0;
             }
-            return ($a[2]->{'_embeddedText'}[0]["text"] < $b[2]->{'_embeddedText'}[0]["text"]) ? 1 : -1;
+            return ($a[1]->{'_embeddedText'}[0]["text"] < $b[1]->{'_embeddedText'}[0]["text"]) ? 1 : -1;
         }

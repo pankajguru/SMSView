@@ -103,6 +103,9 @@ class Questions extends REST_Controller {
         $question_ids = $this -> Sms_model -> get_all_questions_by_peiling_type($peiling_type_id);
         //foreach question, add to xml
         $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
+        $peiling_type_details = $this -> Sms_model -> get_peiling_type_details( $peiling_type_id );
+        $this->_error_dump($peiling_type_details);
+        $xml->addChild('peiling_type', $peiling_type_details[0] -> desc_code);
         $xml_questions = $xml->addChild('questions');
         foreach ($question_ids as $question_id) {
             $question = $this -> Sms_model -> get_question_by_id($question_id -> question_id);

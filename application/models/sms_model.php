@@ -32,6 +32,14 @@ class Sms_model extends CI_Model {
 
     }
 
+    function get_peiling_type_details($peiling_type_id) {
+        $this -> db -> from (
+        'peiling_type')-> where('id', $peiling_type_id);
+        $query = $this -> db -> get();
+        return $query -> result();
+
+    }
+
     function get_question_type_by_id($question_type_id) {
         $this -> db -> from (
         'vraag_type')-> where('id', $question_type_id);

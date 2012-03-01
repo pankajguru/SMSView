@@ -23,7 +23,7 @@ class satisfactionPriorityScatter {
         }
         $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $temp);
 
-        $paramsImg = array('name' => $satisfactionPriorityScatter_graphic, 'scaling' => 0, 'spacingTop' => 0, 'spacingBottom' => 0, 'spacingLeft' => 0, 'spacingRight' => 0, 'textWrap' => 0, 'border' => 0, 'borderDiscontinuous' => 1);
+        $paramsImg = array('name' => $satisfactionPriorityScatter_graphic, 'scaling' => 50, 'spacingTop' => 0, 'spacingBottom' => 0, 'spacingLeft' => 0, 'spacingRight' => 0, 'textWrap' => 0, 'border' => 0, 'borderDiscontinuous' => 1);
         $satisfactionPriorityScatter_docx -> addImage($paramsImg);
 
         $satisfactionPriorityScatter_docx -> createDocx($temp . 'satisfactionPriorityScatter');

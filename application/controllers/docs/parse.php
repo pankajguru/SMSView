@@ -69,6 +69,10 @@ class Parse extends CI_Controller {
         $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
         unset($satisfaction);
         
+        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
+        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
+        unset($satisfactionPriorityScatter);        
+        
         $docx = new CreateDocx();
 
         $docx -> addTemplate($template);
@@ -99,10 +103,13 @@ class Parse extends CI_Controller {
                     $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+                    //$docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "importance") {
-                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
+                    //$docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
+                }
+                if ($variable == "satisfactionPriorityScatter") {
+                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
             }
 
@@ -144,24 +151,23 @@ class Parse extends CI_Controller {
 //        $scores = new scores();
 //        $scores_docx = $scores -> render($xmlData);
 //        unset($scores);
-/*        
-        $reportmark = new reportmark();
-        $reportmark_docx = $reportmark -> render($xmlData);
-        unset($reportmark);
+
+//        $reportmark = new reportmark();
+//        $reportmark_docx = $reportmark -> render($xmlData);
+//        unset($reportmark);
         
         $importance = new satisfaction();
         $importance_docx = $importance -> render($xmlData, 'importance');
         unset($importance);
-        
+
         $satisfaction = new satisfaction();
         $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
         unset($satisfaction);
-        */
        
-        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
-        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
-        unset($satisfactionPriorityScatter);
-              
+//        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
+//        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
+///        unset($satisfactionPriorityScatter);
+               
         $docx = new CreateDocx();
 
         $docx -> addTemplate($template);
@@ -182,24 +188,24 @@ class Parse extends CI_Controller {
             } elseif ($type == "class") {
                 //get class to process
                 //scores and percentages
-//                if ($variable == "percentages") {
+                if ($variable == "percentages") {
 //                    $docx -> addTemplateVariable('class:percentages', $percentage_docx, 'docx');
-//                }
-//                if ($variable == "scores") {
-//                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
-//                }
-//                if ($variable == "reportmark") {
- //                   $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
-//                }
-                if ($variable == "satisfactionPriorityScatter") {
-                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
-/*                if ($variable == "satisfaction") {
-                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+                if ($variable == "scores") {
+//                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
+                }
+                if ($variable == "reportmark") {
+//                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
+                }
+                if ($variable == "satisfactionPriorityScatter") {
+//                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
+                }
+                if ($variable == "satisfaction") {
+//                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "importance") {
-                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
-                } */
+//                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
+                } 
             }
 
         }

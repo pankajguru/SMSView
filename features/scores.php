@@ -79,7 +79,7 @@ class scores
     
             $paramsImg = array(
                 'name' => $scores_graphic,
-                'scaling' => 25,
+                'scaling' => 30,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,

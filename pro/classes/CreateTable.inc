@@ -95,6 +95,9 @@ class CreateTable extends CreateElement
         if (is_array($args[0])) {
             $this->generateTBL();
             $this->generateTBLPR();
+            $this->generateTBLCELLMARGIN();
+            $this->generateTBLCELLMARGINDETAILS();
+            $this->generateTBLPPR();
             if (!empty($args[1]['TBLSTYLEval'])) {
                 $this->generateTBLSTYLE($args[1]['TBLSTYLEval']);
             } else {
@@ -125,6 +128,7 @@ class CreateTable extends CreateElement
             }
 
             $this->generateTBLLOOK($args[1]['TBLLOOKval']);
+            //$this->generateTBLCELLSPACING();
             $this->generateTBLOVERLAP();
             $intLine = 0;
             $intCol = 0;
@@ -143,6 +147,26 @@ class CreateTable extends CreateElement
                     }
                     $this->generateTC();
                     $this->generateTCPR();
+                    if (!empty($cont->{'border'})) {
+                        $sz = 4;
+                        if (!empty($cont->{'border'}['border_sz'])) $sz = $cont->{'border'}['border_sz'];
+                        $color = 'auto';
+                        if (!empty($cont->{'border'}['border_color']))
+                                $color = $cont->{'border'}['border_color'];
+                        $spacing = '0';
+                        if (!empty($cont->{'border'}['border_spacing']))
+                                $spacing = $cont->{'border'}['border_spacing'];
+        
+                        $border = $cont->{'border'}['border'];
+                        $this->generateTCBORDERS($cont->{'border'});
+                        $this->generateTBLBOTTOM($border, $sz, $spacing, $color);
+                        $this->generateTBLLEFT($border, $sz, $spacing, $color);
+                        $this->generateTBLTOP($border, $sz, $spacing, $color);
+                        $this->generateTBLRIGHT($border, $sz, $spacing, $color);
+                        $this->generateTBLINSIDEH($border, $sz, $spacing, $color);
+                        $this->generateTBLINSIDEV($border, $sz, $spacing, $color);
+                        $this->cleanTBLBORDERS();
+                    }
                     if (is_array($args[1]['size_col'])) {
                         $this->generateTCW($args[1]['size_col'][$intCol]);
                     } elseif (!empty($args[1]['size_col'])) {
@@ -158,6 +182,7 @@ class CreateTable extends CreateElement
                     } else {
                         $this->generateSHD();
                     }
+                    $this->cleanTCPR();
                     $this->generateP();
                     if ($cont instanceof CreateLink) {
                         $cont->createEmbeddedLink(
@@ -483,7 +508,7 @@ class CreateTable extends CreateElement
             ':tblPr>__GENERATETBLSTYLE____GENERA' .
             'TEJC____GENERATETBLW____GENERATETBLL' .
             'OOK____GENERATETBLOVERLAP____GENERATETBLCELL' .
-            'SPACING____GENERATETBLBORDERS____GENERATESHD__</' .
+            'SPACING____GENERATETBLBORDERS____GENERATESHD____GENERATETBLPPR____GENERATETBLCELLMAR__</' .
             CreateElement::NAMESPACEWORD . ':tblPr>__GENERATETBL__';
         $this->_xml = str_replace('__GENERATETBL__', $xml, $this->_xml);
     }
@@ -566,7 +591,7 @@ class CreateTable extends CreateElement
     protected function generateTCPR()
     {
         $xml = '<' . CreateElement::NAMESPACEWORD .
-            ':tcPr>__GENERATETCPR__</' . CreateElement::NAMESPACEWORD .
+            ':tcPr>__GENERATETCPR____GENERATETCBORDERS__</' . CreateElement::NAMESPACEWORD .
             ':tcPr>__GENERATETC__';
         $this->_xml = str_replace('__GENERATETC__', $xml, $this->_xml);
     }
@@ -659,4 +684,105 @@ class CreateTable extends CreateElement
         $this->_xml = preg_replace('/__GENERATETRPR__/', '', $this->_xml);
     }
 
+
+    /**
+     * Generate w:tblstyle
+     *
+     * @param string $strVal
+     * @access protected
+     */
+    protected function generateTBLPPR($leftFromText = 180, $rightFromText = 180, $vertAnchor = "text", $horzAnchor = "text", $tblpX = 1, $tblpY = 1)
+    {
+        $xml = '<' . CreateElement::NAMESPACEWORD .
+            ':tblpPr ' . CreateElement::NAMESPACEWORD .
+            ':leftFromText="' . $leftFromText . '" ' . CreateElement::NAMESPACEWORD .
+            ':rightFromText="' . $rightFromText .  '" ' . CreateElement::NAMESPACEWORD .
+            ':vertAnchor="' . $vertAnchor .  '" ' . CreateElement::NAMESPACEWORD .
+            ':horzAnchor="' . $horzAnchor .  '" ' . CreateElement::NAMESPACEWORD .
+            ':tblpY="' . $tblpY .  '" ' . CreateElement::NAMESPACEWORD . 
+            ':tblpX="' . $tblpX .
+            '"></' . CreateElement::NAMESPACEWORD .
+            ':tblpPr>';
+        $this->_xml = str_replace('__GENERATETBLPPR__', $xml, $this->_xml);
+    }
+    
+    /**
+     * Generate w:tcborders
+     *
+     * @access protected
+     */
+    protected function generateTCBORDERS()
+    {
+        $xml = '<' . CreateElement::NAMESPACEWORD .
+            ':tcBorders>__GENERATETBLBORDER__</' .
+            CreateElement::NAMESPACEWORD . ':tcBorders>';
+        $this->_xml = str_replace('__GENERATETCBORDERS__', $xml, $this->_xml);
+    }
+    
+    /**
+     * Clean w:tblborders
+     *
+     * @access protected
+     */
+    protected function cleanTBLBORDERS()
+    {
+        $this->_xml = str_replace('__GENERATETBLBORDER__', '', $this->_xml);
+    }
+    
+    /**
+     * Clean w:tcpr
+     *
+     * @access protected
+     */
+    protected function cleanTCPR()
+    {
+        $this->_xml = str_replace('__GENERATETCPR__', '', $this->_xml);
+    }
+    
+    /**
+     * Generate w:tcborders
+     *
+     * @access protected
+     */
+    protected function generateTBLCELLMARGIN()
+    {
+        $xml = '<' . CreateElement::NAMESPACEWORD .
+            ':tblCellMar>__GENERATETBLCELLMARGIN__</' .
+            CreateElement::NAMESPACEWORD . ':tblCellMar>';
+        $this->_xml = str_replace('__GENERATETBLCELLMAR__', $xml, $this->_xml);
+    }
+    
+        /**
+     * Generate w:tblcellspacing
+     *
+     * @param string $w
+     * @param string $type
+     * @access protected
+     */
+    protected function generateTBLCELLMARGINDETAILS($w = '57', $type = 'xda')
+    {
+        $xml .= '<' . CreateElement::NAMESPACEWORD .
+            ':top ' . CreateElement::NAMESPACEWORD .
+            ':w="' . $w . '" ' . CreateElement::NAMESPACEWORD .
+            ':type="' . $type . '"/>';
+        $xml .= '<' . CreateElement::NAMESPACEWORD .
+            ':left ' . CreateElement::NAMESPACEWORD .
+            ':w="' . $w . '" ' . CreateElement::NAMESPACEWORD .
+            ':type="' . $type . '"/>';
+        $xml .= '<' . CreateElement::NAMESPACEWORD .
+            ':bottom ' . CreateElement::NAMESPACEWORD .
+            ':w="' . $w . '" ' . CreateElement::NAMESPACEWORD .
+            ':type="' . $type . '"/>';
+        $xml .= '<' . CreateElement::NAMESPACEWORD .
+            ':right ' . CreateElement::NAMESPACEWORD .
+            ':w="' . $w . '" ' . CreateElement::NAMESPACEWORD .
+            ':type="' . $type . '"/>';
+        $this->_xml = str_replace(
+            '__GENERATETBLCELLMARGIN__', $xml, $this->_xml
+        );
+    }
+
+    
+    
+    
 }
