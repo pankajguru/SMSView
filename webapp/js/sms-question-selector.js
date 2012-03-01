@@ -78,6 +78,7 @@ function select_survey_type() {
     $('#typechoice').fadeIn(500);
     wireTypeChange();
     wire_delete_question_button();
+    wire_add_question_button();
 }
 
 function retrieve_questions_per_type(type) {
@@ -228,6 +229,8 @@ function sort_on_category() {
     });
     for(group in groups ) {
         var groupname = group.replace(/ /g, "_");
+        groupname = groupname.replace(/,/g, "_");
+        groupname = groupname.replace(/\//g, "_");
         var sortable_with = '.sortable_with_' + groupname;
         var ul = $('<ul class="sortable_with_' + groupname + ' sorts" />');
         ul.appendTo('#question_list_container');
@@ -237,6 +240,8 @@ function sort_on_category() {
 
     for(group in groups ) {
         var groupname = group.replace(/ /g, "_");
+        groupname = groupname.replace(/,/g, "_");
+        groupname = groupname.replace(/\//g, "_");
         var ul = $('<ul class="drag_container_' + groupname + '" />').attr('id', groupname);
         var lis = groups[group];
 
@@ -494,4 +499,24 @@ function wire_delete_question_button() {
             $('#' + id).draggable('option', 'disabled', false);
         });
     });
+}
+
+function wire_add_question_button() {
+	$('#questions_container').delegate('li:not(".category_name, .ui-state-disabled, .answer_option")', 'hover', function() {
+		$('.add_button').remove();
+		var id = $(this).attr('refid');
+		var this_add = $('<input refid="' + id + '" type="submit" class="add_button" value="" />');
+		this_add.insertAfter(this);
+		
+		$(this_add).click(function() {
+			var category = $(this).parent().attr('id');
+			
+			var selector = '.sortable_with_' + category;
+			var text = $("#" + id).clone().children().remove().end().text();
+			var li = $('<li refid="' + id + '" class="question_selected">' + text + '</li>');
+            li.appendTo(selector);
+            $('#' + id).draggable('option', 'disabled', true);
+            $(this).remove();
+		});
+	})
 }
