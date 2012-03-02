@@ -87,7 +87,8 @@ class Questions extends REST_Controller {
         if ($result['success'] === FALSE) {
             $this -> response(array('status' => 'failed', 'responseText' => $result['status']));
         } else {
-            $qt_result = $this -> _questiontool_set_questionaire($result['peiling_type_id']);
+            $base_type = $questionaire_object[0]->basetype;
+            $qt_result = $this -> _questiontool_set_questionaire($result['peiling_type_id'], $base_type);
             $this -> response(array('status' => 'success', 'responseText' => $result['status'] . $qt_result));
         }
 
@@ -98,14 +99,14 @@ class Questions extends REST_Controller {
         return $data;
     }
 
-    private function _questiontool_set_questionaire($peiling_type_id) {
+    private function _questiontool_set_questionaire($peiling_type_id, $base_type) {
         //get qestions id's from formulier_type_definition
         $question_ids = $this -> Sms_model -> get_all_questions_by_peiling_type($peiling_type_id);
         //foreach question, add to xml
         $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
         $peiling_type_details = $this -> Sms_model -> get_peiling_type_details( $peiling_type_id );
-        $this->_error_dump($peiling_type_details);
         $xml->addChild('peiling_type', $peiling_type_details[0] -> desc_code);
+        $xml->addChild('base_type', $base_type);
         $xml_questions = $xml->addChild('questions');
         foreach ($question_ids as $question_id) {
             $question = $this -> Sms_model -> get_question_by_id($question_id -> question_id);

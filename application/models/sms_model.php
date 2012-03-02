@@ -97,10 +97,12 @@ class Sms_model extends CI_Model {
 
     public function insert_questionaire($questionaire_object) {
         $response = array('success' => false, 'status' => '');
+        $this->_error_dump($questionaire_object);
         if ($questionaire_object == false) {
             $response['status'] = 'Malformed json received';
             return $response;
         }
+        $this->_error_dump($questionaire_object);
         
         $peiling_type_id = $this->_get_new_id('peiling_type');
         $peiling_type = array(

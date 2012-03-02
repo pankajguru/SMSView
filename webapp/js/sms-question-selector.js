@@ -115,6 +115,7 @@ function retrieve_questions_per_type(type) {
 function wireTypeChange() {
     $('#select_type').change(function() {
         retrieve_questions_per_type($(this).val());
+        basetype = $(this).val();
         $('#survey_type').addClass('hide');
     });
 }
@@ -373,6 +374,7 @@ function wire_save_question_list_button() {
     // This function parses the selected question list, converts the parsed object to JSON and send it to the server.
     $('#save_question_list').click(function() {
         var json_string = new Array();
+        json_string.push('{"basetype":"' + basetype + '"}');
         $('#question_list_container > ul').find('li').each(function() {
             json_string.push(process_question($(this)));
         });
