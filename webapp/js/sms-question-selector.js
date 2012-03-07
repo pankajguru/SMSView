@@ -388,12 +388,15 @@ function wire_save_question_list_button() {
                     console.log(this);
                 });
                     console.log(data.responseText);
+                smsrespons = data.responseText.split(';');
+                window.location='http://www.scholenmetsucces.nl/deelnameformulier?AVL='+smsrespons[0];
             },
             error : function(data){
                 $(data).each(function() {
                     console.log(this);
                 });
                     console.log(data.responseText);
+                alert('Er is iets fout gegaan in de aanmaak van de peiling');
             }
         });
 
