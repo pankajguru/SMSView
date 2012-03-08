@@ -108,12 +108,14 @@ class Questions extends REST_Controller {
         $xml->addChild('peiling_type', $peiling_type_details[0] -> desc_code);
         $xml->addChild('base_type', $base_type);
         $xml_questions = $xml->addChild('questions');
+        $sort_order = 0;
         foreach ($question_ids as $question_id) {
             $question = $this -> Sms_model -> get_question_by_id($question_id -> question_id);
             $answers = $this -> Sms_model -> get_answers_by_question_type_id($question[0] -> vraag_type_id);
             $question_type = $this -> Sms_model -> get_question_type_by_id($question[0] -> vraag_type_id);
             $xml_question = $xml_questions->addChild('question');
             $xml_question->addChild('question', $question[0]->description);
+            $xml_question->addChild('sort_order', $sort_order++);
             $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
             $xml_question->addChild('category', $category[0]->description); 
             $xml_question->addChild('category_explanation', $category[0]->description); 
@@ -137,7 +139,7 @@ class Questions extends REST_Controller {
         }
         $xml = $xml->asXML();
         $xml = html_entity_decode($xml, ENT_NOQUOTES, 'UTF-8');
-        $this->_error_dump($xml);
+//        $this->_error_dump($xml);
         //send xml to QT
         $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
         $ch = curl_init();
