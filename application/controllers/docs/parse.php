@@ -20,6 +20,7 @@ class Parse extends CI_Controller {
         require_once ('features/scores.php');
         require_once ('features/reportmark.php');
         require_once ('features/satisfaction.php');
+        require_once ('features/mostimportant.php');
         require_once ('features/satisfactionPriorityScatter.php');
         
         require 'pro/classes/CreateDocx.inc';
@@ -61,19 +62,25 @@ class Parse extends CI_Controller {
         $reportmark_docx = $reportmark -> render($xmlData);
         unset($reportmark);
         
-        $importance = new satisfaction();
-        $importance_docx = $importance -> render($xmlData, 'importance');
-        unset($importance);
-        
         $satisfaction = new satisfaction();
         $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
         unset($satisfaction);
-        
+
+        $importance = new satisfaction();
+        $importance_docx = $importance -> render($xmlData, 'importance');
+        unset($importance);
+                
         $satisfactionPriorityScatter = new satisfactionPriorityScatter();
         $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
         unset($satisfactionPriorityScatter);        
         
+        $mostimportant = new mostimportant();
+        $mostimportant_docx = $mostimportant -> render($xmlData);
+        unset($mostimportant);
+        
         $docx = new CreateDocx();
+
+        $docx->setTemplateSymbol('TTT');
 
         $docx -> addTemplate($template);
         $variables = $docx -> getTemplateVariables();
@@ -103,13 +110,16 @@ class Parse extends CI_Controller {
                     $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-                    //$docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
-                if ($variable == "importance") {
-                    //$docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
+                if ($variable == "satisfactionimportance") {
+                    $docx -> addTemplateVariable('class:satisfactionimportance', $importance_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
                     $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
+                }
+                if ($variable == "mostimportant") {
+                    $docx -> addTemplateVariable('class:mostimportant', $mostimportant_docx, 'docx');
                 }
             }
 
@@ -156,29 +166,35 @@ class Parse extends CI_Controller {
 //        $reportmark_docx = $reportmark -> render($xmlData);
 //        unset($reportmark);
         
-        $importance = new satisfaction();
-        $importance_docx = $importance -> render($xmlData, 'importance');
-        unset($importance);
+//        $importance = new satisfaction();
+//        $importance_docx = $importance -> render($xmlData, 'importance');
+//        unset($importance);
 
-        $satisfaction = new satisfaction();
-        $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
-        unset($satisfaction);
+//        $satisfaction = new satisfaction();
+//        $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
+//        unset($satisfaction);
        
+        
 //        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
 //        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
 ///        unset($satisfactionPriorityScatter);
                
+        $mostimportant = new mostimportant();
+        $mostimportant_docx = $mostimportant -> render($xmlData);
+        unset($mostimportant);
+               
         $docx = new CreateDocx();
 
+        $docx->setTemplateSymbol('TTT');
+        
         $docx -> addTemplate($template);
         $variables = $docx -> getTemplateVariables();
 
         foreach ($variables['document'] as $template_variable) {
-            print "got variable: " . $template_variable . "\n";
             $var = explode(":", $template_variable);
             $type = $var[0];
             $variable = $var[1];
-            print "got variable type: " . $type . " for variable: " . $variable . "\n";
+//            print "got variable type: " . $type . " for variable: " . $variable . "\n";
             if ($type == 'xml') {
                 //get direct from xml
                 $docx -> addTemplateVariable($template_variable, $xmlData[$variable]);
@@ -206,6 +222,9 @@ class Parse extends CI_Controller {
                 if ($variable == "importance") {
 //                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
                 } 
+                if ($variable == "mostimportant") {
+                    $docx -> addTemplateVariable('class:mostimportant', $mostimportant_docx, 'docx');
+                }
             }
 
         }

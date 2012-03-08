@@ -47,7 +47,7 @@ class satisfaction
         $paramsTextTableTitleReference = array(
             'color' => 'F78E1E',
             'font' => 'Century Gothic',
-            'b' => 'double',
+            'b' => 'double',            
             'cell_color' => 'FDE9D9',//lightorange
             'sz' => 9.5
         );        
@@ -222,7 +222,7 @@ class satisfaction
         $table3 = $satisfaction_docx->addTable($satisfaction_table);
 
 
-       // $satisfaction_docx->createDocx($temp.$type);
+        $satisfaction_docx->createDocx($temp.$type);
         unset($satisfaction_docx);
         return $temp.$type.'.docx';
         
