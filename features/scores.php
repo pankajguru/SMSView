@@ -3,7 +3,7 @@
 class scores
 {
 
-    function render( &$data)
+    function render( &$data, $category='', $target_question='')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -25,6 +25,12 @@ class scores
         ksort($all_questions_array);
         $first = TRUE;
         foreach($all_questions_array as $question_number=>$question){
+            if (($category != '') and ($category != $question->{'group_name'})){
+                continue;
+            } 
+            if (($target_question != '') and ($target_question != $question_number)){
+                continue;
+            } 
             $answer_count_peiling = 0;
             $answer_count_alle_scholen = 0;
             $text = array();
@@ -37,14 +43,15 @@ class scores
                 continue;
             }
 
-            if ($first or ($question->{'group_name'} != $old_group_name)){
+            if (($target_question == '') and ($first or ($question->{'group_name'} != $old_group_name))){
                 if (!$first){
                     //create pagebreak
                     $scores_docx->addBreak('page');
                 }
-                //create group heading
-                $scores_docx->addTitle($question->{'group_name'},$paramsTitle);
-                
+                if ($target_question != '') {
+                    //create group heading
+                    $scores_docx->addTitle($question->{'group_name'},$paramsTitle);
+                }                
                 $first = false;
                 $old_group_name = $question->{'group_name'};
             }            
@@ -90,9 +97,9 @@ class scores
             );
             $scores_docx->addImage($paramsImg);
         }
-        $scores_docx->createDocx($temp.'scores');
+        $scores_docx->createDocx($temp.'score'.$category.$target_question);
         unset($scores_docx);
-        return $temp.'scores.docx';
+        return $temp.'score'.$category.$target_question.'.docx';
         
     }
     

@@ -169,7 +169,6 @@ class satisfaction
             //now do the formatting of the number (should be done AFTER sort)
             for ($j=0 ; $j <= $column_count ; $j++){
                 $value = $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"];
-                var_dump($value);
                 if (isset($value)){
                     $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"] = sprintf("%01.1f", $value);
                 }

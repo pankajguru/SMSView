@@ -1124,7 +1124,6 @@ class CreateTemplate
             }
             self::$_document = $domDocument->saveXML();
         }
-
         // Iterate text array.
         if (is_string($args[0]) && is_array($args[1])) {
             $domDocument = new DomDocument();
@@ -1138,6 +1137,7 @@ class CreateTemplate
             $query = 'w:r/w:t';
             $length = $xmlWP->length;
             $itemsWP = array();
+            print'####';
             for ($i = 0; $i < $length; $i++) {
                 $itemsWP[$i] = $xmlWP->item($i);
             }
@@ -1180,6 +1180,28 @@ class CreateTemplate
             self::$_document = $domDocument->saveXML();
         }
 
+/********/
+
+
+        // tables?
+        if (is_string($args[0]) && is_object($args[1])) {
+
+                self::$_document = str_replace(
+                    self::$_templateSymbol . $args[0]
+                    . self::$_templateSymbol,
+                    $args[1],
+                    self::$_document
+                );
+
+
+
+            self::$_document = $domDocument->saveXML();
+        }
+
+
+
+
+/********/
         if (is_string($args[0])) {
             // Text string or array of texts
             if (is_string($args[1])) {

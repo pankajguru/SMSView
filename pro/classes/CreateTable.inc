@@ -70,6 +70,16 @@ class CreateTable extends CreateElement
     /**
      *
      * @access public
+     * @return string
+     */
+    public function toXMLString()
+    {
+        return $this->_xml;
+    }
+
+    /**
+     *
+     * @access public
      * @return CreateTable
      * @static
      */
@@ -223,6 +233,20 @@ class CreateTable extends CreateElement
             }
         }
     }
+
+    /**
+     * Init table
+     *
+     * @access public
+     * @param array $args[0]
+     */
+    public function initTable()
+    {
+        $args = func_get_args();
+
+        $this->_embeddedText = $args[0];
+    }
+
 
     /**
      * Add list

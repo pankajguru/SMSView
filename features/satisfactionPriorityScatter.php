@@ -16,7 +16,6 @@ class satisfactionPriorityScatter {
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
 
-        var_dump($data);
         foreach($data as $row){
             $graphic_data_x[] = $row[2];
             $graphic_data_y[] = $row[3];
