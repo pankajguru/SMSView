@@ -5534,6 +5534,8 @@ class pDraw {
         $GradientEndR = isset($Format["GradientEndR"]) ? $Format["GradientEndR"] : 0;
         $GradientEndG = isset($Format["GradientEndG"]) ? $Format["GradientEndG"] : 0;
         $GradientEndB = isset($Format["GradientEndB"]) ? $Format["GradientEndB"] : 0;
+        $OverrideColors = isset($Format["OverrideColors"]) ? $Format["OverrideColors"] : NULL;
+        $OverrideSurrounding = isset($Format["OverrideSurrounding"]) ? $Format["OverrideSurrounding"] : 30;
         $InnerSurrounding = isset($Format["InnerSurrounding"]) ? $Format["InnerSurrounding"] : NULL;
         $InnerBorderR = isset($Format["InnerBorderR"]) ? $Format["InnerBorderR"] : -1;
         $InnerBorderG = isset($Format["InnerBorderG"]) ? $Format["InnerBorderG"] : -1;
@@ -5546,6 +5548,12 @@ class pDraw {
         $Data = $this -> DataSet -> getData();
         list($XMargin, $XDivs) = $this -> scaleGetXSettings();
 
+        if ($OverrideColors != NULL) {
+            $OverrideColors = $this -> validatePalette($OverrideColors, $OverrideSurrounding);
+            print_r($OverrideColors);
+            $this -> DataSet -> saveExtendedData("Palette", $OverrideColors);
+        }
+
         $RestoreShadow = $this -> Shadow;
 
         $LastX = "";
@@ -5555,6 +5563,7 @@ class pDraw {
                 $R = $Serie["Color"]["R"];
                 $G = $Serie["Color"]["G"];
                 $B = $Serie["Color"]["B"];
+                //print $SerieName.' '.$R."\n";
                 $Alpha = $Serie["Color"]["Alpha"];
                 $Ticks = $Serie["Ticks"];
                 if ($DisplayColor == DISPLAY_AUTO) { $DisplayR = 255;

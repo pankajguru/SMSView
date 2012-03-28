@@ -25,6 +25,7 @@ class Parse extends CI_Controller {
         require_once ('features/satisfactionTop.php');
         require_once ('features/questionProperties.php');
         require_once ('features/scoresAndPercentages.php');
+        require_once ('features/percentiles.php');
         
         require 'pro/classes/CreateDocx.inc';
         //load url helper
@@ -98,6 +99,14 @@ class Parse extends CI_Controller {
         $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData);
         unset($scoresAndPercentages);
                
+        $percentiles_good = new percentiles();
+        $percentiles_good_docx = $percentiles_good -> render($xmlData, 'green');
+        unset($percentiles_good);
+               
+        $percentiles_bad = new percentiles();
+        $percentiles_bad_docx = $percentiles_bad -> render($xmlData, 'red');
+        unset($percentiles_bad);
+               
         
         $docx = new CreateDocx();
 
@@ -153,6 +162,12 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "scoresAndPercentages") {
                     $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
+                }
+                if ($variable == "percentiles") {
+                    $docx -> addTemplateVariable('class:percentiles:good', $percentiles_good_docx, 'docx');
+                }
+                if ($variable == "percentiles") {
+                    $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                 }
             }
 
@@ -239,6 +254,15 @@ class Parse extends CI_Controller {
 //        $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData);
 //        unset($scoresAndPercentages);
                
+//        $percentiles_good = new percentiles();
+//        $percentiles_good_docx = $percentiles_good -> render($xmlData, 'green');
+//        unset($percentiles_good);
+               
+//        $percentiles_bad = new percentiles();
+//        $percentiles_bad_docx = $percentiles_bad -> render($xmlData, 'red');
+//        unset($percentiles_bad);
+               
+               
         $docx = new CreateDocx();
 
         $docx->setTemplateSymbol('TTT');
@@ -297,6 +321,12 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "scoresAndPercentages") {
 //                    $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
+                }
+                if ($variable == "percentiles") {
+//                    $docx -> addTemplateVariable('class:percentiles:good', $percentiles_good_docx, 'docx');
+                }
+                if ($variable == "percentiles") {
+//                    $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                 }
             }
 

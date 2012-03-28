@@ -14,7 +14,7 @@
     <?php if ($row['rubriek']!='') {?>
     <tr>
         <th colspan='12'>
-    <H1><?php echo $row['rubriek'] ?></H1>    
+    <H1><?php echo $row['vraag_groep_id'].' '.$row['rubriek'] ?></H1>    
         </th>
     </tr>
     <tr>
@@ -61,6 +61,25 @@
 
 <?php endforeach;?>
 </table>
+
+
+Set copy of question, basetype, copy answers to peiling for otp:<br>
+
+
+<?php foreach ($excel as $row):?>
+
+    <?php if (($row['question_id'] != '') && ($row['base_type_id'] == 0)){ ?>
+        insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
+            (select <?php echo $row['new_id'];?>, abstract, '<?php echo $row['question_no_number'];?>', short_description, <?php echo $row['vraag_groep_id'];?>, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, <?php echo $row['question_id'];?>, 1
+                from vraag where vraag.id=<?php echo $row['question_id'];?>);<br>
+    <?php }?>
+
+<?php endforeach;?>
+    update sequence set sequence_no=<?php echo $new_id;?> where table_name='vraag';<br>
+
+
+SET @id=(SELECT MAX(id)+1 FROM antwoord);<br>
+
 
 </body>
 </html>

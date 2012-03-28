@@ -32,6 +32,7 @@ class mostimportant
         $most_important_table[0][0] = ''; 
         $size_col = array(20);
         foreach($satisfaction_data as $key => $reference){
+            if (($key != 'peiling') && ($key != 'alle_scholen') ){continue;}
             usort($reference, "cmp_reference_importance");
             $headerStyle['text'] = $key;
             $text = $mostimportant_docx->addElement('addText', array($headerStyle));
