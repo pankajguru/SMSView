@@ -24,6 +24,7 @@ class scores
         
         ksort($all_questions_array);
         $first = TRUE;
+        $question_count = 0;
         foreach($all_questions_array as $question_number=>$question){
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
@@ -38,7 +39,7 @@ class scores
             $paramsTitle = array(
                 'val' => 2,
             );
-            $invalid_question_types = array('KIND_GROEP','JONGEN_MEIJSE');
+            $invalid_question_types = array('KIND_GROEP','JONGEN_MEIJSE','BEVOLKINGSGROEP','OUDERS_SCHOOLOPLEIDING');
             if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
                 continue;
             }
@@ -62,22 +63,35 @@ class scores
                     'b' => 'single',
             );
             
-            $scores_docx->addText($text);
+            $scores_docx->addText(html_entity_decode($text));
 
             //gather data
             $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
             $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
+            $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
             
+            
+//            $names = array('school', 'Alle scholen', 'Vorige peiling'); //TODO:fill in schoolname
             $names = array('school', 'Alle scholen'); //TODO:fill in schoolname
             $min_value = $alle_scholen_averages[0];
             $max_value = $alle_scholen_averages[1];
             $blocksize = ($max_value - $min_value) / 30;
-            $empty = array(($peiling_averages[2] - $min_value),($alle_scholen_averages[2] -$min_value));
-            $stdev_left = array(($peiling_averages[3] - $peiling_averages[2] - $blocksize),($alle_scholen_averages[3] - $alle_scholen_averages[2] - $blocksize));
-            $block = array(($blocksize),($blocksize));
-            $stdev_right = array(($peiling_averages[4] - $peiling_averages[3] - $blocksize),($alle_scholen_averages[4] - $alle_scholen_averages[3]  - $blocksize));
-            $values = array(sprintf("%01.2f",$peiling_averages[3]), sprintf("%01.2f",$alle_scholen_averages[3]));
-            $answered = array($peiling_averages[5], $alle_scholen_averages[5]);
+            $empty = array();
+            $stdev_left = array();
+            $block = array();
+            $stdev_right = array();
+            $values = array();
+            $answered = array();
+            
+//            foreach(array($peiling_averages,$alle_scholen_averages, $vorige_peiling_averages) as $averages){
+            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
+                $empty[] = ($averages[2] - $min_value);
+                $stdev_left[] = ($averages[3] - $averages[2] - $blocksize);
+                $block[] = $blocksize;
+                $stdev_right[] = ($averages[4] - $averages[3] - $blocksize);
+                $values[] = sprintf("%01.2f",$averages[3]);
+                $answered[] = $averages[5];
+            }
             
             
             
@@ -96,10 +110,16 @@ class scores
                 'borderDiscontinuous' => 1
             );
             $scores_docx->addImage($paramsImg);
+            $question_count++;
         }
-        $scores_docx->createDocx($temp.'score'.$category.$target_question);
-        unset($scores_docx);
-        return $temp.'score'.$category.$target_question.'.docx';
+        if ($question_count > 0){
+            $scores_docx->createDocx($temp.'score'.$category.$target_question);
+            unset($scores_docx);
+            return $temp.'score'.$category.$target_question.'.docx';
+        } else {
+            unset($scores_docx);
+            return null;
+        }
         
     }
     
@@ -118,9 +138,10 @@ class scores
         $MyData->setAbscissa("Scores");
         //        $MyData -> setAbscissaName("Browsers");
         $MyData->setAxisDisplay(0, AXIS_FORMAT_DEFAULT);
+        $ref_count = count($empty);
 
         /* Create the pChart object */
-        $myPicture = new pImage(1200, 120, $MyData);
+        $myPicture = new pImage(1200, 20+$ref_count*50, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
             "FontSize" => 24,
@@ -131,7 +152,7 @@ class scores
         ));
         
         /* Draw the chart scale */
-        $myPicture->setGraphArea(300, 30, 760, 110);
+        $myPicture->setGraphArea(300, 30, 760, 10 + $ref_count*50);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => $min_value,

@@ -105,12 +105,12 @@ class Sms_model extends CI_Model {
 
     public function insert_questionaire($questionaire_object) {
         $response = array('success' => false, 'status' => '');
-        $this->_error_dump($questionaire_object);
+        //$this->_error_dump($questionaire_object);
         if ($questionaire_object == false) {
             $response['status'] = 'Malformed json received';
             return $response;
         }
-        $this->_error_dump($questionaire_object);
+        //$this->_error_dump($questionaire_object);
         
         $peiling_type_id = $this->_get_new_id('peiling_type');
         $peiling_type = array(
@@ -276,7 +276,7 @@ class Sms_model extends CI_Model {
     
     function _error_dump($object){
         ob_start();
-        var_dump($object);
+        //var_dump($object);
         $contents = ob_get_contents();
         ob_end_clean();
         error_log($contents);
@@ -518,6 +518,7 @@ update vraag set description = "Hoe belangrijk vindt u de kennisontwikkeling voo
 update vraag set description = "Hoe tevreden bent u over de aandacht voor het halen van goede prestaties?" where id=25;
 update vraag set description = "Hoe tevreden bent u over de aandacht voor werken met de computer?" where id=24;
 update vraag set description = "Hoe tevreden bent u over de rust en orde in de klas?" where id=17;
+update vraag set description= 'Hoe tevreden bent u over de aandacht voor wereldori&euml;ntatie (aardr/gesch)?' where id=23;
   
  * 
  * 

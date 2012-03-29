@@ -93,7 +93,7 @@ n', $paramsTextHeading);
     {
         /* Create and populate the pData object */
         $MyData = new pData();
-        $MyData->loadPalette("./pChart/palettes/sms-percentiles.color", TRUE);
+        $MyData->loadPalette("./pChart/palettes/sms-scores.color", TRUE);
         $MyData->addPoints($empty, "Zero values");
         $MyData->addPoints($stdev_left, "Min values");
         $MyData->addPoints($block, "Values");

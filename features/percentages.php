@@ -38,7 +38,7 @@ class percentages
             $paramsTitle = array(
                 'val' => 2,
             );
-            $invalid_question_types = array('KIND_GROEP','JONGEN_MEIJSE');
+            $invalid_question_types = array();
             if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
                 continue;
             }
@@ -63,7 +63,7 @@ class percentages
                     'b' => 'single',
             );
             
-            $percentage_docx->addText($text);
+            $percentage_docx->addText(html_entity_decode($text));
 
             $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{'peiling'};
             $alle_scholen_distribution = $question->{'statistics'}->{'distribution'}->{'alle_scholen'};
@@ -89,8 +89,12 @@ class percentages
                 //get perc from all schools
                 $percentage_alle_scholen = $answer[2] / $answer_count_alle_scholen * 100;
                 array_push($graphic_data_alle_scholen, $percentage_alle_scholen);
-                array_push($graphic_answer, $answer[1]);
-                array_push($graphic_answered, $answer_count_peiling);
+                $answer_text = $answer[1];
+                if (strlen($answer_text)>17){
+                    $answer_text = substr($answer_text, 0, 14).'...';
+                }
+                array_push($graphic_answer, htmlspecialchars_decode($answer_text));
+                array_push($graphic_answered, $answered);
                 array_push($graphic_percentage, round($percentage_peiling));
                 array_push($graphic_percentage_total, round($percentage_alle_scholen));
             }
@@ -99,7 +103,7 @@ class percentages
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
-                'scaling' => 50,
+                'scaling' => 30,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,
@@ -137,7 +141,7 @@ class percentages
         ));
         
         /* Create the pChart object */
-        $picture_height = 2 * ( (1 + count($graphic_answer)) * 20);
+        $picture_height = 2 * ( (1 + count($graphic_answer)) * 21);
         $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",

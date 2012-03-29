@@ -71,25 +71,25 @@ class Parse extends CI_Controller {
         $scores_example_docx = $scoresExample -> render($xmlData, "", 3);
         unset($scoresExample);
 
-                $reportmark = new reportmark();
+        $reportmark = new reportmark();
         $reportmark_docx = $reportmark -> render($xmlData);
         unset($reportmark);
         
-        $satisfaction = new satisfaction();
-        $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
-        unset($satisfaction);
+//        $satisfaction = new satisfaction();
+//        $satisfaction_docx = $satisfaction -> render($xmlData, 'satisfaction');
+//        unset($satisfaction);
 
-        $importance = new satisfaction();
-        $importance_docx = $importance -> render($xmlData, 'importance');
-        unset($importance);
+//        $importance = new satisfaction();
+//        $importance_docx = $importance -> render($xmlData, 'importance');
+//        unset($importance);
                 
         $satisfactionPriorityScatter = new satisfactionPriorityScatter();
         $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
         unset($satisfactionPriorityScatter);        
         
-        $mostimportant = new mostimportant();
-        $mostimportant_docx = $mostimportant -> render($xmlData);
-        unset($mostimportant);
+//        $mostimportant = new mostimportant();
+//        $mostimportant_docx = $mostimportant -> render($xmlData);
+//        unset($mostimportant);
         
 //        $satisfactionTop = new satisfactionTop();
 //        $satisfactionTop_docx = $satisfactionTop -> render($xmlData);
@@ -146,16 +146,16 @@ class Parse extends CI_Controller {
                     $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "satisfactionimportance") {
-                    $docx -> addTemplateVariable('class:satisfactionimportance', $importance_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:satisfactionimportance', $importance_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
                     $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "mostimportance") {
-                    $docx -> addTemplateVariable('class:mostimportance', $mostimportant_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:mostimportance', $mostimportant_docx, 'docx');
                 }
                 if ($variable == "satisfactionTop") {
 //                    $docx -> addTemplateVariable('class:satisfactionTop', $satisfactionTop_docx, 'docx');
@@ -209,25 +209,25 @@ class Parse extends CI_Controller {
 
         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
 
-//        $percentages = new percentages();
-//        $percentage_docx = $percentages -> render($xmlData);
-//        unset($percentages);
+        $percentages = new percentages();
+        $percentage_docx = $percentages -> render($xmlData);
+        unset($percentages);
         
-//        $scores = new scores();
-//        $scores_docx = $scores -> render($xmlData);
-//        unset($scores);
+        $scores = new scores();
+        $scores_docx = $scores -> render($xmlData);
+        unset($scores);
 
-//        $percentageExample = new percentages();
-//        $percentage_example_docx = $percentageExample -> render($xmlData, "", 3);
-//        unset($percentageExample);
+        $percentageExample = new percentages();
+        $percentage_example_docx = $percentageExample -> render($xmlData, "", 3);
+        unset($percentageExample);
         
-//        $scoresExample = new scores();
-//        $scores_example_docx = $scoresExample -> render($xmlData, "", 3);
-//        unset($scoresExample);
+        $scoresExample = new scores();
+        $scores_example_docx = $scoresExample -> render($xmlData, "", 3);
+        unset($scoresExample);
 
-//        $reportmark = new reportmark();
-//        $reportmark_docx = $reportmark -> render($xmlData);
-//        unset($reportmark);
+        $reportmark = new reportmark();
+        $reportmark_docx = $reportmark -> render($xmlData);
+        unset($reportmark);
         
 //        $importance = new satisfaction();
 //        $importance_docx = $importance -> render($xmlData, 'importance');
@@ -238,9 +238,9 @@ class Parse extends CI_Controller {
 //        unset($satisfaction);
        
         
-//        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
-//        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
-///        unset($satisfactionPriorityScatter);
+        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
+        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData);
+        unset($satisfactionPriorityScatter);
                
 //        $satisfactionTop = new satisfactionTop();
 //        $satisfactionTop_docx = $satisfactionTop -> render($xmlData);
@@ -250,17 +250,17 @@ class Parse extends CI_Controller {
         $mostimportant_docx = $mostimportant -> render($xmlData);
         unset($mostimportant);
                
-//        $scoresAndPercentages = new scoresAndPercentages();
-//        $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData);
-//        unset($scoresAndPercentages);
+        $scoresAndPercentages = new scoresAndPercentages();
+        $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData);
+        unset($scoresAndPercentages);
                
-//        $percentiles_good = new percentiles();
-//        $percentiles_good_docx = $percentiles_good -> render($xmlData, 'green');
-//        unset($percentiles_good);
+        $percentiles_good = new percentiles();
+        $percentiles_good_docx = $percentiles_good -> render($xmlData, 'green');
+        unset($percentiles_good);
                
-//        $percentiles_bad = new percentiles();
-//        $percentiles_bad_docx = $percentiles_bad -> render($xmlData, 'red');
-//        unset($percentiles_bad);
+        $percentiles_bad = new percentiles();
+        $percentiles_bad_docx = $percentiles_bad -> render($xmlData, 'red');
+        unset($percentiles_bad);
                
                
         $docx = new CreateDocx();
@@ -293,19 +293,19 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "scoreExample") {
-//                    $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
+                    $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
                 }
                 if ($variable == "percentageExample") {
-//                    $docx -> addTemplateVariable('class:percentageExample', $percentage_example_docx, 'docx');
+                    $docx -> addTemplateVariable('class:percentageExample', $percentage_example_docx, 'docx');
                 }
                 if ($variable == "scoresAndPercentages") {
-//                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
+                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "reportmark") {
-//                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
+                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
-//                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
 //                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
@@ -320,21 +320,21 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:satisfactionTop', $satisfactionTop_docx, 'docx');
                 }
                 if ($variable == "scoresAndPercentages") {
-//                    $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
+                    $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
                 }
                 if ($variable == "percentiles") {
 //                    $docx -> addTemplateVariable('class:percentiles:good', $percentiles_good_docx, 'docx');
                 }
                 if ($variable == "percentiles") {
-//                    $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
+                    $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                 }
             }
 
         }
-//        $questionProperties = new questionProperties();
-//        $questionProperties->process($xmlData, $docx);
-//        $mostimportant = new mostimportant();
-//        $mostimportant_docx = $mostimportant -> process($xmlData, $docx);
+        $questionProperties = new questionProperties();
+        $questionProperties->process($xmlData, $docx);
+        $mostimportant = new mostimportant();
+        $mostimportant_docx = $mostimportant -> process($xmlData, $docx);
 
                 $docx -> addText("Created by oqdoc " . strftime("%e %B %Y"));
         //remove unwanted .docx extension, this will be autogenerated by PHPDocx
