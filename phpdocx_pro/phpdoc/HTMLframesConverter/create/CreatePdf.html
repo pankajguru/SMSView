@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CreatePdf</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class CreatePdf</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Main class. Methods and vars to generate a DOCX file</p>
+	<ul class="tags">
+				<li><span class="field">version:</span> 2.1</li>
+				<li><span class="field">copyright:</span> Copyright (c) 2009-2011 Narcea ProduCiones Multimedia S.L.              (http://www.2mdc.com)</li>
+				<li><span class="field">link:</span> <a href="http://www.phpdocx.com">http://www.phpdocx.com</a></li>
+				<li><span class="field">since:</span> Class available since Release 1.0</li>
+				<li><span class="field">license:</span> <a href="http://www.phpdocx.com/wp-content/themes/lightword/pro_license.php">http://www.phpdocx.com/wp-content/themes/lightword/pro_license.php</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_pdf---CreatePdf.inc.html">/pdf/CreatePdf.inc</a> (line <span class="field">32</span>)
+		</p>
+		
+				
+		<pre><a href="../create/CreateDocument.html">CreateDocument</a>
+   |
+   --CreatePdf</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+												<div class="var-title">
+					static <span class="var-type">Logger</span>
+					<a href="#$log" title="details" class="var-name">$log</a>
+				</div>
+																							</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">CreatePdf</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__destruct" title="details" class="method-name">__destruct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addBreak" title="details" class="method-name">addBreak</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addChart" title="details" class="method-name">addChart</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$dats</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Element</span>
+										<a href="#addElement" title="details" class="method-name">addElement</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">''</span>], <span class="var-type">array</span>&nbsp;<span class="var-name">$parrams</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addFont" title="details" class="method-name">addFont</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$fonts</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addFooter" title="details" class="method-name">addFooter</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$dat</span> = <span class="var-default">''</span>], [<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsFooter</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addFootnote" title="details" class="method-name">addFootnote</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsFootnote</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addGraphic" title="details" class="method-name">addGraphic</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addHeader" title="details" class="method-name">addHeader</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span> = <span class="var-default">'Header'</span>], [<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsHeader</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addImage" title="details" class="method-name">addImage</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$dats</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addImage2" title="details" class="method-name">addImage2</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addLink" title="details" class="method-name">addLink</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span> = <span class="var-default">''</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$textLink</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$font</span> = <span class="var-default">''</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$link</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addList" title="details" class="method-name">addList</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsList</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#AddPage" title="details" class="method-name">AddPage</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$nombrePdf</span> = <span class="var-default">'prueba.pdf'</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addSection" title="details" class="method-name">addSection</a>
+											([<span class="var-type">array</span>&nbsp;<span class="var-name">$data</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addTable" title="details" class="method-name">addTable</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$parameters</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addTableContents" title="details" class="method-name">addTableContents</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$font</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addText" title="details" class="method-name">addText</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$style</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addTitle" title="details" class="method-name">addTitle</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$style</span> = <span class="var-default">''</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#createPdf" title="details" class="method-name">createPdf</a>
+											([<span class="var-type"></span>&nbsp;<span class="var-name">$nombrePdf</span> = <span class="var-default">'prueba.pdf'</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#getTemporaryDirectory" title="details" class="method-name">getTemporaryDirectory</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#rmdirtree" title="details" class="method-name">rmdirtree</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$dirname</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setTemporaryDirectory" title="details" class="method-name">setTemporaryDirectory</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$tempDir</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$log" id="$log"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			static <span class="var-type">Logger</span>
+			<span class="var-name">$log</span>
+						(line <span class="line-number">76</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																	<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">114</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CreatePdf</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method__destruct" id="__destruct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">149</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Destruct</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__destruct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodaddBreak" id="addBreak"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addBreak</span> (line <span class="line-number">262</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a break</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_home_jorge_phpdocx_pro_examples_easy_PageBreak.php_1a0de97df2b0fe9c1c5544857feea927.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addBreak
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span><span class="var-description">: Break type.   Values: 'line', 'page'</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddChart" id="addChart"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addChart</span> (line <span class="line-number">561</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addChart
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$dats</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$dats</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddElement" id="addElement"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addElement</span> (line <span class="line-number">602</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add an element to embedd in other elements</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> object</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_e_jorge_phpdocx_pro_examples_intermediate_List.php_5d25282549c3295c99eac5d7e31a94b3.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Element</span>
+		<span class="method-name">
+			addElement
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$params</span> = <span class="var-default">''</span>], <span class="var-type">array</span>&nbsp;<span class="var-name">$parrams</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span><span class="var-description">: Element type.   Values: 'addImage', 'addGraphic', 'addLink', 'addTextBox'</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$parrams</span><span class="var-description">: Set of parameters.   Values: same as elements</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$params</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddFont" id="addFont"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addFont</span> (line <span class="line-number">761</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a new font</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addFont
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$fonts</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$fonts</span><span class="var-description">: Fonts to add  $family, $style, $size</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddFooter" id="addFooter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addFooter</span> (line <span class="line-number">358</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a footer</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addFooter
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$dat</span> = <span class="var-default">''</span>], [<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsFooter</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$dat</span><span class="var-description">: Text to add</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$paramsFooter</span><span class="var-description">: Parameters of footer   Values: 'name', 'pager' (true, false),   'pagerAlignment' (left, right, false)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddFootnote" id="addFootnote"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addFootnote</span> (line <span class="line-number">793</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a footnote</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_x_pro_examples_intermediate_EndnoteAndFootnote.php_0c73ef543cce0faab69fb3904cbc34c0.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_hpdocx_pro_examples_intermediate_ChartFootnote.php_d9159b63715465b7f25b8ecf5797615c.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__home_jorge_phpdocx_pro_examples_easy_Footnote.php_a694b0d748fad2666a1fbd650f6d39a0.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addFootnote
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsFootnote</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$paramsFootnote</span><span class="var-description">: Parameters of footnote   Values: 'font', 'textDocument', 'textEndNote'</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddGraphic" id="addGraphic"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addGraphic</span> (line <span class="line-number">557</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a graphic image</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__jorge_phpdocx_pro_examples_intermediate_Chart.php_f3a0d4ac52591a4e771252695e8711bc.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__4af97da633a077a2ea005e563cd33676.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addGraphic
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$dats</span><span class="var-description">: <p>Parameters of graphic  Values: 'color' (1, 2, 3, 4, 5),  'cornerX' (20, 30...),  'data' (array of values), 'showPercent' (0, 1), 'sizeX' (10, 11, 12...),  'sizeY' (10, 11, 12...), 'title',  'type' (barChart, bar3DChart,  colChart, col3DChart, pieChart, pie3DChart)</p><p>Values:   'color' (1, 2, 3...),   'cornerP' (20, 30...),   'cornerX' (20, 30...),   'cornerY' (20, 30...),   'data' (array of values),   'font' (Arial, Times New Roman...),   'groupBar' (clustered, stacked),   'jc' (center, left, right),   'showPercent' (0, 1), 'sizeX' (10, 11, 12...),   'sizeY' (10, 11, 12...),   'textWrap' (0 (inline), 1 (square), 2 (front), 3 (back), 4 (up and bottom), 5 (clear)),   'title',   'type' (barChart, bar3DChart, colChart, col3DChart, pieChart, pie3DChart)</p></span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddHeader" id="addHeader"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addHeader</span> (line <span class="line-number">331</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a header.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_docx_pro_examples_intermediate_HeaderAndFooter.php_892cc3b0734d8de9b0b875c04d090e92.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__9c6bc8153d0ac27b44f8bae47fc91757.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addHeader
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span> = <span class="var-default">'Header'</span>], [<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsHeader</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$text</span><span class="var-description">: Text to add</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$paramsHeader</span><span class="var-description">: Parameters of header   Values: 'border'(1, 2, 3...),   'borderDiscontinuous' (0, 1),   'font' (Arial, Times New Roman...),   'jc' (center, left, right),   'name',   'scaling' (50, 100),   'sizeX' (10, 11, 12...), 'sizeY'   (10, 11, 12...), spacingTop (10, 11...), spacingBottom (10, 11...),   spacingLeft (10, 11...), spacingRight (10, 11...), 'textWrap'   (0 (inline), 1 (square), 2 (front), 3 (back), 4 (up and bottom),   5 (clear))</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddImage" id="addImage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addImage</span> (line <span class="line-number">505</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addImage
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$dats</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$dats</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddImage2" id="addImage2"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addImage2</span> (line <span class="line-number">488</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add an image</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__a66b7bfc1e3dd4a65d19553e1ad1e561.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addImage2
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$dats</span><span class="var-description">: Image to add and paramaters to use   Values: 'border'(1, 2, 3...),   'borderDiscontinuous' (0, 1),   'jc' (center, left, right),   'name', 'scaling' (50, 100),   'sizeX' (10, 11, 12...),   'sizeY' (10, 11, 12...),   spacingTop (10, 11...),   spacingBottom (10, 11...),   spacingLeft (10, 11...),   spacingRight (10, 11...),   'textWrap' (0 (inline), 1 (square), 2 (front), 3 (back), 4 (up and bottom), 5 (clear))</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddLink" id="addLink"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addLink</span> (line <span class="line-number">425</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a link</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__f7162eba51d5171e07b47c17ed6ea313.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addLink
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span> = <span class="var-default">''</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$textLink</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$font</span> = <span class="var-default">''</span>], <span class="var-type">string</span>&nbsp;<span class="var-name">$link</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$text</span><span class="var-description">: Text to use as link</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$link</span><span class="var-description">: URL link</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$font</span><span class="var-description">: Type of font   Values: 'Arial', 'Times New Roman'...</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$textLink</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddList" id="addList"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addList</span> (line <span class="line-number">454</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a list</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__phpdocx_pro_examples_intermediate_List_nested.php_fd1b24fc2f415e0451f16be48c96718f.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_e_jorge_phpdocx_pro_examples_intermediate_List.php_5d25282549c3295c99eac5d7e31a94b3.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__03253589c0e6ee3effec8668aed26628.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addList
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$paramsList</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$dats</span><span class="var-description">: Values of the list</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$paramsList</span><span class="var-description">: Parameters to use   Values: 'font' (Arial, Times New Roman...),   'val' (0 (clear, 1 (inordinate), 2(numerical))</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodAddPage" id="AddPage"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">AddPage</span> (line <span class="line-number">587</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			AddPage
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$nombrePdf</span> = <span class="var-default">'prueba.pdf'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$nombrePdf</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddSection" id="addSection"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addSection</span> (line <span class="line-number">291</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a section</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__c8193b9b9b5ff31c1779b8535c82a93f.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addSection
+		</span>
+					([<span class="var-type">array</span>&nbsp;<span class="var-name">$data</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$data</span><span class="var-description">: Parameters to use   Values: 'bottom' (4000, 4001...), 'left' (4000, 4001...),   'orient' (landscape), 'right' (4000, 4001), 'titlePage' (1),   'top' (4000, 4001)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddTable" id="addTable"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addTable</span> (line <span class="line-number">400</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a table.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__jorge_phpdocx_pro_examples_intermediate_Table.php_5d8c63a258eb2d3946b5f309d84b6030.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__f328434df44d71928e2ebf9c9ed9408f.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addTable
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$dats</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$parameters</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$dats</span><span class="var-description">: Values to add</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$parameters</span><span class="var-description">: Parameters to use   Values: 'border' (none, single, double),   'border_color' (ffffff, ff0000),   'border_spacing' (0, 1, 2...),   'border_sz' (10, 11...),   'font' (Arial, Times New Roman...),   'jc' (center, left, right),   'size_col' (1200, 1300...),   'TBLSTYLEval' (Cuadrculamedia3-nfasis1, Sombreadomedio1,   Tablaconcuadrcula, TableGrid)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddTableContents" id="addTableContents"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addTableContents</span> (line <span class="line-number">749</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a table of contents (TOC)</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__jorge_phpdocx_pro_examples_easy_TableContents.php_409905418eae275c7fb420ef17328151.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addTableContents
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$font</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$font</span><span class="var-description">: Set font type   Values: 'Arial', 'Times New Roman'...</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddText" id="addText"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addText</span> (line <span class="line-number">187</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a text</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource_e_jorge_phpdocx_pro_examples_intermediate_Text.php_fd1d9f862f146e5e3749dbc8064dccf8.html">example</a></li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__7dffcfe0831da6f9f345c16529735e4b.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addText
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$value</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$style</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$value</span><span class="var-description">: Text string or array of texts to add   Values array: 'b' (single),  'cell_color' (ffffff, ff0000...),   'color' (ffffff, ff0000...),   'font' (Arial, Times New Roman...),  'i' (single),   'jc' (both, center, distribute, left, right),   'pageBreakBefore' (on, off),  'sz' (1, 2, 3...), 'text'   'u' (dash, dotted, double, single, wave, words),   'widowControl' (on, off), 'wordWrap' (on, off)</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$style</span><span class="var-description">: Style of text   Values: 'b' (single), 'color' (ffffff, ff0000...),   'font' (Arial, Times New Roman...), 'i' (single),   'jc' (both, center, distribute, left, right),   'pageBreakBefore' (on, off),  'sz' (1, 2, 3...),   'u' (dash, dotted, double, single, wave, words),   'widowControl' (on, off), 'wordWrap' (on, off)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddTitle" id="addTitle"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addTitle</span> (line <span class="line-number">236</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a title</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">example:</span> <a href="../__examplesource/exsource__936bb210602dee8dc7154ce3a21a2dfa.html">example</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addTitle
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>, [<span class="var-type">array</span>&nbsp;<span class="var-name">$style</span> = <span class="var-default">''</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$text</span><span class="var-description">: Text to add</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$style</span><span class="var-description">: Style of title   Values: 'b' (single),   'color' (ffffff, ff0000...),   'font' (Arial, Times New Roman...),   'i' (single),   'jc' (both, center, distribute, left, right),   'pageBreakBefore' (on, off),   'sz' (1, 2, 3...),   'u' (dash, dotted, double, single, wave, words),   'widowControl' (on, off),   'wordWrap' (on, off)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodcreatePdf" id="createPdf"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">createPdf</span> (line <span class="line-number">628</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			createPdf
+		</span>
+					([<span class="var-type"></span>&nbsp;<span class="var-name">$nombrePdf</span> = <span class="var-default">'prueba.pdf'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$nombrePdf</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetTemporaryDirectory" id="getTemporaryDirectory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getTemporaryDirectory</span> (line <span class="line-number">706</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Getter</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			getTemporaryDirectory
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodrmdirtree" id="rmdirtree"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">rmdirtree</span> (line <span class="line-number">667</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			rmdirtree
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$dirname</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$dirname</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsetTemporaryDirectory" id="setTemporaryDirectory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setTemporaryDirectory</span> (line <span class="line-number">696</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Setter</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setTemporaryDirectory
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$tempDir</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$tempDir</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">__toString</span> (line <span class="line-number">157</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">return:</span> Return current pdf</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 22 Mar 2012 12:32:05 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

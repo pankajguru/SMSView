@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***********************************************************************
+ *
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ * Copyright 2008 by Sun Microsystems, Inc.
+ *
+ * OpenOffice.org - a multi-platform office productivity suite
+ *
+ * $RCSfile: DataAccess.xcu,v $
+ * $Revision: 1.27 $
+ *
+ * This file is part of OpenOffice.org.
+ *
+ * OpenOffice.org is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version 3
+ * only, as published by the Free Software Foundation.
+ *
+ * OpenOffice.org is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 3 for more details
+ * (a copy is included in the LICENSE file that accompanied this code).
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * version 3 along with OpenOffice.org.  If not, see
+ * <http://www.openoffice.org/license.html>
+ * for a copy of the LGPLv3 License.
+ *
+ ************************************************************************ -->
+<oor:component-data oor:name="Drivers" oor:package="org.openoffice.Office.DataAccess" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <node oor:name="Installed">
+    <node oor:name="sdbc:mysql:jdbc:*" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>org.openoffice.comp.drivers.MySQL.Driver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">MySQL (JDBC)</value>
+      	<value xml:lang="da">MySQL (JDBC)</value>
+      	<value xml:lang="en-GB">MySQL (JDBC)</value>
+      	<value xml:lang="kid">4c+dxu‖MySQL (JDBC)</value>
+      	<value xml:lang="bn">MySQL (JDBC)</value>
+      	<value xml:lang="cs">MySQL (JDBC)</value>
+      	<value xml:lang="eo">MySQL (JDBC)</value>
+      	<value xml:lang="eu">MySQL (JDBC)</value>
+      	<value xml:lang="fi">MySQL (JDBC)</value>
+      	<value xml:lang="om">MySQL (JDBC)</value>
+      	<value xml:lang="sl">MySQL (JDBC)</value>
+      	<value xml:lang="ar">(MySQL (JDBC</value>
+      	<value xml:lang="ast">MySQL (JDBC)</value>
+      	<value xml:lang="ca">MySQL (JDBC)</value>
+      	<value xml:lang="de">MySQL (JDBC)</value>
+      	<value xml:lang="es">MySQL (JDBC)</value>
+      	<value xml:lang="fr">MySQL (JDBC)</value>
+      	<value xml:lang="gu">MySQL (JDBC)</value>
+      	<value xml:lang="hu">MySQL (JDBC)</value>
+      	<value xml:lang="id">MySQL (JDBC)</value>
+      	<value xml:lang="is">MySQL (JDBC)</value>
+      	<value xml:lang="it">MySQL (JDBC)</value>
+      	<value xml:lang="ja">MySQL (JDBC)</value>
+      	<value xml:lang="kn">MySQL (JDBC)</value>
+      	<value xml:lang="ko">MySQL (JDBC)</value>
+      	<value xml:lang="ml">MySQL (JDBC)</value>
+      	<value xml:lang="mr">MySQL (JDBC)</value>
+      	<value xml:lang="nl">MySQL (JDBC)</value>
+      	<value xml:lang="oc">MySQL (JDBC)</value>
+      	<value xml:lang="or">MySQL (JDBC)</value>
+      	<value xml:lang="pl">MySQL (JDBC)</value>
+      	<value xml:lang="pt-BR">MySQL (JDBC)</value>
+      	<value xml:lang="pt">MySQL (JDBC)</value>
+      	<value xml:lang="ru">MySQL (JDBC)</value>
+      	<value xml:lang="si">MySQL (JDBC)</value>
+      	<value xml:lang="sv">MySQL (JDBC)</value>
+      	<value xml:lang="ta">MySQL (JDBC)</value>
+      	<value xml:lang="te">MySQL (JDBC)</value>
+      	<value xml:lang="vi">MySQL (JDBC)</value>
+      	<value xml:lang="zh-CN">MySQL (JDBC)</value>
+      	<value xml:lang="zh-TW">MySQL (JDBC)</value>
+      	<value xml:lang="bg">MySQL (JDBC)</value>
+      	<value xml:lang="et">MySQL (JDBC)</value>
+      	<value xml:lang="pa-IN">MySQL (JDBC)</value>
+      	<value xml:lang="hi-IN">माइएसक्यूए (जेडीबीसी)</value>
+      	<value xml:lang="gl">MySQL (JDBC)</value>
+      	<value xml:lang="km">MySQL (JDBC)</value>
+      	<value xml:lang="sh">MySQL (JDBC)</value>
+      	<value xml:lang="sr">MySQL (ЈДБЦ)</value>
+      	<value xml:lang="ga">MySQL (JDBC)</value>
+      	<value xml:lang="el">MySQL (JDBC)</value>
+      	<value xml:lang="nb">MySQL (JDBC)</value>
+      	<value xml:lang="nn">MySQL (JDBC)</value>
+      	<value xml:lang="ro">MySQL (JDBC)</value>
+      </prop>
+      <node oor:name="Properties">
+        <node oor:name="CharSet" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="JavaDriverClass" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>com.mysql.jdbc.Driver</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="Features">
+        <node oor:name="UseKeywordAsBeforeAlias" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="IgnoreDriverPrivileges" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="DisplayVersionColumns" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="UseDOSLineEnds" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="BooleanComparisonMode" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="FormsCheckRequiredFields" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsTableCreation" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="UseJava" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="Authentication" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>UserPassword</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+    <node oor:name="sdbc:mysql:odbc:*" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>org.openoffice.comp.drivers.MySQL.Driver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">MySQL (ODBC)</value>
+      	<value xml:lang="da">MySQL (ODBC)</value>
+      	<value xml:lang="en-GB">MySQL (ODBC)</value>
+      	<value xml:lang="kid">u5-9ty‖MySQL (ODBC)</value>
+      	<value xml:lang="bn">MySQL (ODBC)</value>
+      	<value xml:lang="cs">MySQL (ODBC)</value>
+      	<value xml:lang="eo">MySQL (ODBC)</value>
+      	<value xml:lang="eu">MySQL (ODBC)</value>
+      	<value xml:lang="fi">MySQL (ODBC)</value>
+      	<value xml:lang="om">MySQL (ODBC)</value>
+      	<value xml:lang="sl">MySQL (ODBC)</value>
+      	<value xml:lang="ar">(MySQL (ODBC</value>
+      	<value xml:lang="ast">MySQL (ODBC)</value>
+      	<value xml:lang="ca">MySQL (ODBC)</value>
+      	<value xml:lang="de">MySQL (ODBC)</value>
+      	<value xml:lang="es">MySQL (ODBC)</value>
+      	<value xml:lang="fr">MySQL (ODBC)</value>
+      	<value xml:lang="gu">MySQL (ODBC)</value>
+      	<value xml:lang="hu">MySQL (ODBC)</value>
+      	<value xml:lang="id">MySQL (ODBC)</value>
+      	<value xml:lang="is">MySQL (ODBC)</value>
+      	<value xml:lang="it">MySQL (ODBC)</value>
+      	<value xml:lang="ja">MySQL (ODBC)</value>
+      	<value xml:lang="kn">MySQL (ODBC)</value>
+      	<value xml:lang="ko">MySQL (ODBC)</value>
+      	<value xml:lang="ml">MySQL (ODBC)</value>
+      	<value xml:lang="mr">MySQL (ODBC)</value>
+      	<value xml:lang="nl">MySQL (ODBC)</value>
+      	<value xml:lang="oc">MySQL (ODBC)</value>
+      	<value xml:lang="or">MySQL (ODBC)</value>
+      	<value xml:lang="pl">MySQL (ODBC)</value>
+      	<value xml:lang="pt-BR">MySQL (ODBC)</value>
+      	<value xml:lang="pt">MySQL (ODBC)</value>
+      	<value xml:lang="ru">MySQL (ODBC)</value>
+      	<value xml:lang="si">MySQL (ODBC)</value>
+      	<value xml:lang="sv">MySQL (ODBC)</value>
+      	<value xml:lang="ta">MySQL (ODBC)</value>
+      	<value xml:lang="te">MySQL (ODBC)</value>
+      	<value xml:lang="vi">MySQL (ODBC)</value>
+      	<value xml:lang="zh-CN">MySQL (ODBC)</value>
+      	<value xml:lang="zh-TW">MySQL (ODBC)</value>
+      	<value xml:lang="bg">MySQL (ODBC)</value>
+      	<value xml:lang="et">MySQL (ODBC)</value>
+      	<value xml:lang="pa-IN">MySQL (ODBC)</value>
+      	<value xml:lang="hi-IN">माइएसक्यूए (ओडीबीसी)</value>
+      	<value xml:lang="gl">MySQL (ODBC)</value>
+      	<value xml:lang="km">MySQL (ODBC)</value>
+      	<value xml:lang="sh">MySQL (ODBC)</value>
+      	<value xml:lang="sr">MySQL (ОДБЦ)</value>
+      	<value xml:lang="ga">MySQL (ODBC)</value>
+      	<value xml:lang="el">MySQL (ODBC)</value>
+      	<value xml:lang="nb">MySQL (ODBC)</value>
+      	<value xml:lang="nn">MySQL (ODBC)</value>
+      	<value xml:lang="ro">MySQL (ODBC)</value>
+      </prop>
+      <node oor:name="Properties">
+        <node oor:name="CharSet" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="Features">
+        <node oor:name="UseKeywordAsBeforeAlias" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="IgnoreDriverPrivileges" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="DisplayVersionColumns" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="UseDOSLineEnds" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="BooleanComparisonMode" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="FormsCheckRequiredFields" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsTableCreation" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="SupportsBrowsing" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="Authentication" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>UserPassword</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+    <node oor:name="sdbc:mysql:mysqlc:*" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>org.openoffice.comp.drivers.MySQL.Driver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">MySQL (Native)</value>
+      	<value xml:lang="da">MySQL (Native)</value>
+      	<value xml:lang="en-GB">MySQL (Native)</value>
+      	<value xml:lang="kid">niij&gt;n‖MySQL (Native)</value>
+      	<value xml:lang="bn">MySQL (Native)</value>
+      	<value xml:lang="cs">MySQL (nativní)</value>
+      	<value xml:lang="eo">MySQL (Indiĝena)</value>
+      	<value xml:lang="eu">MySQL (jatorrizkoa)</value>
+      	<value xml:lang="fi">MySQL (suora)</value>
+      	<value xml:lang="om">MySQL (Dhalootaa)</value>
+      	<value xml:lang="sl">MySQL (izvirni)</value>
+      	<value xml:lang="ar">MySQL (أصلي)</value>
+      	<value xml:lang="ast">MySQL (Native)</value>
+      	<value xml:lang="ca">MySQL (Natiu)</value>
+      	<value xml:lang="de">MySQL (Native)</value>
+      	<value xml:lang="es">MySQL (Nativo)</value>
+      	<value xml:lang="fr">MySQL (natif)</value>
+      	<value xml:lang="gu">MySQL (Native)</value>
+      	<value xml:lang="hu">MySQL (natív)</value>
+      	<value xml:lang="id">MySQL (Natif)</value>
+      	<value xml:lang="is">MySQL (beintengt)</value>
+      	<value xml:lang="it">MySQL (Nativo)</value>
+      	<value xml:lang="ja">MySQL (Native)</value>
+      	<value xml:lang="kn">MySQL (ಸ್ಥಳೀಯ)</value>
+      	<value xml:lang="ko">MySQL (Native)</value>
+      	<value xml:lang="ml">MySQL (നേറ്റീവ്)</value>
+      	<value xml:lang="mr">MySQL (Native)</value>
+      	<value xml:lang="nl">MySQL (Native)</value>
+      	<value xml:lang="oc">MySQL (Native)</value>
+      	<value xml:lang="or">MySQL (ସ୍ଥାନୀୟ)</value>
+      	<value xml:lang="pl">Baza danych MySQL (natywna)</value>
+      	<value xml:lang="pt-BR">MySQL (Nativo)</value>
+      	<value xml:lang="pt">MySQL (Nativo)</value>
+      	<value xml:lang="ru">MySQL (собственный)</value>
+      	<value xml:lang="sv">MySQL (ursprunglig)</value>
+      	<value xml:lang="ta">MySQL (Native)</value>
+      	<value xml:lang="te">MySQL (Native)</value>
+      	<value xml:lang="vi">MySQL (Native)</value>
+      	<value xml:lang="zh-CN">MySQL（本地）</value>
+      	<value xml:lang="zh-TW">MySQL (原生)</value>
+      	<value xml:lang="bg">MySQL (директна поддръжка)</value>
+      	<value xml:lang="et">MySQL (tavaline)</value>
+      	<value xml:lang="gl">MySQL (Nativo)</value>
+      	<value xml:lang="km">MySQL (Native)</value>
+      	<value xml:lang="sh">MySQL (prirodno)</value>
+      	<value xml:lang="sr">MySQL (природно)</value>
+      	<value xml:lang="ga">MySQL (Dúchasach)</value>
+      	<value xml:lang="el">MySQL (Native)</value>
+      	<value xml:lang="nb">MySQL (lokal)</value>
+      	<value xml:lang="nn">MySQL (lokal)</value>
+      	<value xml:lang="ro">MySQL (Nativ)</value>
+      </prop>
+      <node oor:name="Properties">
+        <node oor:name="CharSet" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="LocalSocket" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="NamedPipe" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="Features">
+        <node oor:name="UseKeywordAsBeforeAlias" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="IgnoreDriverPrivileges" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="DisplayVersionColumns" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="UseDOSLineEnds" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="BooleanComparisonMode" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="FormsCheckRequiredFields" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsTableCreation" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="Authentication" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>UserPassword</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

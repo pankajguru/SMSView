@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***********************************************************************
+ *
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ * Copyright 2008 by Sun Microsystems, Inc.
+ *
+ * OpenOffice.org - a multi-platform office productivity suite
+ *
+ * $RCSfile: DataAccess.xcu,v $
+ * $Revision: 1.27 $
+ *
+ * This file is part of OpenOffice.org.
+ *
+ * OpenOffice.org is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version 3
+ * only, as published by the Free Software Foundation.
+ *
+ * OpenOffice.org is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 3 for more details
+ * (a copy is included in the LICENSE file that accompanied this code).
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * version 3 along with OpenOffice.org.  If not, see
+ * <http://www.openoffice.org/license.html>
+ * for a copy of the LGPLv3 License.
+ *
+ ************************************************************************ -->
+<oor:component-data oor:name="Drivers" oor:package="org.openoffice.Office.DataAccess" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <node oor:name="Installed">
+    <node oor:name="sdbc:address:mozilla:" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.MozabDriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">Mozilla Address Book</value>
+      	<value xml:lang="da">Mozilla-adressebog</value>
+      	<value xml:lang="en-GB">Mozilla Address Book</value>
+      	<value xml:lang="kid">z28ywj‖Mozilla Address Book</value>
+      	<value xml:lang="fi">Mozillan osoitekirja</value>
+      	<value xml:lang="cs">Databáze kontaktů Mozilly</value>
+      	<value xml:lang="eo">Mozilo adresaro</value>
+      	<value xml:lang="eu">Mozilla helbide-liburua</value>
+      	<value xml:lang="om">Yaadannoo Teessoo Mooziillaa</value>
+      	<value xml:lang="sl">Adresar programa Mozilla</value>
+      	<value xml:lang="bn">Mozilla ঠিকানা বই</value>
+      	<value xml:lang="ar">دفتر عناوين Mozilla</value>
+      	<value xml:lang="ast">Llibreta de Direiciones de Mozilla</value>
+      	<value xml:lang="ca">Llibreta d&apos;adreces del Mozilla</value>
+      	<value xml:lang="de">Mozilla Adressbuch</value>
+      	<value xml:lang="es">Libreta de direcciones Mozilla</value>
+      	<value xml:lang="fr">Carnet d&apos;adresses Mozilla</value>
+      	<value xml:lang="gu">Mozilla સરનામાં પોથી</value>
+      	<value xml:lang="hu">Mozilla-címjegyzék</value>
+      	<value xml:lang="id">Buku Alamat Mozilla</value>
+      	<value xml:lang="is">Mozilla nafnaskrá</value>
+      	<value xml:lang="it">Rubrica di Mozilla</value>
+      	<value xml:lang="ja">Mozilla アドレス帳</value>
+      	<value xml:lang="kn">ಮೋಝಿಲ್ಲಾ ವಿಳಾಸ ಪುಸ್ತಕ</value>
+      	<value xml:lang="ko">Mozilla 주소록</value>
+      	<value xml:lang="ml">മോസിലാ വിലാസപുസ്തകം</value>
+      	<value xml:lang="mr">Mozilla पत्ता पुस्तिका</value>
+      	<value xml:lang="nl">Mozilla adresboek</value>
+      	<value xml:lang="oc">Quasernet d&apos;adreças Mozilla</value>
+      	<value xml:lang="or">Mozilla ଠିକଣା ବହି</value>
+      	<value xml:lang="pl">Książka adresowa programu Mozilla</value>
+      	<value xml:lang="pt-BR">Catálogo de endereços Mozilla</value>
+      	<value xml:lang="pt">Livro de endereços do Mozilla</value>
+      	<value xml:lang="ru">Адресная книга Mozilla</value>
+      	<value xml:lang="si">මොසිලා ලිපින පොත</value>
+      	<value xml:lang="sv">Mozilla-adressbok</value>
+      	<value xml:lang="ta">Mozilla முகவரி புத்தகம்</value>
+      	<value xml:lang="te">Mozilla Address Book</value>
+      	<value xml:lang="vi">Sổ địa chỉ Mozilla</value>
+      	<value xml:lang="zh-CN">Mozilla 通讯薄</value>
+      	<value xml:lang="zh-TW">Mozilla 通訊錄</value>
+      	<value xml:lang="bg">Адресен бележник на Mozilla</value>
+      	<value xml:lang="et">Mozilla aadressiraamat</value>
+      	<value xml:lang="hi-IN">मोज़िला पता पुस्तिका</value>
+      	<value xml:lang="pa-IN">ਮੋਜ਼ੀਲਾ ਐਡਰੈੱਸ ਬੁੱਕ</value>
+      	<value xml:lang="gl">Axenda de enderezos de Mozilla</value>
+      	<value xml:lang="km">សៀវភៅ​អាសយដ្ឋាន​​របស់ Mozilla</value>
+      	<value xml:lang="sh">Mozilin adresar</value>
+      	<value xml:lang="sr">Мозилин адресар</value>
+      	<value xml:lang="ga">Leabhar Seoltaí Mozilla</value>
+      	<value xml:lang="el">Βιβλίο διευθύνσεων Mozilla</value>
+      	<value xml:lang="nb">Mozilla-adressebok</value>
+      	<value xml:lang="nn">Mozilla-adressebok</value>
+      	<value xml:lang="ro">Agendă de contacte Mozilla</value>
+      </prop>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsBrowsing" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+    <node oor:name="sdbc:address:thunderbird:" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.MozabDriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">Thunderbird Address Book</value>
+      	<value xml:lang="da">Thunderbird-adressebog</value>
+      	<value xml:lang="en-GB">Thunderbird Address Book</value>
+      	<value xml:lang="kid">zk89n-‖Thunderbird Address Book</value>
+      	<value xml:lang="fi">Thunderbird-osoitekirja</value>
+      	<value xml:lang="cs">Databáze kontaktů Thunderbird</value>
+      	<value xml:lang="eo">Thunderbird adresaro</value>
+      	<value xml:lang="eu">Thunderbird helbide-liburua</value>
+      	<value xml:lang="om">Yaadannoo Teessoo Thunderbird</value>
+      	<value xml:lang="sl">Adresar programa Thunderbird</value>
+      	<value xml:lang="bn">Thunderbird ঠিকানা বই</value>
+      	<value xml:lang="ar">دفتر عناوين Thunderbird</value>
+      	<value xml:lang="ast">Llibreta de Direiciones de Thunderbird</value>
+      	<value xml:lang="ca">Llibreta d&apos;adreces del Thunderbird</value>
+      	<value xml:lang="de">Thunderbird Adressbuch</value>
+      	<value xml:lang="es">Libreta de direcciones de Mozilla Thunderbird</value>
+      	<value xml:lang="fr">Carnet d&apos;adresses Thunderbird</value>
+      	<value xml:lang="gu">Thunderbird સરનામાં પોથી</value>
+      	<value xml:lang="hu">Thunderbird-címjegyzék</value>
+      	<value xml:lang="id">Buku Alamat Thunderbird</value>
+      	<value xml:lang="is">Thunderbird nafnaskrá</value>
+      	<value xml:lang="it">Rubrica di Thunderbird</value>
+      	<value xml:lang="ja">Thunderbird アドレス帳</value>
+      	<value xml:lang="kn">ತಂಡರ್ಬರ್ಡ್ ವಿಳಾಸ ಪುಸ್ತಕ</value>
+      	<value xml:lang="ko">Thunderbird 주소록</value>
+      	<value xml:lang="ml">തണ്ടര്‍ബേര്‍ഡ് വിലാസപുസ്തകം</value>
+      	<value xml:lang="mr">Thunderbird पत्ता पुस्तिका</value>
+      	<value xml:lang="nl">Thunderbird adresboek</value>
+      	<value xml:lang="oc">Quasernet d&apos;adreças Thunderbird</value>
+      	<value xml:lang="or">Thunderbird ଠିକଣା ବହି</value>
+      	<value xml:lang="pl">Ksiązka adresowa programu Thunderbird</value>
+      	<value xml:lang="pt-BR">Catálogo de endereços Thunderbird</value>
+      	<value xml:lang="pt">Livro de endereços do Thunderbird</value>
+      	<value xml:lang="ru">Адресная книга Thunderbird</value>
+      	<value xml:lang="si">තන්ඩ(ර්)බර්ඩ් ලිපින පොත</value>
+      	<value xml:lang="sv">Thunderbird-adressbok</value>
+      	<value xml:lang="ta">Thunderbird முகவரி புத்தகம்</value>
+      	<value xml:lang="te">Thunderbird Address Book</value>
+      	<value xml:lang="vi">Sổ địa chỉ Thunderbird</value>
+      	<value xml:lang="zh-CN">Thunderbird 通讯簿</value>
+      	<value xml:lang="zh-TW">Thunderbird 通訊錄</value>
+      	<value xml:lang="bg">Адресен бележник на Thunderbird</value>
+      	<value xml:lang="et">Thunderbird&apos;i aadressiraamat</value>
+      	<value xml:lang="hi-IN">थंडरबर्ड पता पुस्तिका</value>
+      	<value xml:lang="pa-IN">ਥੰਡਰਬਰਡ ਐਡਰੈੱਸ ਬੁੱਕ</value>
+      	<value xml:lang="gl">Axenda de enderezos de Thunderbird</value>
+      	<value xml:lang="km">សៀវភៅ​អាសយដ្ឋាន​​របស់ Thunderbird</value>
+      	<value xml:lang="sh">Tanderberd adresar</value>
+      	<value xml:lang="sr">Тандерберд адресар</value>
+      	<value xml:lang="ga">Leabhar Seoltaí Thunderbird</value>
+      	<value xml:lang="el">Βιβλίο διευθύνσεων Thunderbird</value>
+      	<value xml:lang="nb">Thunderbird-adressebok</value>
+      	<value xml:lang="nn">Thunderbird-adresse</value>
+      	<value xml:lang="ro">Agendă de contacte Thunderbird</value>
+      </prop>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsBrowsing" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+    <node oor:name="sdbc:address:ldap:*" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.MozabDriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">LDAP Address Book</value>
+      	<value xml:lang="da">LDAP-adressebog</value>
+      	<value xml:lang="en-GB">LDAP Address Book</value>
+      	<value xml:lang="kid">1q-huj‖LDAP Address Book</value>
+      	<value xml:lang="fi">LDAP-osoitekirja</value>
+      	<value xml:lang="cs">Databáze kontaktů z LDAP</value>
+      	<value xml:lang="eo">LDAP-adresaro</value>
+      	<value xml:lang="eu">LDAP helbide-liburua</value>
+      	<value xml:lang="om">Yaadannoo Teessoo Thunderbird</value>
+      	<value xml:lang="sl">Adresar LDAP</value>
+      	<value xml:lang="bn">LDAP ঠিকানা বই</value>
+      	<value xml:lang="ar">دفتر عناوين LDAP</value>
+      	<value xml:lang="ast">Llibreta de Direiciones de LDAP</value>
+      	<value xml:lang="ca">Llibreta d&apos;adreces LDAP</value>
+      	<value xml:lang="de">LDAP Adressbuch</value>
+      	<value xml:lang="es">Libreta de direcciones LDAP</value>
+      	<value xml:lang="fr">Carnet d&apos;adresses LDAP</value>
+      	<value xml:lang="gu">LDAP સરનામાં પોથી</value>
+      	<value xml:lang="hu">LDAP-címjegyzék</value>
+      	<value xml:lang="id">Buku Alamat LDAP</value>
+      	<value xml:lang="is">LDAP nafnaskrá</value>
+      	<value xml:lang="it">Rubrica LDAP</value>
+      	<value xml:lang="ja">LDAP アドレス帳</value>
+      	<value xml:lang="kn">LDAP ವಿಳಾಸ ಪುಸ್ತಕ</value>
+      	<value xml:lang="ko">LDAP 주소록</value>
+      	<value xml:lang="ml">എല്‍ഡാപ്പ് വിലാസപുസ്തകം</value>
+      	<value xml:lang="mr">LDAP पत्ता पुस्तिका</value>
+      	<value xml:lang="nl">LDAP adresboek</value>
+      	<value xml:lang="oc">Quasernet d&apos;adreças LDAP</value>
+      	<value xml:lang="or">LDAP ଠିକଣା ବହି</value>
+      	<value xml:lang="pl">Książka adresowa LDAP</value>
+      	<value xml:lang="pt-BR">Catálogo de endereços LDAP</value>
+      	<value xml:lang="pt">Livro de endereços LDAP</value>
+      	<value xml:lang="ru">Адресная книга LDAP</value>
+      	<value xml:lang="si">LDAP ලිපින පොත</value>
+      	<value xml:lang="sv">LDAP-adressbok</value>
+      	<value xml:lang="ta">LDAP முகவரி புத்தகம்</value>
+      	<value xml:lang="te">LDAP Address Book</value>
+      	<value xml:lang="vi">Sổ địa chỉ LDAP</value>
+      	<value xml:lang="zh-CN">LDAP 通讯簿</value>
+      	<value xml:lang="zh-TW">LDAP 通訊錄</value>
+      	<value xml:lang="bg">Адресен бележник на LDAP</value>
+      	<value xml:lang="et">LDAP aadressiraamat</value>
+      	<value xml:lang="hi-IN">एलडीएपी पता पुस्तिका</value>
+      	<value xml:lang="gl">Axenda de enderezos de LDAP</value>
+      	<value xml:lang="km">សៀវភៅ​អាសយដ្ឋាន​​របស់ LDAP</value>
+      	<value xml:lang="sh">LDAP adresar</value>
+      	<value xml:lang="sr">ЛДАП адресар</value>
+      	<value xml:lang="ga">Leabhar Seoltaí LDAP</value>
+      	<value xml:lang="el">Βιβλίο διευθύνσεων LDAP </value>
+      	<value xml:lang="nb">LDAP-adressebok</value>
+      	<value xml:lang="nn">LDAP-adressebok</value>
+      	<value xml:lang="ro">Agendă de contacte LDAP</value>
+      </prop>
+      <node oor:name="Properties">
+        <node oor:name="BaseDN" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="MaxRowCount" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:int">
+            <value>100</value>
+          </prop>
+        </node>
+        <node oor:name="PortNumber" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:int">
+            <value>389</value>
+          </prop>
+        </node>
+        <node oor:name="UseSSL" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>false</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsTableCreation" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="Authentication" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>UserPassword</value>
+          </prop>
+        </node>
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

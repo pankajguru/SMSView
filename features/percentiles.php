@@ -41,8 +41,8 @@ n', $paramsTextHeading);
                     $percentile_parameter = trim($percentile_parameter);
                 }
                             //gather data
-                $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
-                $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
+                //$peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
+                //$alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
                 $advice[] =$percentile_data[15];
                 $names = array(($key+1).'. '.$percentile_data[15], round($percentile_data[0]));
                 $min_value = $percentile_data[3];
@@ -85,7 +85,7 @@ n', $paramsTextHeading);
         );
         $percentiles_docx->createDocx($temp.'percentiles'.$good, $paramsPage);
         unset($percentiles_docx);
-        return $temp.'percentiles.'.$good.'.docx';
+        return $temp.'percentiles'.$good.'.docx';
 
     }
                 

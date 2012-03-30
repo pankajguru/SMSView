@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:install="http://openoffice.org/2004/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oor:name="Accelerators" oor:package="org.openoffice.Office">
+  <node oor:name="PrimaryKeys">
+    <node oor:name="Modules">
+      <node oor:name="com.sun.star.sheet.SpreadsheetDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:AlignHorizontalCenter</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.chart2.ChartDocument">
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.drawing.DrawingDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.text.GlobalDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.presentation.PresentationDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.formula.FormulaProperties">
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.text.WebDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.sdb.FormDesign">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.sdb.TextReportDesign">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.text.TextDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="com.sun.star.xforms.XMLFormDocument">
+        <node oor:name="F11">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:DesignerDialog</value>
+          </prop>
+        </node>
+        <node oor:name="M_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:ResetAttributes</value>
+          </prop>
+        </node>
+        <node oor:name="T_MOD1">
+          <prop oor:name="Command">
+            <value xml:lang="de">.uno:SubScript</value>
+            <value xml:lang="es">.uno:CenterPara</value>
+          </prop>
+        </node>
+        <node oor:name="Y_MOD1" oor:op="replace">
+          <prop oor:name="Command">
+            <value xml:lang="en-US">.uno:Redo</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

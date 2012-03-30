@@ -203,6 +203,10 @@ class satisfaction
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;
         $paramsTextTableHeader['text'] = '';
+        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
+        $text->{'border'} = $paramsTable;
+        $satisfaction_header[0][] = $text;
+        $paramsTextTableHeader['text'] = '';
         $text = $satisfaction_docx->addElement('addText', array());
         $text->{'border'} = $paramsTableEmpty;
         $satisfaction_header[0][] = $text;

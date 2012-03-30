@@ -1,6 +1,6 @@
 <?php
 
-class satisfactiontTop
+class satisfactionTop
 {
 
     function render( &$data, $top = 5, $satisfaction = TRUE)

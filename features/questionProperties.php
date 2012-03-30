@@ -22,7 +22,7 @@ class questionProperties
         ksort($all_questions_array);
         foreach($all_questions_array as $question_number=>$question){
             
-            foreach ($question->{statistics}->{"percentage"} as $answer => $percentages) {
+            foreach ($question->{'statistics'}->{"percentage"} as $answer => $percentages) {
                 foreach (array('value', 'lt', 'gte') as $modifier){
                     foreach(array('peiling','alle_scholen') as $peiling){
                         $percentage = $percentages->{$modifier}->{$peiling}; 
@@ -31,13 +31,13 @@ class questionProperties
                 }
             }
 
-                $average_peiling = $question->{statistics}->{"averages"}->{peiling}[0][3]; //should come from data
-                $number_of_respondents_peiling = $question->{statistics}->{"averages"}->{peiling}[0][5]; //should come from data
+                $average_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][3]; //should come from data
+                $number_of_respondents_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][5]; //should come from data
                 $docx -> addTemplateVariable("class:questionProperties:$question_number:average:peiling", sprintf('%.1',$average_peiling));
                 $docx -> addTemplateVariable("class:questionProperties:$question_number:number_of_respondents:peiling", strval($number_of_respondents_peiling));
 
-                $average_alle_scholen = $question->{statistics}->{"averages"}->{alle_scholen}[0][3]; //should come from data
-                $number_of_respondents_alle_scholen = $question->{statistics}->{"averages"}->{alle_scholen}[0][5]; //should come from data
+                $average_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][3]; //should come from data
+                $number_of_respondents_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][5]; //should come from data
                 $docx -> addTemplateVariable("class:questionProperties:$question_number:average:alle_scholen", sprintf('%.1',$average_alle_scholen));
                 $docx -> addTemplateVariable("class:questionProperties:$question_number:number_of_respondents:alle_scholen", strval($number_of_respondents_alle_scholen));
 

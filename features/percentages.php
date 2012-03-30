@@ -24,6 +24,7 @@ class percentages
         
         ksort($all_questions_array);
         $first = TRUE;
+        $question_count = 0;
         foreach($all_questions_array as $question_number=>$question){
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
@@ -51,6 +52,7 @@ class percentages
                 if ($target_question != '') {
                     //create group heading
                     $percentage_docx->addTitle($question->{'group_name'},$paramsTitle);
+                    $question_count = 0;
                 }
                 
                 $first = false;
@@ -59,11 +61,11 @@ class percentages
             
             $text[] =
                 array(
-                    'text' => $question_number.". ".$question->{'description'},
+                    'text' => html_entity_decode($question_number.". ".$question->{'description'},null, 'UTF-8'),
                     'b' => 'single',
             );
             
-            $percentage_docx->addText(html_entity_decode($text));
+            $percentage_docx->addText($text);
 
             $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{'peiling'};
             $alle_scholen_distribution = $question->{'statistics'}->{'distribution'}->{'alle_scholen'};
@@ -113,10 +115,17 @@ class percentages
                 'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
+            $question_count++;
         }
-        $percentage_docx->createDocx($temp.'percentage'.$category.$target_question);
-        unset($percentage_docx);
-        return $temp.'percentage'.$category.$target_question.'.docx';
+        if ($question_count > 0){
+            $percentage_docx->createDocx($temp.'percentage'.$category.$target_question);
+            unset($percentage_docx);
+            return $temp.'percentage'.$category.$target_question.'.docx';
+        } else {
+            unset($percentage_docx);
+            return null;
+        }
+
         
     }
     

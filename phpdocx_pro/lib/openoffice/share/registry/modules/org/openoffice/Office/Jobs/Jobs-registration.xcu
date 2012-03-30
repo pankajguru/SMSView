@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oor:name="Jobs" oor:package="org.openoffice.Office">
+  <node oor:name="Jobs">
+    <node oor:name="ProductRegistration" oor:op="replace">
+      <prop oor:name="Service">
+        <value>com.sun.star.comp.framework.DoRegistrationJob</value>
+      </prop>
+      <node oor:name="Arguments">
+        <prop oor:name="ProductName" oor:op="replace" oor:type="xs:string">
+          <value>OpenOffice.org 3.2</value>
+        </prop>
+        <prop oor:name="ProductVersion" oor:op="replace" oor:type="xs:string">
+          <value>3.2</value>
+        </prop>
+        <prop oor:name="ProductURN" oor:op="replace" oor:type="xs:string">
+          <value>urn:uuid:cd39f1d0-f2fc-11dd-8c47-080020a9ed93</value>
+        </prop>
+        <prop oor:name="ProductSource" oor:op="replace" oor:type="xs:string">
+          <value>OOO320m12(Build:9483)</value>
+        </prop>
+        <prop oor:name="ProductParent" oor:op="replace" oor:type="xs:string">
+          <value>OpenOffice.org 3.2</value>
+        </prop>
+        <prop oor:name="Vendor" oor:op="replace" oor:type="xs:string">
+          <value>Sun Microsystems, Inc.</value>
+        </prop>
+        <prop oor:name="RegistrationData" oor:op="replace" oor:type="xs:string">
+          <value>$(user)/registration.xml</value>
+        </prop>
+        <prop oor:name="RegistrationURL" oor:op="replace" oor:type="xs:string">
+          <value>https://registration2.services.openoffice.org/RegistrationWeb/register/${registry_urn}?product=OpenOffice.org&amp;locale=${locale}&amp;cid=926117</value>
+        </prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="Events">
+    <node oor:name="onRegisterNow" oor:op="fuse">
+      <node oor:name="JobList">
+        <node oor:name="ProductRegistration" oor:op="replace"/>
+      </node>
+    </node>
+    <node oor:name="onRegisterLater" oor:op="fuse">
+      <node oor:name="JobList">
+        <node oor:name="ProductRegistration" oor:op="replace"/>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

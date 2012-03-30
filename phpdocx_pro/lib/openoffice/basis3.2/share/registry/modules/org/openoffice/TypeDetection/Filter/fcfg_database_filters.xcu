@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE oor:component-data SYSTEM "../../../../component-update.dtd">
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:package="org.openoffice.TypeDetection" oor:name="Filter">
+	<node oor:name="Filters">
+	<node oor:name="StarOffice XML (Base)" oor:op="replace">
+		<prop oor:name="Flags"><value>IMPORT EXPORT OWN DEFAULT 3RDPARTYFILTER</value></prop>
+		<prop oor:name="UIComponent"/>
+		<prop oor:name="FilterService"/>
+		<prop oor:name="UserData"/>
+		<prop oor:name="FileFormatVersion"><value>6200</value></prop>
+		<prop oor:name="Type"><value>StarBase</value></prop>
+		<prop oor:name="TemplateName"/>
+		<prop oor:name="DocumentService"><value>com.sun.star.sdb.OfficeDatabaseDocument</value></prop>
+	</node>
+
+	</node>
+</oor:component-data>

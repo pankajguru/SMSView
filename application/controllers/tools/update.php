@@ -36,7 +36,7 @@ class Update extends CI_Controller {
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/otp.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
-        $new_id = 9679; //set to new id!!!!!!!
+        $new_id = 9795; //set to new id!!!!!!!
         foreach ($objWorksheet->getRowIterator() as $row) {
 
             $answer = array();
@@ -95,18 +95,19 @@ class Update extends CI_Controller {
                 $answer[7] = isset($db_answers[7]) ? $db_answers[7]->description : '';
                 $answer[8] = isset($db_answers[8]) ? $db_answers[8]->description : '';
                 $answer[9] = isset($db_answers[9]) ? $db_answers[9]->description : '';
+                $data['excel'][$rownr]['short_description'] = $db_question[0]->short_description;
+                $data['excel'][$rownr]['base_type_id'] = $db_question[0]->base_type_id;
+                $data['excel'][$rownr]['vraag_groep_id'] = $db_question[0]->vraag_groep_id;
+                if ($db_question[0]->base_type_id == 0){
+                    $new_id++;
+                    $data['excel'][$rownr]['new_id'] = $new_id;
+                }
             }
             $data['excel'][$rownr]['answer'] = $answer;
             $data['excel'][$rownr]['question_id'] = $question_id;
             $pattern = '/(^\d+\s+)/i';
             $question_no_number = preg_replace($pattern, '', $question);
             $data['excel'][$rownr]['question_no_number'] = $question_no_number;
-            $data['excel'][$rownr]['short_description'] = $db_question[0]->short_description;
-            $data['excel'][$rownr]['base_type_id'] = $db_question[0]->base_type_id;
-            if ($db_question[0]->base_type_id == 0){
-                $new_id++;
-                $data['excel'][$rownr]['new_id'] = $new_id;
-            }
             $duplicates = array();
             foreach ($duplicate_ids as $duplicate_id) {
                 if (intval($duplicate_id) >0) {
@@ -165,7 +166,7 @@ class Update extends CI_Controller {
 //                    print $rubriek.'<br>';
                     if (count($vraag_groep) >0 ){
                         $vraag_group_id = $vraag_groep[0]->id;
-//                        print $vraag_group_id.'<br>';
+                        print $vraag_group_id.'<br>';
                     }
                 }
             }
@@ -203,10 +204,13 @@ class Update extends CI_Controller {
         foreach ($objWorksheet->getRowIterator() as $row) {
             $answer = array();
             $rownr = $row -> getRowIndex();
+            print intval($objWorksheet -> getCell('B' . $rownr) -> getValue())."<br>";
             if (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) ==0){
                 $rubriek = $objWorksheet -> getCell('G' . $rownr) -> getValue();
+                print "$rubriek<br>";
                 if (($rubriek != '') && ($rubriek != 'vraag')){
                     $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
+                    var_dump($vraag_groep);
 //                    print $rubriek.'<br>';
                     if (count($vraag_groep) >0 ){
                         $vraag_group_id = $vraag_groep[0]->id;

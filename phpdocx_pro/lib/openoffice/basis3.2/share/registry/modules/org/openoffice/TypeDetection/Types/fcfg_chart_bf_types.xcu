@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE oor:component-data SYSTEM "../../../../component-update.dtd">
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:package="org.openoffice.TypeDetection" oor:name="Types">
+	<node oor:name="Types">
+	<node oor:name="chart_StarChart_30" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>sds</value></prop>
+		<prop oor:name="MediaType"><value>application/x-starchart</value></prop>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarChart 3.0</value></prop>
+		<prop oor:name="UIName">
+			<value>StarChart 3.0</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarChartDocument</value></prop>
+	</node>
+
+	<node oor:name="chart_StarChart_40" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>sds</value></prop>
+		<prop oor:name="MediaType"><value>application/x-starchart</value></prop>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarChart 4.0</value></prop>
+		<prop oor:name="UIName">
+			<value>StarChart 4.0</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarChartDocument 4.0</value></prop>
+	</node>
+
+	<node oor:name="chart_StarChart_50" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>sds</value></prop>
+		<prop oor:name="MediaType"><value>application/vnd.stardivision.chart</value></prop>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarChart 5.0</value></prop>
+		<prop oor:name="UIName">
+			<value>StarChart 5.0</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarChart 5.0</value></prop>
+	</node>
+
+	</node>
+</oor:component-data>

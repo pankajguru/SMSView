@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Linguistic" oor:package="org.openoffice.Office">
+ <node oor:name="General">
+  <prop oor:name="DefaultLocale" oor:type="xs:string">
+   <value>en-US</value>
+  </prop>
+ </node>
+ <node oor:name="ServiceManager">
+  <node oor:name="HyphenatorList">
+   <prop oor:name="en-AU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-GB" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-ZA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-FR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-MC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+  </node>
+  <node oor:name="LastFoundHyphenators">
+   <prop oor:name="en-AU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-GB" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="en-ZA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-FR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+   <prop oor:name="fr-MC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.LibHnjHyphenator</value>
+   </prop>
+  </node>
+  <node oor:name="LastFoundSpellCheckers">
+   <prop oor:name="da-DK" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-AT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-DE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-LI" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-AU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-BZ" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-GB" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-HK" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-IE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-IN" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-JM" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-NA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-NZ" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-PH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-SG" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-TT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-ZA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-ZW" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-AR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-BO" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-CL" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-CO" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-CR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-DO" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-EC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-ES" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-GT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-HN" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-MX" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-NI" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PY" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-SV" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-UY" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-VE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-FR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-MC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-SN" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="it-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="it-IT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="nl-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="nl-NL" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="pl-PL" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="pt-BR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="pt-PT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="ru-RU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="sv-FI" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="sv-SE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+  </node>
+  <node oor:name="LastFoundThesauri">
+   <prop oor:name="en-AU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-GB" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-ZA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-FR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-MC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+  </node>
+  <node oor:name="SpellCheckerList">
+   <prop oor:name="da-DK" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-AT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-DE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-LI" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="de-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-AU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-BZ" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-GB" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-HK" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-IE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-IN" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-JM" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-NA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-NZ" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-PH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-SG" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-TT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-ZA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="en-ZW" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-AR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-BO" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-CL" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-CO" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-CR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-DO" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-EC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-ES" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-GT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-HN" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-MX" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-NI" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-PY" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-SV" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-UY" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="es-VE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-FR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-MC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MySpellSpellChecker org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="fr-SN" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="it-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="it-IT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="nl-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="nl-NL" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="pl-PL" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="pt-BR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="pt-PT" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="ru-RU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="sv-FI" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+   <prop oor:name="sv-SE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.MacOSXSpellChecker</value>
+   </prop>
+  </node>
+  <node oor:name="ThesaurusList">
+   <prop oor:name="en-AU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-GB" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-US" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="en-ZA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-BE" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-CA" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-CH" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-FR" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-LU" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+   <prop oor:name="fr-MC" oor:op="replace" oor:type="oor:string-list">
+    <value>org.openoffice.lingu.new.Thesaurus</value>
+   </prop>
+  </node>
+ </node>
+</oor:component-data>

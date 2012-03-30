@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Histories" oor:package="org.openoffice.Office">
+ <node oor:name="Histories">
+  <node oor:name="URLHistory">
+   <node oor:name="ItemList">
+    <node oor:name="file:///Users/bitrock/Desktop/inscripcion.doc" oor:op="replace">
+     <prop oor:name="Filter" oor:type="xs:string">
+      <value>MS Word 97</value>
+     </prop>
+     <prop oor:name="Password" oor:type="xs:string">
+      <value/>
+     </prop>
+     <prop oor:name="Title" oor:type="xs:string">
+      <value>inscripcion</value>
+     </prop>
+    </node>
+   </node>
+   <node oor:name="OrderList">
+    <node oor:name="0" oor:op="replace">
+     <prop oor:name="HistoryItemRef" oor:type="xs:string">
+      <value>file:///Users/bitrock/Desktop/inscripcion.doc</value>
+     </prop>
+    </node>
+   </node>
+  </node>
+  <node oor:name="PickList">
+   <node oor:name="ItemList">
+    <node oor:name="file:///Users/bitrock/Desktop/inscripcion.doc" oor:op="replace">
+     <prop oor:name="Filter" oor:type="xs:string">
+      <value>MS Word 97</value>
+     </prop>
+     <prop oor:name="Password" oor:type="xs:string">
+      <value/>
+     </prop>
+     <prop oor:name="Title" oor:type="xs:string">
+      <value>inscripcion</value>
+     </prop>
+    </node>
+   </node>
+   <node oor:name="OrderList">
+    <node oor:name="0" oor:op="replace">
+     <prop oor:name="HistoryItemRef" oor:type="xs:string">
+      <value>file:///Users/bitrock/Desktop/inscripcion.doc</value>
+     </prop>
+    </node>
+   </node>
+  </node>
+ </node>
+</oor:component-data>

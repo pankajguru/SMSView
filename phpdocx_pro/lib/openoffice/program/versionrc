@@ -1,0 +1,12 @@
+[Version]
+AllLanguages=en-US
+buildid=320m12(Build:9483)
+ExtensionUpdateURL=http://updateext.services.openoffice.org/ProductUpdateService/check.Update
+OOOBaseVersion=3.2
+ProductBuildid=9483
+ProductMajor=320
+ProductMinor=12
+ProductSource=OOO320
+UpdateID=OpenOffice.org_3_en-US
+UpdateURL=http://update34.services.openoffice.org/ProductUpdateService/check.Update?pkgfmt=rpm
+UpdateUserAgent=<PRODUCT> (${buildid}; ${_OS}; ${_ARCH}; BundledLanguages=${AllLanguages})

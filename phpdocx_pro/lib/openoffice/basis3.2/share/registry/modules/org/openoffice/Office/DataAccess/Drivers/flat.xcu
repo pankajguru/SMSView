@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***********************************************************************
+ *
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ * Copyright 2008 by Sun Microsystems, Inc.
+ *
+ * OpenOffice.org - a multi-platform office productivity suite
+ *
+ * $RCSfile: DataAccess.xcu,v $
+ * $Revision: 1.27 $
+ *
+ * This file is part of OpenOffice.org.
+ *
+ * OpenOffice.org is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version 3
+ * only, as published by the Free Software Foundation.
+ *
+ * OpenOffice.org is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 3 for more details
+ * (a copy is included in the LICENSE file that accompanied this code).
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * version 3 along with OpenOffice.org.  If not, see
+ * <http://www.openoffice.org/license.html>
+ * for a copy of the LGPLv3 License.
+ *
+ ************************************************************************ -->
+<oor:component-data oor:name="Drivers" oor:package="org.openoffice.Office.DataAccess" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <node oor:name="Installed">
+    <node oor:name="sdbc:flat:*" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.flat.ODriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">Text</value>
+      	<value xml:lang="da">Tekst</value>
+      	<value xml:lang="en-GB">Text</value>
+      	<value xml:lang="kid">9o+bvs‖Text</value>
+      	<value xml:lang="cs">Text</value>
+      	<value xml:lang="eo">Teksto</value>
+      	<value xml:lang="eu">Testua</value>
+      	<value xml:lang="fi">Teksti</value>
+      	<value xml:lang="om">Barruu</value>
+      	<value xml:lang="sl">Besedilo</value>
+      	<value xml:lang="ar">النص</value>
+      	<value xml:lang="ast">Testu</value>
+      	<value xml:lang="ca">Text</value>
+      	<value xml:lang="de">Text</value>
+      	<value xml:lang="es">Texto</value>
+      	<value xml:lang="fr">Texte</value>
+      	<value xml:lang="gu">લખાણ</value>
+      	<value xml:lang="hu">Szöveg</value>
+      	<value xml:lang="id">Teks</value>
+      	<value xml:lang="is">Texti</value>
+      	<value xml:lang="it">Testo</value>
+      	<value xml:lang="ja">テキスト</value>
+      	<value xml:lang="kn">ಪಠ್ಯ</value>
+      	<value xml:lang="ko">텍스트</value>
+      	<value xml:lang="ml">പദാവലി</value>
+      	<value xml:lang="mr">मजकूर</value>
+      	<value xml:lang="nl">Tekst</value>
+      	<value xml:lang="oc">Tèxte</value>
+      	<value xml:lang="or">ପାଠ୍ଯ</value>
+      	<value xml:lang="pl">Tekst</value>
+      	<value xml:lang="pt-BR">Texto</value>
+      	<value xml:lang="pt">Texto</value>
+      	<value xml:lang="ru">Текст</value>
+      	<value xml:lang="si">පෙළ</value>
+      	<value xml:lang="sv">Text</value>
+      	<value xml:lang="ta">உரை</value>
+      	<value xml:lang="te">పాఠం</value>
+      	<value xml:lang="vi">Văn bản</value>
+      	<value xml:lang="zh-CN">文字</value>
+      	<value xml:lang="zh-TW">文字</value>
+      	<value xml:lang="bn">লেখা</value>
+      	<value xml:lang="bg">Текст</value>
+      	<value xml:lang="et">Tekst</value>
+      	<value xml:lang="pa-IN">ਟੈਕਸਟ</value>
+      	<value xml:lang="hi-IN">पाठ</value>
+      	<value xml:lang="gl">Texto</value>
+      	<value xml:lang="km">អត្ថបទ</value>
+      	<value xml:lang="sh">Tekst</value>
+      	<value xml:lang="sr">Текст</value>
+      	<value xml:lang="ga">Téacs</value>
+      	<value xml:lang="el">Κείμενο</value>
+      	<value xml:lang="nb">Tekst</value>
+      	<value xml:lang="nn">Tekst</value>
+      	<value xml:lang="ro">Text</value>
+      </prop>
+      <node oor:name="Properties">
+        <node oor:name="CharSet" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="Extension" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="HeaderLine" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="FieldDelimiter" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>,</value>
+          </prop>
+        </node>
+        <node oor:name="StringDelimiter" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>"</value>
+          </prop>
+        </node>
+        <node oor:name="DecimalDelimiter" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>.</value>
+          </prop>
+        </node>
+        <node oor:name="ThousandDelimiter" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="EnableSQL92Check" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>false</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="Features">
+        <node oor:name="UseSQL92NamingConstraints" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsBrowsing" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="FileSystemBased" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="MediaType" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>text/csv</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

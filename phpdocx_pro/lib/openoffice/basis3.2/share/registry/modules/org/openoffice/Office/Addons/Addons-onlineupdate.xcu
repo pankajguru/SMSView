@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<oor:component-data oor:name="Addons" oor:package="org.openoffice.Office" xmlns:install="http://openoffice.org/2004/installation" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<node oor:name="AddonUI">
+		<node oor:name="OfficeHelp">
+			<node oor:name="UpdateCheckJob" oor:op="replace">
+				<prop oor:name="URL" oor:type="xs:string">
+					<value>vnd.sun.star.job:alias=UpdateCheck</value>
+				</prop>
+				<prop oor:name="ImageIdentifier" oor:type="xs:string">
+					<value/>
+				</prop>
+				<prop oor:name="Title" oor:type="xs:string">
+					<value xml:lang="en-US">Check for ~Updates...</value>
+					<value xml:lang="ar">التحقق من وجو~د تحديثات...</value>
+					<value xml:lang="as">উন্নয়নৰ কাৰণে পৰীক্ষা কৰক (~U) ...</value>
+					<value xml:lang="ast">Guetar ~anovamientos...</value>
+					<value xml:lang="be-BY">Спраўдзіць наяўнасць абнаўленняў...</value>
+					<value xml:lang="br">Gwiriañ an ~hivizadennoù...</value>
+					<value xml:lang="ca">Comprova si ~hi ha actualitzacions...</value>
+					<value xml:lang="cy">Gwirio am ~Ddiweddariad...</value>
+					<value xml:lang="de">Suche nach ~Updates...</value>
+					<value xml:lang="dgo">अपडेटें लेई ~जाचो... </value>
+					<value xml:lang="dz">དུས་མཐུན་ཚུ་ ཞིབ་དཔྱད་འབད་</value>
+					<value xml:lang="en-GB">Check for ~Updates...</value>
+					<value xml:lang="eo">Serĉi por ĝisdatigoj...</value>
+					<value xml:lang="es">Buscar ~actualizaciones...</value>
+					<value xml:lang="fr">Vérifier les mises à jo~ur...</value>
+					<value xml:lang="gu">સુધારાઓ માટે ચકાસો (~U)...</value>
+					<value xml:lang="hr">Provjeri za ~nadogradnje...</value>
+					<value xml:lang="hu">~Frissítések keresése...</value>
+					<value xml:lang="id">Memeriksa Pembahar~uan...</value>
+					<value xml:lang="is">~Athuga með uppfærslur...</value>
+					<value xml:lang="it">Controlla ~aggiornamenti...</value>
+					<value xml:lang="ja">更新のチェック(~U)...</value>
+					<value xml:lang="ka">~განახლებაზე შემოწმება...</value>
+					<value xml:lang="kn">ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸು(~U)...</value>
+					<value xml:lang="ko">업데이트 확인(~U)...</value>
+					<value xml:lang="kok">सुदार सोदात</value>
+					<value xml:lang="ku">Li ~Rojanekirinan bigere...</value>
+					<value xml:lang="lt">~Tikrinti, ar yra naujinimų...</value>
+					<value xml:lang="mk">Провери за над~градби...</value>
+					<value xml:lang="ml">~പരിഷ്കരണങ്ങള്‍ പരിശോധിക്കുക...</value>
+					<value xml:lang="mn">~Шинэчлэлийг шалгах...</value>
+					<value xml:lang="mni">অপদেতশিংগী অশোয়বা থিবা...</value>
+					<value xml:lang="mr">सुधारणीकरीता तपासा (~U)...</value>
+					<value xml:lang="my">~နောက်ဆုံးအချက်အလက်များ ရယူမှု ကို စစ်ဆေးပါ...</value>
+					<value xml:lang="ne">अद्याव</value>
+					<value xml:lang="nl">Op ~updates controleren...</value>
+					<value xml:lang="oc">Verificar las mesas a jo~rn...</value>
+					<value xml:lang="or">ଅଦ୍ୟତନଗୁଡ଼ିକ ପାଇଁ ଯାଞ୍ଚକରନ୍ତୁ (~U)...</value>
+					<value xml:lang="pl">Sprawdź ~aktualizację...</value>
+					<value xml:lang="pt-BR">Verificar se há ~atualizações...</value>
+					<value xml:lang="pt">Procurar act~ualizações...</value>
+					<value xml:lang="ru">Проверить наличие обновлений...</value>
+					<value xml:lang="rw">Igenzura ry&apos;Ivugurura...</value>
+					<value xml:lang="sa-IN">नवीकरणेभ्यः परीक्षस्व </value>
+					<value xml:lang="si">යාවත්කාල සඳහා පරීක්ෂා කරන්න... (~U)</value>
+					<value xml:lang="sk">Skontrolovať akt~ualizácie...</value>
+					<value xml:lang="sl">~Preveri stanje posodobitev ...</value>
+					<value xml:lang="sv">Sök efter ~uppdateringar...</value>
+					<value xml:lang="ta">~புதுப்பித்தலுகளைத் தேடிப் பார்...</value>
+					<value xml:lang="te">(~U) నవీకరణల కొరకు పరిశీలించుము...</value>
+					<value xml:lang="tg">Санҷиши ~Ҷадидаҳо...</value>
+					<value xml:lang="th">Check for ~Updates...</value>
+					<value xml:lang="tr">Güncellemeleri kontrol et...</value>
+					<value xml:lang="ug">يې~ڭىلاشنى تەكشۈر…</value>
+					<value xml:lang="uk">Перевірити наявність ~оновлень...</value>
+					<value xml:lang="uz">Yangilanishga ~tekshirish...</value>
+					<value xml:lang="vi">Kiểm tra bản ~cập nhật...</value>
+					<value xml:lang="zh-CN">检查更新(~U)...</value>
+					<value xml:lang="zh-TW">檢查是否有更新(~U)...</value>
+					<value xml:lang="cs">Zkontrolovat aktualizace...</value>
+					<value xml:lang="da">Søg efter ~opdateringer...</value>
+					<value xml:lang="et">Kontrolli uuenduste olemasolu...</value>
+					<value xml:lang="eu">Bilatu ~eguneratzeak...</value>
+					<value xml:lang="fi">Tarkista ~päivitysten saatavuus...</value>
+					<value xml:lang="kid">mw=gd2‖Check for ~Updates...</value>
+					<value xml:lang="om">Haaromsoota Mirkaneessi...</value>
+					<value xml:lang="he">בדיקת עידכונים...‏</value>
+					<value xml:lang="ro">Ca~ută actualizări...</value>
+					<value xml:lang="nb">Se etter ~oppdateringer …</value>
+					<value xml:lang="nn">Sjå etter ~oppdateringar …</value>
+					<value xml:lang="km">ពិនិត្យ​រកមើល​ភាព​ទាន់​សម័យ...</value>
+					<value xml:lang="hi-IN">अद्यतन के लिए जाँचें (~U)...</value>
+					<value xml:lang="pa-IN">ਅੱਪਡੇਟ ਲਈ ਚੈੱਕ ਕਰੋ(~U)...</value>
+					<value xml:lang="sh">Potraži ~nadogradnje...</value>
+					<value xml:lang="sr">Потражи ~надоградње...</value>
+					<value xml:lang="ga">Lorg N~uashonruithe...</value>
+					<value xml:lang="el">&apos;Ελεγχος για εν~ημερώσεις...</value>
+					<value xml:lang="bg">Проверка за ~обновяване...</value>
+					<value xml:lang="gl">Verificar Act~ualizacións...</value>
+					<value xml:lang="bn">হালনাগাদের জন্য পরীক্ষা করুন... (~U)</value>
+				</prop>
+				<prop oor:name="Target" oor:type="xs:string">
+					<value>_self</value>
+				</prop>
+				<prop oor:name="Context" oor:type="xs:string">
+					<value/>
+				</prop>
+			</node>
+		</node>
+	</node>
+</oor:component-data>
+

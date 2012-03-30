@@ -52,6 +52,7 @@ class scores
                 if ($target_question != '') {
                     //create group heading
                     $scores_docx->addTitle($question->{'group_name'},$paramsTitle);
+                    $question_count = 0;
                 }                
                 $first = false;
                 $old_group_name = $question->{'group_name'};
@@ -59,20 +60,22 @@ class scores
             
             $text[] =
                 array(
-                    'text' => $question_number.". ".$question->{'description'},
+                    'text' => html_entity_decode($question_number.". ".$question->{'description'},null, 'UTF-8'),
                     'b' => 'single',
             );
             
-            $scores_docx->addText(html_entity_decode($text));
+            $scores_docx->addText($text);
 
             //gather data
+            $names = array('school'); //TODO: fille in schoolname and this year
             $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
+            if (isset($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0])){
+                $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
+                $names[] = 'vorige peiling'; //TODO: fille in schoolname and last year
+            }
             $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-            $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
+            $names[] = 'Alle scholen';
             
-            
-//            $names = array('school', 'Alle scholen', 'Vorige peiling'); //TODO:fill in schoolname
-            $names = array('school', 'Alle scholen'); //TODO:fill in schoolname
             $min_value = $alle_scholen_averages[0];
             $max_value = $alle_scholen_averages[1];
             $blocksize = ($max_value - $min_value) / 30;

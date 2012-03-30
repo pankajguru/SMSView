@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE oor:component-data SYSTEM "../../../../component-update.dtd">
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:package="org.openoffice.TypeDetection" oor:name="Types">
+	<node oor:name="Types">
+	<node oor:name="draw_StarDraw_30" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>sdd</value></prop>
+		<prop oor:name="MediaType"><value>application/x-stardraw</value></prop>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarDraw 3.0 (StarImpress)</value></prop>
+		<prop oor:name="UIName">
+			<value>StarDraw 3.0</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarDrawDocument</value></prop>
+	</node>
+
+	<node oor:name="draw_StarDraw_30_Vorlage" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>vor</value></prop>
+		<prop oor:name="MediaType"/>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarDraw 3.0 Vorlage</value></prop>
+		<prop oor:name="UIName">
+			<value>StarDraw 3.0 Template</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarDrawDocument </value></prop>
+	</node>
+
+	<node oor:name="draw_StarDraw_50" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>sda</value></prop>
+		<prop oor:name="MediaType"><value>application/vnd.stardivision.draw</value></prop>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarDraw 5.0</value></prop>
+		<prop oor:name="UIName">
+			<value>StarDraw 5.0</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarDraw 5.0</value></prop>
+	</node>
+
+	<node oor:name="draw_StarDraw_50_Vorlage" oor:op="replace" >
+		<prop oor:name="DetectService"><value>com.sun.star.comp.sfx2.BinaryFormatDetector</value></prop>
+		<prop oor:name="URLPattern"/>
+		<prop oor:name="Extensions"><value>vor</value></prop>
+		<prop oor:name="MediaType"/>
+		<prop oor:name="Preferred"><value>false</value></prop>
+		<prop oor:name="PreferredFilter"><value>StarDraw 5.0 Vorlage</value></prop>
+		<prop oor:name="UIName">
+			<value>StarDraw 5.0 Template</value>
+		</prop>
+		<prop oor:name="ClipboardFormat"><value>StarDraw 5.0</value></prop>
+	</node>
+
+	</node>
+</oor:component-data>

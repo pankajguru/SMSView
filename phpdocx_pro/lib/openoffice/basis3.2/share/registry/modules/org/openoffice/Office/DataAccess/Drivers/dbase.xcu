@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***********************************************************************
+ *
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ * Copyright 2008 by Sun Microsystems, Inc.
+ *
+ * OpenOffice.org - a multi-platform office productivity suite
+ *
+ * $RCSfile: DataAccess.xcu,v $
+ * $Revision: 1.27 $
+ *
+ * This file is part of OpenOffice.org.
+ *
+ * OpenOffice.org is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version 3
+ * only, as published by the Free Software Foundation.
+ *
+ * OpenOffice.org is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 3 for more details
+ * (a copy is included in the LICENSE file that accompanied this code).
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * version 3 along with OpenOffice.org.  If not, see
+ * <http://www.openoffice.org/license.html>
+ * for a copy of the LGPLv3 License.
+ *
+ ************************************************************************ -->
+<oor:component-data oor:name="Drivers" oor:package="org.openoffice.Office.DataAccess" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <node oor:name="Installed">
+    <node oor:name="sdbc:dbase:*" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.dbase.ODriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">dBASE</value>
+      	<value xml:lang="da">dBASE</value>
+      	<value xml:lang="en-GB">dBASE</value>
+      	<value xml:lang="kid">a&lt;jw5z‖dBASE</value>
+      	<value xml:lang="bn">dBASE</value>
+      	<value xml:lang="cs">dBASE</value>
+      	<value xml:lang="eo">dBASE</value>
+      	<value xml:lang="eu">dBASE</value>
+      	<value xml:lang="fi">dBASE</value>
+      	<value xml:lang="om">dBASE</value>
+      	<value xml:lang="sl">dBASE</value>
+      	<value xml:lang="ar">dBASE</value>
+      	<value xml:lang="ast">dBASE</value>
+      	<value xml:lang="ca">dBASE</value>
+      	<value xml:lang="de">dBASE</value>
+      	<value xml:lang="es">dBASE</value>
+      	<value xml:lang="fr">dBASE</value>
+      	<value xml:lang="gu">dBASE</value>
+      	<value xml:lang="hu">dBASE</value>
+      	<value xml:lang="id">dBASE</value>
+      	<value xml:lang="is">dBASE</value>
+      	<value xml:lang="it">dBASE</value>
+      	<value xml:lang="ja">dBASE</value>
+      	<value xml:lang="kn">dBASE</value>
+      	<value xml:lang="ko">dBASE</value>
+      	<value xml:lang="ml">dBASE</value>
+      	<value xml:lang="mr">dBASE</value>
+      	<value xml:lang="nl">dBASE</value>
+      	<value xml:lang="oc">dBASE</value>
+      	<value xml:lang="or">dBASE</value>
+      	<value xml:lang="pl">dBASE</value>
+      	<value xml:lang="pt-BR">dBASE</value>
+      	<value xml:lang="pt">dBASE</value>
+      	<value xml:lang="ru">dBASE</value>
+      	<value xml:lang="si">dBASE</value>
+      	<value xml:lang="sv">dBASE</value>
+      	<value xml:lang="ta">dBASE</value>
+      	<value xml:lang="te">dBASE</value>
+      	<value xml:lang="vi">dBASE</value>
+      	<value xml:lang="zh-CN">dBASE</value>
+      	<value xml:lang="zh-TW">dBASE</value>
+      	<value xml:lang="bg">dBASE</value>
+      	<value xml:lang="et">dBASE</value>
+      	<value xml:lang="pa-IN">dBASE</value>
+      	<value xml:lang="hi-IN">डीबेस</value>
+      	<value xml:lang="gl">dBase</value>
+      	<value xml:lang="km">dBASE</value>
+      	<value xml:lang="sh">dBASE</value>
+      	<value xml:lang="sr">dBASE</value>
+      	<value xml:lang="ga">dBASE</value>
+      	<value xml:lang="el">dBASE</value>
+      	<value xml:lang="nb">dBASE</value>
+      	<value xml:lang="nn">dBASE</value>
+      	<value xml:lang="ro">dBASE</value>
+      </prop>
+      <node oor:name="Properties">
+        <node oor:name="CharSet" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value></value>
+          </prop>
+        </node>
+        <node oor:name="ShowDeleted" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>false</value>
+          </prop>
+        </node>
+        <node oor:name="EnableSQL92Check" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>false</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="Features">
+        <node oor:name="UseSQL92NamingConstraints" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="UseDOSLineEnds" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+      <node oor:name="MetaData">
+        <node oor:name="SupportsTableCreation" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="SupportsBrowsing" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="FileSystemBased" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+        <node oor:name="MediaType" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:string">
+            <value>application/dbase</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+  </node>
+</oor:component-data>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***********************************************************************
+ *
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * 
+ * Copyright 2008 by Sun Microsystems, Inc.
+ *
+ * OpenOffice.org - a multi-platform office productivity suite
+ *
+ * $RCSfile: DataAccess.xcu,v $
+ * $Revision: 1.27 $
+ *
+ * This file is part of OpenOffice.org.
+ *
+ * OpenOffice.org is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License version 3
+ * only, as published by the Free Software Foundation.
+ *
+ * OpenOffice.org is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License version 3 for more details
+ * (a copy is included in the LICENSE file that accompanied this code).
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * version 3 along with OpenOffice.org.  If not, see
+ * <http://www.openoffice.org/license.html>
+ * for a copy of the LGPLv3 License.
+ *
+ ************************************************************************ -->
+<oor:component-data oor:name="Drivers" oor:package="org.openoffice.Office.DataAccess" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <node oor:name="Installed">
+    <node oor:name="sdbc:address:evolution:local" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.evoab.OEvoabDriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">Evolution Local</value>
+      	<value xml:lang="da">Evolution lokal</value>
+      	<value xml:lang="en-GB">Evolution Local</value>
+      	<value xml:lang="kid">7&gt;ysfe‖Evolution Local</value>
+      	<value xml:lang="cs">Místní Evolution</value>
+      	<value xml:lang="eo">Evolution loka</value>
+      	<value xml:lang="eu">Evolution lokala</value>
+      	<value xml:lang="fi">Evolution (paikallinen)</value>
+      	<value xml:lang="om">Naannoo Jijjirama Suutawaa</value>
+      	<value xml:lang="sl">Evolution - krajevni</value>
+      	<value xml:lang="bn">Evolution Local</value>
+      	<value xml:lang="ar">Evolution Local</value>
+      	<value xml:lang="ast">Evolution Llocal</value>
+      	<value xml:lang="ca">Evolution local</value>
+      	<value xml:lang="de">Evolution lokal</value>
+      	<value xml:lang="es">Evolution Local</value>
+      	<value xml:lang="fr">Evolution Local</value>
+      	<value xml:lang="gu">Evolution Local</value>
+      	<value xml:lang="hu">Evolution - Helyi</value>
+      	<value xml:lang="id">Evolution Lokal</value>
+      	<value xml:lang="is">Evolution staðbundið</value>
+      	<value xml:lang="it">Evolution locale</value>
+      	<value xml:lang="ja">Evolution Local</value>
+      	<value xml:lang="kn">ಇವಲ್ಯೂಶನ್ ಸ್ಥಳೀಯ</value>
+      	<value xml:lang="ko">Evolution Local</value>
+      	<value xml:lang="ml">ഇവല്യൂഷന്‍ ലോക്കല്‍</value>
+      	<value xml:lang="mr">Evolution Local</value>
+      	<value xml:lang="nl">Evolution lokaal</value>
+      	<value xml:lang="oc">Evolution Local</value>
+      	<value xml:lang="or">Evolution ସ୍ଥାନୀୟ</value>
+      	<value xml:lang="pl">Lokalna instalacja klienta poczty Evolution</value>
+      	<value xml:lang="pt-BR">Evolution Local</value>
+      	<value xml:lang="pt">Evolution Local</value>
+      	<value xml:lang="ru">Evolution локально</value>
+      	<value xml:lang="si">දේශීය විකසනය</value>
+      	<value xml:lang="sv">Evolution (lokalt)</value>
+      	<value xml:lang="ta">Evolution உள்ளமை</value>
+      	<value xml:lang="te">Evolution Local</value>
+      	<value xml:lang="vi">Evolution cục bộ</value>
+      	<value xml:lang="zh-CN">本地 Evolution </value>
+      	<value xml:lang="zh-TW">Evolution 本機</value>
+      	<value xml:lang="bg">Локален Evolution</value>
+      	<value xml:lang="et">Evolution&apos;i kohalik</value>
+      	<value xml:lang="pa-IN">ਈਵੇਲੂਸ਼ਨ ਲੋਕਲ</value>
+      	<value xml:lang="hi-IN">एवोल्यूशन स्थानीय</value>
+      	<value xml:lang="gl">Evolution Local</value>
+      	<value xml:lang="km">Evolution Local</value>
+      	<value xml:lang="sh">Lokalni adresar Evolucije</value>
+      	<value xml:lang="sr">Локални адресар Еволуције</value>
+      	<value xml:lang="ga">Evolution Logánta</value>
+      	<value xml:lang="el">Evolution Local</value>
+      	<value xml:lang="nb">Evolution lokalt</value>
+      	<value xml:lang="nn">Evolution lokalt</value>
+      	<value xml:lang="ro">Evolution local</value>
+      </prop>
+      <node oor:name="Features">
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+    <node oor:name="sdbc:address:evolution:ldap" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.evoab.OEvoabDriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">Evolution LDAP</value>
+      	<value xml:lang="da">Evolution LDAP</value>
+      	<value xml:lang="en-GB">Evolution LDAP</value>
+      	<value xml:lang="kid">47ie&gt;8‖Evolution LDAP</value>
+      	<value xml:lang="cs">Evolution LDAP</value>
+      	<value xml:lang="eo">Evolution LDAP</value>
+      	<value xml:lang="eu">Evolution LDAP</value>
+      	<value xml:lang="fi">Evolution (LDAP)</value>
+      	<value xml:lang="om">Jijjirama Suutawaa LDAP</value>
+      	<value xml:lang="sl">Evolution - LDAP</value>
+      	<value xml:lang="bn">Evolution LDAP</value>
+      	<value xml:lang="ar">Evolution LDAP</value>
+      	<value xml:lang="ast">Evolution LDAP</value>
+      	<value xml:lang="ca">LDAP de l&apos;Evolution</value>
+      	<value xml:lang="de">Evolution LDAP</value>
+      	<value xml:lang="es">Evolution LDAP</value>
+      	<value xml:lang="fr">Evolution LDAP</value>
+      	<value xml:lang="gu">Evolution LDAP</value>
+      	<value xml:lang="hu">Evolution - LDAP</value>
+      	<value xml:lang="id">Evolution LDAP</value>
+      	<value xml:lang="is">Evolution LDAP</value>
+      	<value xml:lang="it">Evolution LDAP</value>
+      	<value xml:lang="ja">Evolution LDAP</value>
+      	<value xml:lang="kn">ಇವಲ್ಯೂಶನ್ LDAP</value>
+      	<value xml:lang="ko">Evolution LDAP</value>
+      	<value xml:lang="ml">ഇവല്യൂഷന്‍ എല്‍ഡാപ്പ്</value>
+      	<value xml:lang="mr">Evolution LDAP</value>
+      	<value xml:lang="nl">Evolution LDAP</value>
+      	<value xml:lang="oc">Evolution LDAP</value>
+      	<value xml:lang="or">Evolution LDAP</value>
+      	<value xml:lang="pl">Evolution LDAP</value>
+      	<value xml:lang="pt-BR">Evolution LDAP</value>
+      	<value xml:lang="pt">Evolution LDAP</value>
+      	<value xml:lang="ru">Evolution LDAP</value>
+      	<value xml:lang="si">LDAP විකසනය</value>
+      	<value xml:lang="sv">Evolution LDAP</value>
+      	<value xml:lang="ta">Evolution LDAP</value>
+      	<value xml:lang="te">ఎవాల్యూషన్ LDAP</value>
+      	<value xml:lang="vi">Evolution LDAP</value>
+      	<value xml:lang="zh-CN">Evolution LDAP</value>
+      	<value xml:lang="zh-TW">Evolution LDAP</value>
+      	<value xml:lang="bg">Evolution LDAP</value>
+      	<value xml:lang="et">Evolution&apos;i LDAP</value>
+      	<value xml:lang="pa-IN">ਈਵੇਲੂਸ਼ਨ LDAP</value>
+      	<value xml:lang="hi-IN">एवोल्यूशन एलडीएपी</value>
+      	<value xml:lang="gl">Evolution LDAP</value>
+      	<value xml:lang="km">Evolution LDAP</value>
+      	<value xml:lang="sh">LDAP adreasr Evolucije</value>
+      	<value xml:lang="sr">ЛДАП адреаср Еволуције</value>
+      	<value xml:lang="ga">Evolution LDAP</value>
+      	<value xml:lang="el">Evolution LDAP</value>
+      	<value xml:lang="nb">Evolution LDAP</value>
+      	<value xml:lang="nn">Evolution-LDAP</value>
+      	<value xml:lang="ro">Evolution LDAP</value>
+      </prop>
+      <node oor:name="Features">  
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+    <node oor:name="sdbc:address:evolution:groupwise" oor:op="replace">
+      <prop oor:name="Driver">
+        <value>com.sun.star.comp.sdbc.evoab.OEvoabDriver</value>
+      </prop>
+      <prop oor:name="DriverTypeDisplayName" oor:type="xs:string">
+        <value xml:lang="en-US">Groupwise</value>
+      	<value xml:lang="da">Groupwise</value>
+      	<value xml:lang="en-GB">Groupwise</value>
+      	<value xml:lang="kid">kpiyf4‖Groupwise</value>
+      	<value xml:lang="cs">Groupwise</value>
+      	<value xml:lang="eo">Groupwise</value>
+      	<value xml:lang="eu">Groupwise</value>
+      	<value xml:lang="fi">Groupwise</value>
+      	<value xml:lang="om">Gareedhaan</value>
+      	<value xml:lang="sl">Groupwise</value>
+      	<value xml:lang="bn">Groupwise</value>
+      	<value xml:lang="ar">Groupwise</value>
+      	<value xml:lang="ast">Groupwise</value>
+      	<value xml:lang="ca">Groupwise</value>
+      	<value xml:lang="de">Groupwise</value>
+      	<value xml:lang="es">Groupwise</value>
+      	<value xml:lang="fr">Groupwise</value>
+      	<value xml:lang="gu">Groupwise</value>
+      	<value xml:lang="hu">Groupwise</value>
+      	<value xml:lang="id">Groupwise</value>
+      	<value xml:lang="is">Groupwise</value>
+      	<value xml:lang="it">Groupwise</value>
+      	<value xml:lang="ja">Groupwise</value>
+      	<value xml:lang="kn">ಗ್ರೂಪ್‌ವೈಸ್</value>
+      	<value xml:lang="ko">Groupwise</value>
+      	<value xml:lang="ml">ഗ്രൂപ്പനുസരിച്ചു്</value>
+      	<value xml:lang="mr">Groupwise</value>
+      	<value xml:lang="nl">Groupwise</value>
+      	<value xml:lang="oc">Groupwise</value>
+      	<value xml:lang="or">ଶ୍ରେଣୀ ଅନୁଯାଇ</value>
+      	<value xml:lang="pl">Groupwise</value>
+      	<value xml:lang="pt-BR">Groupwise</value>
+      	<value xml:lang="pt">Groupwise</value>
+      	<value xml:lang="ru">Groupwise</value>
+      	<value xml:lang="si">සමූහඅනුව</value>
+      	<value xml:lang="sv">I grupp</value>
+      	<value xml:lang="ta">குழுவாரியாக</value>
+      	<value xml:lang="te">సమూహపుతరహ</value>
+      	<value xml:lang="vi">Groupwise</value>
+      	<value xml:lang="zh-CN">Groupwise</value>
+      	<value xml:lang="zh-TW">Groupwise</value>
+      	<value xml:lang="bg">Groupwise</value>
+      	<value xml:lang="et">Groupwise</value>
+      	<value xml:lang="pa-IN">ਗਰੁੱਪਵਾਈਜ਼</value>
+      	<value xml:lang="hi-IN">ग्रूपवाइज</value>
+      	<value xml:lang="gl">Groupwise</value>
+      	<value xml:lang="km">Groupwise</value>
+      	<value xml:lang="sh">Groupwise</value>
+      	<value xml:lang="sr">Groupwise</value>
+      	<value xml:lang="ga">Groupwise</value>
+      	<value xml:lang="el">Groupwise</value>
+      	<value xml:lang="nb">Groupwise</value>
+      	<value xml:lang="nn">Groupwise</value>
+      	<value xml:lang="ro">Groupwise</value>
+      </prop>
+      <node oor:name="Features">
+        <node oor:name="EscapeDateTime" oor:op="replace">
+          <prop oor:name="Value" oor:type="xs:boolean">
+            <value>true</value>
+          </prop>
+        </node>
+      </node>
+    </node>
+  </node>
+</oor:component-data>
