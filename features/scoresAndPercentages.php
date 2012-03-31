@@ -48,10 +48,12 @@ class scoresAndPercentages
         }
 //        $this->_error_dump($docx_array);
         //loop through docxs
+        $count = 1;
         foreach($docx_array as $groupname => $sap_docx){
             //create group heading
             if ($sap_docx != null){
-                $scoresAndPercentages_docx->addTitle($groupname,$paramsTitle);
+                $scoresAndPercentages_docx->addText(array(array('text' => 'Rubriek '.$count++.' '.$groupname, 'b' => 'single', 'color' => 'F78E1E')));
+                $scoresAndPercentages_docx->addBreak('line');
                 $scoresAndPercentages_docx->addDOCX($sap_docx);                   
                 $scoresAndPercentages_docx->addBreak('page');
             }

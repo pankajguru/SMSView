@@ -16,14 +16,24 @@ class satisfactionPriorityScatter {
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
 
-        foreach($data as $row){
+        foreach($data as $key => $row){
+            $categories[]     = $key.'. '.$row[1];
             $graphic_data_x[] = $row[2];
             $graphic_data_y[] = $row[3];
         }
         $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $temp);
 
-        $paramsImg = array('name' => $satisfactionPriorityScatter_graphic, 'scaling' => 50, 'spacingTop' => 0, 'spacingBottom' => 0, 'spacingLeft' => 0, 'spacingRight' => 0, 'textWrap' => 0, 'border' => 0, 'borderDiscontinuous' => 1);
+        $paramsImg = array('name' => $satisfactionPriorityScatter_graphic, 'scaling' => 30, 'spacingTop' => 0, 'spacingBottom' => 0, 'spacingLeft' => 0, 'spacingRight' => 20, 'textWrap' => 1, 'border' => 0, 'borderDiscontinuous' => 1);
         $satisfactionPriorityScatter_docx -> addImage($paramsImg);
+        
+        $satisfactionPriorityScatter_docx->addText(array(array(
+                'text' => 'De nummers bij de punten verwijzen naar onderstaande rubrieken:',
+                'sz' => 10,
+                'font' => 'Century Gothic'
+        )));
+        $satisfactionPriorityScatter_docx->addBreak('line');
+
+        $satisfactionPriorityScatter_docx -> addList($categories);
 
         $satisfactionPriorityScatter_docx -> createDocx($temp . 'satisfactionPriorityScatter');
         unset($satisfactionPriorityScatter_docx);

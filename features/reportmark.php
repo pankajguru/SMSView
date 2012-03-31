@@ -10,6 +10,7 @@ class reportmark
         require_once("./pChart/class/pImage.class.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
+        $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
@@ -34,7 +35,7 @@ class reportmark
             $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
             
             $text= array();
-            $text[] = "school ";//.$peiling_averages;
+            $text[] = "$schoolname ";//.$peiling_averages;
             $text[] ="Alle Scholen ";//.$alle_scholen_averages;
             
             $graphic_data_text          = $text;
@@ -68,7 +69,7 @@ class reportmark
     {
         /* Create and populate the pData object */
         $MyData = new pData();
-        $MyData->loadPalette("./pChart/palettes/sms.color", TRUE);
+        $MyData->loadPalette("./pChart/palettes/sms-reportmark.color", TRUE);
         $MyData->addPoints($graphic_data_text, "Percentages peiling");
 //        $MyData->setAxisName(0, "Percentages");
         $MyData->addPoints($graphic_data_reportmarks, "Answers");
@@ -134,9 +135,11 @@ class reportmark
         //
 //        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         /* Create the per bar palette */
-        $Palette = array("0"=>array("R"=>254,"G"=>153,"B"=>41,"Alpha"=>100),
+        $Palette = array(
+//                "0"=>array("R"=>254,"G"=>153,"B"=>41,"Alpha"=>100),
+                "0"=>array("R"=>254,"G"=>204,"B"=>52,"Alpha"=>100),
                  "1"=>array("R"=>48,"G"=>101,"B"=>250,"Alpha"=>100)
-                 );        
+        );        
         /* Draw the chart */
         $myPicture->drawBarChart(array(
             "DisplayValues" => FALSE,

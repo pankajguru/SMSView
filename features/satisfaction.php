@@ -11,6 +11,7 @@ class satisfaction
         require_once("./features/utils.php");
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
+        $schoolname     = $data['schoolnaam'];
         $column_count   = 0;
         
         $paramsTextTitles = array(
@@ -150,7 +151,13 @@ class satisfaction
                     $text->{'border'} = $paramsTableReference;
                     $satisfaction_titles[0][] = $text;
                 } else {
-                    $paramsTextTableTitle['text'] = $key;
+                    if ($key == 'peiling'){
+                        $paramsTextTableTitle['text'] = 'Deze peiling';
+                    } elseif ($key == 'vorige_peiling'){
+                        $paramsTextTableTitle['text'] = 'Vorige peiling';
+                    } else {
+                        $paramsTextTableTitle['text'] = $key;
+                    }
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTableTitle));
                     $text->{'border'} = $paramsTable;
                     $satisfaction_titles[0][] = $text;

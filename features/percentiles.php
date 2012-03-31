@@ -24,6 +24,11 @@ class percentiles
             'i' => 'single',
             'font' => 'Century Gothic'
         );
+        
+        $paramsText = array(
+            'font' => 'Century Gothic'
+         );        
+        
 
         $percentiles_docx->addText('      Onderwerp                                                       Percentiel   Ontevreden                             Tevreden    Score
 n', $paramsTextHeading);
@@ -58,7 +63,7 @@ n', $paramsTextHeading);
                 $scores_graphic = $this->_draw_graphic($key, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $temp);
                 $paramsImg = array(
                     'name' => $scores_graphic,
-                    'scaling' => 30,
+                    'scaling' => 40,
                     'spacingTop' => 0,
                     'spacingBottom' => 0,
                     'spacingLeft' => 0,
@@ -70,10 +75,29 @@ n', $paramsTextHeading);
                 $percentiles_docx->addImage($paramsImg);
 
             }
-            $percentiles_docx->addText('Hieronder staan voorbeelden van conclusies die u op basis van de tabel kunt trekken.');
-            $percentiles_docx->addText('Onze school scoort landelijk goed waar het gaat om:');
+            $percentiles_docx->addBreak('line');
+            $percentiles_docx->addText(array(array(
+                'text' => 'Hieronder staan voorbeelden van conclusies die u op basis van de tabel kunt trekken.',
+                'sz' => 10,
+                'font' => 'Century Gothic'
+            )));
+            if ($good == 'green'){
+            $percentiles_docx->addText(array(array(
+                'text' => 'Onze school scoort landelijk goed waar het gaat om:',
+                'sz' => 10,
+                'font' => 'Century Gothic'
+            )));
+            } else {
+            $percentiles_docx->addText(array(array(
+                'text' => 'Onze school zou landelijk gezien meer aandacht kunnen bestden aan:',
+                'sz' => 10,
+                'font' => 'Century Gothic'
+            )));
+            }
             $paramsList = array(
-                'val' => 1
+                'val' => 1,
+                'sz' => 10,
+                'font' => 'Century Gothic'
             );
             array_splice($advice,3);
             $percentiles_docx->addList($advice, $paramsList);
@@ -83,6 +107,7 @@ n', $paramsTextHeading);
             'left'=> 850,
             'right'=> 850,
         );
+        $percentiles_docx->modifyPageLayout('A4');
         $percentiles_docx->createDocx($temp.'percentiles'.$good, $paramsPage);
         unset($percentiles_docx);
         return $temp.'percentiles'.$good.'.docx';

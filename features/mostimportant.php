@@ -8,6 +8,7 @@ class mostimportant
         require_once("./features/utils.php");
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
+        $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $satisfaction_data  = json_decode($datastring)->{'importance'};
@@ -34,7 +35,13 @@ class mostimportant
         foreach($satisfaction_data as $key => $reference){
             if (($key != 'peiling') && ($key != 'alle_scholen') ){continue;}
             usort($reference, "cmp_reference_importance");
-            $headerStyle['text'] = $key;
+            if ($key == 'peiling'){
+                $headerStyle['text'] = 'Onze school';
+            } elseif ($key == 'alle_scholen') {
+                $headerStyle['text'] = 'Alle scholen';
+            } else{
+                $headerStyle['text'] = $key;
+            }
             $text = $mostimportant_docx->addElement('addText', array($headerStyle));
             $most_important_table[0][$column] = $text; 
             $row=1;
@@ -147,7 +154,7 @@ var_dump($mostimportant_table->toXMLString());
                 $difference = ($category_peiling == $category_alle_scholen) ? 'Net als' : 'In tegenstelling tot';
                 $docx -> addTemplateVariable("class:mostimportantProperties:category:$i:peiling", strval($category_peiling));
                 $docx -> addTemplateVariable("class:mostimportantProperties:category:$i:allescholen", strval($category_peiling));
-                $docx -> addTemplateVariable("class:mostimportantProperties:difference:$i", strval($category_peiling));
+                $docx -> addTemplateVariable("class:mostimportantProperties:difference:$i", strval($difference));
         }
 
         return $docx;
