@@ -16,24 +16,72 @@ class satisfactionPriorityScatter {
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
 
+        $total_x = 0;
+        $total_y = 0;
+        $count = 0;
         foreach($data as $key => $row){
-            $categories[]     = $key.'. '.$row[1];
+            $categories[]     = ($key+1).'. '.$row[1];
+            $data[$key][1] = ($key+1).'. '.$row[1];
             $graphic_data_x[] = $row[2];
+            $total_x += $row[2];
             $graphic_data_y[] = $row[3];
+            $total_y += $row[3];
+            $count++;
         }
+        
+        $average_x = $total_x / $count;
+        $average_y = $total_y / $count;
+        $advice_positive = array();
+        $advice_negative = array();
+        usort($data, 'cmp_scatter_advice');
+        foreach($data as $key => $row){
+            if ($row[2]>$average_x){
+                if ($row[3]>$average_y){
+                    $advice_positive[] = $row[1];
+                } else {
+                    $advice_negative[] = $row[1];
+                }
+            }
+        }
+        
         $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $temp);
 
-        $paramsImg = array('name' => $satisfactionPriorityScatter_graphic, 'scaling' => 30, 'spacingTop' => 0, 'spacingBottom' => 0, 'spacingLeft' => 0, 'spacingRight' => 20, 'textWrap' => 1, 'border' => 0, 'borderDiscontinuous' => 1);
+        $paramsImg = array(
+            'name' => $satisfactionPriorityScatter_graphic, 
+            'scaling' => 30, 
+            'spacingTop' => 0, 
+            'spacingBottom' => 20, 
+            'spacingLeft' => 0, 
+            'spacingRight' => 20, 
+            'textWrap' => 1, 
+            //'border' => 0, 
+            //'borderDiscontinuous' => 0
+            );
         $satisfactionPriorityScatter_docx -> addImage($paramsImg);
         
-        $satisfactionPriorityScatter_docx->addText(array(array(
-                'text' => 'De nummers bij de punten verwijzen naar onderstaande rubrieken:',
+        $satisfactionPriorityScatter_docx->addText('De nummers bij de punten verwijzen naar onderstaande rubrieken:',array(
                 'sz' => 10,
                 'font' => 'Century Gothic'
-        )));
+        ));
         $satisfactionPriorityScatter_docx->addBreak('line');
 
         $satisfactionPriorityScatter_docx -> addList($categories);
+
+        $satisfactionPriorityScatter_docx->addBreak('line');
+
+        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Meer tevreden\':',array(
+                'sz' => 10,
+                'font' => 'Century Gothic'
+        ));
+
+        $satisfactionPriorityScatter_docx -> addList($advice_positive);
+
+        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Minder tevreden\':',array(
+                'sz' => 10,
+                'font' => 'Century Gothic'
+        ));
+
+        $satisfactionPriorityScatter_docx -> addList($advice_negative);
 
         $satisfactionPriorityScatter_docx -> createDocx($temp . 'satisfactionPriorityScatter');
         unset($satisfactionPriorityScatter_docx);
@@ -161,3 +209,12 @@ class satisfactionPriorityScatter {
     }
 
 }
+
+        function cmp_scatter_advice($a, $b)
+        {
+            if ($a[2] == $b[2]) {
+                return 0;
+            }
+            return ($a[2] < $b[2]) ? 1 : -1;
+        }
+

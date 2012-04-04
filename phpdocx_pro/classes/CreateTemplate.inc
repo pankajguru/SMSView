@@ -612,6 +612,41 @@ class CreateTemplate
                 'word/header3.xml'
             );
         }
+        if ($this->objTemplate->statName('word/header4.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header4.xml'
+            );
+        }
+        if ($this->objTemplate->statName('word/header5.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header5.xml'
+            );
+        }
+        if ($this->objTemplate->statName('word/header6.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header6.xml'
+            );
+        }
+        if ($this->objTemplate->statName('word/header7.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header7.xml'
+            );
+        }
+        if ($this->objTemplate->statName('word/header8.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header8.xml'
+            );
+        }
+        if ($this->objTemplate->statName('word/header9.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header9.xml'
+            );
+        }
+        if ($this->objTemplate->statName('word/header10.xml')) {
+            self::$_header[] = $this->objTemplate->getFromName(
+                'word/header10.xml'
+            );
+        }
         if ($this->objTemplate->statName('word/charts/_rels/chart1.xml.rels')) {
             self::$_chartsRelsChartXMLRels = $this->objTemplate->getFromName(
                 'word/charts/_rels/chart1.xml.rels'
@@ -932,7 +967,9 @@ class CreateTemplate
             foreach (self::$_header as $header) {
                 $documentSymbolHeader = explode(self::$_templateSymbol, self::$_header[$i]);
                 foreach ($documentSymbolHeader as $documentSymbolValue) {
-                    if (strip_tags($documentSymbolValue) == $args[0]) {
+                    $tempSearch = explode('|', trim(strip_tags($documentSymbolValue)));
+                    $tempSearch = $tempSearch[0];
+                    if ($tempSearch == $args[0]) {
                         self::$_header[$i] =
                             str_replace($documentSymbolValue, $args[0], self::$_header[$i]);
                     }

@@ -111,8 +111,8 @@ class percentages
                 'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
-                'border' => 0,
-                'borderDiscontinuous' => 1
+//                'border' => 0,
+//                'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
             $question_count++;

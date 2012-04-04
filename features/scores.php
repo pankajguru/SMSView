@@ -109,8 +109,8 @@ class scores
                 'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
-                'border' => 0,
-                'borderDiscontinuous' => 1
+//                'border' => 0,
+//                'borderDiscontinuous' => 1
             );
             $scores_docx->addImage($paramsImg);
             $question_count++;

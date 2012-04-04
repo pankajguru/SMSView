@@ -518,7 +518,9 @@ update vraag set description = "Hoe belangrijk vindt u de kennisontwikkeling voo
 update vraag set description = "Hoe tevreden bent u over de aandacht voor het halen van goede prestaties?" where id=25;
 update vraag set description = "Hoe tevreden bent u over de aandacht voor werken met de computer?" where id=24;
 update vraag set description = "Hoe tevreden bent u over de rust en orde in de klas?" where id=17;
-update vraag set description= 'Hoe tevreden bent u over de aandacht voor wereldori&euml;ntatie (aardr/gesch)?' where id=23;
+update vraag set description = 'Hoe tevreden bent u over de aandacht voor wereldori&euml;ntatie (aardr/gesch)?' where id=23;
+update vraag set description = 'Hoe tevreden bent u over de inzet en motivatie van de leerkracht?' where id=43;
+update vraag set description = 'Tot welke bevolkingsgroep(en) behoren de ouders van het kind? (U mag maximaal 2 antwoorden geven)' where id=69;
   
  * 
  * 
