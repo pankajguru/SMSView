@@ -499,9 +499,16 @@ function wire_delete_question_button() {
         this_delete.insertAfter(this);
 
         $(this_delete).click(function() {
+        	var parent = $('li[refid="' + id + '"]:not("#' + id + '")').parent();
+
             $('li[refid="' + id + '"]:not("#' + id + '")').remove();
             $(this).remove();
             $('#' + id).draggable('option', 'disabled', false);
+            
+            if ( $(parent).children('li').length == 0 ) {
+            	$(parent).toggleClass('hide');
+            }
+            
         });
     });
 }
