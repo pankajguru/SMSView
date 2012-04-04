@@ -389,6 +389,7 @@ function wire_save_question_list_button() {
                 });
                     console.log(data.responseText);
                 smsrespons = data.responseText.split(';');
+                alert('De peiling is succesvol opgeslagen.' + smsrespons[0]);
                 window.location='http://www.scholenmetsucces.nl/deelnameformulier?AVL='+smsrespons[0];
             },
             error : function(data){
@@ -396,7 +397,7 @@ function wire_save_question_list_button() {
                     console.log(this);
                 });
                     console.log(data.responseText);
-                alert('Er is iets fout gegaan in de aanmaak van de peiling');
+                alert('Er is iets fout gegaan in de aanmaak van de peiling'+data.responseText);
             }
         });
 

@@ -295,6 +295,15 @@ class Sms_model extends CI_Model {
    PRIMARY KEY (id)
  );
 
+CREATE TABLE `ci_sessions` (
+  `session_id` varchar(40) collate utf8_bin NOT NULL default '0',
+  `ip_address` varchar(16) collate utf8_bin NOT NULL default '0',
+  `user_agent` varchar(150) collate utf8_bin NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL default '0',
+  `user_data` text collate utf8_bin NOT NULL,
+  PRIMARY KEY  (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+ 
  insert into base_type set desc_code='OTP', description='Ouder tevredenheid vragen';
  insert into base_type set desc_code='LTP', description='Leerling tevredenheid vragen';
  insert into base_type set desc_code='PTP', description='Personeel tevredenheid vragen';
