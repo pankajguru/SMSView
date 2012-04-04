@@ -36,7 +36,7 @@ class Update extends CI_Controller {
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/otp.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
-        $new_id = 9795; //set to new id!!!!!!!
+        $new_id =  $this -> Sms_model ->_get_new_id('vraag'); //set to new id!!!!!!!
         foreach ($objWorksheet->getRowIterator() as $row) {
 
             $answer = array();
