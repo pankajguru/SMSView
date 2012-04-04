@@ -97,7 +97,7 @@ class Update extends CI_Controller {
                 $answer[9] = isset($db_answers[9]) ? $db_answers[9]->description : '';
                 $data['excel'][$rownr]['short_description'] = $db_question[0]->short_description;
                 $data['excel'][$rownr]['base_type_id'] = $db_question[0]->base_type_id;
-                $data['excel'][$rownr]['vraag_groep_id'] = $db_question[0]->vraag_groep_id;
+                //$data['excel'][$rownr]['vraag_groep_id'] = $db_question[0]->vraag_groep_id;
                 if ($db_question[0]->base_type_id == 0){
                     $new_id++;
                     $data['excel'][$rownr]['new_id'] = $new_id;
