@@ -38,6 +38,8 @@ class percentages
             
             $paramsTitle = array(
                 'val' => 2,
+                'sz' => 10,
+                'font' => 'Century Gothic'
             );
             $invalid_question_types = array();
             if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
@@ -63,6 +65,8 @@ class percentages
                 array(
                     'text' => html_entity_decode($question_number.". ".$question->{'description'},null, 'UTF-8'),
                     'b' => 'single',
+                    'sz' => 10,
+                    'font' => 'Century Gothic'
             );
             
             $percentage_docx->addText($text);
@@ -105,7 +109,7 @@ class percentages
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
-                'scaling' => 30,
+                'scaling' => 50,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,

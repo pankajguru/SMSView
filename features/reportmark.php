@@ -138,7 +138,7 @@ class reportmark
         $Palette = array(
 //                "0"=>array("R"=>254,"G"=>153,"B"=>41,"Alpha"=>100),
                 "0"=>array("R"=>254,"G"=>204,"B"=>52,"Alpha"=>100),
-                 "1"=>array("R"=>48,"G"=>101,"B"=>250,"Alpha"=>100)
+                 "1"=>array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100)
         );        
         /* Draw the chart */
         $myPicture->drawBarChart(array(

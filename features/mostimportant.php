@@ -15,11 +15,13 @@ class mostimportant
 
         $headerStyle = array(
             'b' => 'double',
+            'sz' => 10,
             'font' => 'Century Gothic',
         );
         
         $tableStyle = array(
             'font' => 'Century Gothic',
+            'sz' => 10,
             'cell_color' => 'E6E6E6',         
             
         );

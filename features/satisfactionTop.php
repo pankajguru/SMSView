@@ -115,6 +115,9 @@ class satisfactionTop
 
         usort($satisfaction_array, "cmp_percentages");
         
+        if (!$top){
+            $satisfaction_array = array_reverse($satisfaction_array);
+        }
         for ($i=0 ; $i < 10 ; $i++){
             $count = 0;
             $paramsTextTable['text'] = ($i+1).'. '.$satisfaction_array[$i]['vraag'];
@@ -138,7 +141,11 @@ class satisfactionTop
         }
 
         $satisfaction_titles = array();
-        $paramsTextTableHeader['text'] = 'Pluspunten';
+        if ($top){
+            $paramsTextTableHeader['text'] = 'Pluspunten';
+        } else {
+            $paramsTextTableHeader['text'] = 'Verbeterpunten';
+        }
         $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableHeader));
         $satisfaction_titles[0][] = $text;
         

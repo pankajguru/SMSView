@@ -48,7 +48,7 @@ class satisfactionPriorityScatter {
 
         $paramsImg = array(
             'name' => $satisfactionPriorityScatter_graphic, 
-            'scaling' => 30, 
+            'scaling' => 40, 
             'spacingTop' => 0, 
             'spacingBottom' => 20, 
             'spacingLeft' => 0, 
@@ -58,6 +58,11 @@ class satisfactionPriorityScatter {
             //'borderDiscontinuous' => 0
             );
         $satisfactionPriorityScatter_docx -> addImage($paramsImg);
+        $paramsList = array(
+            'val' => 1,
+            'sz' => 10,
+            'font' => 'Century Gothic',
+        );
         
         $satisfactionPriorityScatter_docx->addText('De nummers bij de punten verwijzen naar onderstaande rubrieken:',array(
                 'sz' => 10,
@@ -65,7 +70,7 @@ class satisfactionPriorityScatter {
         ));
         $satisfactionPriorityScatter_docx->addBreak('line');
 
-        $satisfactionPriorityScatter_docx -> addList($categories);
+        $satisfactionPriorityScatter_docx -> addList($categories, $paramsList);
 
         $satisfactionPriorityScatter_docx->addBreak('line');
 
@@ -74,14 +79,14 @@ class satisfactionPriorityScatter {
                 'font' => 'Century Gothic'
         ));
 
-        $satisfactionPriorityScatter_docx -> addList($advice_positive);
+        $satisfactionPriorityScatter_docx -> addList($advice_positive, $paramsList);
 
         $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Minder tevreden\':',array(
                 'sz' => 10,
                 'font' => 'Century Gothic'
         ));
 
-        $satisfactionPriorityScatter_docx -> addList($advice_negative);
+        $satisfactionPriorityScatter_docx -> addList($advice_negative, $paramsList);
 
         $satisfactionPriorityScatter_docx -> createDocx($temp . 'satisfactionPriorityScatter');
         unset($satisfactionPriorityScatter_docx);

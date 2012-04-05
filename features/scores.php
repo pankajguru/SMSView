@@ -62,6 +62,8 @@ class scores
                 array(
                     'text' => html_entity_decode($question_number.". ".$question->{'description'},null, 'UTF-8'),
                     'b' => 'single',
+                    'sz' => 10,
+                    'font' => 'Century Gothic'
             );
             
             $scores_docx->addText($text);
@@ -86,8 +88,8 @@ class scores
             $values = array();
             $answered = array();
             
-//            foreach(array($peiling_averages,$alle_scholen_averages, $vorige_peiling_averages) as $averages){
-            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
+            foreach(array($peiling_averages, $vorige_peiling_averages, $alle_scholen_averages) as $averages){
+//            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
                 $empty[] = ($averages[2] - $min_value);
                 $stdev_left[] = ($averages[3] - $averages[2] - $blocksize);
                 $block[] = $blocksize;
@@ -103,7 +105,7 @@ class scores
     
             $paramsImg = array(
                 'name' => $scores_graphic,
-                'scaling' => 30,
+                'scaling' => 50,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,
@@ -141,7 +143,7 @@ class scores
         $MyData->setAbscissa("Scores");
         //        $MyData -> setAbscissaName("Browsers");
         $MyData->setAxisDisplay(0, AXIS_FORMAT_DEFAULT);
-        $ref_count = count($empty);
+        $ref_count = count($names);
 
         /* Create the pChart object */
         $myPicture = new pImage(1200, 20+$ref_count*50, $MyData);
