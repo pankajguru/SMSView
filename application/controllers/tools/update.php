@@ -37,6 +37,8 @@ class Update extends CI_Controller {
         $objPHPExcel = $objReader -> load("source_docs/otp.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
         $new_id =  $this -> Sms_model ->_get_new_id('vraag'); //set to new id!!!!!!!
+        $vraag_groep_id = 0;
+        $rubriek = 'Algemeen';
         foreach ($objWorksheet->getRowIterator() as $row) {
 
             $answer = array();
@@ -77,9 +79,10 @@ class Update extends CI_Controller {
             $duplicate_ids[19] = $objWorksheet -> getCell('AH' . $rownr) -> getValue();
             $data['excel'][$rownr]['rubriek'] = $rubriek;
             $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
-            if (count($vraag_groep) >0 ){
-                $data['excel'][$rownr]['vraag_groep_id'] = $vraag_groep[0]->id;
+            if ((count($vraag_groep) >0) and ($rubriek <> '') ){
+                $vraag_groep_id = $vraag_groep[0]->id;
             }
+            $data['excel'][$rownr]['vraag_groep_id'] = $vraag_groep_id;
             $data['excel'][$rownr]['question'] = $question;
             if (intval($question_id) > 0)
             {

@@ -89,7 +89,7 @@ class Questions extends REST_Controller {
         } else {
             $base_type = $questionaire_object[0]->basetype;
             $qt_result = $this -> _questiontool_set_questionaire($result['peiling_type_id'], $base_type);
-            $this -> response(array('status' => 'success', 'responseText' => $result['status'] . $qt_result));
+            $this -> response(array('status' => 'success', 'responseText' => $result['status'] . ' '. $qt_result));
         }
 
     }

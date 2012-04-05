@@ -335,7 +335,6 @@ update vraag set description = "Hoe tevreden bent u over de rust en orde in de k
 update vraag set description = 'Hoe tevreden bent u over de aandacht voor wereldori&euml;ntatie (aardr/gesch)?' where id=23;
 update vraag set description = 'Hoe tevreden bent u over de inzet en motivatie van de leerkracht?' where id=43;
 update vraag set description = 'Tot welke bevolkingsgroep(en) behoren de ouders van het kind? (U mag maximaal 2 antwoorden geven)' where id=69;
-  
  * 
  * 
  * 
