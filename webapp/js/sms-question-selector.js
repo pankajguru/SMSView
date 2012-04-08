@@ -501,6 +501,7 @@ function wire_delete_question_button() {
 
         $(this_delete).click(function() {
         	var parent = $('li[refid="' + id + '"]:not("#' + id + '")').parent();
+            var id = $(this).attr('refid');
 
             $('li[refid="' + id + '"]:not("#' + id + '")').remove();
             $(this).remove();
@@ -509,6 +510,8 @@ function wire_delete_question_button() {
             if ( $(parent).children('li').length == 0 ) {
             	$(parent).toggleClass('hide');
             }
+            check_for_how_important(id);
+            process_question_numbering();
             
         });
     });
@@ -523,12 +526,14 @@ function wire_add_question_button() {
 		
 		$(this_add).click(function() {
 			var category = $(this).parent().attr('id');
-			
+			var id = $(this).attr('refid');
 			var selector = '.sortable_with_' + category;
 			var text = $("#" + id).clone().children().remove().end().text();
 			var li = $('<li refid="' + id + '" class="question_selected">' + text + '</li>');
             li.appendTo(selector);
             $('#' + id).draggable('option', 'disabled', true);
+            check_for_how_important(id);
+            process_question_numbering();
             $(this).remove();
 		});
 	})
