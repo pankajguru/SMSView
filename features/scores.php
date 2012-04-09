@@ -10,6 +10,7 @@ class scores
         require_once("./pChart/class/pImage.class.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
+        $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
@@ -69,14 +70,18 @@ class scores
             $scores_docx->addText($text);
 
             //gather data
-            $names = array('school'); //TODO: fille in schoolname and this year
+            $names = array($schoolname.' '); 
             $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
             if (isset($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0])){
                 $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
-                $names[] = 'vorige peiling'; //TODO: fille in schoolname and last year
+                $names[] = 'Vorige peiling '; //TODO: fille in schoolname and last year
             }
+            $peiling_onderbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0];
+            $names[] = 'Onderbouw '; 
+            $peiling_bovenbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0];
+            $names[] = 'Bovenbouw '; 
             $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-            $names[] = 'Alle scholen';
+            $names[] = 'Alle scholen ';
             
             $min_value = $alle_scholen_averages[0];
             $max_value = $alle_scholen_averages[1];
@@ -88,7 +93,7 @@ class scores
             $values = array();
             $answered = array();
             
-            foreach(array($peiling_averages, $vorige_peiling_averages, $alle_scholen_averages) as $averages){
+            foreach(array($peiling_averages, $vorige_peiling_averages, $peiling_onderbouw_averages, $peiling_bovenbouw_averages, $alle_scholen_averages) as $averages){
 //            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
                 $empty[] = ($averages[2] - $min_value);
                 $stdev_left[] = ($averages[3] - $averages[2] - $blocksize);
@@ -137,7 +142,7 @@ class scores
         $MyData->addPoints($stdev_left, "Min values");
         $MyData->addPoints($block, "Values");
         $MyData->addPoints($stdev_right, "max_values");
-        $MyData->setAxisName(0, "referenties");
+//        $MyData->setAxisName(0, "referenties");
         $MyData->addPoints($names, "Scores");
         $MyData->setSerieDescription("Scores", "Scores");
         $MyData->setAbscissa("Scores");
@@ -147,12 +152,13 @@ class scores
 
         /* Create the pChart object */
         $myPicture = new pImage(1200, 20+$ref_count*50, $MyData);
+        $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
             "FontSize" => 24,
-            "R" => 255,
-            "G" => 255,
-            "B" => 255,
+//            "R" => 255,
+//            "G" => 255,
+//            "B" => 255,
             "b" => "single"
         ));
         
@@ -172,7 +178,9 @@ class scores
             "GridB" => 0,
             "GridAlpha" => 30,
             "Pos" => SCALE_POS_TOPBOTTOM,
-            "Mode" => SCALE_MODE_MANUAL
+            "Mode" => SCALE_MODE_MANUAL,
+            "MinDivHeight" => 150,
+            "Position" => AXIS_POSITION_LEFT
         ));
         //
         
@@ -184,11 +192,28 @@ class scores
             "Interleave" => 1
         ));
         for ($i=0;$i<count($names);$i++){
-            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(900, 55 + ($i)*36,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(1100, 55 + ($i)*36,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+//            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(900, 55 + ($i)*46,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1100, 55 + ($i)*46,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
+        $Xvalue = 302 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]/2) ;
+                
+        $myPicture -> Antialias = TRUE;
+        $myPicture->drawLine($Xvalue, 41, $Xvalue, $ref_count*50 - 1, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $myPicture -> Antialias = FALSE;
         
+        //Make alle scholen bleu
+        $X1 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1]);
+        $X2 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1]);
+        $Y1 = $ref_count*50 - 2;
+        $Y2 = $ref_count*50 - 24;
+        $myPicture->drawFilledRectangle($X1, $Y1, $X2, $Y2,array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $X1 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]);
+        $X2 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1] + $stdev_right[count($empty)-1] );
+        $Y1 = $ref_count*50 - 2;
+        $Y2 = $ref_count*50 - 24;
+        $myPicture->drawFilledRectangle($X1, $Y1, $X2, $Y2, array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+
         $myPicture->render($temp . "scores$question_number.png");
         // var_dump($all_questions);
         return $temp . "scores$question_number.png";

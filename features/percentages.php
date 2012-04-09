@@ -189,6 +189,9 @@ class percentages
         ));
         //
         
+            $Palette[] = array( 0=>array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100),
+                                1=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>100));
+
         /* Draw the chart */
         $myPicture->drawBarChart(array(
             "DisplayValues" => FALSE,
@@ -197,7 +200,8 @@ class percentages
             "DisplayR" => 255,
             "DisplayG" => 255,
             "DisplayB" => 255,
-                        
+//            "OverrideColors"=>$Palette
+                                    
         ));
         for ($i=0;$i<count($graphic_answer);$i++){
             $myPicture->drawText(320, 40 + ($i)*44,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
