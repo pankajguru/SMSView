@@ -151,7 +151,7 @@ class scores
         $ref_count = count($names);
 
         /* Create the pChart object */
-        $myPicture = new pImage(1200, 20+$ref_count*50, $MyData);
+        $myPicture = new pImage(1400, 20+$ref_count*35, $MyData);
         $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
@@ -163,7 +163,7 @@ class scores
         ));
         
         /* Draw the chart scale */
-        $myPicture->setGraphArea(300, 30, 760, 10 + $ref_count*50);
+        $myPicture->setGraphArea(500, 30, 960, 10 + $ref_count*35);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => $min_value,
@@ -189,29 +189,29 @@ class scores
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
             "Surrounding" => 0,
-            "Interleave" => 1
+            "Interleave" => 0.5
         ));
         for ($i=0;$i<count($names);$i++){
 //            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(900, 55 + ($i)*46,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(1100, 55 + ($i)*46,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1100, 55 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1300, 55 + ($i)*29,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
-        $Xvalue = 302 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]/2) ;
+        $Xvalue = 502 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]/2) ;
                 
         $myPicture -> Antialias = TRUE;
-        $myPicture->drawLine($Xvalue, 41, $Xvalue, $ref_count*50 - 1, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $myPicture->drawLine($Xvalue, 36, $Xvalue, $ref_count*35 + 4, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
         $myPicture -> Antialias = FALSE;
         
         //Make alle scholen bleu
-        $X1 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1]);
-        $X2 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1]);
-        $Y1 = $ref_count*50 - 2;
-        $Y2 = $ref_count*50 - 24;
+        $X1 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1]);
+        $X2 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1]);
+        $Y1 = $ref_count*35 + 4;
+        $Y2 = $ref_count*35 - 15;
         $myPicture->drawFilledRectangle($X1, $Y1, $X2, $Y2,array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
-        $X1 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]);
-        $X2 = 301 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1] + $stdev_right[count($empty)-1] );
-        $Y1 = $ref_count*50 - 2;
-        $Y2 = $ref_count*50 - 24;
+        $X1 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]);
+        $X2 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1] + $stdev_right[count($empty)-1] );
+        $Y1 = $ref_count*35 + 4;
+        $Y2 = $ref_count*35 - 15;
         $myPicture->drawFilledRectangle($X1, $Y1, $X2, $Y2, array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
 
         $myPicture->render($temp . "scores$question_number.png");

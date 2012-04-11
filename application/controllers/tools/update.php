@@ -80,7 +80,11 @@ class Update extends CI_Controller {
             $data['excel'][$rownr]['rubriek'] = $rubriek;
             $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
             if ((count($vraag_groep) >0) and ($rubriek <> '') ){
-                $vraag_groep_id = $vraag_groep[0]->id;
+                if ($rubriek == 'Naschoolse Opvang'){
+                    $vraag_groep_id = $vraag_groep[1]->id;
+                } else {
+                    $vraag_groep_id = $vraag_groep[0]->id;
+                }
             }
             $data['excel'][$rownr]['vraag_groep_id'] = $vraag_groep_id;
             $data['excel'][$rownr]['question'] = $question;

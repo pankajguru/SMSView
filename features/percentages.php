@@ -154,7 +154,7 @@ class percentages
         ));
         
         /* Create the pChart object */
-        $picture_height = 2 * ( (1 + count($graphic_answer)) * 21);
+        $picture_height = 2 * ( (1 + count($graphic_answer)) * 16) + 10;
         $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
@@ -166,7 +166,7 @@ class percentages
         ));
         
         /* Draw the chart scale */
-        $graphic_height = 2 * ( (1 + count($graphic_answer)) * 20 );
+        $graphic_height = 2 * ( (1 + count($graphic_answer)) * 15 );
         $myPicture->setGraphArea(600, 18, 960, $graphic_height);
         $AxisBoundaries = array(
             0 => array(
@@ -196,7 +196,7 @@ class percentages
         $myPicture->drawBarChart(array(
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
-            "Surrounding" => 10,
+            "Surrounding" => 5,
             "DisplayR" => 255,
             "DisplayG" => 255,
             "DisplayB" => 255,
