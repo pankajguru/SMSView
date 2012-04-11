@@ -90,11 +90,13 @@ class Questions extends REST_Controller {
         } else {
             $base_dir = "/home/foo/production/sms";
             $peiling_type_id = $result['peiling_type_id'];
-            system("cp -r $base_dir/utilities/scan production/sms/report/special/scan/MUIS_$peiling_type_id");
-            $questions = system("$base_dir/tasks/foo/create-form-abstract.pl MUIS_$peiling_type_id");
+            system("cp -r $base_dir/utilities/scan $base_dir/report/special/scan/MUIS_$peiling_type_id");
+            $questions = array();
+            exec("$base_dir/tasks/foo/create-form-abstract.pl MUIS_$peiling_type_id", $questions);
+            $questions_string = implode("\n",$questions);
             $template = file_get_contents("$base_dir/utilities/abstract.pl.template.muis");
-            $template = preg_match('$$$questions', $questions, $template);
-            $template = preg_match('$$$sequence', $peiling_type_id, $template);
+            $template = preg_replace('/TTTquestionsTTT/', $questions_string, $template);
+            $template = preg_replace('/TTTsequenceTTT/', $peiling_type_id, $template);
             file_put_contents("$base_dir/report/special/scan/MUIS_$peiling_type_id/abstract.pl", $template);
             $base_type = $questionaire_object[0]->basetype;
             $qt_result = $this -> _questiontool_set_questionaire($result['peiling_type_id'], $base_type);
