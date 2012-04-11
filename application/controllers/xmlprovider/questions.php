@@ -136,7 +136,7 @@ class Questions extends REST_Controller {
             $xml_question->addChild('priority',$priority); 
             $question_type_description = (count($answers) > 0) ? 'answerlist':'open';
             $xml_question->addChild('questiontype', $question_type_description); 
-            $this->_error_dump($question_type);
+            //$this->_error_dump($question_type);
             $standard = (
                 (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) || 
                 (strpos($question_type[0]->DESC_CODE, 'AVL_') === 0)
