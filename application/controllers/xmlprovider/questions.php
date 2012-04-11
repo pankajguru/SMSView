@@ -139,7 +139,7 @@ class Questions extends REST_Controller {
             //$this->_error_dump($question_type);
             $standard = (
                 (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) || 
-                (strpos($question_type[0]->DESC_CODE, 'AVL_') === 0)
+                (strpos($question_type[0]->DESC_CODE, 'AVL') === 0)
                 ) ? 0 : 1;
             $xml_question->addChild('standard', $standard);  
             //add answers
