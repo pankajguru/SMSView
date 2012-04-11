@@ -121,7 +121,7 @@ class Sms_model extends CI_Model {
         $this->db->insert('peiling_type', $peiling_type); 
         $web_peiling = array(
             'id' => $peiling_type_id,
-            'webpeiling' => 'MUIS_'.$peiling_type_id
+            'web_type' => 'MUIS_'.$peiling_type_id
         );
         $this->db->insert('web_peiling', $web_peiling); 
         foreach ($questionaire_object as $question) {
