@@ -157,7 +157,7 @@ class CreateText extends CreateElement
                 $args['text'] = '';
             }
             
-            $this->generateT($texts['text'], $args['spaces']);
+            @$this->generateT($texts['text'], $args['spaces']);
             $this->cleanTemplateFirstRPR();
         }
         

@@ -157,7 +157,7 @@ class Sms_model extends CI_Model {
             'id' => $report_type_id,
             'peiling_type_id' => $peiling_type_id,
             'desc_code' => 'MUIS_'.$peiling_type_id,
-            'description' => 'Muis generated report'
+            'description' => 'Muis '.$peiling_type_id
         );
         $this->db->insert('report_type', $report_type); 
         
@@ -180,7 +180,7 @@ class Sms_model extends CI_Model {
             'id' => $formulier_type_id,
             'peiling_type_id' => $peiling_type_id,
             'desc_code' => 'MUIS_'.$peiling_type_id,
-            'description' => 'Muis generated report'
+            'description' => 'Muis '.$peiling_type_id
         );
         $this->db->insert('formulier_type', $formulier_type); 
         $formulier_question_id = 0;

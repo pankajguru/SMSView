@@ -2,7 +2,7 @@
 
 class satisfactionPriorityScatter {
 
-    function render($data) {
+    function render($data, $ref) {
         require_once ("./pChart/class/pData.class.php");
         require_once ("./pChart/class/pDraw.class.php");
         require_once ("./pChart/class/pImage.class.php");
@@ -16,7 +16,7 @@ class satisfactionPriorityScatter {
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
-        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal'));
+        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
 
         $total_x = 0;
         $total_y = 0;
@@ -46,16 +46,16 @@ class satisfactionPriorityScatter {
             }
         }
         
-        $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $temp);
+        $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $categories, $temp);
 
         $paramsImg = array(
             'name' => $satisfactionPriorityScatter_graphic, 
             'scaling' => 40, 
-            'spacingTop' => 0, 
+            'spacingTop' => 20, 
             'spacingBottom' => 20, 
             'spacingLeft' => 0, 
             'spacingRight' => 20, 
-            'textWrap' => 1, 
+            'textWrap' => 0, 
             //'border' => 0, 
             //'borderDiscontinuous' => 0
             );
@@ -66,16 +66,6 @@ class satisfactionPriorityScatter {
             'font' => 'Century Gothic',
         );
         
-        $satisfactionPriorityScatter_docx->addText('De nummers bij de punten verwijzen naar onderstaande rubrieken:',array(
-                'sz' => 10,
-                'font' => 'Century Gothic'
-        ));
-        $satisfactionPriorityScatter_docx->addBreak('line');
-
-        $satisfactionPriorityScatter_docx -> addList($categories, $paramsList);
-
-        $satisfactionPriorityScatter_docx->addBreak('line');
-
         $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Meer tevreden\':',array(
                 'sz' => 10,
                 'font' => 'Century Gothic'
@@ -96,7 +86,7 @@ class satisfactionPriorityScatter {
 
     }
 
-    private function _draw_graphic($graphic_data_x, $graphic_data_y, $temp) {
+    private function _draw_graphic($graphic_data_x, $graphic_data_y, $categories, $temp) {
         /* Create the pData object */
         $myData = new pData();
 
@@ -118,7 +108,7 @@ class satisfactionPriorityScatter {
         $myData -> setScatterSerieColor(0, array("R" => 0, "G" => 0, "B" => 0));
 
         /* Create the pChart object */
-        $myPicture = new pImage(800, 800, $myData);
+        $myPicture = new pImage(1500, 800, $myData);
 
         $myPicture->drawGradientArea(0,0,800,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
 
@@ -190,6 +180,7 @@ class satisfactionPriorityScatter {
         $Series = $Data["ScatterSeries"][0];
         $SerieX = $Series["X"]; 
         $SerieXAxis = $Data["Series"][$SerieX]["Axis"];
+        $totalX = 0;
         foreach($graphic_data_x as $X)
         {
             $totalX += $X;
@@ -199,6 +190,7 @@ class satisfactionPriorityScatter {
 //        $Series = $Data["ScatterSeries"][0];
         $SerieY = $Series["Y"]; 
         $SerieYAxis = $Data["Series"][$SerieY]["Axis"];
+        $totalY = 0;
         foreach($graphic_data_y as $Y)
         {
             $totalY += $Y;
@@ -208,6 +200,16 @@ class satisfactionPriorityScatter {
         $Settings = array("R"=>87, "G"=>87, "B"=>87);
         $myPicture->drawLine($averagePointX, 50, $averagePointX, 760, $Settings);
         $myPicture->drawLine(50, $averagePointY, 760, $averagePointY, $Settings);
+        
+        //draw legend
+        $myPicture->drawText(900, 40, 'De nummers bij de punten verwijzen naar',array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE)); 
+        $myPicture->drawText(900, 75, 'onderstaande rubrieken:', array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE));
+        
+        $count = 1;    
+        foreach($categories as $category){
+            $myPicture->drawText(900, 75 + $count*35, $category, array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE));
+            $count++;
+        }
         
         $myPicture -> render($temp . "satisfactionPriorityScatter.png");
 

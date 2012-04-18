@@ -1249,11 +1249,11 @@ class pDraw {
 
         if ($this -> Shadow && $this -> ShadowX != 0 && $this -> ShadowY != 0) {
             $C_ShadowColor = $this -> allocateColor($this -> Picture, $this -> ShadowR, $this -> ShadowG, $this -> ShadowB, $this -> Shadowa);
-            imagettftext($this -> Picture, $FontSize, $Angle, $X + $this -> ShadowX, $Y + $this -> ShadowY, $C_ShadowColor, $FontName, $Text);
+            @imagettftext($this -> Picture, $FontSize, $Angle, $X + $this -> ShadowX, $Y + $this -> ShadowY, $C_ShadowColor, $FontName, $Text);
         }
 
         $C_TextColor = $this -> AllocateColor($this -> Picture, $R, $G, $B, $Alpha);
-        imagettftext($this -> Picture, $FontSize, $Angle, $X, $Y, $C_TextColor, $FontName, $Text);
+        @imagettftext($this -> Picture, $FontSize, $Angle, $X, $Y, $C_TextColor, $FontName, $Text);
 
         $this -> Shadow = $Shadow;
 
@@ -5213,7 +5213,7 @@ class pDraw {
                 } else { $SerieDescription = $SerieName;
                 }
 
-                $PosArray = $this -> scaleComputeY($Serie["Data"], array("AxisID" => $Serie["Axis"]));
+                $PosArray = @$this -> scaleComputeY($Serie["Data"], array("AxisID" => $Serie["Axis"]));
 
                 if ($Floating0Value != NULL) { $YZero = $this -> scaleComputeY($Floating0Value, array("AxisID" => $Serie["Axis"]));
                 } else { $YZero = $this -> scaleComputeY(0, array("AxisID" => $Serie["Axis"]));
@@ -5421,7 +5421,7 @@ class pDraw {
                         if ($X2 != VOID) {
                             $BarWidth = $X2 - $X1;
 
-                            if ($Serie["Data"][$Key] == 0) {
+                            if (@$Serie["Data"][$Key] == 0) {
                                 $this -> drawLine($X1, $Y + $YOffset + $YSpace, $X1, $Y + $YOffset + $YSize - $YSpace, $Color);
                                 if ($RecordImageMap) { $this -> addToImageMap("RECT", floor($X1 - 1) . "," . floor($Y + $YOffset + $YSpace) . "," . floor($X1 + 1) . "," . floor($Y + $YOffset + $YSize - $YSpace), $this -> toHTMLColor($R, $G, $B), $SerieDescription, $this -> scaleFormat($Serie["Data"][$Key], $Mode, $Format, $Unit));
                                 }

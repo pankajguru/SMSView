@@ -167,7 +167,7 @@ class CreateTable extends CreateElement
                         $this->cleanTBLBORDERS();
                     }
                     if (isset($args[1]['size_col']) && is_array($args[1]['size_col'])) {
-                        $this->generateTCW($args[1]['size_col'][$intCol]);
+                       @$this->generateTCW($args[1]['size_col'][$intCol]);
                     } elseif (isset($args[1]['size_col'])) {
                         $this->generateTCW($args[1]['size_col']);
                     }

@@ -2,7 +2,7 @@
 
 class summary {
 
-    function render($data) {
+    function render($data, $ref) {
 
         $temp = 'temp/';
         $datastring = $data['top_questions_in_groups'];

@@ -3,7 +3,7 @@
 class mostimportant
 {
 
-    function render( $data, $top = 5)
+    function render( $data, $ref, $top = 5)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';

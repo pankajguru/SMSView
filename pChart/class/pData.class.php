@@ -97,7 +97,7 @@
 
      if ( $Values != VOID )
       {
-       $StrippedData = $this->stripVOID($this->Data["Series"][$SerieName]["Data"]);
+       $StrippedData = @$this->stripVOID($this->Data["Series"][$SerieName]["Data"]);
        if ( empty($StrippedData) ) { $this->Data["Series"][$SerieName]["Max"] = 0; $this->Data["Series"][$SerieName]["Min"] =0; return(0); }
        $this->Data["Series"][$SerieName]["Max"] = max($StrippedData);
        $this->Data["Series"][$SerieName]["Min"] = min($StrippedData);

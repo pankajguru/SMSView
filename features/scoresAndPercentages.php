@@ -3,7 +3,7 @@
 class scoresAndPercentages
 {
 
-    function render( &$data, &$docx)
+    function render( &$data, $ref)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
@@ -38,11 +38,11 @@ class scoresAndPercentages
         //loop through categories to create docxs
         foreach($categories as $groupname => $category){
             $percentages = new percentages();
-            $docx_array[$groupname." percentages"] = $percentages -> render($data, $category);
+            $docx_array[$groupname." percentages"] = $percentages -> render($data, $ref, $category);
             unset($percentages);
             
             $scores = new scores();
-            $docx_array[$groupname. " scores"] = $scores -> render($data, $category);
+            $docx_array[$groupname. " scores"] = $scores -> render($data, $ref, $category);
             unset($scores);
         
         }

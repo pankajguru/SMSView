@@ -3,7 +3,7 @@
 class reportmark
 {
 
-    function render( $data)
+    function render( $data, $ref)
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -35,14 +35,18 @@ class reportmark
             $vorige_peiling_averages = round(($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0][3]*10))/10;
             $peiling_onderbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0][3]*10))/10;
             $peiling_bovenbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0][3]*10))/10;
-            $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
+            if ($ref['alle_scholen']){
+                $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
+            }
             
             $text= array();
             $text[] = "$schoolname ";//.$peiling_averages;
             $text[] = "Vorige peiling ";//.$peiling_averages;
             $text[] = "Onderbouw ";//.$peiling_averages;
             $text[] = "Bovenbouw ";//.$peiling_averages;
-            $text[] ="Alle Scholen ";//.$alle_scholen_averages;
+            if ($ref['alle_scholen']){
+                $text[] ="Alle Scholen ";//.$alle_scholen_averages;
+            }
             
             $graphic_data_text          = $text;
             $graphic_data_reportmarks   = array();
@@ -50,9 +54,11 @@ class reportmark
             $graphic_data_reportmarks[] = $vorige_peiling_averages;
             $graphic_data_reportmarks[] = $peiling_onderbouw_averages;
             $graphic_data_reportmarks[] = $peiling_bovenbouw_averages;
-            $graphic_data_reportmarks[] = $alle_scholen_averages;
             
-            $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $temp);
+            if ($ref['alle_scholen']){
+                $graphic_data_reportmarks[] = $alle_scholen_averages;
+            }            
+            $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp);
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
@@ -74,7 +80,7 @@ class reportmark
         
     }
     
-    private function _draw_graphic($graphic_data_text, $graphic_data_reportmarks, $temp)
+    private function _draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp)
     {
         /* Create and populate the pData object */
         $MyData = new pData();

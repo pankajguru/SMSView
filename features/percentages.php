@@ -3,7 +3,7 @@
 class percentages
 {
 
-    function render( &$data, $category='', $target_question='')
+    function render( &$data, $ref, $category='', $target_question='')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -93,8 +93,10 @@ class percentages
                 $percentage_peiling = $answered / $answer_count_peiling * 100;
                 array_push($graphic_data_peiling, $percentage_peiling);
                 //get perc from all schools
+                if ($ref['alle_scholen']){
                 $percentage_alle_scholen = $answer[2] / $answer_count_alle_scholen * 100;
-                array_push($graphic_data_alle_scholen, $percentage_alle_scholen);
+                    array_push($graphic_data_alle_scholen, $percentage_alle_scholen);
+                }
                 $answer_text = $answer[1];
                 if (strlen($answer_text)>17){
                     $answer_text = substr($answer_text, 0, 14).'...';
@@ -102,7 +104,9 @@ class percentages
                 array_push($graphic_answer, htmlspecialchars_decode($answer_text));
                 array_push($graphic_answered, $answered);
                 array_push($graphic_percentage, round($percentage_peiling));
-                array_push($graphic_percentage_total, round($percentage_alle_scholen));
+                if ($ref['alle_scholen']){
+                    array_push($graphic_percentage_total, round($percentage_alle_scholen));
+                }
             }
             
             $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $temp);
@@ -204,10 +208,12 @@ class percentages
                                     
         ));
         for ($i=0;$i<count($graphic_answer);$i++){
-            $myPicture->drawText(320, 40 + ($i)*44,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(400, 40 + ($i)*44,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(490, 40 + ($i)*44,$graphic_percentage[$i]."%",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(580, 40 + ($i)*44,"(".$graphic_percentage_total[$i]."%)",array("R"=>80,"G"=>80,"B"=>80,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(320, 40 + ($i)*31,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(400, 40 + ($i)*31,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(490, 40 + ($i)*31,$graphic_percentage[$i]."%",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            if (isset($graphic_percentage_total[$i])){
+                $myPicture->drawText(580, 40 + ($i)*31,"(".$graphic_percentage_total[$i]."%)",array("R"=>80,"G"=>80,"B"=>80,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            }
         }
         
         $myPicture->render($temp . "percentages$question_number.png");

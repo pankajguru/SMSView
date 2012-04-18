@@ -3,7 +3,7 @@
 class satisfactionTop
 {
 
-    function render( &$data, $top = TRUE)
+    function render( &$data, $ref, $top = TRUE)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
@@ -134,7 +134,11 @@ class satisfactionTop
             $text->{'border'} = $paramsTableEmpty;
             $satisfaction_table[$i][$count++] = $text;
 
-            $paramsTextTableReference['text'] = $satisfaction_array[$i]['alle_scholen'].'%';
+            if ($ref['alle_scholen']){
+                $paramsTextTableReference['text'] = $satisfaction_array[$i]['alle_scholen'].'%';
+            } else {
+                $paramsTextTableReference['text'] = '-';
+            }
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableReference));
             $text->{'border'} = $paramsTableReference;
             $satisfaction_table[$i][$count++] = $text;

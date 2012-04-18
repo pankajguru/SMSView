@@ -3,7 +3,7 @@
 class previous
 {
 
-    function render( &$data, $type='satisfaction')
+    function render( &$data, $ref, $type='satisfaction')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");

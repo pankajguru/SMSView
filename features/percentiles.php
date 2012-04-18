@@ -3,7 +3,7 @@
 class percentiles
 {
 
-    function render( $data, $good='green')
+    function render( $data, $ref, $good='green')
     {
         require_once("./features/utils.php");
         require_once("./pChart/class/pData.class.php");

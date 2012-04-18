@@ -3,7 +3,7 @@
 class scores
 {
 
-    function render( &$data, $category='', $target_question='')
+    function render( &$data, $ref, $category='', $target_question='')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -72,6 +72,10 @@ class scores
             //gather data
             $names = array($schoolname.' '); 
             $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
+            $vorige_peiling_averages = false;
+            $peiling_onderbouw_averages = false;
+            $peiling_bovenbouw_averages = false;
+            $alle_scholen_averages = false;
             if (isset($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0])){
                 $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
                 $names[] = 'Vorige peiling '; //TODO: fille in schoolname and last year
@@ -84,9 +88,10 @@ class scores
                 $peiling_bovenbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0];
                 $names[] = 'Bovenbouw '; 
             }
-            $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-            $names[] = 'Alle scholen ';
-            
+            if ($ref['alle_scholen']){
+                $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
+                $names[] = 'Alle scholen ';
+            }            
 //            $min_value = $alle_scholen_averages[0];
 //            $max_value = $alle_scholen_averages[1];
             $min_value = $question->{'question_type'}[0][3];
@@ -100,7 +105,7 @@ class scores
             $answered = array();
             foreach(array($peiling_averages, $vorige_peiling_averages, $peiling_onderbouw_averages, $peiling_bovenbouw_averages, $alle_scholen_averages) as $averages){
 //            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
-                if (!isset($averages)){
+                if (!is_array($averages)){
                     continue;
                 }
                 $extra_std_deviation = 0;
@@ -123,7 +128,7 @@ class scores
             
             
             
-            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $temp);
+            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $ref['alle_scholen'], $temp);
     
             $paramsImg = array(
                 'name' => $scores_graphic,
@@ -150,7 +155,7 @@ class scores
         
     }
     
-    private function _draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $temp)
+    private function _draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $lastBlue, $temp)
     { 
         /* Create and populate the pData object */
         $MyData = new pData();
@@ -223,11 +228,13 @@ class scores
         $myPicture->drawLine($X, 36, $X, $Y, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
         $myPicture -> Antialias = FALSE;
         
-        //Make alle scholen bleu
-        $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
-        $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
-        $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
-        $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        if ($lastBlue){
+            //Make alle scholen bleu
+            $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
+            $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+            $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
+            $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        }
 
         $myPicture->render($temp . "scores$question_number.png");
         return $temp . "scores$question_number.png";
