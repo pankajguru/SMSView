@@ -154,7 +154,7 @@ class percentages
         ));
         
         /* Create the pChart object */
-        $picture_height = 2 * ( (1 + count($graphic_answer)) * 16) + 10;
+        $picture_height = 2 * ( (1 + count($graphic_answer)) * 15) + 18;
         $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",

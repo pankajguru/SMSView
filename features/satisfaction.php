@@ -108,7 +108,7 @@ class satisfaction
         
         $satisfaction_table = array();
         $satisfaction_table_reference = array();
-        for ($i=0 ; $i < 10 ; $i++){
+        for ($i=0 ; $i < count($satisfaction_data->{'peiling'}) ; $i++){
             $count = 0;
  //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
             $paramsTextTable['text'] = $satisfaction_data->{'alle_scholen'}[$i][1];

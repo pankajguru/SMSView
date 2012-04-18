@@ -213,9 +213,10 @@ class satisfactionTop
         $table2 = $satisfactionTop_docx->addTable($satisfaction_titles);
         $table3 = $satisfactionTop_docx->addTable($satisfaction_table, array('size_col' => $size_col));
         
-        $satisfactionTop_docx->createDocx($temp.'satisfactionTop');
+        $filename = ($top) ? 'satisfactionTopGood':'satisfactionTopBad';
+        $satisfactionTop_docx->createDocx($temp.$filename);
         unset($satisfactionTop_docx);
-        return $temp.'satisfactionTop.docx';
+        return $temp.$filename.'.docx';
         
     }
         

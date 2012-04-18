@@ -116,7 +116,7 @@ class Sms_model extends CI_Model {
         $peiling_type = array(
             'id' => $peiling_type_id,
             'desc_code' => 'MUIS_'.$peiling_type_id,
-            'description' => 'Muis generated report'
+            'description' => 'muis '.$peiling_type_id
         );
         $this->db->insert('peiling_type', $peiling_type); 
         $web_peiling = array(
@@ -339,8 +339,8 @@ update vraag set description = "Hoe tevreden bent u over de aandacht voor werken
 update vraag set description = "Hoe tevreden bent u over de rust en orde in de klas?" where id=17;
 update vraag set description = 'Hoe tevreden bent u over de aandacht voor wereldori&euml;ntatie (aardr/gesch)?' where id=23;
 update vraag set description = 'Hoe tevreden bent u over de inzet en motivatie van de leerkracht?' where id=43;
-update vraag set description = 'Tot welke bevolkingsgroep(en) behoren de ouders van het kind? (U mag maximaal 2 antwoorden geven)' where id=69;
- * 
+update vraag set description = 'Tot welke bevolkingsgroep(en) behoren de ouders van het kind?<br>(U mag maximaal 2 antwoorden geven)' where id=69;
+ *  * 
  * 
  * 
  * 

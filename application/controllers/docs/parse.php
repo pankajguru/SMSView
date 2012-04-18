@@ -27,6 +27,7 @@ class Parse extends CI_Controller {
         require_once ('features/scoresAndPercentages.php');
         require_once ('features/percentiles.php');
         require_once ('features/previous.php');
+        require_once ('features/summary.php');
         
         require 'phpdocx_pro/classes/CreateDocx.inc';
         //load url helper
@@ -116,6 +117,10 @@ class Parse extends CI_Controller {
         $previous_docx = $previous -> render($xmlData);
         unset($previous);
                        
+        $summary = new summary();
+        $summary_docx = $summary -> render($xmlData);
+        unset($summary);
+               
         $docx = new CreateDocx();
 
         $docx->setTemplateSymbol('TTT');
@@ -184,6 +189,9 @@ class Parse extends CI_Controller {
                 if ($variable == "previous") {
                     $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
                 }
+                if ($variable == "summary") {
+                    $docx -> addTemplateVariable('class:summary', $summary, 'docx');
+                }
             }
 
         }
@@ -237,13 +245,13 @@ class Parse extends CI_Controller {
 //        $percentage_example_docx = $percentageExample -> render($xmlData, "", 3);
 //        unset($percentageExample);
         
-        $scoresExample = new scores();
-        $scores_example_docx = $scoresExample -> render($xmlData, "", 3);
-        unset($scoresExample);
+//        $scoresExample = new scores();
+//        $scores_example_docx = $scoresExample -> render($xmlData, "", 3);
+//        unset($scoresExample);
 
-        $reportmark = new reportmark();
-        $reportmark_docx = $reportmark -> render($xmlData);
-        unset($reportmark);
+//        $reportmark = new reportmark();
+//        $reportmark_docx = $reportmark -> render($xmlData);
+//        unset($reportmark);
         
 //        $importance = new satisfaction();
 //        $importance_docx = $importance -> render($xmlData, 'importance');
@@ -287,7 +295,11 @@ class Parse extends CI_Controller {
 //        $previous_docx = $previous -> render($xmlData);
 //        unset($previous);
                
-                              
+        $summary = new summary();
+        $summary_docx = $summary -> render($xmlData);
+        unset($summary);
+               
+                                             
         $docx = new CreateDocx();
 
         $docx->setTemplateSymbol('TTT');
@@ -318,7 +330,7 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "scoreExample") {
-                    $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
                 }
                 if ($variable == "percentageExample") {
 //                    $docx -> addTemplateVariable('class:percentageExample', $percentage_example_docx, 'docx');
@@ -327,7 +339,7 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "reportmark") {
-                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
 //                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
@@ -356,6 +368,9 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "previous") {
 //                    $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
+                }
+                if ($variable == "summary") {
+                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }
             }
 

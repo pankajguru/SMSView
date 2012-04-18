@@ -76,15 +76,21 @@ class scores
                 $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
                 $names[] = 'Vorige peiling '; //TODO: fille in schoolname and last year
             }
-            $peiling_onderbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0];
-            $names[] = 'Onderbouw '; 
-            $peiling_bovenbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0];
-            $names[] = 'Bovenbouw '; 
+            if (isset($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0])){
+                $peiling_onderbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0];
+                $names[] = 'Onderbouw '; 
+            }
+            if (isset($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0])){
+                $peiling_bovenbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0];
+                $names[] = 'Bovenbouw '; 
+            }
             $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
             $names[] = 'Alle scholen ';
             
-            $min_value = $alle_scholen_averages[0];
-            $max_value = $alle_scholen_averages[1];
+//            $min_value = $alle_scholen_averages[0];
+//            $max_value = $alle_scholen_averages[1];
+            $min_value = $question->{'question_type'}[0][3];
+            $max_value = $question->{'question_type'}[0][4];
             $blocksize = ($max_value - $min_value) / 30;
             $empty = array();
             $stdev_left = array();
@@ -92,15 +98,26 @@ class scores
             $stdev_right = array();
             $values = array();
             $answered = array();
-            
             foreach(array($peiling_averages, $vorige_peiling_averages, $peiling_onderbouw_averages, $peiling_bovenbouw_averages, $alle_scholen_averages) as $averages){
 //            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
-                $empty[] = ($averages[2] - $min_value);
-                $stdev_left[] = ($averages[3] - $averages[2] - $blocksize);
+                if (!isset($averages)){
+                    continue;
+                }
+                $extra_std_deviation = 0;
+                if ( $max_value - $min_value >= 3 ) {
+                     $extra_std_deviation = $averages[3] - $averages[2];
+                }
+                $empty[] = ($averages[2] - $min_value - $extra_std_deviation - $blocksize/2);
+                $stdev = ($averages[3] - $averages[2] - $blocksize/2 + $extra_std_deviation);
+                if ($stdev < 0) $stdev = 0;
+                $stdev_left[] = $stdev;
                 $block[] = $blocksize;
-                $stdev_right[] = ($averages[4] - $averages[3] - $blocksize);
+                $stdev = ($averages[4] - $averages[3] - $blocksize/2 + $extra_std_deviation);
+                if ($stdev < 0) $stdev = 0;
+                $stdev_right[] = $stdev;
                 $values[] = sprintf("%01.2f",$averages[3]);
                 $answered[] = $averages[5];
+//                error_log('###'.$averages[3].'#'.$averages[2].'-'.$min_value.'-'.$extra_std_deviation.'='.($averages[2] - $min_value - $extra_std_deviation).'#'.($averages[3] - $averages[2] - $blocksize + $extra_std_deviation).'#'.$blocksize.'#'.($averages[4] - $averages[3] - $blocksize + $extra_std_deviation));
             }
             
             
@@ -168,7 +185,7 @@ class scores
             0 => array(
                 "Min" => $min_value,
                 "Max" => $max_value
-            )
+            ),
         );
         $myPicture->drawScale(array(
             "ManualScale" => $AxisBoundaries,
@@ -179,8 +196,8 @@ class scores
             "GridAlpha" => 30,
             "Pos" => SCALE_POS_TOPBOTTOM,
             "Mode" => SCALE_MODE_MANUAL,
-            "MinDivHeight" => 150,
-            "Position" => AXIS_POSITION_LEFT
+            "MinDivHeight" => 500/$max_value,
+            //"Position" => AXIS_POSITION_LEFT
         ));
         //
         
@@ -189,33 +206,30 @@ class scores
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
             "Surrounding" => 0,
-            "Interleave" => 0.5
+            "Interleave" => 0.5,
+            "RecordImageMap" => TRUE
         ));
         for ($i=0;$i<count($names);$i++){
 //            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(1100, 55 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(1300, 55 + ($i)*29,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
-        $Xvalue = 502 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]/2) ;
-                
+        $alle_scholen_ref = $ref_count-1;
+
         $myPicture -> Antialias = TRUE;
-        $myPicture->drawLine($Xvalue, 36, $Xvalue, $ref_count*35 + 4, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $imageData = $myPicture -> DataSet -> Data["Series"]['Values']["ImageData"];
+        $X = $imageData[$alle_scholen_ref][2] - ($imageData[$alle_scholen_ref][2] - $imageData[$alle_scholen_ref][0])/2;
+        $Y = $imageData[$alle_scholen_ref][3];
+        $myPicture->drawLine($X, 36, $X, $Y, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
         $myPicture -> Antialias = FALSE;
         
         //Make alle scholen bleu
-        $X1 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1]);
-        $X2 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1]);
-        $Y1 = $ref_count*35 + 4;
-        $Y2 = $ref_count*35 - 15;
-        $myPicture->drawFilledRectangle($X1, $Y1, $X2, $Y2,array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
-        $X1 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1]);
-        $X2 = 501 + 460/($max_value - $min_value)*($empty[count($empty)-1] + $stdev_left[count($empty)-1] + $block[count($empty)-1] + $stdev_right[count($empty)-1] );
-        $Y1 = $ref_count*35 + 4;
-        $Y2 = $ref_count*35 - 15;
-        $myPicture->drawFilledRectangle($X1, $Y1, $X2, $Y2, array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
+        $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
+        $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
 
         $myPicture->render($temp . "scores$question_number.png");
-        // var_dump($all_questions);
         return $temp . "scores$question_number.png";
         
     }

@@ -15,6 +15,8 @@ class satisfactionPriorityScatter {
         $data = json_decode($datastring);
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
+//        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
+        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal'));
 
         $total_x = 0;
         $total_y = 0;
@@ -59,7 +61,7 @@ class satisfactionPriorityScatter {
             );
         $satisfactionPriorityScatter_docx -> addImage($paramsImg);
         $paramsList = array(
-            'val' => 1,
+            'val' => 0,
             'sz' => 10,
             'font' => 'Century Gothic',
         );
@@ -211,6 +213,14 @@ class satisfactionPriorityScatter {
 
         return $temp . "satisfactionPriorityScatter.png";
 
+    }
+
+    function _error_dump($object){
+        ob_start();
+        //var_dump($object);
+        $contents = ob_get_contents();
+        ob_end_clean();
+        error_log($contents);
     }
 
 }

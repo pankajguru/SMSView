@@ -62,8 +62,8 @@ class reportmark
                 'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
-                'border' => 0,
-                'borderDiscontinuous' => 1
+//                'border' => 0,
+//                'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
 
@@ -146,9 +146,9 @@ class reportmark
         /* Create the per bar palette */
         $Palette = array( 
                 "0"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>100),
-                "1"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>90),
-                "2"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>80),
-                "3"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>70),
+                "1"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>70),
+                "2"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>40),
+                "3"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>40),
                 "4"=>array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100),
         );
 
