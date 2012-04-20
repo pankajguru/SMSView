@@ -47,36 +47,37 @@ class Update extends CI_Controller {
                 continue;
             $rubriek = $objWorksheet -> getCell('A' . $rownr) -> getValue();
             $question = $objWorksheet -> getCell('B' . $rownr) -> getValue();
-            $answer[0] = $objWorksheet -> getCell('C' . $rownr) -> getValue();
-            $answer[1] = $objWorksheet -> getCell('D' . $rownr) -> getValue();
-            $answer[2] = $objWorksheet -> getCell('E' . $rownr) -> getValue();
-            $answer[3] = $objWorksheet -> getCell('F' . $rownr) -> getValue();
-            $answer[4] = $objWorksheet -> getCell('G' . $rownr) -> getValue();
-            $answer[5] = $objWorksheet -> getCell('H' . $rownr) -> getValue();
-            $answer[6] = $objWorksheet -> getCell('I' . $rownr) -> getValue();
-            $answer[7] = $objWorksheet -> getCell('J' . $rownr) -> getValue();
-            $answer[8] = $objWorksheet -> getCell('K' . $rownr) -> getValue();
-            $question_id = $objWorksheet -> getCell('N' . $rownr) -> getValue();
-            $duplicate_ids[0] = $objWorksheet -> getCell('O' . $rownr) -> getValue();
-            $duplicate_ids[1] = $objWorksheet -> getCell('P' . $rownr) -> getValue();
-            $duplicate_ids[2] = $objWorksheet -> getCell('Q' . $rownr) -> getValue();
-            $duplicate_ids[3] = $objWorksheet -> getCell('R' . $rownr) -> getValue();
-            $duplicate_ids[4] = $objWorksheet -> getCell('S' . $rownr) -> getValue();
-            $duplicate_ids[5] = $objWorksheet -> getCell('T' . $rownr) -> getValue();
-            $duplicate_ids[6] = $objWorksheet -> getCell('U' . $rownr) -> getValue();
-            $duplicate_ids[7] = $objWorksheet -> getCell('V' . $rownr) -> getValue();
-            $duplicate_ids[8] = $objWorksheet -> getCell('W' . $rownr) -> getValue();
-            $duplicate_ids[9] = $objWorksheet -> getCell('X' . $rownr) -> getValue();
-            $duplicate_ids[10] = $objWorksheet -> getCell('Y' . $rownr) -> getValue();
-            $duplicate_ids[11] = $objWorksheet -> getCell('Z' . $rownr) -> getValue();
-            $duplicate_ids[12] = $objWorksheet -> getCell('AA' . $rownr) -> getValue();
-            $duplicate_ids[13] = $objWorksheet -> getCell('AB' . $rownr) -> getValue();
-            $duplicate_ids[14] = $objWorksheet -> getCell('AC' . $rownr) -> getValue();
-            $duplicate_ids[15] = $objWorksheet -> getCell('AD' . $rownr) -> getValue();
-            $duplicate_ids[16] = $objWorksheet -> getCell('AE' . $rownr) -> getValue();
-            $duplicate_ids[17] = $objWorksheet -> getCell('AF' . $rownr) -> getValue();
-            $duplicate_ids[18] = $objWorksheet -> getCell('AG' . $rownr) -> getValue();
-            $duplicate_ids[19] = $objWorksheet -> getCell('AH' . $rownr) -> getValue();
+            $vraag_type_id = $objWorksheet -> getCell('C' . $rownr) -> getValue();
+            $answer[0] = $objWorksheet -> getCell('D' . $rownr) -> getValue();
+            $answer[1] = $objWorksheet -> getCell('E' . $rownr) -> getValue();
+            $answer[2] = $objWorksheet -> getCell('F' . $rownr) -> getValue();
+            $answer[3] = $objWorksheet -> getCell('G' . $rownr) -> getValue();
+            $answer[4] = $objWorksheet -> getCell('H' . $rownr) -> getValue();
+            $answer[5] = $objWorksheet -> getCell('I' . $rownr) -> getValue();
+            $answer[6] = $objWorksheet -> getCell('J' . $rownr) -> getValue();
+            $answer[7] = $objWorksheet -> getCell('K' . $rownr) -> getValue();
+            $answer[8] = $objWorksheet -> getCell('L' . $rownr) -> getValue();
+            $question_id = $objWorksheet -> getCell('O' . $rownr) -> getValue();
+            $duplicate_ids[0] = $objWorksheet -> getCell('P' . $rownr) -> getValue();
+            $duplicate_ids[1] = $objWorksheet -> getCell('Q' . $rownr) -> getValue();
+            $duplicate_ids[2] = $objWorksheet -> getCell('R' . $rownr) -> getValue();
+            $duplicate_ids[3] = $objWorksheet -> getCell('S' . $rownr) -> getValue();
+            $duplicate_ids[4] = $objWorksheet -> getCell('T' . $rownr) -> getValue();
+            $duplicate_ids[5] = $objWorksheet -> getCell('U' . $rownr) -> getValue();
+            $duplicate_ids[6] = $objWorksheet -> getCell('V' . $rownr) -> getValue();
+            $duplicate_ids[7] = $objWorksheet -> getCell('W' . $rownr) -> getValue();
+            $duplicate_ids[8] = $objWorksheet -> getCell('X' . $rownr) -> getValue();
+            $duplicate_ids[9] = $objWorksheet -> getCell('Y' . $rownr) -> getValue();
+            $duplicate_ids[10] = $objWorksheet -> getCell('Z' . $rownr) -> getValue();
+            $duplicate_ids[11] = $objWorksheet -> getCell('AA' . $rownr) -> getValue();
+            $duplicate_ids[12] = $objWorksheet -> getCell('AB' . $rownr) -> getValue();
+            $duplicate_ids[13] = $objWorksheet -> getCell('AC' . $rownr) -> getValue();
+            $duplicate_ids[14] = $objWorksheet -> getCell('AD' . $rownr) -> getValue();
+            $duplicate_ids[15] = $objWorksheet -> getCell('AE' . $rownr) -> getValue();
+            $duplicate_ids[16] = $objWorksheet -> getCell('AF' . $rownr) -> getValue();
+            $duplicate_ids[17] = $objWorksheet -> getCell('AG' . $rownr) -> getValue();
+            $duplicate_ids[18] = $objWorksheet -> getCell('AH' . $rownr) -> getValue();
+            $duplicate_ids[19] = $objWorksheet -> getCell('AI' . $rownr) -> getValue();
             $data['excel'][$rownr]['rubriek'] = $rubriek;
             $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
             if ((count($vraag_groep) >0) and ($rubriek <> '') ){
@@ -88,21 +89,23 @@ class Update extends CI_Controller {
             }
             $data['excel'][$rownr]['vraag_groep_id'] = $vraag_groep_id;
             $data['excel'][$rownr]['question'] = $question;
+            $data['excel'][$rownr]['vraag_type_id'] = $vraag_type_id;
             if (intval($question_id) > 0)
             {
                 $db_question = $this->Sms_model->get_question_by_id($question_id);
                 $db_answers = $this->Sms_model->get_answers_by_question_type_id($db_question[0]->vraag_type_id);
-                $answer[0] = isset($db_answers[0]) ? $db_answers[0]->description : '';
-                $answer[1] = isset($db_answers[1]) ? $db_answers[1]->description : '';
-                $answer[2] = isset($db_answers[2]) ? $db_answers[2]->description : '';
-                $answer[3] = isset($db_answers[3]) ? $db_answers[3]->description : '';
-                $answer[4] = isset($db_answers[4]) ? $db_answers[4]->description : '';
-                $answer[5] = isset($db_answers[5]) ? $db_answers[5]->description : '';
-                $answer[6] = isset($db_answers[6]) ? $db_answers[6]->description : '';
-                $answer[7] = isset($db_answers[7]) ? $db_answers[7]->description : '';
-                $answer[8] = isset($db_answers[8]) ? $db_answers[8]->description : '';
-                $answer[9] = isset($db_answers[9]) ? $db_answers[9]->description : '';
+                $answer[0] = isset($db_answers[0]) ? $db_answers[0]->value.' '.$db_answers[0]->description : '';
+                $answer[1] = isset($db_answers[1]) ? $db_answers[1]->value.' '.$db_answers[1]->description : '';
+                $answer[2] = isset($db_answers[2]) ? $db_answers[2]->value.' '.$db_answers[2]->description : '';
+                $answer[3] = isset($db_answers[3]) ? $db_answers[3]->value.' '.$db_answers[3]->description : '';
+                $answer[4] = isset($db_answers[4]) ? $db_answers[4]->value.' '.$db_answers[4]->description : '';
+                $answer[5] = isset($db_answers[5]) ? $db_answers[5]->value.' '.$db_answers[5]->description : '';
+                $answer[6] = isset($db_answers[6]) ? $db_answers[6]->value.' '.$db_answers[6]->description : '';
+                $answer[7] = isset($db_answers[7]) ? $db_answers[7]->value.' '.$db_answers[7]->description : '';
+                $answer[8] = isset($db_answers[8]) ? $db_answers[8]->value.' '.$db_answers[8]->description : '';
+                $answer[9] = isset($db_answers[9]) ? $db_answers[9]->value.' '.$db_answers[9]->description : '';
                 $data['excel'][$rownr]['short_description'] = $db_question[0]->short_description;
+                $data['excel'][$rownr]['description'] = $db_question[0]->description;
                 $data['excel'][$rownr]['base_type_id'] = $db_question[0]->base_type_id;
                 //$data['excel'][$rownr]['vraag_groep_id'] = $db_question[0]->vraag_groep_id;
                 if ($db_question[0]->base_type_id == 0){
@@ -133,16 +136,16 @@ class Update extends CI_Controller {
                             'question' => $question, 
                             'question_no_number' => $question_no_number, 
                             'answer' => array(
-                                isset($db_answers[0]) ? $db_answers[0]->description : '',
-                                isset($db_answers[1]) ? $db_answers[1]->description : '',
-                                isset($db_answers[2]) ? $db_answers[2]->description : '',
-                                isset($db_answers[3]) ? $db_answers[3]->description : '',
-                                isset($db_answers[4]) ? $db_answers[4]->description : '',
-                                isset($db_answers[5]) ? $db_answers[5]->description : '',
-                                isset($db_answers[6]) ? $db_answers[6]->description : '',
-                                isset($db_answers[7]) ? $db_answers[7]->description : '',
-                                isset($db_answers[8]) ? $db_answers[8]->description : '',
-                                isset($db_answers[9]) ? $db_answers[9]->description : '',
+                                isset($db_answers[0]) ? $db_answers[0]->value.' '.$db_answers[0]->description : '',
+                                isset($db_answers[1]) ? $db_answers[1]->value.' '.$db_answers[1]->description : '',
+                                isset($db_answers[2]) ? $db_answers[2]->value.' '.$db_answers[2]->description : '',
+                                isset($db_answers[3]) ? $db_answers[3]->value.' '.$db_answers[3]->description : '',
+                                isset($db_answers[4]) ? $db_answers[4]->value.' '.$db_answers[4]->description : '',
+                                isset($db_answers[5]) ? $db_answers[5]->value.' '.$db_answers[5]->description : '',
+                                isset($db_answers[6]) ? $db_answers[6]->value.' '.$db_answers[6]->description : '',
+                                isset($db_answers[7]) ? $db_answers[7]->value.' '.$db_answers[7]->description : '',
+                                isset($db_answers[8]) ? $db_answers[8]->value.' '.$db_answers[8]->description : '',
+                                isset($db_answers[9]) ? $db_answers[9]->value.' '.$db_answers[9]->description : '',
                             )
                         )
                     );
@@ -151,7 +154,7 @@ class Update extends CI_Controller {
             $data['excel'][$rownr]['duplicates'] = $duplicates;
         }
         $new_id++;
-        $data['$new_id'] = $new_id;
+        $data['new_id'] = $new_id;
         $this -> load -> view('tools/update_otp', $data);
     }
 

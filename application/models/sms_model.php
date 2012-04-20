@@ -26,7 +26,7 @@ class Sms_model extends CI_Model {
 
     function get_answers_by_question_type_id($question_type_id) {
         $this -> db -> from (
-        'vraag_type_definition')-> where('vraag_type_id', $question_type_id);
+        'vraag_type_definition')-> where('vraag_type_id', $question_type_id) -> order_by('value');
         $query = $this -> db -> get();
         return $query -> result();
 

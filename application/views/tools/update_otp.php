@@ -29,7 +29,7 @@
         </th>
     </tr>
     <?php } ?>
-    <tr style="background-color: #F0F0F0">
+    <tr style="background-color: #F0A0A0">
         <td>
             <?php echo $row['question_id'].' ';?>
         </td>
@@ -70,13 +70,24 @@ Set copy of question, basetype, copy answers to peiling for otp:<br>
 
     <?php if (($row['question_id'] != '') && ($row['base_type_id'] == 0)){ ?>
         insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
-            (select <?php echo $row['new_id'];?>, abstract, '<?php echo $row['question_no_number'];?>', short_description, <?php echo $row['vraag_groep_id'];?>, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, <?php echo $row['question_id'];?>, 1
+            (select <?php echo $row['new_id'];?>, abstract, '<?php echo $row['question_no_number'];?>', short_description, <?php echo $row['vraag_groep_id'];?>, <?php echo $row['vraag_type_id'];?>, exclusive, strict, neutral_description, infant_description_pos, <?php echo $row['question_id'];?>, 1
                 from vraag where vraag.id=<?php echo $row['question_id'];?>);<br>
     <?php }?>
 
 <?php endforeach;?>
     update sequence set sequence_no=<?php echo $new_id;?> where table_name='vraag';<br>
 
+
+
+
+<br><br><br><br><h1>Temp</h1>
+<?php foreach ($excel as $row):?>
+
+    <?php if (($row['question_id'] != '') && ($row['base_type_id'] == 0)){ ?>
+        update vraag set vraag_type_id = <?php echo $row['vraag_type_id'];?> where description = '<?php echo $row['question_no_number'];?>';<br>
+    <?php }?>
+
+<?php endforeach;?>
 
 SET @id=(SELECT MAX(id)+1 FROM antwoord);<br>
 

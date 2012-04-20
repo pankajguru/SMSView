@@ -216,8 +216,8 @@ class scores
         ));
         for ($i=0;$i<count($names);$i++){
 //            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(1100, 55 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(1300, 55 + ($i)*29,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1100, 50 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1300, 50 + ($i)*29,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
         $alle_scholen_ref = $ref_count-1;
 
