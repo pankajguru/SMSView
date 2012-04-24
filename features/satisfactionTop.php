@@ -119,6 +119,9 @@ class satisfactionTop
             $satisfaction_array = array_reverse($satisfaction_array);
         }
         for ($i=0 ; $i < 10 ; $i++){
+            if (!isset($satisfaction_array[$i]['vraag'])){
+                continue;
+            }
             $count = 0;
             $paramsTextTable['text'] = ($i+1).'. '.$satisfaction_array[$i]['vraag'];
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));

@@ -65,17 +65,28 @@
 
 Set copy of question, basetype, copy answers to peiling for otp:<br>
 
-
+<?php $new_antwoord_id = $new_answer_id; ?>
 <?php foreach ($excel as $row):?>
 
     <?php if (($row['question_id'] != '') && ($row['base_type_id'] == 0)){ ?>
         insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
             (select <?php echo $row['new_id'];?>, abstract, '<?php echo $row['question_no_number'];?>', short_description, <?php echo $row['vraag_groep_id'];?>, <?php echo $row['vraag_type_id'];?>, exclusive, strict, neutral_description, infant_description_pos, <?php echo $row['question_id'];?>, 1
-                from vraag where vraag.id=<?php echo $row['question_id'];?>);<br>
+                   from vraag where vraag.id=<?php echo $row['question_id'];?>);<br>
+        <?php 
+            $question_id = $row['question_id'];
+            print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_antwoord_id, 0, 0, 0, formulier_id, ".$row['new_id'].", value from antwoord where vraag_id=$question_id);<br>";
+            $new_antwoord_id++;
+            foreach ($row['duplicates'] as $duplicate){
+                $question_id = $duplicate['question_id'];
+                print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_antwoord_id, 0, 0, 0, formulier_id, ".$row['new_id'].", value from antwoord where vraag_id=$question_id);<br>";
+                $new_antwoord_id++;
+            } 
+        ?>
     <?php }?>
 
 <?php endforeach;?>
     update sequence set sequence_no=<?php echo $new_id;?> where table_name='vraag';<br>
+    update sequence set sequence_no=<?php echo $new_antwoord_id;?> where table_name='antwoord';<br>
 
 
 

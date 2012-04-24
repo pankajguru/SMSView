@@ -17,7 +17,7 @@ class summary {
 
         foreach($data as $key => $category){
                 
-            if ((count($category->top) > 0) and (count($category->top) > 0)){
+            if ((count($category->top) > 0) or (count($category->bottom) > 0)){
                 $summary_docx->addText($category->groupname,array(
                     'sz' => 10,
                     'color' => 'F78E1E',
@@ -40,14 +40,18 @@ class summary {
                 ));
                 $text = '';
                 foreach($category->bottom as $bottomkey => $bottom){
-                    if ($topkey == 0){
+                    if ($bottomkey == 0){
                         $text .= "Relatief veel ouders zijn ontevreden ten aanzien van '".html_entity_decode($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
-                    if ($topkey == 1){
+                    if ($bottomkey == 1){
                         $text .= "en '".html_entity_decode($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
-                    $text .= '.';
                 }
+                $text .= '.';
+                $summary_docx->addText($text,array(
+                        'sz' => 10,
+                        'font' => 'Century Gothic'
+                ));
                 
                 $summary_docx->addBreak('line');
             }     

@@ -26,13 +26,16 @@ class previous
         $previous_table_peiling = array();
         $previous_table_vorige_peiling = array();
         for ($i=0 ; $i < 10 ; $i++){
+            if (!isset($previous_data->{'peiling'}[$i][1])){
+                continue;
+            }
             foreach ($previous_data as $key => $previous_column){
                 if ($key == 'vorige_peiling'){
                     $previous_table_vorige_peiling[] = Scale10($previous_column[$i][2], 4);
                 }
                 if ($key == 'peiling'){
                     $previous_table_peiling[] = Scale10($previous_column[$i][2], 4);
-                    $previous_table_text[] = $previous_data->{'alle_scholen'}[$i][1];
+                    $previous_table_text[] = $previous_data->{'peiling'}[$i][1];
                 }   
             }
             

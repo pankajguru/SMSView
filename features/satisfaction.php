@@ -111,7 +111,7 @@ class satisfaction
         for ($i=0 ; $i < count($satisfaction_data->{'peiling'}) ; $i++){
             $count = 0;
  //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
-            $paramsTextTable['text'] = $satisfaction_data->{'alle_scholen'}[$i][1];
+            $paramsTextTable['text'] = $satisfaction_data->{'peiling'}[$i][1];
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
             foreach ($satisfaction_data as $key => $satisfaction_column){

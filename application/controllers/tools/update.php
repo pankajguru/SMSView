@@ -37,6 +37,7 @@ class Update extends CI_Controller {
         $objPHPExcel = $objReader -> load("source_docs/otp.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
         $new_id =  $this -> Sms_model ->_get_new_id('vraag'); //set to new id!!!!!!!
+        $new_anwer_id =  $this -> Sms_model ->_get_new_id('antwoord'); //set to new id!!!!!!!
         $vraag_groep_id = 0;
         $rubriek = 'Algemeen';
         foreach ($objWorksheet->getRowIterator() as $row) {
@@ -155,6 +156,7 @@ class Update extends CI_Controller {
         }
         $new_id++;
         $data['new_id'] = $new_id;
+        $data['new_answer_id'] = $new_anwer_id;
         $this -> load -> view('tools/update_otp', $data);
     }
 
@@ -247,6 +249,26 @@ class Update extends CI_Controller {
         }
         $new_id++;
         print "update sequence set sequence_no=$new_id where table_name='vraag';<br>";
+
+        $this -> load -> view('welcome_message');
+    }
+
+    public function otp_shortdescription() {
+        /** get PHPExcel_IOFactory object */
+        $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+        $objReader -> setReadDataOnly(true);
+        $objPHPExcel = $objReader -> load("source_docs/otp_short_description.xlsx");
+        $objWorksheet = $objPHPExcel -> getActiveSheet();
+        foreach ($objWorksheet->getRowIterator() as $row) {
+            $answer = array();
+            $rownr = $row -> getRowIndex();
+            if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
+                $description = $objWorksheet -> getCell('B' . $rownr) -> getValue();
+                $short_description = $objWorksheet -> getCell('C' . $rownr) -> getValue();
+                print "update vraag set short_description='$short_description' where description='$description';<br>";
+            }
+
+        }
 
         $this -> load -> view('welcome_message');
     }

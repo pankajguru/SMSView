@@ -3,7 +3,7 @@
 class percentages
 {
 
-    function render( &$data, $ref, $category='', $target_question='')
+    function render( &$data, $ref, $category='', $target_question='', $show_legend = FALSE)
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -109,7 +109,16 @@ class percentages
                 }
             }
             
-            $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $temp);
+            if (isset($all_questions_array[$question_number + 1])){
+                $next_groupname = $all_questions_array[$question_number + 1];
+                if ($all_questions_array[$question_number + 1]->{'group_name'} != $question->{'group_name'}){
+                    $show_legend = TRUE;
+                }
+            } else {
+                $show_legend = TRUE;
+            }
+            
+            $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $temp);
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
@@ -123,6 +132,7 @@ class percentages
 //                'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
+                        
             $question_count++;
         }
         if ($question_count > 0){
@@ -137,7 +147,7 @@ class percentages
         
     }
     
-    private function _draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $temp)
+    private function _draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $temp)
     {
         /* Create and populate the pData object */
         $MyData = new pData();
@@ -158,7 +168,8 @@ class percentages
         ));
         
         /* Create the pChart object */
-        $picture_height = 2 * ( (1 + count($graphic_answer)) * 15) + 18;
+        $legend_height = ($show_legend) ? 50 : 0;
+        $picture_height = 2 * ( (1 + count($graphic_answer)) * 15) + 18 + $legend_height;
         $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
@@ -207,6 +218,7 @@ class percentages
 //            "OverrideColors"=>$Palette
                                     
         ));
+        
         for ($i=0;$i<count($graphic_answer);$i++){
             $myPicture->drawText(320, 40 + ($i)*31,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(400, 40 + ($i)*31,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
@@ -215,10 +227,16 @@ class percentages
                 $myPicture->drawText(580, 40 + ($i)*31,"(".$graphic_percentage_total[$i]."%)",array("R"=>80,"G"=>80,"B"=>80,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             }
         }
+        if ($show_legend){
+            $myPicture->drawLegend(10,40 + ($i)*31,array("BoxWidth"=>20,"BoxHeight"=>20,"Style"=>LEGEND_NOBORDER ,"Mode"=>LEGEND_VERTICAL, "FontR" => 0, "FontG" => 0, "FontB" => 0));
+        }
         
         $myPicture->render($temp . "percentages$question_number.png");
         // var_dump($all_questions);
         return $temp . "percentages$question_number.png";
         
     }
+
+
+
 }

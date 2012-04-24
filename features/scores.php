@@ -19,6 +19,7 @@ class scores
 
         //create array iso object
         $all_questions_array = array();
+        var_dump($all_questions);
         foreach($all_questions as $question_number=>$question){
             $all_questions_array[intval($question_number)] = $question;
         };
@@ -68,7 +69,8 @@ class scores
             );
             
             $scores_docx->addText($text);
-
+            
+            $legend = array($question->{'question_type'}[0][7],$question->{'question_type'}[0][8]);
             //gather data
             $names = array($schoolname.' '); 
             $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
@@ -128,7 +130,7 @@ class scores
             
             
             
-            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $ref['alle_scholen'], $temp);
+            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $ref['alle_scholen'], $legend, $temp);
     
             $paramsImg = array(
                 'name' => $scores_graphic,
@@ -155,7 +157,7 @@ class scores
         
     }
     
-    private function _draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $lastBlue, $temp)
+    private function _draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $lastBlue, $legend, $temp)
     { 
         /* Create and populate the pData object */
         $MyData = new pData();
@@ -170,10 +172,11 @@ class scores
         $MyData->setAbscissa("Scores");
         //        $MyData -> setAbscissaName("Browsers");
         $MyData->setAxisDisplay(0, AXIS_FORMAT_DEFAULT);
+        $MyData->setAxisPosition(0,AXIS_POSITION_RIGHT);
         $ref_count = count($names);
 
         /* Create the pChart object */
-        $myPicture = new pImage(1400, 20+$ref_count*35, $MyData);
+        $myPicture = new pImage(1400, 40+$ref_count*35, $MyData);
         $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
@@ -219,6 +222,11 @@ class scores
             $myPicture->drawText(1100, 50 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(1300, 50 + ($i)*29,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
+        
+        //draw legend:
+        $myPicture->drawText(500, 10,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
+        $myPicture->drawText(960, 10,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+                
         $alle_scholen_ref = $ref_count-1;
 
         $myPicture -> Antialias = TRUE;

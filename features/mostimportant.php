@@ -34,33 +34,51 @@ class mostimportant
         $column=215;
         $most_important_table[0][0] = ''; 
         $size_col = array(20);
-        foreach($satisfaction_data as $key => $reference){
-            if (($key != 'peiling') && ($key != 'alle_scholen') ){continue;}
-            usort($reference, "cmp_reference_importance");
-            if ($key == 'peiling'){
-                $headerStyle['text'] = 'Onze school';
-            } elseif ($key == 'alle_scholen') {
-                $headerStyle['text'] = 'Alle scholen';
-            } else{
-                $headerStyle['text'] = $key;
-            }
-            $text = $mostimportant_docx->addElement('addText', array($headerStyle));
-            $most_important_table[0][$column] = $text; 
-            $row=1;
-            foreach($reference as $category){
-                if ($row>$top) continue;
-                $tableStyle['cell_color'] = ($row&1)?'E6E6E6':'FFFFFF';
-                $tableStyle['text'] = $row;
-                $text = $mostimportant_docx->addElement('addText', array($tableStyle));
-                $most_important_table[$row][0] = $text; 
-                $tableStyle['text'] = $category[1];
-                $text = $mostimportant_docx->addElement('addText', array($tableStyle));
-                $most_important_table[$row][$column] = $text ; 
-                $row++;
-            }
-            $size_col[] = (9725-215)/count($satisfaction_data);
-            $column++;
+        
+        $peiling_top = array();
+        $alle_scholen_top = array();
+        usort($satisfaction_data->{'peiling'}, "cmp_reference_importance");
+        usort($satisfaction_data->{'alle_scholen'}, "cmp_reference_importance");
+        
+        foreach($satisfaction_data->{'peiling'} as $key => $reference){
+            $peiling_top[] = $reference[1];
         }
+        foreach($satisfaction_data->{'alle_scholen'} as $key => $reference){
+            $alle_scholen_top[] = $reference[1];
+        }
+        foreach($alle_scholen_top as $key=>$reference){
+            if (!in_array($reference, $peiling_top)){
+                $alle_scholen_top[$key] = '';
+            }
+            
+        }
+        $headerStyle['text'] = 'Onze school';
+        $text = $mostimportant_docx->addElement('addText', array($headerStyle));
+        $most_important_table[0][1] = $text; 
+        $headerStyle['text'] = 'Alle scholen';
+        $text = $mostimportant_docx->addElement('addText', array($headerStyle));
+        $most_important_table[0][2] = $text; 
+        $row=1;
+        foreach($peiling_top as $top){
+            $tableStyle['cell_color'] = ($row&1)?'E6E6E6':'FFFFFF';
+            $tableStyle['text'] = $row;
+            $text = $mostimportant_docx->addElement('addText', array($tableStyle));
+            $most_important_table[$row][0] = $text; 
+            $tableStyle['text'] = $top;
+            $text = $mostimportant_docx->addElement('addText', array($tableStyle));
+            $most_important_table[$row][1] = $text ; 
+            $row++;            
+        }
+        $row=1;
+        foreach($alle_scholen_top as $top){
+            if ($top =='') {continue;};
+            $tableStyle['cell_color'] = ($row&1)?'E6E6E6':'FFFFFF';
+            $tableStyle['text'] = $top;
+            $text = $mostimportant_docx->addElement('addText', array($tableStyle));
+            $most_important_table[$row][2] = $text ; 
+            $row++;            
+        }
+        $size_col = array(20, 4755, 4755);
 
         $paramsTable = array(
             'border' => 'none',
