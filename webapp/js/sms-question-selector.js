@@ -440,10 +440,11 @@ function check_mandatory_questions() {
         // Create mandatory question for OTP list
         var listclass = '.sortable_with_' + $('#1').parent().attr('id');
         $('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#1').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
-        var text = $('<li refid="1" class="question_selected">Ik vul deze lijst in voor mijn kind in groep...</li><li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li>');
+        var text = $('<li refid="1" class="question_selected">Ik vul deze lijst in voor mijn kind in groep...</li><li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li><li refid="68" class="question_selected">Welk rapport cijfer geeft u aan de school</li>');
         text.appendTo(listclass);
         $('#1').draggable('option', 'disabled', true);
         $('#2').draggable('option', 'disabled', true);
+        $('#68').draggable('option', 'disabled', true);
 
     } else if(type === 'ltp') {
         // Create mandatory question for LTP list
