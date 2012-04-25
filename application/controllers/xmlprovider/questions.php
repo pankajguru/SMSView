@@ -113,6 +113,11 @@ class Questions extends REST_Controller {
     private function _questiontool_set_questionaire($peiling_type_id, $base_type) {
         //get qestions id's from formulier_type_definition
         $question_ids = $this -> Sms_model -> get_all_questions_by_peiling_type($peiling_type_id);
+        $otp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(1);
+        $otp_question_ids = array();
+        foreach ($otp_questions as $otp_question) {
+            $otp_question_ids[] = $question_id -> question_id;
+        }
         //foreach question, add to xml
         $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
         $peiling_type_details = $this -> Sms_model -> get_peiling_type_details( $peiling_type_id );
@@ -141,6 +146,7 @@ class Questions extends REST_Controller {
                 (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) || 
                 (strpos($question_type[0]->DESC_CODE, 'AVL') === 0)
                 ) ? 0 : 1;
+            $standard = (in_array($question_id -> question_id, $otp_question_ids)) ? 1 : 0;
             $xml_question->addChild('standard', $standard);  
             //add answers
             $xml_answers = $xml_question->addChild('answers');
