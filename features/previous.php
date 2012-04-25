@@ -12,6 +12,7 @@ class previous
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
         $schoolname     = $data['schoolnaam'];
+        $importance_categories = get_importance_categories($data);
         $column_count   = 0;
         
         
@@ -27,6 +28,10 @@ class previous
         $previous_table_vorige_peiling = array();
         for ($i=0 ; $i < 10 ; $i++){
             if (!isset($previous_data->{'peiling'}[$i][1])){
+                continue;
+            }
+            //do not take categories wich are not ment to be categories:
+            if (!in_array($previous_data->{'peiling'}[$i][0], $importance_categories)){
                 continue;
             }
             foreach ($previous_data as $key => $previous_column){
@@ -122,7 +127,8 @@ class previous
 //        $myData->setSerieTicks("vorig",5);
 
         /* Create the pChart object */
-        $myPicture = new pImage(1600, 650, $myData);
+        $pictureHeigth = 110 + 54 * count($previous_table_text);
+        $myPicture = new pImage(1600, $pictureHeigth, $myData);
 
 //        $myPicture->drawGradientArea(0,0,1400,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
 
@@ -145,8 +151,7 @@ class previous
             )
         );
 
-
-        $myPicture->setGraphArea(800,110,1200,650);
+        $myPicture->setGraphArea(800,110,1200,$pictureHeigth);
 //        $myPicture->drawFilledRectangle(500,60,670,190,array("R"=>255,"G"=>255,"B"=>255,"Surrounding"=>-200,"Alpha"=>10));
         $myPicture->drawScale(array(
 //            "ManualScale" => $AxisBoundaries,

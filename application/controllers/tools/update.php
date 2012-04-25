@@ -83,7 +83,9 @@ class Update extends CI_Controller {
             $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
             if ((count($vraag_groep) >0) and ($rubriek <> '') ){
                 if ($rubriek == 'Naschoolse Opvang'){
-                    $vraag_groep_id = $vraag_groep[1]->id;
+                    $vraag_groep_id = 173;
+                } elseif ($rubriek == 'Overblijven'){
+                    $vraag_groep_id = 169;
                 } else {
                     $vraag_groep_id = $vraag_groep[0]->id;
                 }
