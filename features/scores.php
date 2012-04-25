@@ -20,7 +20,7 @@ class scores
         //create array iso object
         $all_questions_array = array();
         foreach($all_questions as $question_number=>$question){
-            $all_questions_array[intval($question_number)+1] = $question;
+            $all_questions_array[intval($question_number)] = $question;
         };
         
         ksort($all_questions_array);
