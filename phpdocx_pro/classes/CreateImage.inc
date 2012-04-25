@@ -832,7 +832,6 @@ class CreateImage extends CreateElement
             $y = substr($data, 8, 8);
             return array(round(hexdec($x)/CreateImage::PNG_SCALE_FACTOR), round(hexdec($y)/CreateImage::PNG_SCALE_FACTOR));
         }else{
-            echo 'type =0';
             return array($this->_dpi, $this->_dpi);   
         }
     }

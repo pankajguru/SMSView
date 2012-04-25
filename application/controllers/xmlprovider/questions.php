@@ -84,12 +84,23 @@ class Questions extends REST_Controller {
         $questionaire_json = $this -> post('data');
         $questionaire_object = json_decode($questionaire_json);
         $result = $this -> Sms_model -> insert_questionaire($questionaire_object);
+        
         if ($result['success'] === FALSE) {
             $this -> response(array('status' => 'failed', 'responseText' => $result['status']));
         } else {
+            $base_dir = "/home/foo/production/sms";
+            $peiling_type_id = $result['peiling_type_id'];
+            system("cp -r $base_dir/utilities/scan $base_dir/report/special/scan/MUIS_$peiling_type_id");
+            $questions = array();
+            exec("$base_dir/tasks/foo/create-form-abstract.pl MUIS_$peiling_type_id", $questions);
+            $questions_string = implode("\n",$questions);
+            $template = file_get_contents("$base_dir/utilities/abstract.pl.template.muis");
+            $template = preg_replace('/TTTquestionsTTT/', $questions_string, $template);
+            $template = preg_replace('/TTTsequenceTTT/', $peiling_type_id, $template);
+            file_put_contents("$base_dir/report/special/scan/MUIS_$peiling_type_id/abstract.pl", $template);
             $base_type = $questionaire_object[0]->basetype;
             $qt_result = $this -> _questiontool_set_questionaire($result['peiling_type_id'], $base_type);
-            $this -> response(array('status' => 'success', 'responseText' => $result['status'] . $qt_result));
+            $this -> response(array('status' => 'success', 'responseText' => $result['status'] . ' '. $qt_result));
         }
 
     }
@@ -125,8 +136,11 @@ class Questions extends REST_Controller {
             $xml_question->addChild('priority',$priority); 
             $question_type_description = (count($answers) > 0) ? 'answerlist':'open';
             $xml_question->addChild('questiontype', $question_type_description); 
-            $this->_error_dump($question_type);
-            $standard = (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) ? 0 : 1;
+            //$this->_error_dump($question_type);
+            $standard = (
+                (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) || 
+                (strpos($question_type[0]->DESC_CODE, 'AVL') === 0)
+                ) ? 0 : 1;
             $xml_question->addChild('standard', $standard);  
             //add answers
             $xml_answers = $xml_question->addChild('answers');

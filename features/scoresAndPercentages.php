@@ -3,7 +3,7 @@
 class scoresAndPercentages
 {
 
-    function render( &$data, &$docx)
+    function render( &$data, $ref)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
@@ -38,11 +38,11 @@ class scoresAndPercentages
         //loop through categories to create docxs
         foreach($categories as $groupname => $category){
             $percentages = new percentages();
-            $docx_array[$groupname." percentages"] = $percentages -> render($data, $category);
+            $docx_array[$groupname." percentages"] = $percentages -> render($data, $ref, $category);
             unset($percentages);
             
             $scores = new scores();
-            $docx_array[$groupname. " scores"] = $scores -> render($data, $category);
+            $docx_array[$groupname. " scores"] = $scores -> render($data, $ref, $category);
             unset($scores);
         
         }
@@ -52,7 +52,13 @@ class scoresAndPercentages
         foreach($docx_array as $groupname => $sap_docx){
             //create group heading
             if ($sap_docx != null){
-                $scoresAndPercentages_docx->addText(array(array('text' => 'Rubriek '.$count++.' '.$groupname, 'b' => 'single', 'color' => 'F78E1E')));
+                $scoresAndPercentages_docx->addText(array(array(
+                    'text' => 'Rubriek '.$count++.' '.$groupname, 
+                    'b' => 'single', 
+                    'color' => 'F78E1E',
+                    'sz' => 10,
+                    'font' => 'Century Gothic',
+                )));
                 $scoresAndPercentages_docx->addBreak('line');
                 $scoresAndPercentages_docx->addDOCX($sap_docx);                   
                 $scoresAndPercentages_docx->addBreak('page');

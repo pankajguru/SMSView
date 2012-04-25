@@ -2,7 +2,7 @@
 
 class satisfactionPriorityScatter {
 
-    function render($data) {
+    function render($data, $ref) {
         require_once ("./pChart/class/pData.class.php");
         require_once ("./pChart/class/pDraw.class.php");
         require_once ("./pChart/class/pImage.class.php");
@@ -15,25 +15,70 @@ class satisfactionPriorityScatter {
         $data = json_decode($datastring);
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
+//        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
+        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
 
+        $total_x = 0;
+        $total_y = 0;
+        $count = 0;
         foreach($data as $key => $row){
-            $categories[]     = $key.'. '.$row[1];
+            $categories[]     = ($key+1).'. '.$row[1];
+            $data[$key][1] = ($key+1).'. '.$row[1];
             $graphic_data_x[] = $row[2];
+            $total_x += $row[2];
             $graphic_data_y[] = $row[3];
+            $total_y += $row[3];
+            $count++;
         }
-        $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $temp);
-
-        $paramsImg = array('name' => $satisfactionPriorityScatter_graphic, 'scaling' => 30, 'spacingTop' => 0, 'spacingBottom' => 0, 'spacingLeft' => 0, 'spacingRight' => 20, 'textWrap' => 1, 'border' => 0, 'borderDiscontinuous' => 1);
-        $satisfactionPriorityScatter_docx -> addImage($paramsImg);
         
-        $satisfactionPriorityScatter_docx->addText(array(array(
-                'text' => 'De nummers bij de punten verwijzen naar onderstaande rubrieken:',
+        $average_x = $total_x / $count;
+        $average_y = $total_y / $count;
+        $advice_positive = array();
+        $advice_negative = array();
+        usort($data, 'cmp_scatter_advice');
+        foreach($data as $key => $row){
+            if ($row[2]>$average_x){
+                if ($row[3]>$average_y){
+                    $advice_positive[] = $row[1];
+                } else {
+                    $advice_negative[] = $row[1];
+                }
+            }
+        }
+        
+        $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $categories, $temp);
+
+        $paramsImg = array(
+            'name' => $satisfactionPriorityScatter_graphic, 
+            'scaling' => 40, 
+            'spacingTop' => 20, 
+            'spacingBottom' => 20, 
+            'spacingLeft' => 0, 
+            'spacingRight' => 20, 
+            'textWrap' => 0, 
+            //'border' => 0, 
+            //'borderDiscontinuous' => 0
+            );
+        $satisfactionPriorityScatter_docx -> addImage($paramsImg);
+        $paramsList = array(
+            'val' => 0,
+            'sz' => 10,
+            'font' => 'Century Gothic',
+        );
+        
+        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Meer tevreden\':',array(
                 'sz' => 10,
                 'font' => 'Century Gothic'
-        )));
-        $satisfactionPriorityScatter_docx->addBreak('line');
+        ));
 
-        $satisfactionPriorityScatter_docx -> addList($categories);
+        $satisfactionPriorityScatter_docx -> addList($advice_positive, $paramsList);
+
+        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Minder tevreden\':',array(
+                'sz' => 10,
+                'font' => 'Century Gothic'
+        ));
+
+        $satisfactionPriorityScatter_docx -> addList($advice_negative, $paramsList);
 
         $satisfactionPriorityScatter_docx -> createDocx($temp . 'satisfactionPriorityScatter');
         unset($satisfactionPriorityScatter_docx);
@@ -41,7 +86,7 @@ class satisfactionPriorityScatter {
 
     }
 
-    private function _draw_graphic($graphic_data_x, $graphic_data_y, $temp) {
+    private function _draw_graphic($graphic_data_x, $graphic_data_y, $categories, $temp) {
         /* Create the pData object */
         $myData = new pData();
 
@@ -63,7 +108,7 @@ class satisfactionPriorityScatter {
         $myData -> setScatterSerieColor(0, array("R" => 0, "G" => 0, "B" => 0));
 
         /* Create the pChart object */
-        $myPicture = new pImage(800, 800, $myData);
+        $myPicture = new pImage(1500, 800, $myData);
 
         $myPicture->drawGradientArea(0,0,800,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
 
@@ -135,6 +180,7 @@ class satisfactionPriorityScatter {
         $Series = $Data["ScatterSeries"][0];
         $SerieX = $Series["X"]; 
         $SerieXAxis = $Data["Series"][$SerieX]["Axis"];
+        $totalX = 0;
         foreach($graphic_data_x as $X)
         {
             $totalX += $X;
@@ -144,6 +190,7 @@ class satisfactionPriorityScatter {
 //        $Series = $Data["ScatterSeries"][0];
         $SerieY = $Series["Y"]; 
         $SerieYAxis = $Data["Series"][$SerieY]["Axis"];
+        $totalY = 0;
         foreach($graphic_data_y as $Y)
         {
             $totalY += $Y;
@@ -154,10 +201,37 @@ class satisfactionPriorityScatter {
         $myPicture->drawLine($averagePointX, 50, $averagePointX, 760, $Settings);
         $myPicture->drawLine(50, $averagePointY, 760, $averagePointY, $Settings);
         
+        //draw legend
+        $myPicture->drawText(900, 40, 'De nummers bij de punten verwijzen naar',array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE)); 
+        $myPicture->drawText(900, 75, 'onderstaande rubrieken:', array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE));
+        
+        $count = 1;    
+        foreach($categories as $category){
+            $myPicture->drawText(900, 75 + $count*35, $category, array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE));
+            $count++;
+        }
+        
         $myPicture -> render($temp . "satisfactionPriorityScatter.png");
 
         return $temp . "satisfactionPriorityScatter.png";
 
     }
 
+    function _error_dump($object){
+        ob_start();
+        //var_dump($object);
+        $contents = ob_get_contents();
+        ob_end_clean();
+        error_log($contents);
+    }
+
 }
+
+        function cmp_scatter_advice($a, $b)
+        {
+            if ($a[2] == $b[2]) {
+                return 0;
+            }
+            return ($a[2] < $b[2]) ? 1 : -1;
+        }
+

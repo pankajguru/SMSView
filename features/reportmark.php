@@ -3,7 +3,7 @@
 class reportmark
 {
 
-    function render( $data)
+    function render( $data, $ref)
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -32,18 +32,33 @@ class reportmark
             }
 
             $peiling_averages = round(($question->{'statistics'}->{'averages'}->{'peiling'}[0][3]*10))/10;
-            $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
+            $vorige_peiling_averages = round(($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0][3]*10))/10;
+            $peiling_onderbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0][3]*10))/10;
+            $peiling_bovenbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0][3]*10))/10;
+            if ($ref['alle_scholen']){
+                $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
+            }
             
             $text= array();
             $text[] = "$schoolname ";//.$peiling_averages;
-            $text[] ="Alle Scholen ";//.$alle_scholen_averages;
+            $text[] = "Vorige peiling ";//.$peiling_averages;
+            $text[] = "Onderbouw ";//.$peiling_averages;
+            $text[] = "Bovenbouw ";//.$peiling_averages;
+            if ($ref['alle_scholen']){
+                $text[] ="Alle Scholen ";//.$alle_scholen_averages;
+            }
             
             $graphic_data_text          = $text;
             $graphic_data_reportmarks   = array();
             $graphic_data_reportmarks[] = $peiling_averages;
-            $graphic_data_reportmarks[] = $alle_scholen_averages;
+            $graphic_data_reportmarks[] = $vorige_peiling_averages;
+            $graphic_data_reportmarks[] = $peiling_onderbouw_averages;
+            $graphic_data_reportmarks[] = $peiling_bovenbouw_averages;
             
-            $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $temp);
+            if ($ref['alle_scholen']){
+                $graphic_data_reportmarks[] = $alle_scholen_averages;
+            }            
+            $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp);
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
@@ -53,8 +68,8 @@ class reportmark
                 'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
-                'border' => 0,
-                'borderDiscontinuous' => 1
+//                'border' => 0,
+//                'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
 
@@ -65,7 +80,7 @@ class reportmark
         
     }
     
-    private function _draw_graphic($graphic_data_text, $graphic_data_reportmarks, $temp)
+    private function _draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp)
     {
         /* Create and populate the pData object */
         $MyData = new pData();
@@ -127,7 +142,7 @@ class reportmark
             "Mode" => SCALE_MODE_MANUAL,
             "CycleBackground"=>TRUE,
             "DrawXLines" => FALSE,
-            "MinDivHeight"=>40,
+            "MinDivHeight"=>80,
 //            "YMargin"=>20,
             "XMargin"=>50
 //            "Formats"=>array(5,6,7,8,9,10)
@@ -135,11 +150,14 @@ class reportmark
         //
 //        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         /* Create the per bar palette */
-        $Palette = array(
-//                "0"=>array("R"=>254,"G"=>153,"B"=>41,"Alpha"=>100),
-                "0"=>array("R"=>254,"G"=>204,"B"=>52,"Alpha"=>100),
-                 "1"=>array("R"=>48,"G"=>101,"B"=>250,"Alpha"=>100)
-        );        
+        $Palette = array( 
+                "0"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>100),
+                "1"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>70),
+                "2"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>40),
+                "3"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>40),
+                "4"=>array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100),
+        );
+
         /* Draw the chart */
         $myPicture->drawBarChart(array(
             "DisplayValues" => FALSE,
@@ -157,7 +175,7 @@ class reportmark
             "Interleave"=>0                      
         ));
         for ($i=0;$i<count($graphic_data_text);$i++){
-            $myPicture->drawText(120, 82 + ($i)*47,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
+            $myPicture->drawText(120, 82 + ($i)*57,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         }
         
         $myPicture->render($temp . "reportmark$question_number.png");

@@ -1,1 +1,1 @@
-var base_url = 'http://www.oqdoc.nl/index.php';
+var base_url = 'proxy/ba-simple-proxy.php?mode=native&url=http://smsoffice.homeip.net:7000';

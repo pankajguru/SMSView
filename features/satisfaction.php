@@ -3,7 +3,7 @@
 class satisfaction
 {
 
-    function render( &$data, $type='satisfaction')
+    function render( &$data, $ref, $type='satisfaction')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -108,10 +108,10 @@ class satisfaction
         
         $satisfaction_table = array();
         $satisfaction_table_reference = array();
-        for ($i=0 ; $i < 10 ; $i++){
+        for ($i=0 ; $i < count($satisfaction_data->{'peiling'}) ; $i++){
             $count = 0;
  //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
-            $paramsTextTable['text'] = $satisfaction_data->{'alle_scholen'}[$i][1];
+            $paramsTextTable['text'] = $satisfaction_data->{'peiling'}[$i][1];
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
             foreach ($satisfaction_data as $key => $satisfaction_column){
@@ -120,8 +120,11 @@ class satisfaction
                     $text = $satisfaction_docx->addElement('addText', array());
                     $text->{'border'} = $paramsTableEmpty;
                     $satisfaction_table[$i][$count++] = $text;
-
-                    $paramsTextTableReference['text'] = Scale10($satisfaction_column[$i][2], 4);
+                    if ($ref['alle_scholen']){
+                        $paramsTextTableReference['text'] = Scale10($satisfaction_column[$i][2], 4);
+                    } else {
+                        $paramsTextTableReference['text'] = '-';
+                    }
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTableReference));
                     $text->{'border'} = $paramsTableReference;
                     $satisfaction_table[$i][$count++] = $text;
@@ -175,8 +178,8 @@ class satisfaction
             $satisfaction_table[$i][0]->{'_embeddedText'}[0]["text"] = $count++.'. '.$satisfaction_table[$i][0]->{'_embeddedText'}[0]["text"] ;
             //now do the formatting of the number (should be done AFTER sort)
             for ($j=0 ; $j <= $column_count ; $j++){
-                $value = $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"];
-                if (isset($value)){
+                if (isset($satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"])){
+                    $value = $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"];
                     $satisfaction_table[$i][$j+1]->{'_embeddedText'}[0]["text"] = sprintf("%01.1f", $value);
                 }
             }

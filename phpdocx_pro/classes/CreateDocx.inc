@@ -624,7 +624,7 @@ class CreateDocx extends CreateDocument
         $queryDoc = '//w:body/w:sdt';
         $docNodes = $docXpath->query($queryDoc);
 
-        if($docNodes->item(0)->nodeName == 'w:sdt'){
+        if(isset($docNodes->item(0)->nodeName) && $docNodes->item(0)->nodeName == 'w:sdt'){
             $tempDoc = new DomDocument();
             $sdt =$tempDoc->importNode($docNodes->item(0), true);
             $newNode = $tempDoc->appendChild($sdt);

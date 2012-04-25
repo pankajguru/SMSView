@@ -1249,11 +1249,11 @@ class pDraw {
 
         if ($this -> Shadow && $this -> ShadowX != 0 && $this -> ShadowY != 0) {
             $C_ShadowColor = $this -> allocateColor($this -> Picture, $this -> ShadowR, $this -> ShadowG, $this -> ShadowB, $this -> Shadowa);
-            imagettftext($this -> Picture, $FontSize, $Angle, $X + $this -> ShadowX, $Y + $this -> ShadowY, $C_ShadowColor, $FontName, $Text);
+            @imagettftext($this -> Picture, $FontSize, $Angle, $X + $this -> ShadowX, $Y + $this -> ShadowY, $C_ShadowColor, $FontName, $Text);
         }
 
         $C_TextColor = $this -> AllocateColor($this -> Picture, $R, $G, $B, $Alpha);
-        imagettftext($this -> Picture, $FontSize, $Angle, $X, $Y, $C_TextColor, $FontName, $Text);
+        @imagettftext($this -> Picture, $FontSize, $Angle, $X, $Y, $C_TextColor, $FontName, $Text);
 
         $this -> Shadow = $Shadow;
 
@@ -5213,7 +5213,7 @@ class pDraw {
                 } else { $SerieDescription = $SerieName;
                 }
 
-                $PosArray = $this -> scaleComputeY($Serie["Data"], array("AxisID" => $Serie["Axis"]));
+                $PosArray = @$this -> scaleComputeY($Serie["Data"], array("AxisID" => $Serie["Axis"]));
 
                 if ($Floating0Value != NULL) { $YZero = $this -> scaleComputeY($Floating0Value, array("AxisID" => $Serie["Axis"]));
                 } else { $YZero = $this -> scaleComputeY(0, array("AxisID" => $Serie["Axis"]));
@@ -5421,7 +5421,7 @@ class pDraw {
                         if ($X2 != VOID) {
                             $BarWidth = $X2 - $X1;
 
-                            if ($Serie["Data"][$Key] == 0) {
+                            if (@$Serie["Data"][$Key] == 0) {
                                 $this -> drawLine($X1, $Y + $YOffset + $YSpace, $X1, $Y + $YOffset + $YSize - $YSpace, $Color);
                                 if ($RecordImageMap) { $this -> addToImageMap("RECT", floor($X1 - 1) . "," . floor($Y + $YOffset + $YSpace) . "," . floor($X1 + 1) . "," . floor($Y + $YOffset + $YSize - $YSpace), $this -> toHTMLColor($R, $G, $B), $SerieDescription, $this -> scaleFormat($Serie["Data"][$Key], $Mode, $Format, $Unit));
                                 }
@@ -5639,6 +5639,7 @@ class pDraw {
 
                             if ($RecordImageMap) { $this -> addToImageMap("RECT", floor($X + $XOffset) . "," . floor($Y1 - $YSpaceUp + $YSpaceDown) . "," . floor($X + $XOffset + $XSize) . "," . floor($Y2), $this -> toHTMLColor($R, $G, $B), $SerieDescription, $this -> scaleFormat($Serie["Data"][$Key], $Mode, $Format, $Unit));
                             }
+                            $this -> DataSet -> Data["Series"][$SerieName]["ImageData"][] = array($X + $XOffset, $Y1 - $YSpaceUp + $YSpaceDown, $X + $XOffset + $XSize, $Y2);
 
                             if ($Rounded)
                                 $this -> drawRoundedFilledRectangle($X + $XOffset, $Y1 - $YSpaceUp + $YSpaceDown, $X + $XOffset + $XSize, $Y2, $RoundRadius, $Color);
@@ -5741,6 +5742,7 @@ class pDraw {
 
                             if ($RecordImageMap) { $this -> addToImageMap("RECT", floor($X1 + $XSpaceLeft) . "," . floor($Y + $YOffset) . "," . floor($X2 - $XSpaceRight) . "," . floor($Y + $YOffset + $YSize), $this -> toHTMLColor($R, $G, $B), $SerieDescription, $this -> scaleFormat($Serie["Data"][$Key], $Mode, $Format, $Unit));
                             }
+                            $this -> DataSet -> Data["Series"][$SerieName]["ImageData"][$Key] = array($X1 + $XSpaceLeft, $Y + $YOffset, $X2 - $XSpaceRight, $Y + $YOffset + $YSize);
 
                             if ($Rounded)
                                 $this -> drawRoundedFilledRectangle($X1 + $XSpaceLeft, $Y + $YOffset, $X2 - $XSpaceRight, $Y + $YOffset + $YSize, $RoundRadius, $Color);

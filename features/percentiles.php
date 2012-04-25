@@ -3,7 +3,7 @@
 class percentiles
 {
 
-    function render( $data, $good='green')
+    function render( $data, $ref, $good='green')
     {
         require_once("./features/utils.php");
         require_once("./pChart/class/pData.class.php");
@@ -53,10 +53,25 @@ n', $paramsTextHeading);
                 $min_value = $percentile_data[3];
                 $max_value = $percentile_data[4];
                 $blocksize = ($max_value - $min_value) / 30;
-                $empty = array(($percentile_data[6] - $min_value),($percentile_data[10] -$min_value));
-                $stdev_left = array(($percentile_data[7] - $percentile_data[6] - $blocksize),($percentile_data[11] - $percentile_data[10] - $blocksize));
+
+                $extra_std_deviation = 0;
+                if ( $max_value - $min_value >= 3 ) {
+                     $extra_std_deviation1 = $percentile_data[7] - $percentile_data[6];
+                     $extra_std_deviation2 = $percentile_data[11] - $percentile_data[10];
+                }
+
+                $empty = array(($percentile_data[6] - $min_value - $extra_std_deviation1 - $blocksize/2),($percentile_data[10] -$min_value - $extra_std_deviation2 - $blocksize/2));
+                $stdev1 = ($percentile_data[7] - $percentile_data[6] + $extra_std_deviation1);
+                $stdev2 = ($percentile_data[11] - $percentile_data[10] + $extra_std_deviation2);
+                if ($stdev1 < 0) $stdev1 = 0;
+                if ($stdev2 < 0) $stdev2 = 0;
+                $stdev_left = array($stdev1,$stdev2);
                 $block = array(($blocksize),($blocksize));
-                $stdev_right = array(($percentile_data[8] - $percentile_data[7] - $blocksize),($percentile_data[12] - $percentile_data[11]  - $blocksize));
+                $stdev1 = ($percentile_data[8] - $percentile_data[7] + $extra_std_deviation1);
+                $stdev2 = ($percentile_data[12] - $percentile_data[11] + $extra_std_deviation2);
+                if ($stdev1 < 0) $stdev1 = 0;
+                if ($stdev2 < 0) $stdev2 = 0;
+                $stdev_right = array($stdev1,$stdev2);
                 $values = array(sprintf("%01.2f",$percentile_data[7]), sprintf("%01.2f",$percentile_data[11]));
                 $answered = array($percentile_data[9], $percentile_data[13]);
 
@@ -69,8 +84,8 @@ n', $paramsTextHeading);
                     'spacingLeft' => 0,
                     'spacingRight' => 0,
                     'textWrap' => 0,
-                    'border' => 0,
-                    'borderDiscontinuous' => 1
+//                    'border' => 0,
+//                    'borderDiscontinuous' => 1
                 );
                 $percentiles_docx->addImage($paramsImg);
 
@@ -132,6 +147,7 @@ n', $paramsTextHeading);
 
         /* Create the pChart object */
         $myPicture = new pImage(1500, 70, $MyData);
+        $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
             "FontSize" => 24,
@@ -180,8 +196,22 @@ n', $paramsTextHeading);
             $myPicture->drawText(1450, 10 + ($i)*36,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPRIGHT, "DrawBox" => FALSE));
         }
 
+        $alle_scholen_ref = 1;
+
+        $myPicture -> Antialias = TRUE;
+        $imageData = $myPicture -> DataSet -> Data["Series"]['Values']["ImageData"];
+        $X = $imageData[$alle_scholen_ref][2] - ($imageData[$alle_scholen_ref][2] - $imageData[$alle_scholen_ref][0])/2;
+        $Y = $imageData[$alle_scholen_ref][3];
+        $myPicture->drawLine($X, 6, $X, $Y, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $myPicture -> Antialias = FALSE;
+        
+        //Make alle scholen bleu
+        $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
+        $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
+        $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        
         $myPicture->render($temp . "percentiles$question_number.png");
-        // var_dump($all_questions);
         return $temp . "percentiles$question_number.png";
 
     }

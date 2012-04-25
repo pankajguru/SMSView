@@ -3,7 +3,7 @@
 class satisfactionTop
 {
 
-    function render( &$data, $top = TRUE)
+    function render( &$data, $ref, $top = TRUE)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
@@ -115,7 +115,13 @@ class satisfactionTop
 
         usort($satisfaction_array, "cmp_percentages");
         
+        if (!$top){
+            $satisfaction_array = array_reverse($satisfaction_array);
+        }
         for ($i=0 ; $i < 10 ; $i++){
+            if (!isset($satisfaction_array[$i]['vraag'])){
+                continue;
+            }
             $count = 0;
             $paramsTextTable['text'] = ($i+1).'. '.$satisfaction_array[$i]['vraag'];
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
@@ -131,14 +137,22 @@ class satisfactionTop
             $text->{'border'} = $paramsTableEmpty;
             $satisfaction_table[$i][$count++] = $text;
 
-            $paramsTextTableReference['text'] = $satisfaction_array[$i]['alle_scholen'].'%';
+            if ($ref['alle_scholen']){
+                $paramsTextTableReference['text'] = $satisfaction_array[$i]['alle_scholen'].'%';
+            } else {
+                $paramsTextTableReference['text'] = '-';
+            }
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableReference));
             $text->{'border'} = $paramsTableReference;
             $satisfaction_table[$i][$count++] = $text;
         }
 
         $satisfaction_titles = array();
-        $paramsTextTableHeader['text'] = 'Pluspunten';
+        if ($top){
+            $paramsTextTableHeader['text'] = 'Pluspunten';
+        } else {
+            $paramsTextTableHeader['text'] = 'Verbeterpunten';
+        }
         $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableHeader));
         $satisfaction_titles[0][] = $text;
         
@@ -206,9 +220,10 @@ class satisfactionTop
         $table2 = $satisfactionTop_docx->addTable($satisfaction_titles);
         $table3 = $satisfactionTop_docx->addTable($satisfaction_table, array('size_col' => $size_col));
         
-        $satisfactionTop_docx->createDocx($temp.'satisfactionTop');
+        $filename = ($top) ? 'satisfactionTopGood':'satisfactionTopBad';
+        $satisfactionTop_docx->createDocx($temp.$filename);
         unset($satisfactionTop_docx);
-        return $temp.'satisfactionTop.docx';
+        return $temp.$filename.'.docx';
         
     }
         
