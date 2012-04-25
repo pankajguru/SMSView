@@ -19,7 +19,6 @@ class scores
 
         //create array iso object
         $all_questions_array = array();
-        var_dump($all_questions);
         foreach($all_questions as $question_number=>$question){
             $all_questions_array[intval($question_number)] = $question;
         };
@@ -195,6 +194,7 @@ class scores
                 "Max" => $max_value
             ),
         );
+//        $myPicture->setFontProperties(array("FontSize"=>14));
         $myPicture->drawScale(array(
             "ManualScale" => $AxisBoundaries,
             "DrawSubTicks" => FALSE,
@@ -205,6 +205,7 @@ class scores
             "Pos" => SCALE_POS_TOPBOTTOM,
             "Mode" => SCALE_MODE_MANUAL,
             "MinDivHeight" => 500/$max_value,
+            "FontSize" => 14
             //"Position" => AXIS_POSITION_LEFT
         ));
         //
@@ -217,6 +218,7 @@ class scores
             "Interleave" => 0.5,
             "RecordImageMap" => TRUE
         ));
+        $myPicture->setFontProperties(array("FontSize"=>24));
         for ($i=0;$i<count($names);$i++){
 //            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(1100, 50 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
@@ -224,8 +226,8 @@ class scores
         }
         
         //draw legend:
-        $myPicture->drawText(500, 10,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
-        $myPicture->drawText(960, 10,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+        $myPicture->drawText(500, 10,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE,"FontSize" => 14));
+        $myPicture->drawText(960, 10,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE,"FontSize" => 14));
                 
         $alle_scholen_ref = $ref_count-1;
 

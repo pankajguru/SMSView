@@ -12,6 +12,7 @@ class mostimportant
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $satisfaction_data  = json_decode($datastring)->{'importance'};
+        $importance_categories = get_importance_categories($data);
 
         $headerStyle = array(
             'b' => 'double',
@@ -41,9 +42,17 @@ class mostimportant
         usort($satisfaction_data->{'alle_scholen'}, "cmp_reference_importance");
         
         foreach($satisfaction_data->{'peiling'} as $key => $reference){
+            //do not take categories wich are not ment to be categories:
+            if (!in_array($reference[0], $importance_categories)){
+                continue;
+            }
             $peiling_top[] = $reference[1];
         }
         foreach($satisfaction_data->{'alle_scholen'} as $key => $reference){
+            //do not take categories wich are not ment to be categories:
+            if (!in_array($reference[0], $importance_categories)){
+                continue;
+            }
             $alle_scholen_top[] = $reference[1];
         }
         foreach($alle_scholen_top as $key=>$reference){

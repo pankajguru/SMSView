@@ -101,8 +101,8 @@ class reportmark
         $MyData->setAxisDisplay(0,AXIS_FORMAT_METRIC, 1); 
         
         /* Create the pChart object */
-        $picture_height = (1 + count($graphic_data_text)) * 80 + 40;
-        $myPicture = new pImage(1200, $picture_height, $MyData);
+        $picture_height = count($graphic_data_text) * 60 + 80; //520    360
+        $myPicture = new pImage(1400, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
             "FontSize" => 20,
@@ -115,12 +115,12 @@ class reportmark
         function YAxisFormat($Value) { return(round($Value)); } 
         
         /* Draw the chart scale */
-        $graphic_height = (1 + count($graphic_data_text)) * 60;
+        $graphic_height = count($graphic_data_text) * 60 + 40; //360
 
-        $myPicture->drawGradientArea(100,30,960,$graphic_height,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
-        $myPicture->drawGradientArea(100,30,960,$graphic_height,DIRECTION_HORIZONTAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>20));
+        $myPicture->drawGradientArea(10,30,1100,$graphic_height,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
+        $myPicture->drawGradientArea(10,30,1100,$graphic_height,DIRECTION_HORIZONTAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>20));
 
-        $myPicture->setGraphArea(100, 30, 960, $graphic_height);
+        $myPicture->setGraphArea(10, 10, 1100, $graphic_height);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => 5,
@@ -175,7 +175,7 @@ class reportmark
             "Interleave"=>0                      
         ));
         for ($i=0;$i<count($graphic_data_text);$i++){
-            $myPicture->drawText(120, 82 + ($i)*57,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
+            $myPicture->drawText(20, 62 + ($i)*57,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         }
         
         $myPicture->render($temp . "reportmark$question_number.png");

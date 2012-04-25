@@ -12,6 +12,7 @@ class satisfaction
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
         $schoolname     = $data['schoolnaam'];
+        $importance_categories = get_importance_categories($data);
         $column_count   = 0;
         
         $paramsTextTitles = array(
@@ -109,6 +110,10 @@ class satisfaction
         $satisfaction_table = array();
         $satisfaction_table_reference = array();
         for ($i=0 ; $i < count($satisfaction_data->{'peiling'}) ; $i++){
+            //do not take categories wich are not ment to be categories:
+            if (!in_array($satisfaction_data->{'peiling'}[$i][0], $importance_categories)){
+                continue;
+            }
             $count = 0;
  //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
             $paramsTextTable['text'] = $satisfaction_data->{'peiling'}[$i][1];

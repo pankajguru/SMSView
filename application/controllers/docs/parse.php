@@ -28,6 +28,7 @@ class Parse extends CI_Controller {
         require_once ('features/percentiles.php');
         require_once ('features/previous.php');
         require_once ('features/summary.php');
+        require_once ('features/satisfactionSummary.php');
         
         require 'phpdocx_pro/classes/CreateDocx.inc';
         //load url helper
@@ -125,6 +126,10 @@ class Parse extends CI_Controller {
         $summary = new summary();
         $summary_docx = $summary -> render($xmlData, $ref);
         unset($summary);
+
+        $satisfactionSummary = new satisfactionSummary();
+        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
+        unset($satisfactionSummary);
                
         $docx = new CreateDocx();
 
@@ -196,6 +201,9 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "summary") {
                     $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
+                }
+                if ($variable == "satisfactionSummary") {
+                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
             }
 
@@ -304,9 +312,13 @@ class Parse extends CI_Controller {
 //        $previous_docx = $previous -> render($xmlData, $ref);
 //        unset($previous);
                
-        $summary = new summary();
-        $summary_docx = $summary -> render($xmlData, $ref);
-        unset($summary);
+//        $summary = new summary();
+//        $summary_docx = $summary -> render($xmlData, $ref);
+//        unset($summary);
+               
+        $satisfactionSummary = new satisfactionSummary();
+        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
+        unset($satisfactionSummary);
                
                                              
         $docx = new CreateDocx();
@@ -380,6 +392,9 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "summary") {
 //                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
+                }
+                if ($variable == "satisfactionSummary") {
+                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
             }
 
