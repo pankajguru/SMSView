@@ -91,7 +91,7 @@ function retrieve_questions_per_type(type) {
         success : function(xml) {
             $(xml).find('item').each(function() {
                 var id = $(this).find('question_id').text();
-                var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags" refid="' + $(this).find('question_id').text() + '" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
+                var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags '+$(this).find('question_type_desc_code').text() + '" refid="' + $(this).find('question_id').text() + '" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
                 $(li).appendTo('#questions_container');
 
                 $(this).find('answers').each(function() {
@@ -441,11 +441,17 @@ function check_mandatory_questions() {
         // Create mandatory question for OTP list
         var listclass = '.sortable_with_' + $('#1').parent().attr('id');
         $('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#1').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
-        var text = $('<li refid="1" class="question_selected">Ik vul deze lijst in voor mijn kind in groep...</li><li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li><li refid="68" class="question_selected">Welk rapport cijfer geeft u aan de school</li>');
+        var text = $('<li refid="1" class="question_selected">Ik vul deze lijst in voor mijn kind in groep...</li>' +
+            '<li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li>');
+        text.appendTo(listclass);
+        var listclass = '.sortable_with_' + $('#68').parent().attr('id');
+        $('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#68').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        var text = $('<li refid="68" class="question_selected">Welk rapport cijfer geeft u aan de school</li>');
         text.appendTo(listclass);
         $('#1').draggable('option', 'disabled', true);
         $('#2').draggable('option', 'disabled', true);
         $('#68').draggable('option', 'disabled', true);
+        process_question_numbering();
 
     } else if(type === 'ltp') {
         // Create mandatory question for LTP list
@@ -468,22 +474,25 @@ function check_mandatory_questions() {
 
 function check_for_how_important(id) {
 
-    var how_important = $('#' + id).parent().children(':contains("Hoe belangrijk")');
+    //var how_important = $('#' + id).parent().children(':contains("Hoe belangrijk")');
+    var how_important = $('#' + id).parent().children('.BELANGRIJK');
+    
     var how_important_class = $(how_important).parent().attr('id');
     var how_important_id = $(how_important).attr('id');
     var how_important_text = $(how_important).clone().children().remove().end().text();
 
-    if($('.sortable_with_' + how_important_class + '> li').length >= 4) {
+    if($('.sortable_with_' + how_important_class + '> li.TEVREDEN').length >= 3) {
         $('#notion_' + how_important_class).remove();
-        if($('.sorts > li[refid="' + how_important_id + '"]').length === 0) {
+        //make sure, belangrijk question is always last
+        $('.sorts > li[refid="' + how_important_id + '"]').remove();
+//        if($('.sorts > li[refid="' + how_important_id + '"]').length === 0) {
             $('<li refid="' + how_important_id + '">' + how_important_text + '</li>').appendTo('.sortable_with_' + how_important_class);
             $(how_important).draggable('option', 'disabled', true);
-        }
+//        }
     } else {
-        if($('#notion_' + how_important_class).length === 0) {
-            $('<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>').appendTo('.sortable_with_' + how_important_class);
-        	$('#notion_' + how_important_class).draggable('option', 'disabled', true);
-        }
+        $('#notion_' + how_important_class).remove();
+        $('<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>').appendTo('.sortable_with_' + how_important_class);
+      	$('#notion_' + how_important_class).draggable('option', 'disabled', true);
     }
 }
 
@@ -531,7 +540,14 @@ function wire_add_question_button() {
 			var id = $(this).attr('refid');
 			var selector = '.sortable_with_' + category;
 			var text = $("#" + id).clone().children().remove().end().text();
-			var li = $('<li refid="' + id + '" class="question_selected">' + text + '</li>');
+			var qtype='';
+            if ($("#" + id).hasClass('BELANGRIJK')){
+                qtype += 'BELANGRIJK ';
+            }
+            if ($("#" + id).hasClass('TEVREDEN')){
+                qtype += 'TEVREDEN ';
+            }
+			var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
             li.appendTo(selector);
             $('#' + id).draggable('option', 'disabled', true);
             check_for_how_important(id);
