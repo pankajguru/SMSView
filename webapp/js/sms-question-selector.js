@@ -1,5 +1,6 @@
 var basetype = "";
 var school_id;
+var categories = Array();
 
 $(document).ready(function() {
     //set all pages to display:none
@@ -102,6 +103,9 @@ function retrieve_questions_per_type(type) {
                         $('<li class="answer_option">' + $(this).find('description').text() + '</li>').appendTo('#answer_container_' + id);
                     });
                 });
+                //create array of categories
+                categories[parseInt($(this).find('category_id').text())] = $(this).find('category_name').text();
+                
             });
             sort_on_category();
             check_mandatory_questions()
@@ -277,14 +281,10 @@ function create_clicks() {
 function new_question() {
     var options;
 
-    $.ajax({
-        type : 'GET',
-        url : base_url + '/xmlprovider/questions/category',
-        dataType : 'xml',
-        success : function(xml) {
-            $(xml).find('item').each(function() {
-                options += '<option value="' + $( this ).find( 'id' ).text() + '" id="' + $(this).find('id').text() + '">' + $(this).find('description').text() + '</option>';
-            });
+    categories.sort();
+    $.each(categories, function(key, category) { 
+        if (category != undefined){
+            options += '<option value="' + key + '" id="' + key + '">' + category + '</option>';
         }
     });
 
