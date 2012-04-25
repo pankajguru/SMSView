@@ -116,7 +116,7 @@ class Questions extends REST_Controller {
         $otp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(1);
         $otp_question_ids = array();
         foreach ($otp_questions as $otp_question) {
-            $otp_question_ids[] = $question_id -> question_id;
+            $otp_question_ids[] = $otp_question -> question_id;
         }
         //foreach question, add to xml
         $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
