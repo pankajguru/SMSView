@@ -140,7 +140,7 @@ function create_sorts(ul) {
     var el = (ul ) ? ul : '.sorts';
 
     $(el).sortable({
-        items : "li:not(.category_list_name)",
+        items : "li:not(.category_list_name, .info)",
         forcePlaceholderSize : true,
         dropOnEmpty : true,
         tolerance : 'pointer',
@@ -482,6 +482,7 @@ function check_for_how_important(id) {
     } else {
         if($('#notion_' + how_important_class).length === 0) {
             $('<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>').appendTo('.sortable_with_' + how_important_class);
+        	$('#notion_' + how_important_class).draggable('option', 'disabled', true);
         }
     }
 }
