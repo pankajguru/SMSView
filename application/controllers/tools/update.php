@@ -168,24 +168,28 @@ class Update extends CI_Controller {
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/ptp.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
-        $vraag_group_id = 0;
-        $new_id = 9926;
+        $vraag_group_id = 100;
+        $new_id =  $this -> Sms_model ->_get_new_id('vraag'); //set to new id!!!!!!!
+        $new_answer_id =  $this -> Sms_model ->_get_new_id('antwoord'); //set to new id!!!!!!!
+        print '<code>';
         foreach ($objWorksheet->getRowIterator() as $row) {
             $answer = array();
             $rownr = $row -> getRowIndex();
             if (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) ==0){
                 $rubriek = $objWorksheet -> getCell('G' . $rownr) -> getValue();
                 if (($rubriek != '') && ($rubriek != 'vraag')){
-                    $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
+                    $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek), 99);
 //                    print $rubriek.'<br>';
                     if (count($vraag_groep) >0 ){
                         $vraag_group_id = $vraag_groep[0]->id;
-                        print $vraag_group_id.'<br>';
+//                        print $vraag_group_id.'<br>';
                     }
                 }
             }
 
-            if (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) !=0){
+            if ((intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) !=0) 
+                    and (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) > 300)
+                    and ($vraag_group_id != 968) ){
                 $id1 = $objWorksheet -> getCell('B' . $rownr) -> getValue();
                 $id2 = $objWorksheet -> getCell('C' . $rownr) -> getValue();
                 $id3 = $objWorksheet -> getCell('D' . $rownr) -> getValue();
@@ -193,16 +197,41 @@ class Update extends CI_Controller {
                 $id5 = $objWorksheet -> getCell('F' . $rownr) -> getValue();
                 $question = $objWorksheet -> getCell('G' . $rownr) -> getValue();
                 $new_id++;
+                $question = preg_replace('/\'/', '&amp;#39;', $question);
+                $question = preg_replace('/_ouml;/', '&amp;ouml;', $question);
                 print "insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
                 (select $new_id, abstract, '$question', short_description, $vraag_group_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, 3
                     from vraag where vraag.id=$id1);<br>";
-                          
+                if ($id1 != ''){
+                    print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_answer_id, 0, 0, 0, formulier_id, ".$new_id.", value from antwoord where vraag_id=$id1);<br>";
+                    $new_answer_id++;
+                }
+                if ($id2 != ''){
+                    print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_answer_id, 0, 0, 0, formulier_id, ".$new_id.", value from antwoord where vraag_id=$id2);<br>";
+                    $new_answer_id++;
+                                    }
+                if ($id3 != ''){
+                    print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_answer_id, 0, 0, 0, formulier_id, ".$new_id.", value from antwoord where vraag_id=$id3);<br>";
+                    $new_answer_id++;
+                                    }
+                if ($id4 != ''){
+                    print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_answer_id, 0, 0, 0, formulier_id, ".$new_id.", value from antwoord where vraag_id=$id4);<br>";
+                    $new_answer_id++;
+                                    }
+                if ($id5 != ''){
+                    print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) (select $new_answer_id, 0, 0, 0, formulier_id, ".$new_id.", value from antwoord where vraag_id=$id5);<br>";
+                    $new_answer_id++;
+                }
+                                          
                 
             }
 
         }
         $new_id++;
+        print "update vraag set description = SUBSTRING(description,locate(' ', description)) where base_type_id=3 and id < 308 and locate(' ', description)>0 and locate(' ', description)<6;";
         print "update sequence set sequence_no=$new_id where table_name='vraag';<br>";
+        print "update sequence set sequence_no=$new_answer_id where table_name='antwoord';<br>";
+        print '</code>';
 
         $this -> load -> view('welcome_message');
     }
@@ -213,8 +242,9 @@ class Update extends CI_Controller {
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/ltp.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
-        $vraag_group_id = 0;
-        $new_id=10240;
+        $vraag_group_id = 100;
+        $new_id =  $this -> Sms_model ->_get_new_id('vraag'); //set to new id!!!!!!!
+        $new_anwer_id =  $this -> Sms_model ->_get_new_id('antwoord'); //set to new id!!!!!!!
         foreach ($objWorksheet->getRowIterator() as $row) {
             $answer = array();
             $rownr = $row -> getRowIndex();

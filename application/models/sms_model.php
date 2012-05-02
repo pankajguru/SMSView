@@ -48,9 +48,9 @@ class Sms_model extends CI_Model {
 
     }
 
-    function get_vraag_group_by_description($description) {
+    function get_vraag_group_by_description($description, $min=0) {
         $this -> db -> from (
-        'vraag_group')-> like('description', $description);
+        'vraag_group')-> where('id >=', $min)-> like('description', $description) ;
         $query = $this -> db -> get();
         return $query -> result();
 
