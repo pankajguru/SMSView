@@ -83,6 +83,13 @@ class Sms_model extends CI_Model {
         return $query -> result();
     }
 
+    function get_all_questions_by_peiling_type_desc_code($type) {
+        //maak functie waarbij alle vragen uit een peiling opgehaald worden
+        $this -> db -> select('formulier_type_definition.question_id') -> from('formulier_type_definition') -> join('formulier_type', 'formulier_type_definition.formulier_type_id= formulier_type.id') -> where('formulier_type.desc_code', $type);
+        $query = $this -> db -> get();
+        return $query -> result();
+    }
+
     function get_all_categories() {
 
         $query = $this -> db -> get('vraag_group');
@@ -161,7 +168,7 @@ class Sms_model extends CI_Model {
         );
         $this->db->insert('report_type', $report_type); 
         
-        $report_question_id = 0;
+        $report_question_id = 1;
         foreach ($questionaire_object as $question) {
             if (!isset($question->{"id"})){
                 continue;
@@ -183,7 +190,7 @@ class Sms_model extends CI_Model {
             'description' => 'Muis '.$peiling_type_id
         );
         $this->db->insert('formulier_type', $formulier_type); 
-        $formulier_question_id = 0;
+        $formulier_question_id = 1;
         foreach ($questionaire_object as $question) {
             if (!isset($question->{"id"})){
                 continue;
