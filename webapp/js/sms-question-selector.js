@@ -90,6 +90,7 @@ function retrieve_questions_per_type(type) {
         url : base_url + '/xmlprovider/questions/all_questions/' + type,
         dataType : 'xml',
         success : function(xml) {
+            categories[127] = 'Schoolspecifieke zaken';
             $(xml).find('item').each(function() {
                 var id = $(this).find('question_id').text();
                 var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags '+$(this).find('question_type_desc_code').text() + '" refid="' + $(this).find('question_id').text() + '" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';

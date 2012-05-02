@@ -85,11 +85,17 @@ Set copy of question, basetype, copy answers to peiling for otp:<br>
     <?php }?>
 
 <?php endforeach;?>
+<code>
+    
     update sequence set sequence_no=<?php echo $new_id;?> where table_name='vraag';<br>
     update sequence set sequence_no=<?php echo $new_antwoord_id;?> where table_name='antwoord';<br>
-update vraag set description = 'Hoe tevreden bent u over hygi&euml;ne en netheid op de naschoolse opvang?' where description like 'Hoe tevreden bent u over hygiëne en netheid op de naschoolse opvang?';<br>
-update vraag set description = 'Hoe tevreden bent u over hygi&euml;ne en netheid tijdens het overblijven?' where description like 'Hoe tevreden bent u over hygiëne en netheid tijdens het overblijven?';<br>
-update vraag set description = 'Hoe tevreden bent u over hygi&euml;ne en netheid op de voorschoolse opvang?' where description like 'Hoe tevreden bent u over hygiëne en netheid op de voorschoolse opvang?';<br>
+    update vraag set short_description = 'hygi&euml;ne en netheid op de naschoolse opvang' where description like 'Hoe tevreden bent u over hygiëne en netheid op de naschoolse opvang?';<br>
+    update vraag set short_description = 'hygi&euml;ne en netheid tijdens het overblijven' where description like 'Hoe tevreden bent u over hygiëne en netheid tijdens het overblijven?';<br>
+    update vraag set short_description = 'hygi&euml;ne en netheid op de voorschoolse opvang' where description like 'Hoe tevreden bent u over hygiëne en netheid op de voorschoolse opvang?';<br>
+    update vraag set description = 'Hoe tevreden bent u over hygi&euml;ne en netheid op de naschoolse opvang?' where description like 'Hoe tevreden bent u over hygiëne en netheid op de naschoolse opvang?';<br>
+    update vraag set description = 'Hoe tevreden bent u over hygi&euml;ne en netheid tijdens het overblijven?' where description like 'Hoe tevreden bent u over hygiëne en netheid tijdens het overblijven?';<br>
+    update vraag set description = 'Hoe tevreden bent u over hygi&euml;ne en netheid op de voorschoolse opvang?' where description like 'Hoe tevreden bent u over hygiëne en netheid op de voorschoolse opvang?';<br>
+</code>
 
 
 

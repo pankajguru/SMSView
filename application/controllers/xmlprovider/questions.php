@@ -75,12 +75,27 @@ class Questions extends REST_Controller {
 
     }
 
+    public function template_get($type = NULL) {
+        $base_questions = $this -> Sms_model -> get_all_questions_by_peiling_type_desc_code($type);
+        $base_question_ids = array();
+        foreach ($base_questions as $base_question) {
+            $base_question_ids[] = $base_question -> question_id;
+        }
+
+        if (count($base_question_ids)>0) {
+            $this -> response($base_question_ids, 200);
+        } else {
+            $this -> response(NULL, 404);
+        }
+
+    }
+
     public function school_id_get() {
         $data['school_id'] = 200;
         $this -> response($data, 200);
     }
 
-    function questionaire_post() {
+    public function questionaire_post() {
         $questionaire_json = $this -> post('data');
         $questionaire_object = json_decode($questionaire_json);
         $result = $this -> Sms_model -> insert_questionaire($questionaire_object);
@@ -114,9 +129,17 @@ class Questions extends REST_Controller {
         //get qestions id's from formulier_type_definition
         $question_ids = $this -> Sms_model -> get_all_questions_by_peiling_type($peiling_type_id);
         $otp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(1);
-        $otp_question_ids = array();
+        $ltp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(2);
+        $ptp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(3);
+        $base_question_ids = array();
         foreach ($otp_questions as $otp_question) {
-            $otp_question_ids[] = $otp_question -> question_id;
+            $base_question_ids[] = $otp_question -> question_id;
+        }
+        foreach ($ltp_questions as $ltp_question) {
+            $base_question_ids[] = $ltp_question -> question_id;
+        }
+        foreach ($ptp_questions as $ptp_question) {
+            $base_question_ids[] = $ptp_question -> question_id;
         }
         //foreach question, add to xml
         $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
@@ -146,7 +169,7 @@ class Questions extends REST_Controller {
                 (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) || 
                 (strpos($question_type[0]->DESC_CODE, 'AVL') === 0)
                 ) ? 0 : 1;
-            $standard = (in_array($question_id -> question_id, $otp_question_ids)) ? 1 : 0;
+            $standard = (in_array($question_id -> question_id, $base_question_ids)) ? 1 : 0;
             $xml_question->addChild('standard', $standard);  
             //add answers
             $xml_answers = $xml_question->addChild('answers');

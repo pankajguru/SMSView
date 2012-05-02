@@ -10,6 +10,7 @@ class percentages
         require_once("./pChart/class/pImage.class.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
+        $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
@@ -118,7 +119,7 @@ class percentages
                 $show_legend = TRUE;
             }
             
-            $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $temp);
+            $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $schoolname, $temp);
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
@@ -147,13 +148,13 @@ class percentages
         
     }
     
-    private function _draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $temp)
+    private function _draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $schoolname, $temp)
     {
         /* Create and populate the pData object */
         $MyData = new pData();
         $MyData->loadPalette("./pChart/palettes/sms.color", TRUE);
-        $MyData->addPoints($graphic_data_peiling, "Percentages peiling");
-        $MyData->addPoints($graphic_data_alle_scholen, "Percentages alle scholen");
+        $MyData->addPoints($graphic_data_peiling, "Percentage ". $schoolname);
+        $MyData->addPoints($graphic_data_alle_scholen, "Percentage alle scholen");
 //        $MyData->setAxisName(0, "Percentages");
         $MyData->addPoints($graphic_answer, "Answers");
         $MyData->setSerieDescription("Answers", "Answers");
