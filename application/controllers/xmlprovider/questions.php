@@ -156,7 +156,7 @@ class Questions extends REST_Controller {
             $xml_question->addChild('question', $question[0]->description);
             $xml_question->addChild('sort_order', $sort_order++);
             $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
-            $xml_question->addChild('category', htmlentities($category[0]->description), null , 'UTF-8'); 
+            $xml_question->addChild('category', htmlentities($category[0]->description, null , 'UTF-8')); 
             $xml_question->addChild('category_explanation', $category[0]->description); 
             $xml_question->addChild('required', true);  //TODO:get required
             $xml_question->addChild('inputnote',''); //TODO

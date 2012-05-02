@@ -265,7 +265,7 @@ class Update extends CI_Controller {
             }
             if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
                 $id = intval($objWorksheet -> getCell('A' . $rownr) -> getValue());
-                print "update vraag set base_type_id=2, vraag_groep_id=$vraag_group_id, description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;' where id=$id;<br>";
+                print "update vraag set base_type_id=2, vraag_groep_id=$vraag_group_id, description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;') where id=$id;<br>";
             }
         }
         print "update vraag,report_type_definition set description = REPLACE(REPLACE(description, '_SPACE_',' '),'_COLON_','&#58;') where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =324;<br>";
