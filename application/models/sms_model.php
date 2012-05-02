@@ -321,6 +321,7 @@ CREATE TABLE `ci_sessions` (
  insert into base_type set desc_code='PTP', description='Personeel tevredenheid vragen';
  update  vraag,report_type_definition set base_type_id=1 where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =1;
  update  vraag,report_type_definition set base_type_id=2 where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =266;
+ update  vraag,report_type_definition set base_type_id=2, vraag_groep_id=1612 where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =324;
  update  vraag,report_type_definition set base_type_id=3 where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =10;
 
 

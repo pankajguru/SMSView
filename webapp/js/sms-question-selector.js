@@ -237,6 +237,8 @@ function sort_on_category() {
         var groupname = group.replace(/ /g, "_");
         groupname = groupname.replace(/,/g, "_");
         groupname = groupname.replace(/\//g, "_");
+        groupname = groupname.replace(/&/g, "_");
+        groupname = groupname.replace(/'/g, "_");
         var sortable_with = '.sortable_with_' + groupname;
         var ul = $('<ul class="sortable_with_' + groupname + ' sorts" />');
         ul.appendTo('#question_list_container');
@@ -248,6 +250,8 @@ function sort_on_category() {
         var groupname = group.replace(/ /g, "_");
         groupname = groupname.replace(/,/g, "_");
         groupname = groupname.replace(/\//g, "_");
+        groupname = groupname.replace(/&/g, "_");
+        groupname = groupname.replace(/'/g, "_");
         var ul = $('<ul class="drag_container_' + groupname + '" />').attr('id', groupname);
         var lis = groups[group];
 
@@ -468,21 +472,28 @@ function check_mandatory_questions() {
         $('<span class="category_list_name category_list_name_' + $('#200').parent().attr('id') + '">' + $('#200').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         var text = $('<li refid="200" class="question_selected">Wat is uw geslacht?</li><li refid="201" class="question_selected">Wat is uw leeftijd?</li>');
         text.appendTo(listclass);
+        var listclass = '.sortable_with_' + $('#301').parent().attr('id');
+        $('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#301').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        var text = $('<li refid="301" class="question_selected">Welk rapport cijfer geeft u aan uw school</li>');
+        text.appendTo(listclass);
         $('#200').draggable('option', 'disabled', true);
         $('#201').draggable('option', 'disabled', true);
+        $('#301').draggable('option', 'disabled', true);
+        process_question_numbering();
     }
+//    select_all();
 }
 
 function check_for_how_important(id) {
 
     //var how_important = $('#' + id).parent().children(':contains("Hoe belangrijk")');
-    var how_important = $('#' + id).parent().children('.BELANGRIJK');
+    var how_important = $('#' + id).parent().children('.BELANGRIJK, .PTP_IMPORTANCE');
     
     var how_important_class = $(how_important).parent().attr('id');
     var how_important_id = $(how_important).attr('id');
     var how_important_text = $(how_important).clone().children().remove().end().text();
 
-    if($('.sortable_with_' + how_important_class + '> li.TEVREDEN').length >= 3) {
+    if($('.sortable_with_' + how_important_class + '> li.TEVREDEN, .sortable_with_' + how_important_class + '> li.PTP_TEVREDEN').length >= 3) {
         $('#notion_' + how_important_class).remove();
         //make sure, belangrijk question is always last
         $('.sorts > li[refid="' + how_important_id + '"]').remove();
@@ -548,6 +559,12 @@ function wire_add_question_button() {
             if ($("#" + id).hasClass('TEVREDEN')){
                 qtype += 'TEVREDEN ';
             }
+            if ($("#" + id).hasClass('PTP_IMPORTANCE')){
+                qtype += 'PTP_IMPORTANCE ';
+            }
+            if ($("#" + id).hasClass('PTP_TEVREDEN')){
+                qtype += 'PTP_TEVREDEN ';
+            }
 			var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
             li.appendTo(selector);
             $('#' + id).draggable('option', 'disabled', true);
@@ -556,4 +573,34 @@ function wire_add_question_button() {
             $(this).remove();
 		});
 	})
+}
+
+function select_all(){
+    alert('selectall');
+     $('.question_not_selected').each(function() {
+            var category = $(this).parent().attr('id');
+            var id = $(this).attr('refid');
+            var selector = '.sortable_with_' + category;
+            var text = $("#" + id).clone().children().remove().end().text();
+            var qtype='';
+            if ($("#" + id).hasClass('BELANGRIJK')){
+                qtype += 'BELANGRIJK ';
+            }
+            if ($("#" + id).hasClass('TEVREDEN')){
+                qtype += 'TEVREDEN ';
+            }
+            if ($("#" + id).hasClass('PTP_IMPORTANCE')){
+                qtype += 'PTP_IMPORTANCE ';
+            }
+            if ($("#" + id).hasClass('PTP_TEVREDEN')){
+                qtype += 'PTP_TEVREDEN ';
+            }
+            var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
+            li.appendTo(selector);
+            $('#' + id).draggable('option', 'disabled', true);
+            check_for_how_important(id);
+            process_question_numbering();
+            $(this).remove();
+        })
+
 }

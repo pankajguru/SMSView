@@ -228,9 +228,13 @@ class Update extends CI_Controller {
 
         }
         $new_id++;
-        print "update vraag set description = SUBSTRING(description,locate(' ', description)) where base_type_id=3 and id < 308 and locate(' ', description)>0 and locate(' ', description)<6;";
+        print "update vraag set description = SUBSTRING(description,locate(' ', description)+1) where base_type_id=3 and id < 308 and locate(' ', description)>0 and locate(' ', description)<6;";
         print "update sequence set sequence_no=$new_id where table_name='vraag';<br>";
         print "update sequence set sequence_no=$new_answer_id where table_name='antwoord';<br>";
+        print "update vraag set description= concat('Hoe tevreden bent u over ',description) where vraag_type_id=107 and id>199 and id < 308 and locate('Hoe tevreden', description)=0;";
+        print "update vraag set vraag_type_id=107 where id>308 and base_type_id=3 and locate('Hoe tevreden', description)=1;";
+        print "update vraag set vraag_type_id=108 where id>308 and base_type_id=3 and locate('Hoe belangrijk', description)=1 and vraag_type_id in (1694,1257,649,617);";
+        print "update vraag set description = 'Hoe tevreden bent u over de ondersteuning door de ICT-co_ouml_rdinator?' where description like '%rrrrrr%';";
         print '</code>';
 
         $this -> load -> view('welcome_message');
@@ -241,47 +245,29 @@ class Update extends CI_Controller {
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/ltp.xlsx");
+        $objPHPExcel -> setActiveSheetIndex(1);
+        
         $objWorksheet = $objPHPExcel -> getActiveSheet();
-        $vraag_group_id = 100;
-        $new_id =  $this -> Sms_model ->_get_new_id('vraag'); //set to new id!!!!!!!
-        $new_anwer_id =  $this -> Sms_model ->_get_new_id('antwoord'); //set to new id!!!!!!!
+        $vraag_group_id = 0;
         foreach ($objWorksheet->getRowIterator() as $row) {
             $answer = array();
             $rownr = $row -> getRowIndex();
-            print intval($objWorksheet -> getCell('B' . $rownr) -> getValue())."<br>";
-            if (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) ==0){
-                $rubriek = $objWorksheet -> getCell('G' . $rownr) -> getValue();
-                print "$rubriek<br>";
+            if ((intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) ==0) and ($objWorksheet -> getCell('B' . $rownr) -> getValue() !='')){
+                $rubriek = $objWorksheet -> getCell('B' . $rownr) -> getValue();
                 if (($rubriek != '') && ($rubriek != 'vraag')){
-                    $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek));
-                    var_dump($vraag_groep);
-//                    print $rubriek.'<br>';
+                    $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek), 16);
+                    //print $rubriek.'<br>';
                     if (count($vraag_groep) >0 ){
                         $vraag_group_id = $vraag_groep[0]->id;
-                        print $vraag_group_id.'<br>';
+                        //print $vraag_group_id.'<br>';
                     }
                 }
             }
-
-            if (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) !=0){
-                $id1 = $objWorksheet -> getCell('B' . $rownr) -> getValue();
-                $id2 = $objWorksheet -> getCell('C' . $rownr) -> getValue();
-                $id3 = $objWorksheet -> getCell('D' . $rownr) -> getValue();
-                $question = $objWorksheet -> getCell('E' . $rownr) -> getValue();
-                    $new_id++;
-                    //TODO::juiste vraag_group_id 
-                    print "insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
-                    (select $new_id, abstract, '$question', short_description, 1612, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, 3
-                        from vraag where vraag.id=$id1);<br>";
-                
-                          
-                
+            if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
+                $id = intval($objWorksheet -> getCell('A' . $rownr) -> getValue());
+                print "update vraag set base_type_id=2, vraag_groep_id=$vraag_group_id where id=$id;<br>";
             }
-
         }
-        $new_id++;
-        print "update sequence set sequence_no=$new_id where table_name='vraag';<br>";
-
         $this -> load -> view('welcome_message');
     }
 
