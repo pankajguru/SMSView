@@ -268,9 +268,13 @@ class Update extends CI_Controller {
                 print "update vraag set base_type_id=2, vraag_groep_id=$vraag_group_id, description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;') where id=$id;<br>";
             }
         }
-        print "update vraag,report_type_definition set description = REPLACE(REPLACE(description, '_SPACE_',' '),'_COLON_','&#58;') where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =324;<br>";
+        print "update vraag,report_type_definition set description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;') where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =324;<br>";
+        print "update vraag,report_type_definition set short_description = REPLACE(REPLACE(SUBSTRING(short_description,locate(' ', short_description)+1), '_SPACE_',' '),'_COLON_','&#58;') where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =324;<br>";
         print "update vraag,report_type_definition set description = REPLACE(REPLACE(description, '_SPACE_',' '),'_COLON_','&#58;') where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =266;<br>";
-        
+        print "update vraag set short_description = REPLACE(short_description, '_SPACE_',' ') where base_type_id=2;";
+        print "select id, description, short_description from vraag where base_type_id=2 and locate(' ', description)=1;";
+        print "update vraag set vraag_groep_id = 28 where id=129;";
+        print "update vraag set vraag_groep_id = 15 where id in (130,131,132,133,134,135,136,7696);";
         $this -> load -> view('welcome_message');
     }
 

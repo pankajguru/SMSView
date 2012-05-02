@@ -450,7 +450,7 @@ function check_mandatory_questions() {
             '<li refid="2" class="question_selected">Is het kind waarvoor u deze lijst invult een jongen of een meisje?</li>');
         text.appendTo(listclass);
         var listclass = '.sortable_with_' + $('#68').parent().attr('id');
-        $('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#68').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        $('<span class="category_list_name category_list_name_' + $('#68').parent().attr('id') + '">' + $('#68').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         var text = $('<li refid="68" class="question_selected">Welk rapport cijfer geeft u aan de school</li>');
         text.appendTo(listclass);
         $('#1').draggable('option', 'disabled', true);
@@ -464,8 +464,15 @@ function check_mandatory_questions() {
         $('<span class="category_list_name category_list_name_' + $('#71').parent().attr('id') + '">' + $('#71').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         var text = $('<li refid="71" class="question_selected">Ben je een jongen of een meisje?</li><li refid="72" class="question_selected">In welke groep zit je?</li>');
         text.appendTo(listclass);
+        var listclass = '.sortable_with_' + $('#129').parent().attr('id');
+        $('<span class="category_list_name category_list_name_' + $('#129').parent().attr('id') + '">' + $('#129').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        var text = $('<li refid="129" class="question_selected">Welk rapportcijfer zou je deze school geven?</li>');
+        text.appendTo(listclass);
         $('#71').draggable('option', 'disabled', true);
         $('#72').draggable('option', 'disabled', true);
+        $('#129').draggable('option', 'disabled', true);
+        process_question_numbering();
+        
     } else {
         // Create mandatory question for PTP list
         var listclass = '.sortable_with_' + $('#200').parent().attr('id');
@@ -473,7 +480,7 @@ function check_mandatory_questions() {
         var text = $('<li refid="200" class="question_selected">Wat is uw geslacht?</li><li refid="201" class="question_selected">Wat is uw leeftijd?</li>');
         text.appendTo(listclass);
         var listclass = '.sortable_with_' + $('#301').parent().attr('id');
-        $('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#301').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        $('<span class="category_list_name category_list_name_' + $('#301').parent().attr('id') + '">' + $('#301').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         var text = $('<li refid="301" class="question_selected">Welk rapport cijfer geeft u aan uw school</li>');
         text.appendTo(listclass);
         $('#200').draggable('option', 'disabled', true);
