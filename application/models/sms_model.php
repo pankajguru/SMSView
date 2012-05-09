@@ -58,7 +58,11 @@ class Sms_model extends CI_Model {
 
     function get_all_questions($type) {
         //maak functie waarbij alle vragen opgehaald worden
-        $this -> db -> select('vraag_type.desc_code as question_type_desc_code, vraag.*, vraag.id as question_id, vraag.description as question_description, vraag_group.description as category_name, vraag_group.id as category_id') -> from('vraag') -> join('base_type', 'vraag.base_type_id = base_type.id') -> join('vraag_group', 'vraag_group.id=vraag_groep_id') -> join('vraag_type', 'vraag_type.id=vraag.vraag_type_id') -> where('base_type.desc_code', strtoupper($type));
+        $this -> db -> select('vraag_type.desc_code as question_type_desc_code, vraag.*, vraag.id as question_id, vraag.description as question_description, vraag_group.description as category_name, vraag_group.id as category_id') 
+            -> from('vraag') -> join('base_type', 'vraag.base_type_id = base_type.id') 
+            -> join('vraag_group', 'vraag_group.id=vraag_groep_id') 
+            -> join('vraag_type', 'vraag_type.id=vraag.vraag_type_id') 
+            -> where('base_type.desc_code', strtoupper($type));
         $query = $this -> db -> get();
         return $query -> result();
     }
@@ -314,7 +318,14 @@ CREATE TABLE `ci_sessions` (
   `last_activity` int(10) unsigned NOT NULL default '0',
   `user_data` text collate utf8_bin NOT NULL,
   PRIMARY KEY  (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+create table base_type(
+        id int(11) auto_increment,
+        desc_code varchar(100),
+        description varchar(255),
+        PRIMARY KEY (id)
+      );
  
  insert into base_type set desc_code='OTP', description='Ouder tevredenheid vragen';
  insert into base_type set desc_code='LTP', description='Leerling tevredenheid vragen';
