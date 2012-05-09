@@ -176,7 +176,7 @@ function create_sorts(ul) {
                 $('#clear_questions').toggleClass('hide');
             } else {
                 if($('#select_info').length === 0) {
-                    $('<li id="select_info" class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
+                    //dragging is not preferred way $('<li id="select_info" class="info error">Sleep hier uw vragen heen</li>').appendTo('#question_list_container');
                 }
                 $('#clear_questions').toggleClass('hide');
             }
