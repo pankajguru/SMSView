@@ -13,7 +13,6 @@ class mostimportant
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $satisfaction_data  = json_decode($datastring)->{'importance'};
         $importance_categories = get_importance_categories($data);
-
         $headerStyle = array(
             'b' => 'double',
             'sz' => 10,

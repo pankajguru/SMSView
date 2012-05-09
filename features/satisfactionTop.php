@@ -9,6 +9,8 @@ class satisfactionTop
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
+        $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
+        $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
@@ -104,7 +106,7 @@ class satisfactionTop
         //get right stuff from all_questions
         $satisfaction_array = array();
         foreach($all_questions as $question){
-            if ($question->{'question_type'}[0][1] != 'TEVREDEN'){continue;};
+            if ($question->{'question_type'}[0][1] != $tevreden){continue;};
             $satisfaction_array[] = array(
                 'vraag' => html_entity_decode($question->{'short_description'},null, 'UTF-8'),
                 'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
@@ -118,6 +120,7 @@ class satisfactionTop
         if (!$top){
             $satisfaction_array = array_reverse($satisfaction_array);
         }
+        $satisfaction_table = array();
         for ($i=0 ; $i < 10 ; $i++){
             if (!isset($satisfaction_array[$i]['vraag'])){
                 continue;

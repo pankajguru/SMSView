@@ -2208,7 +2208,7 @@ class pDraw {
         /* Still no X axis */
         if ($GotXAxis == FALSE) {
             if ($Abscissa != NULL) {
-                $Points = count($Data["Series"][$Abscissa]["Data"]);
+                $Points = @count($Data["Series"][$Abscissa]["Data"]);
                 if ($AutoAxisLabels)
                     $AxisName = isset($Data["Series"][$Abscissa]["Description"]) ? $Data["Series"][$Abscissa]["Description"] : NULL;
                 else
@@ -2237,7 +2237,7 @@ class pDraw {
                 if ($Points == 1)
                     $Data["Axis"][$AxisID]["Margin"] = $Height / 2;
                 else
-                    $Data["Axis"][$AxisID]["Margin"] = ($Height / $Points) / 2;
+                    $Data["Axis"][$AxisID]["Margin"] = @($Height / $Points) / 2;
             } else { $Data["Axis"][$AxisID]["Margin"] = $XMargin;
             }
             $Data["Axis"][$AxisID]["Rows"] = $Points - 1;
@@ -3844,7 +3844,7 @@ class pDraw {
                 } else { $SerieDescription = $SerieName;
                 }
 
-                $PosArray = $this -> scaleComputeY($Serie["Data"], array("AxisID" => $Serie["Axis"]));
+                $PosArray = @$this -> scaleComputeY($Serie["Data"], array("AxisID" => $Serie["Axis"]));
 
                 $this -> DataSet -> Data["Series"][$SerieName]["XOffset"] = 0;
 

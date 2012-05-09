@@ -14,13 +14,6 @@ class satisfactionSummary {
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
         $summary_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
 
-
-        $summary_docx->addText($category->groupname,array(
-                    'sz' => 10,
-                    'color' => 'F78E1E',
-                    'b' => 'double',
-                    'font' => 'Century Gothic'
-        ));
         $paramsList = array(
             'val' => 0,
             'sz' => 10,

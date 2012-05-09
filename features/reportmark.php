@@ -26,38 +26,38 @@ class reportmark
         ksort($all_questions_array);
         $first = TRUE;
         foreach($all_questions_array as $question_number=>$question){
-            $valid_question_types = array('RAPPORTCIJFER');
+            $valid_question_types = array('RAPPORTCIJFER', 'PTP_SCORE');
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
                 continue;
             }
-
-            $peiling_averages = round(($question->{'statistics'}->{'averages'}->{'peiling'}[0][3]*10))/10;
-            $vorige_peiling_averages = round(($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0][3]*10))/10;
-            $peiling_onderbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0][3]*10))/10;
-            $peiling_bovenbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0][3]*10))/10;
-            if ($ref['alle_scholen']){
-                $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
-            }
-            
+            $graphic_data_reportmarks   = array();
             $text= array();
             $text[] = "$schoolname ";//.$peiling_averages;
-            $text[] = "Vorige peiling ";//.$peiling_averages;
-            $text[] = "Onderbouw ";//.$peiling_averages;
-            $text[] = "Bovenbouw ";//.$peiling_averages;
-            if ($ref['alle_scholen']){
-                $text[] ="Alle Scholen ";//.$alle_scholen_averages;
-            }
-            
-            $graphic_data_text          = $text;
-            $graphic_data_reportmarks   = array();
+            $peiling_averages = round(($question->{'statistics'}->{'averages'}->{'peiling'}[0][3]*10))/10;
             $graphic_data_reportmarks[] = $peiling_averages;
-            $graphic_data_reportmarks[] = $vorige_peiling_averages;
-            $graphic_data_reportmarks[] = $peiling_onderbouw_averages;
-            $graphic_data_reportmarks[] = $peiling_bovenbouw_averages;
-            
+            if (is_null($question->{'statistics'}->{'averages'}->{'vorige_peiling'})){
+                $vorige_peiling_averages = round(($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0][3]*10))/10;
+                $text[] = "Vorige peiling ";//.$peiling_averages;
+                $graphic_data_reportmarks[] = $vorige_peiling_averages;
+            };
+            if (is_null($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'})){
+                $peiling_onderbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0][3]*10))/10;
+                $text[] = "Onderbouw ";//.$peiling_averages;
+                $graphic_data_reportmarks[] = $peiling_onderbouw_averages;
+            }
+            if (is_null($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'})){
+                $peiling_bovenbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0][3]*10))/10;
+                $text[] = "Bovenbouw ";//.$peiling_averages;
+                $graphic_data_reportmarks[] = $peiling_bovenbouw_averages;
+            }
             if ($ref['alle_scholen']){
+                $alle_scholen_averages = round(($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][3]*10))/10;
+                $text[] ="Alle Scholen ";//.$alle_scholen_averages;
                 $graphic_data_reportmarks[] = $alle_scholen_averages;
-            }            
+            }
+                        
+            $graphic_data_text          = $text;
+            
             $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp);
     
             $paramsImg = array(
@@ -156,7 +156,6 @@ class reportmark
             "b" => "single"
         ));
         
-        function YAxisFormat($Value) { return(round($Value)); } 
         
         /* Draw the chart scale */
         $graphic_height = count($graphic_data_text) * 60 + 40; //360
@@ -194,13 +193,11 @@ class reportmark
         //
 //        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         /* Create the per bar palette */
-        $Palette = array( 
-                "0"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>100),
-                "1"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>70),
-                "2"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>40),
-                "3"=>array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>40),
-                "4"=>array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100),
-        );
+        $Palette = array(); 
+        for($i=0; $i<count($graphic_data_text)-1;$i++){
+            $Palette[$i] = array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>100);
+        }
+        $Palette[count($graphic_data_text)-1] = array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100);
 
         /* Draw the chart */
         $myPicture->drawBarChart(array(
@@ -230,3 +227,5 @@ class reportmark
 
         
 }
+
+        function YAxisFormat($Value) { return(round($Value)); } 

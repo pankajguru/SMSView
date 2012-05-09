@@ -13,10 +13,15 @@ class summary {
         $summary_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
         $summary_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal'));
-        ksort($data);
-
+        $data_array = array();
         foreach($data as $key => $category){
-                
+            $data_array[$key] = $category;
+        }
+        ksort($data_array);
+        foreach($data_array as $key => $category){
+            if ($key == "number_of_groups"){
+                continue;
+            }
             if ((count($category->top) > 0) or (count($category->bottom) > 0)){
                 $summary_docx->addText($category->groupname,array(
                     'sz' => 10,

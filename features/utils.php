@@ -12,16 +12,18 @@ function Scale10( $var, $base = 4, $zero = '-' )
 function get_importance_categories($data){
     $datastring     = $data['get_all_question_props'];
         //konqord JSON is false becuse escape character on '
+    $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
+    $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
     $datastring     = str_replace('\\\'', '\'', $datastring);
     $all_questions  = json_decode($datastring);
 
     $categories = array();
     $importance_categories = array();
     foreach($all_questions as $question_number=>$question){
-        if ($question->{'question_type'}[0][1] == 'TEVREDEN'){
+        if ($question->{'question_type'}[0][1] == $tevreden){
             $categories[$question->{'group_id'}]['satisfaction'][] = $question_number;
         }
-        if ($question->{'question_type'}[0][1] == 'BELANGRIJK'){
+        if ($question->{'question_type'}[0][1] == $belangrijk){
             $categories[$question->{'group_id'}]['importance'][] = $question_number;
         }
     };
