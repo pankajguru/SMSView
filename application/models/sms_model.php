@@ -69,7 +69,7 @@ class Sms_model extends CI_Model {
     }
 
     function get_question_properties($question_type_id) {
-        $this -> db -> from('vraag_type_definition') -> where('vraag_type_id', $question_type_id);
+        $this -> db -> from('vraag_type_definition') -> where('vraag_type_id', $question_type_id)->order_by('value');
         $query = $this -> db -> get();
         return $query -> result();
     }

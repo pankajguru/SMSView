@@ -86,7 +86,9 @@ Set copy of question, basetype, copy answers to peiling for otp:<br>
 
 <?php endforeach;?>
 <code>
-    
+    insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
+            (select <?php echo $row['new_id'];?>, 'abstract', 'Hoe tevreden bent u over het binnenklimaat in de lokalen?', 'binnenklimaat in de lokalen', 101, 107, 1, 0, '', '', 1)
+    <?php $new_id++;?>
     update sequence set sequence_no=<?php echo $new_id;?> where table_name='vraag';<br>
     update sequence set sequence_no=<?php echo $new_antwoord_id;?> where table_name='antwoord';<br>
     update vraag set short_description = 'hygi&amp;euml;ne en netheid op de naschoolse opvang' where description like 'Hoe tevreden bent u over hygiëne en netheid op de naschoolse opvang?';<br>

@@ -284,6 +284,7 @@ class Update extends CI_Controller {
         print "select id, description, short_description from vraag where base_type_id=2 and locate(' ', description)=1;";
         print "update vraag set vraag_groep_id = 28 where id=129;";
         print "update vraag set vraag_groep_id = 15 where id in (130,131,132,133,134,135,136,7696);";
+        print "update vraag set description=substring(description,2) where base_type_id=2 and locate(' ',description) =1;";
         $this -> load -> view('welcome_message');
     }
 
