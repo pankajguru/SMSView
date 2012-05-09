@@ -529,21 +529,23 @@ function wire_delete_question_button() {
         var id = $(this).attr('refid');
         var this_delete = $('<input refid="' + id + '" type="submit" class="delete_button" value="" />');
         this_delete.insertAfter(this);
-
+        var parent = $('li[refid="' + id + '"]:not("#' + id + '")').parent().addClass('hide_' + id );
+        
         $(this_delete).click(function() {
-        	var parent = $('li[refid="' + id + '"]:not("#' + id + '")').parent();
             var id = $(this).attr('refid');
+            var parent = $('.hide_' + id);
 
             $('li[refid="' + id + '"]:not("#' + id + '")').remove();
             $(this).remove();
             $('#' + id).draggable('option', 'disabled', false);
             
-            if ( $(parent).children('li').length == 0 ) {
-            	$(parent).toggleClass('hide');
-            }
             check_for_how_important(id);
             process_question_numbering();
-            
+           
+            if ( $(parent).children('li:not(".info")').length === 0 ) {
+            	$(parent).removeClass('hide_' + id);
+            	$(parent).toggleClass('hide');
+            }
         });
     });
 }
