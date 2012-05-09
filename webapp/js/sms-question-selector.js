@@ -346,6 +346,7 @@ function wire_add_question() {
             create_sorts(ul);
         }
 
+		process_question_numbering();
         // Close the overlay and prevent the button from submitting the form.
         $.modal.close();
     });
