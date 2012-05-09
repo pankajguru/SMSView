@@ -1,1 +1,1 @@
-var base_url = 'http://192.168.0.103/SMSView/index.php';
+var base_url = 'http://smsoffice.homeip.net:7001/index.php';
