@@ -342,7 +342,7 @@ class Update extends CI_Controller {
                 $id = $objWorksheet -> getCell('A' . $rownr) -> getValue();
                 $description = $objWorksheet -> getCell('B' . $rownr) -> getValue();
                 $short_description = $objWorksheet -> getCell('C' . $rownr) -> getValue();
-                print "update vraag set short_description='$short_description' where description='$description';<br>";
+                print "update vraag set short_description='$short_description' where description like '$description%';<br>";
             }
 
         }
