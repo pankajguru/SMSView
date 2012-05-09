@@ -257,3 +257,7 @@ div#question_list_container li.info {
 	margin-top: -28px;
 	z-index: 1000;
 }
+
+#questionnaire_controls {
+	display: inline;
+}
