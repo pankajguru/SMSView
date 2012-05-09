@@ -480,12 +480,12 @@ function check_mandatory_questions() {
         var text = $('<li refid="200" class="question_selected">Wat is uw geslacht?</li><li refid="201" class="question_selected">Wat is uw leeftijd?</li>');
         text.appendTo(listclass);
         var listclass = '.sortable_with_' + $('#301').parent().attr('id');
-        $('<span class="category_list_name category_list_name_' + $('#301').parent().attr('id') + '">' + $('#301').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
-        var text = $('<li refid="301" class="question_selected">Welk rapport cijfer geeft u aan uw school</li>');
+        $('<span class="category_list_name category_list_name_' + $('#306').parent().attr('id') + '">' + $('#306').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        var text = $('<li refid="306" class="question_selected">Welk rapport cijfer geeft u aan uw school</li>');
         text.appendTo(listclass);
         $('#200').draggable('option', 'disabled', true);
         $('#201').draggable('option', 'disabled', true);
-        $('#301').draggable('option', 'disabled', true);
+        $('#306').draggable('option', 'disabled', true);
         process_question_numbering();
     }
 //    select_all();

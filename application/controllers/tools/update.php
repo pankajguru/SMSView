@@ -180,7 +180,11 @@ class Update extends CI_Controller {
                 if (($rubriek != '') && ($rubriek != 'vraag')){
                     $vraag_groep = $this->Sms_model->get_vraag_group_by_description(trim($rubriek), 99);
 //                    print $rubriek.'<br>';
-                    if (count($vraag_groep) >0 ){
+                    if ($rubriek == 'LOOPBAANMANAGEMENT'){
+                        $vraag_group_id = 108;
+                    }elseif ($rubriek == 'MANAGEMENT'){
+                        $vraag_group_id = 111;
+                    }elseif (count($vraag_groep) >0 ){
                         $vraag_group_id = $vraag_groep[0]->id;
 //                        print $vraag_group_id.'<br>';
                     }
@@ -229,12 +233,17 @@ class Update extends CI_Controller {
         }
         $new_id++;
         print "update vraag set description = SUBSTRING(description,locate(' ', description)+1) where base_type_id=3 and id < 308 and locate(' ', description)>0 and locate(' ', description)<6;";
+        print "update vraag set description = concat(description,'?') where base_type_id=3 and id < 308 and locate('?', description)=0;";
+        print "update vraag set vraag_type_id=1172 where vraag_type_id=1162 and id>5000;<br>";
         print "update sequence set sequence_no=$new_id where table_name='vraag';<br>";
         print "update sequence set sequence_no=$new_answer_id where table_name='antwoord';<br>";
         print "update vraag set description= concat('Hoe tevreden bent u over ',description) where vraag_type_id=107 and id>199 and id < 308 and locate('Hoe tevreden', description)=0;";
         print "update vraag set vraag_type_id=107 where id>308 and base_type_id=3 and locate('Hoe tevreden', description)=1;";
         print "update vraag set vraag_type_id=108 where id>308 and base_type_id=3 and locate('Hoe belangrijk', description)=1 and vraag_type_id in (1694,1257,649,617);";
         print "update vraag set description = 'Hoe tevreden bent u over de ondersteuning door de ICT-co_ouml_rdinator?' where description like '%rrrrrr%';";
+        print "update vraag set vraag_type_id=1172 where description like 'Hoe belangrijk%' and base_type_id=3 and vraag_type_id=1537 and description not like '%inzetbaarheid%';";
+        print "update vraag set description = 'Hoe belangrijk vindt u de inzetbaarheid van het digitale schoolbord bij het vak wereldori&amp;euml;ntatie?' where description ='Hoe belangrijk vindt u de inzetbaarheid van het digitale schoolbord bij het vak ntatie?'";
+        print "update vraag set description = 'Hoe belangrijk vindt u de inzetbaarheid van de computers bij het vak wereldori&amp;euml;ntatie?' where description ='Hoe belangrijk vindt u de inzetbaarheid van de computers bij het vak ntatie?';";
         print '</code>';
 
         $this -> load -> view('welcome_message');
@@ -303,6 +312,27 @@ class Update extends CI_Controller {
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');
         $objReader -> setReadDataOnly(true);
         $objPHPExcel = $objReader -> load("source_docs/ltp_short_description.xlsx");
+        $objWorksheet = $objPHPExcel -> getActiveSheet();
+        foreach ($objWorksheet->getRowIterator() as $row) {
+            $answer = array();
+            $rownr = $row -> getRowIndex();
+            if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
+                $id = $objWorksheet -> getCell('A' . $rownr) -> getValue();
+                $description = $objWorksheet -> getCell('B' . $rownr) -> getValue();
+                $short_description = $objWorksheet -> getCell('C' . $rownr) -> getValue();
+                print "update vraag set short_description='$short_description' where id=$id;<br>";
+            }
+
+        }
+
+        $this -> load -> view('welcome_message');
+    }
+
+    public function ptp_shortdescription() {
+        /** get PHPExcel_IOFactory object */
+        $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+        $objReader -> setReadDataOnly(true);
+        $objPHPExcel = $objReader -> load("source_docs/ptp_short_description.xlsx");
         $objWorksheet = $objPHPExcel -> getActiveSheet();
         foreach ($objWorksheet->getRowIterator() as $row) {
             $answer = array();
