@@ -377,7 +377,7 @@ function wire_clear_question() {
 }
 
 function wire_save_question_list_button() {
-    // This function parses the selected question list, converts the parsed object to JSON and send it to the server.
+    // This function parses the selected question list, converts the parsed object to JSON and sends it to the server.
     $('#save_question_list').click(function() {
         var json_string = new Array();
         json_string.push('{"basetype":"' + basetype + '"}');

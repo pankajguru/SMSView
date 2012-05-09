@@ -62,7 +62,8 @@ class Sms_model extends CI_Model {
             -> from('vraag') -> join('base_type', 'vraag.base_type_id = base_type.id') 
             -> join('vraag_group', 'vraag_group.id=vraag_groep_id') 
             -> join('vraag_type', 'vraag_type.id=vraag.vraag_type_id') 
-            -> where('base_type.desc_code', strtoupper($type));
+            -> where('base_type.desc_code', strtoupper($type))
+            -> order_by('question_type_desc_code','desc');
         $query = $this -> db -> get();
         return $query -> result();
     }
