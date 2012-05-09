@@ -271,6 +271,7 @@ function sort_on_category() {
 
 function create_clicks() {
     $('.category_name').click(function() {
+    	$('.question_not_selected').addClass('hide')
         $(this).parent().children('.ui-state-default').toggleClass('hide');
 
         var listclass = '.sortable_with_' + $(this).parent().attr('id');
