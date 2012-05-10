@@ -156,13 +156,13 @@ div#question_list_container li.info {
 }
 
 #question_list_container li {
-    width: 410px;
+    width: 405px;
 }
 
 #questions_container li {
 	list-style: none;
 	list-style-type: none;
-	width: 440px;
+	width: 435px;
 }
 
 #new_question_form label {

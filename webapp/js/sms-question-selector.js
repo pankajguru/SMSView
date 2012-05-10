@@ -281,6 +281,7 @@ function create_clicks() {
 
             $('<span class="category_list_name category_list_name_' + $(this).parent().attr('id') + '">' + $(this).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         }
+        $(listclass).removeClass('hide');
     });
 }
 
@@ -313,19 +314,20 @@ function wire_add_question() {
         // Create the selector so we know where we have to append to.
         var parent_selector = '.sortable_with_list' + category;
         var selector = '.category_list_name_list' + category;
-
         var form_node = $('#new_question_form');
 
         if($(selector).length !== 0) {
             // The category already exists in the list so we can append our LI element directly.
+            $(parent_selector).removeClass('hide'); //unhide when hidden
             var li = $('<li refid="new" class="question_selected">' + question + '</li>');
-            li.appendTo(selector);
+            li.appendTo(parent_selector);
             var string = JSON.stringify(form_node.serializeArray());
             var div = $('<div class="new_question_div hide">' + string + '</div>');
             div.appendTo(li);
 
         } else if(($(parent_selector).length !== 0 ) && ($(selector).length === 0 )) {
             // The UL element for the category exists, but there is no category text so we need to append that aswel as our LI element.
+            $('<span class="category_list_name category_list_name_list' + category + '">' + category + '</span>').removeClass('hide'); //unhide when hidden
             $('<span class="category_list_name category_list_name_list' + category + '">' + category + '</span>').appendTo(parent_selector);
             var li = $('<li refid="new" class="question_selected">' + question + '</li>');
             li.appendTo(parent_selector);
@@ -528,15 +530,17 @@ function wire_delete_question_button() {
     $('#question_list_container').delegate('li:not(".answer_option, .info, .required")', 'hover', function() {
         $('.delete_button').remove();
         var id = $(this).attr('refid');
-        var this_delete = $('<input refid="' + id + '" type="submit" class="delete_button" value="" />');
+        var sequence_no = $(this).attr('value');
+        var this_delete = $('<input refid="' + id + '" sequence_no="'+ sequence_no +'" type="submit" class="delete_button" value="" />');
         this_delete.insertAfter(this);
-        var parent = $('li[refid="' + id + '"]:not("#' + id + '")').parent().addClass('hide_' + id );
+        var parent = $('li[refid="' + id + '"][value="' + sequence_no + '"]:not("#' + id + '")').parent().addClass('hide_' + id );
         
         $(this_delete).click(function() {
             var id = $(this).attr('refid');
+            var sequence_no = $(this).attr('sequence_no');
             var parent = $('.hide_' + id);
 
-            $('li[refid="' + id + '"]:not("#' + id + '")').remove();
+            $('li[refid="' + id + '"][value="' + sequence_no + '"]:not("#' + id + '")').remove();
             $(this).remove();
             $('#' + id).draggable('option', 'disabled', false);
             
@@ -545,7 +549,7 @@ function wire_delete_question_button() {
            
             if ( $(parent).children('li:not(".info")').length === 0 ) {
             	$(parent).removeClass('hide_' + id);
-            	$(parent).toggleClass('hide');
+            	$(parent).addClass('hide');
             }
         });
     });
@@ -562,6 +566,8 @@ function wire_add_question_button() {
 			var category = $(this).parent().attr('id');
 			var id = $(this).attr('refid');
 			var selector = '.sortable_with_' + category;
+            $(selector).removeClass('hide'); //unhide when hidden
+
 			var text = $("#" + id).clone().children().remove().end().text();
 			var qtype='';
             if ($("#" + id).hasClass('BELANGRIJK')){
