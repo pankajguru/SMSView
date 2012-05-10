@@ -26,7 +26,7 @@ class reportmark
         ksort($all_questions_array);
         $first = TRUE;
         foreach($all_questions_array as $question_number=>$question){
-            $valid_question_types = array('RAPPORTCIJFER', 'PTP_SCORE');
+            $valid_question_types = array('RAPPORTCIJFER');
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
                 continue;
             }
