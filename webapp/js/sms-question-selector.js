@@ -400,7 +400,7 @@ function wire_save_question_list_button() {
                 smsrespons = data.responseText.split(';');
                 muiscode = smsrespons[0];
                 alert('De peiling is succesvol opgeslagen onder nummer: ' + muiscode.replace('MUIS_',''));
-                window.open('http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL='+smsrespons[0]);
+                window.open('http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL='+smsrespons[0],'_top');
             },
             error : function(data){
                 $(data).each(function() {
