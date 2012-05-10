@@ -398,8 +398,9 @@ function wire_save_question_list_button() {
                 });
                     console.log(data.responseText);
                 smsrespons = data.responseText.split(';');
-                alert('De peiling is succesvol opgeslagen.' + smsrespons[0]);
-                //window.location='http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL='+smsrespons[0];
+                muiscode = smsrespons[0];
+                alert('De peiling is succesvol opgeslagen onder nummer: ' + muiscode.replace('MUIS_',''));
+                window.location='http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL='+smsrespons[0];
             },
             error : function(data){
                 $(data).each(function() {
