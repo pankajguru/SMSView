@@ -195,6 +195,7 @@ class Questions extends REST_Controller {
         curl_close($ch);
 
         //return OK/NOK from QT
+        $this->_error_dump($response);
         return $response;
     }
 
