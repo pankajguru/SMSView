@@ -183,6 +183,7 @@ div#question_list_container li.info {
 
 .right {
 	float: right;
+	display: inline;
 }
 
 .clear {
@@ -256,6 +257,7 @@ div#question_list_container li.info {
 	z-index: 1000;
 }
 
-#questionnaire_controls {
+#questionnaire_controls {	
 	display: inline;
 }
+

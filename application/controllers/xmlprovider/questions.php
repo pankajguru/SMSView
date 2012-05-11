@@ -188,7 +188,7 @@ class Questions extends REST_Controller {
         }
         $xml = $xml->asXML();
         $xml = html_entity_decode($xml, ENT_NOQUOTES, 'UTF-8');
-//        $this->_error_dump($xml);
+        $this->_error_dump($xml);
         //send xml to QT
         $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
         $ch = curl_init();
@@ -198,10 +198,11 @@ class Questions extends REST_Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
         $response = curl_exec($ch);
+        $curl_error = curl_error($ch);
         curl_close($ch);
 
         //return OK/NOK from QT
-        $this->_error_dump($response);
+        $this->_error_dump($response.' '.$curl_error);
         return $response;
     }
 

@@ -3,8 +3,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Scholen met Succes Vragenplanner</title>
+                <link type="text/css" href="http://www.scholenmetsucces.nl/templates/scholenmetsucces/css/reset.css" rel="stylesheet" />
 		<link type="text/css" href="css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 		<link type="text/css" href="css/webapp.css" rel="stylesheet" />
+		<!--[if IE 7]>
+		<link type="text/css" href="css/ie7.css" rel="stylesheet" />
+		<![endif]-->
 		<link type="text/css" href="css/basic.css" rel="stylesheet" />
 		<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
@@ -101,7 +105,7 @@
 				<div class="container_head">
 					<span class="left"> Alle vragen </span>
 					<span id="list_controls"></span>
-					<form class="right">
+					<form class="right" id="filter_wrapper">
 						<label for="filter_field" id="filter_field_label">Filter: </label>
 						<input name="filter_field" id="filter_field" type="text" value="" />
 					</form>
