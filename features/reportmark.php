@@ -35,17 +35,17 @@ class reportmark
             $text[] = "$schoolname ";//.$peiling_averages;
             $peiling_averages = round(($question->{'statistics'}->{'averages'}->{'peiling'}[0][3]*10))/10;
             $graphic_data_reportmarks[] = $peiling_averages;
-            if (is_null($question->{'statistics'}->{'averages'}->{'vorige_peiling'})){
+            if (!is_null($question->{'statistics'}->{'averages'}->{'vorige_peiling'})){
                 $vorige_peiling_averages = round(($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0][3]*10))/10;
                 $text[] = "Vorige peiling ";//.$peiling_averages;
                 $graphic_data_reportmarks[] = $vorige_peiling_averages;
             };
-            if (is_null($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'})){
+            if (!is_null($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'})){
                 $peiling_onderbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0][3]*10))/10;
                 $text[] = "Onderbouw ";//.$peiling_averages;
                 $graphic_data_reportmarks[] = $peiling_onderbouw_averages;
             }
-            if (is_null($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'})){
+            if (!is_null($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'})){
                 $peiling_bovenbouw_averages = round(($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0][3]*10))/10;
                 $text[] = "Bovenbouw ";//.$peiling_averages;
                 $graphic_data_reportmarks[] = $peiling_bovenbouw_averages;
