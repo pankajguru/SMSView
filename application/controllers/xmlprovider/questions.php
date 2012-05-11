@@ -120,6 +120,12 @@ class Questions extends REST_Controller {
 
     }
 
+    public function questionaire_repost_get($peiling_type_id,$base_type){
+        $qt_result = $this -> _questiontool_set_questionaire($peiling_type_id, $base_type);
+        echo $peiling_type_id.' '.$base_type;
+        echo $qt_result;
+    }
+
     private function _log_in_first() {
         $data['message'] = "U bent niet ingelogd!";
         return $data;
