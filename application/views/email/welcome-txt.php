@@ -1,7 +1,7 @@
-Welcome to <?php echo $site_name; ?>,
+Welkom bij <?php echo $site_name; ?>,
 
-Thanks for joining <?php echo $site_name; ?>. We listed your sign in details below. Make sure you keep them safe.
-Follow this link to login on the site:
+Bedankt voor uw aanmelding bij <?php echo $site_name; ?>. We hebben onderstaande gegevens opgeslagen, bewaar deze goed.
+Begin met de <?php echo $site_name; ?> via onderstaande link link:<br />
 
 <?php echo site_url('/auth/login/'); ?>
 
@@ -10,11 +10,11 @@ Follow this link to login on the site:
 Your username: <?php echo $username; ?>
 <?php } ?>
 
-Your email address: <?php echo $email; ?>
+Uw e-mail adres: <?php echo $email; ?>
 
 <?php /* Your password: <?php echo $password; ?>
 
 */ ?>
 
-Have fun!
-The <?php echo $site_name; ?> Team
+Succes!
+<?php echo $site_name; ?> 

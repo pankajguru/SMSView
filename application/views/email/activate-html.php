@@ -8,24 +8,24 @@
 <td width="5%"></td>
 <td align="left" width="95%" style="font: 13px/18px Arial, Helvetica, sans-serif;">
 <h2 style="font: normal 20px/23px Arial, Helvetica, sans-serif; margin: 0; padding: 0 0 18px; color: black;">Welcome to <?php echo $site_name; ?>!</h2>
-Thanks for joining <?php echo $site_name; ?>. We listed your sign in details below, make sure you keep them safe.<br />
-To verify your email address, please follow this link:<br />
+Bedankt voor uw aanmelding bij <?php echo $site_name; ?>. We hebben onderstaande gegevens opgeslagen, bewaar deze goed.<br />
+Klik op onderstaande link om uw e-mail adres te verifieren:<br />
 <br />
-<big style="font: 16px/18px Arial, Helvetica, sans-serif;"><b><a href="<?php echo site_url('/auth/activate/'.$user_id.'/'.$new_email_key); ?>" style="color: #3366cc;">Finish your registration...</a></b></big><br />
+<big style="font: 16px/18px Arial, Helvetica, sans-serif;"><b><a href="<?php echo site_url('/auth/activate/'.$user_id.'/'.$new_email_key); ?>" style="color: #3366cc;">Bevestig uw registratie...</a></b></big><br />
 <br />
-Link doesn't work? Copy the following link to your browser address bar:<br />
+Als de link niet werkt, kunt u de onderstaande url copieren en plakken in uw browser:<br />
 <nobr><a href="<?php echo site_url('/auth/activate/'.$user_id.'/'.$new_email_key); ?>" style="color: #3366cc;"><?php echo site_url('/auth/activate/'.$user_id.'/'.$new_email_key); ?></a></nobr><br />
 <br />
-Please verify your email within <?php echo $activation_period; ?> hours, otherwise your registration will become invalid and you will have to register again.<br />
+U dient uw e-mail adres te verifieren binnen <?php echo $activation_period; ?> uur, anders dient u opnieuw te registreren.<br />
 <br />
 <br />
 <?php if (strlen($username) > 0) { ?>Your username: <?php echo $username; ?><br /><?php } ?>
-Your email address: <?php echo $email; ?><br />
+Uw e-mail adres: <?php echo $email; ?><br />
 <?php if (isset($password)) { /* ?>Your password: <?php echo $password; ?><br /><?php */ } ?>
 <br />
 <br />
-Have fun!<br />
-The <?php echo $site_name; ?> Team
+Succes!<br />
+<?php echo $site_name; ?>
 </td>
 </tr>
 </table>
