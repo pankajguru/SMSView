@@ -261,3 +261,19 @@ div#question_list_container li.info {
 	display: inline;
 }
 
+#login {
+	background-color : #F78E1C;
+	border-radius : 15px;
+	-moz-border-radius : 15px;
+	-webkit-border-radius : 15px; 
+	color : #FFF;
+	font-size : 14px;
+	font-weight : bold;
+	margin : auto;
+	padding : 20px;
+	width : 600px;
+}
+
+#form_login label {
+	margin-top : 20px;
+}
