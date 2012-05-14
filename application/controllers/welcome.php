@@ -28,7 +28,7 @@ class Welcome extends CI_Controller {
         if (!$this->tank_auth->is_logged_in()) {                                 // logged in
             redirect('/auth/login/');
         }
-		$this->load->view('welcome_message');
+		$this->load->view('welcome');
 	}
 }
 

@@ -33,18 +33,6 @@ function init_login_temp() {
 }
 
 function init_login() {
-    //see if we are already logged in
-    $.post(base_url + "/index.php/auth/login", {}, function(data) {
-        error = $(data).find(".error");
-        //alert(data);
-        if(error.length == 0) {
-            $('#login').fadeOut(500, function() {
-                $('#typechoice').fadeIn(500);
-            });
-        } else {
-            load_page('#login');
-        }
-    });
     //create login function
     $('form#form_login').submit(function(e) {
         e.preventDefault();

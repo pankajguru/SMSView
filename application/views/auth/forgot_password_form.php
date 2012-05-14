@@ -9,7 +9,7 @@
     </head>
     <body>
         <div data-role="page" id="login">
-            <h1>Welkom bij Scholen met Succes Vragenplanner</h1>
+            <h1>Welkom bij Scholen met Succes</h1>
 
 <?php
 $login = array(
