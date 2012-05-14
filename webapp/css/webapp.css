@@ -269,7 +269,7 @@ DIV#login {
 	color : #FFF;
 	font-size : 14px;
 	font-weight : bold;
-	margin : 40px auto;
+	margin : 40px auto 0 auto;
 	padding : 20px;
 	width : 600px;
 }
@@ -326,3 +326,36 @@ h1, h2 {
 
 h1 { font-size: 30px; }
 h2 { font-size: 24px; }
+
+.copyright{
+    font-size:22px; 
+    vertical-align:top;
+}
+
+DIV#loginfooter {
+    margin : auto;
+    width : 600px;
+}
+
+
+a.registreer{
+    color: #00A4E4;
+    font-size:22px;  
+    text-decoration: none; 
+    float: left;  
+}
+
+a:hover.registreer{
+    text-decoration: underline;   
+}
+
+a.wachtwoordvergeten{
+    color: #00A4E4;
+    text-decoration: none;
+    float: right;  
+}
+
+a:hover.wachtwoordvergeten{
+    text-decoration: underline;   
+}
+

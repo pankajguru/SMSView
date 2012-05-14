@@ -9,7 +9,10 @@
     </head>
     <body>
         <div data-role="page" id="login">
-            <h1>Welkom bij Scholen met Succes</h1>
+            <h1>Welkom bij de vragenplanner<span class="copyright">&copy;</span></h1>
+            <p>&nbsp;</p>
+           <p>Hier kunt u inloggen voor de vragenplanner.</p>
+            <p>&nbsp;</p>
 
 <?php
 $login = array(
@@ -93,17 +96,20 @@ $captcha = array(
 	<?php }
 	} ?>
 
-	<tr>
-		<td colspan="3">
-			<?php echo form_checkbox($remember); ?>
-			<?php echo form_label('Remember me', $remember['id']); ?>
-			<?php echo anchor('/auth/forgot_password/', 'Wachtwoord vergeten'); ?>
-			<?php if ($this->config->item('allow_registration', 'tank_auth')) echo anchor('/auth/register/', 'Registreer'); ?>
-		</td>
-	</tr>
+    <tr>
+        <td colspan="3">
+            <?php echo form_checkbox($remember); ?>
+            <?php echo form_label('Onthoud login', $remember['id']); ?>
+        </td>
+    </tr>
 </table>
-<?php echo form_submit('submit', 'Let me in'); ?>
+            <?php echo form_submit('submit', 'Inloggen'); ?>
 <?php echo form_close(); ?>
         </div>
+        <div id="loginfooter">
+        <?php if ($this->config->item('allow_registration', 'tank_auth')) echo anchor('/auth/register/', 'Registreer', array('class' => 'registreer')); ?>
+            <?php echo anchor('/auth/forgot_password/', 'Wachtwoord vergeten', array('class' => 'wachtwoordvergeten')); ?>
+        </div>
+
     </body>
 </html>
