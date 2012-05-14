@@ -79,9 +79,9 @@
 		<div data-role="page" id="login">
 			<h1>Welkom bij Muis</h1>
 			<form id="form_login" method="post">
-				<p>
+				<h2>
 					Login om verder te gaan.
-				</p>
+				</h2>
 					<div class="login_field">
 						<label for="login_name">E-mail adres</label>
 						<input name="login_name" id ="login_name">
@@ -90,16 +90,22 @@
 						<label for="login_password">Wachtwoord</label>
 						<input name="login_password" id ="login_password" type = "password">
 					</div>
+					<div class="login_field">
+						<input type="checkbox" name="remember" value="1" id="remember" style="margin:0;padding:0"  />           
+				    <label for="remember">Onthoud login</label>
+					</div>
 				<p id="error"></p>
 				<p>
-					<input name="login_submit" id="login_submit" type="submit" value="login">
+					<input name="login_submit" id="login_submit" type="submit" value="Inloggen">
 				</p>
-				<p>
-				    <input type="checkbox" name="remember" value="1" id="remember" style="margin:0;padding:0"  />           
-				    <label for="remember">Onthoud login</label>           
-				    <a href="http://smsview/index.php/auth/forgot_password">Wachtwoord vergeten</a>         
-				    <a href="http://smsview/index.php/auth/register">Registreer</a> 
-				</p>
+				    <ul id="login_options">
+				    	<li>           
+				    		<a href="http://smsview/index.php/auth/forgot_password">Wachtwoord vergeten</a>   
+				    	</li>
+				    	<li>     
+				    		<a href="http://smsview/index.php/auth/register">Registreer</a>
+				    	</li>
+				    </ul>
 			</form>
 		</div>
 		<div data-role="page" id="typechoice">

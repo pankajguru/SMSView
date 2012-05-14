@@ -269,11 +269,60 @@ div#question_list_container li.info {
 	color : #FFF;
 	font-size : 14px;
 	font-weight : bold;
-	margin : auto;
+	margin : 40px auto;
 	padding : 20px;
 	width : 600px;
 }
 
-#form_login label {
+#form_login {
 	margin-top : 20px;
 }
+
+#form_login div {
+	margin-top : 10px;
+}
+
+#form_login div label {
+	display : block;
+	float : left;
+	margin-right : 35px;
+	width: 130px;
+}
+
+#login_submit {
+	background-color : #FFF; 
+	border: 2px #F78E1C outset;
+	border-radius : 15px;
+	color : #F78E1C;
+	font-size : 20px;
+	font-weight : bold;
+	margin-top : 20px;
+	padding : 10px;
+	width : 160px;
+}
+
+#login_submit:hover {
+	border: 2px #F78E1C inset;
+}
+
+#login_options {
+	margin-top : 20px;
+}
+
+#login_options a {
+	color : #FFF;
+	text-decoration : none;
+}
+
+#login_options a:hover {
+	text-decoration : underline;
+}
+
+
+h1, h2 {
+	color : #FFF;
+	font-weight : bold;
+}
+
+h1 { font-size: 30px; }
+h2 { font-size: 24px; }
