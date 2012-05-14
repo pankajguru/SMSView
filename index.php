@@ -199,6 +199,7 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
