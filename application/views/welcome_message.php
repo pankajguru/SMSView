@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<meta http-equiv="Refresh" content="0; url=/webapp" />
+	<title>Welkom bij Scholen met Succes</title>
 
 	<style type="text/css">
 
@@ -70,14 +71,11 @@
 	<h1>SMSView</h1>
 
 	<div id="body">
-		<p>Dit is de basispagina voor SMSView. De nieuwe webapplicatie van Scholen met succes in verband met project muis.</p>
+		<p>Dit is de basispagina voor de vragensamensteller. Klik hieronder als u niet automatisch doorgestuurd wordt.</p>
 
-        <p><a href="/tools/update">update tools</a></p>
-        <p><a href="/web/downloads">rapporten</a></p>
-        <p><a href="/xmlprovider/questions">xml vragen</a></p>
+        <p><a href="webapp">Vragensamensteller</a></p>
 	</div>
 
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>
 
 </body>
