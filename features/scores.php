@@ -71,13 +71,38 @@ class scores
             
             $legend = array($question->{'question_type'}[0][7],$question->{'question_type'}[0][8]);
             //gather data
-            $names = array($schoolname.' '); 
-            $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
-            $vorige_peiling_averages = false;
-            $peiling_onderbouw_averages = false;
-            $peiling_bovenbouw_averages = false;
-            $alle_scholen_averages = false;
-            if (isset($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0])){
+            $names = array(); 
+//            $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
+//            $vorige_peiling_averages = false;
+//            $peiling_onderbouw_averages = false;
+//            $peiling_bovenbouw_averages = false;
+//            $alle_scholen_averages = false;
+            $graphic_data_scores = array();
+            foreach ($question->{'statistics'}->{'averages'} as $key => $average){
+                if (($key == 'alle_scholen') and (!$ref['alle_scholen']) ){
+                    continue;
+                }
+                if ($key==''){
+                    continue;
+                }
+                $average_value = $average[0];
+                if ($key == 'peiling'){
+                    $names[] = "$schoolname ";
+                } elseif ($key == 'vorige_peiling') {
+                    $names[] = "Vorige peiling ";//.$peiling_averages;
+                } elseif ($key == 'peiling_onderbouw') {
+                    $names[] = "Onderbouw ";//.$peiling_averages;
+                } elseif ($key == 'peiling_bovenbouw') {
+                    $names[] = "Bovenbouw ";//.$peiling_averages;
+                } elseif ($key == 'alle_scholen') {
+                    $names[] ="Alle Scholen ";//.$alle_scholen_averages;
+                } else {
+                    $names[] = $key;
+                }
+                $graphic_data_scores[] = $average_value;
+            }
+                        
+ /*           if (isset($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0])){
                 $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
                 $names[] = 'Vorige peiling '; //TODO: fille in schoolname and last year
             }
@@ -92,7 +117,7 @@ class scores
             if ($ref['alle_scholen']){
                 $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
                 $names[] = 'Alle scholen ';
-            }            
+            }          */   
 //            $min_value = $alle_scholen_averages[0];
 //            $max_value = $alle_scholen_averages[1];
             $min_value = $question->{'question_type'}[0][3];
@@ -104,7 +129,7 @@ class scores
             $stdev_right = array();
             $values = array();
             $answered = array();
-            foreach(array($peiling_averages, $vorige_peiling_averages, $peiling_onderbouw_averages, $peiling_bovenbouw_averages, $alle_scholen_averages) as $averages){
+            foreach($graphic_data_scores as $averages){
 //            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
                 if (!is_array($averages)){
                     continue;

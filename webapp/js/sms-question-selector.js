@@ -9,7 +9,7 @@ $(document).ready(function() {
     $('#testpagebutton').click(function() {
         load_page('#testpage');
     });
-    //init_login();
+    init_login();
     init_login_temp();
     select_survey_type();
 

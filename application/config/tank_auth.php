@@ -7,7 +7,7 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Scholen met Succes peilingen';
+$config['website_name'] = 'Scholen met Succes vragenplanner';
 $config['webmaster_email'] = 'joeri@oqapi.nl';
 
 /*
@@ -44,7 +44,7 @@ $config['captcha_registration'] = TRUE;
 $config['email_activation'] = TRUE;
 $config['email_activation_expire'] = 60*60*24*2;
 $config['email_account_details'] = TRUE;
-$config['use_username'] = TRUE;
+$config['use_username'] = FALSE;
 
 $config['username_min_length'] = 4;
 $config['username_max_length'] = 20;
@@ -68,7 +68,7 @@ $config['password_max_length'] = 20;
 | 'login_attempt_expire' = Time to live for every attempt to login. Default is 24 hours (60*60*24).
 |--------------------------------------------------------------------------
 */
-$config['login_by_username'] = TRUE;
+$config['login_by_username'] = FALSE;
 $config['login_by_email'] = TRUE;
 $config['login_record_ip'] = TRUE;
 $config['login_record_time'] = TRUE;
