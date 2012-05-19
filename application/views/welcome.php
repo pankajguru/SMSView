@@ -7,7 +7,8 @@
         <link type="text/css" href="/webapp/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
         <link type="text/css" href="/webapp/css/webapp.css" rel="stylesheet" />
         <!--[if IE 7]>
-        <link type="text/css" href="css/ie7.css" rel="stylesheet" />
+        <link type="text/css" href="/webapp/css/ie7.css" rel="stylesheet" />
+        <script type="text/javascript" src="/webapp/js/json2.js"></script>
         <![endif]-->
         <link type="text/css" href="/webapp/css/basic.css" rel="stylesheet" />
         <script type="text/javascript" src="/webapp/js/jquery-1.7.1.js"></script>
