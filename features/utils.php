@@ -9,6 +9,23 @@ function Scale10( $var, $base = 4, $zero = '-' )
             : $zero;
 }
 
+function filter_text($text){
+    $patterns = array();
+    $replacements = array();
+    $patterns[0] = '/_SPACE_/';
+    $replacements[0] = ' ';
+    $patterns[1] = '/_COLON_/';
+    $replacements[1] = ':';
+    $patterns[2] = '/_iuml_/';  
+    $replacements[2] = '&iuml;';
+    $patterns[3] = '/^\d+\.\s/';  
+    $replacements[3] = '';
+      
+    $text = preg_replace($patterns, $replacements, $text);  
+    $text = html_entity_decode($text, null, 'UTF-8');  
+    return $text;
+}
+
 function get_importance_categories($data){
     $datastring     = $data['get_all_question_props'];
         //konqord JSON is false becuse escape character on '

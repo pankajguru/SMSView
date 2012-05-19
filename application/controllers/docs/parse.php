@@ -42,8 +42,10 @@ class Parse extends CI_Controller {
         $xml_source = urldecode($xml_source);
         $output_file = urldecode($output_file);
         $ref = array();
-        $ref['alle_scholen'] = TRUE;
+        $ref['alle_scholen'] = FALSE;
         $ref['obb'] = TRUE;
+        $ref['question_based'] = TRUE;
+        $ref['vorige_peiling'] = TRUE;
         
         $temp           = 'temp/';
         if (!$template) {
@@ -72,11 +74,11 @@ class Parse extends CI_Controller {
 //        unset($scores);
         
         $percentageExample = new percentages();
-        $percentage_example_docx = $percentageExample -> render($xmlData, $ref, "", 3);
+        $percentage_example_docx = $percentageExample -> render($xmlData, $ref, "", '', TRUE, TRUE);
         unset($percentageExample);
         
         $scoresExample = new scores();
-        $scores_example_docx = $scoresExample -> render($xmlData, $ref, "", 3);
+        $scores_example_docx = $scoresExample -> render($xmlData, $ref, "", '', TRUE);
         unset($scoresExample);
 
         $reportmark = new reportmark();
@@ -232,6 +234,8 @@ class Parse extends CI_Controller {
         $ref = array();
         $ref['alle_scholen'] = TRUE;
         $ref['obb'] = TRUE;
+        $ref['question_based'] = TRUE;
+        $ref['vorige_peiling'] = TRUE;
 
         if (!$template) {
             die("Geef een template op!\n");
@@ -258,12 +262,12 @@ class Parse extends CI_Controller {
 //        $scores_docx = $scores -> render($xmlData, $ref);
 //        unset($scores);
 
-//        $percentageExample = new percentages();
-//        $percentage_example_docx = $percentageExample -> render($xmlData, $ref, "", 3);
-//        unset($percentageExample);
+        $percentageExample = new percentages();
+        $percentage_example_docx = $percentageExample -> render($xmlData, $ref, "", '', TRUE, TRUE);
+        unset($percentageExample);
         
         $scoresExample = new scores();
-        $scores_example_docx = $scoresExample -> render($xmlData, $ref, "", 3);
+        $scores_example_docx = $scoresExample -> render($xmlData, $ref, "", '', TRUE);
         unset($scoresExample);
 
         $reportmark = new reportmark();
@@ -292,9 +296,9 @@ class Parse extends CI_Controller {
 //        unset($satisfactionTopBad);        
         
                
-        $mostimportant = new mostimportant();
-        $mostimportant_docx = $mostimportant -> render($xmlData, $ref);
-        unset($mostimportant);
+//        $mostimportant = new mostimportant();
+//        $mostimportant_docx = $mostimportant -> render($xmlData, $ref);
+//        unset($mostimportant);
                
 //        $scoresAndPercentages = new scoresAndPercentages();
 //        $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData, $ref);
@@ -351,10 +355,10 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "scoreExample") {
-//                    $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
+                    $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
                 }
                 if ($variable == "percentageExample") {
-//                    $docx -> addTemplateVariable('class:percentageExample', $percentage_example_docx, 'docx');
+                    $docx -> addTemplateVariable('class:percentageExample', $percentage_example_docx, 'docx');
                 }
                 if ($variable == "scoresAndPercentages") {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
@@ -372,7 +376,7 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
                 } 
                 if ($variable == "mostimportance") {
-                    $docx -> addTemplateVariable('class:mostimportance', $mostimportant_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:mostimportance', $mostimportant_docx, 'docx');
                 }
                 if ($variable == "satisfactionTop") {
 //                    $docx -> addTemplateVariable('class:satisfactionTop:good', $satisfactionTopGood_docx, 'docx');

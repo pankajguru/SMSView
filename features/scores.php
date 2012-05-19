@@ -3,11 +3,12 @@
 class scores
 {
 
-    function render( &$data, $ref, $category='', $target_question='')
+    function render( &$data, $ref, $category='', $target_question='', $example='')
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
+        require_once("./features/utils.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
@@ -25,6 +26,7 @@ class scores
         
         ksort($all_questions_array);
         $first = TRUE;
+        $targeted = FALSE;
         $question_count = 0;
         foreach($all_questions_array as $question_number=>$question){
             if (($category != '') and ($category != $question->{'group_name'})){
@@ -33,6 +35,24 @@ class scores
             if (($target_question != '') and ($target_question != $question_number)){
                 continue;
             } 
+            $invalid_question_types = array('KIND_GROEP','JONGEN_MEIJSE','BEVOLKINGSGROEP','OUDERS_SCHOOLOPLEIDING', 'PTP_GENDER', 'PTP_AGE');
+            if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
+                continue;
+            }
+            if ($example != '') {
+                $valid_question_types = array('TEVREDEN', 'PTP_TEVREDEN');
+                if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
+//                    continue;
+                }
+                if ($question_number == 1){
+                    continue;
+                }
+                if ($targeted){
+                    continue;
+                } else {
+                    $targeted = TRUE;
+                }
+            }
             $answer_count_peiling = 0;
             $answer_count_alle_scholen = 0;
             $text = array();
@@ -40,10 +60,6 @@ class scores
             $paramsTitle = array(
                 'val' => 2,
             );
-            $invalid_question_types = array('KIND_GROEP','JONGEN_MEIJSE','BEVOLKINGSGROEP','OUDERS_SCHOOLOPLEIDING');
-            if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
-                continue;
-            }
 
             if (($target_question == '') and ($first or ($question->{'group_name'} != $old_group_name))){
                 if (!$first){
@@ -61,7 +77,7 @@ class scores
             
             $text[] =
                 array(
-                    'text' => html_entity_decode($question_number.". ".$question->{'description'},null, 'UTF-8'),
+                    'text' => filter_text($question_number.". ".$question->{'description'}),
                     'b' => 'single',
                     'sz' => 10,
                     'font' => 'Century Gothic'
@@ -72,54 +88,41 @@ class scores
             $legend = array($question->{'question_type'}[0][7],$question->{'question_type'}[0][8]);
             //gather data
             $names = array(); 
-//            $peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
-//            $vorige_peiling_averages = false;
-//            $peiling_onderbouw_averages = false;
-//            $peiling_bovenbouw_averages = false;
-//            $alle_scholen_averages = false;
             $graphic_data_scores = array();
-            foreach ($question->{'statistics'}->{'averages'} as $key => $average){
-                if (($key == 'alle_scholen') and (!$ref['alle_scholen']) ){
+            foreach ($question->{'refs'} as $reference){
+                if ($reference==''){
                     continue;
                 }
-                if ($key==''){
+                $average_value = $question->{'statistics'}->{'averages'}->{$reference}[0];
+                if (is_null($average_value)){
                     continue;
                 }
-                $average_value = $average[0];
-                if ($key == 'peiling'){
+                if ($key == '_empty_'){
+                    continue;
+                }
+                if ($reference == 'Leerjaar 6'){
+//                    continue;
+                }
+                if ($reference == 'peiling'){
                     $names[] = "$schoolname ";
-                } elseif ($key == 'vorige_peiling') {
-                    $names[] = "Vorige peiling ";//.$peiling_averages;
-                } elseif ($key == 'peiling_onderbouw') {
-                    $names[] = "Onderbouw ";//.$peiling_averages;
-                } elseif ($key == 'peiling_bovenbouw') {
-                    $names[] = "Bovenbouw ";//.$peiling_averages;
-                } elseif ($key == 'alle_scholen') {
-                    $names[] ="Alle Scholen ";//.$alle_scholen_averages;
+                } elseif ($reference == 'vorige_peiling') {
+                    if (!$ref['vorige_peiling']) continue;
+                    $names[] = "Vorige peiling ".$schoolname." ";
+                } elseif ($reference == 'peiling_onderbouw') {
+                    if (!$ref['obb']) continue;
+                    $names[] = "Onderbouw ";
+                } elseif ($reference == 'peiling_bovenbouw') {
+                    if (!$ref['obb']) continue;
+                    $names[] = "Bovenbouw ";
+                } elseif ($reference == 'alle_scholen') {
+                    if (!$ref['alle_scholen']) continue;
+                    $names[] ="Alle Scholen ";
                 } else {
-                    $names[] = $key;
+                    if (!$ref['question_based']) continue;
+                    $names[] = $reference.' ';
                 }
                 $graphic_data_scores[] = $average_value;
             }
-                        
- /*           if (isset($question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0])){
-                $vorige_peiling_averages = $question->{'statistics'}->{'averages'}->{'vorige_peiling'}[0];
-                $names[] = 'Vorige peiling '; //TODO: fille in schoolname and last year
-            }
-            if (isset($question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0])){
-                $peiling_onderbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_onderbouw'}[0];
-                $names[] = 'Onderbouw '; 
-            }
-            if (isset($question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0])){
-                $peiling_bovenbouw_averages = $question->{'statistics'}->{'averages'}->{'peiling_bovenbouw'}[0];
-                $names[] = 'Bovenbouw '; 
-            }
-            if ($ref['alle_scholen']){
-                $alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-                $names[] = 'Alle scholen ';
-            }          */   
-//            $min_value = $alle_scholen_averages[0];
-//            $max_value = $alle_scholen_averages[1];
             $min_value = $question->{'question_type'}[0][3];
             $max_value = $question->{'question_type'}[0][4];
             $blocksize = ($max_value - $min_value) / 30;
@@ -148,10 +151,7 @@ class scores
                 $stdev_right[] = $stdev;
                 $values[] = sprintf("%01.2f",$averages[3]);
                 $answered[] = $averages[5];
-//                error_log('###'.$averages[3].'#'.$averages[2].'-'.$min_value.'-'.$extra_std_deviation.'='.($averages[2] - $min_value - $extra_std_deviation).'#'.($averages[3] - $averages[2] - $blocksize + $extra_std_deviation).'#'.$blocksize.'#'.($averages[4] - $averages[3] - $blocksize + $extra_std_deviation));
             }
-            
-            
             
             
             $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $ref['alle_scholen'], $legend, $temp);
@@ -164,8 +164,6 @@ class scores
                 'spacingLeft' => 0,
                 'spacingRight' => 0,
                 'textWrap' => 0,
-//                'border' => 0,
-//                'borderDiscontinuous' => 1
             );
             $scores_docx->addImage($paramsImg);
             $question_count++;
@@ -243,11 +241,15 @@ class scores
             "Interleave" => 0.5,
             "RecordImageMap" => TRUE
         ));
+        $imageData = $myPicture -> DataSet -> Data["Series"]['Values']["ImageData"];
+
         $myPicture->setFontProperties(array("FontSize"=>24));
         for ($i=0;$i<count($names);$i++){
+            $Y = $imageData[$i][3] - 10;
+            
 //            $myPicture->drawText(280, 55 + ($i)*36,$names[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(1100, 50 + ($i)*29,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
-            $myPicture->drawText(1300, 50 + ($i)*29,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1100, $Y,$values[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(1300, $Y,$answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
         }
         
         //draw legend:
@@ -256,14 +258,13 @@ class scores
                 
         $alle_scholen_ref = $ref_count-1;
 
-        $myPicture -> Antialias = TRUE;
-        $imageData = $myPicture -> DataSet -> Data["Series"]['Values']["ImageData"];
-        $X = $imageData[$alle_scholen_ref][2] - ($imageData[$alle_scholen_ref][2] - $imageData[$alle_scholen_ref][0])/2;
-        $Y = $imageData[$alle_scholen_ref][3];
-        $myPicture->drawLine($X, 36, $X, $Y, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
-        $myPicture -> Antialias = FALSE;
-        
         if ($lastBlue){
+            $myPicture -> Antialias = TRUE;
+            $X = $imageData[$alle_scholen_ref][2] - ($imageData[$alle_scholen_ref][2] - $imageData[$alle_scholen_ref][0])/2;
+            $Y = $imageData[$alle_scholen_ref][3];
+            $myPicture->drawLine($X, 36, $X, $Y, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+            $myPicture -> Antialias = FALSE;
+        
             //Make alle scholen bleu
             $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
             $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));

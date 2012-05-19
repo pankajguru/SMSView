@@ -26,7 +26,7 @@ class previous
         $previous_table_text = array();
         $previous_table_peiling = array();
         $previous_table_vorige_peiling = array();
-        for ($i=0 ; $i < 10 ; $i++){
+        for ($i=0 ; $i < count($previous_data->{'peiling'}) ; $i++){
             if (!isset($previous_data->{'peiling'}[$i][1])){
                 continue;
             }

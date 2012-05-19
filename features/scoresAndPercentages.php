@@ -53,7 +53,7 @@ class scoresAndPercentages
             //create group heading
             if ($sap_docx != null){
                 $scoresAndPercentages_docx->addText(array(array(
-                    'text' => 'Rubriek '.$count++.' '.$groupname, 
+                    'text' => 'Rubriek '.$count.' '.$groupname, 
                     'b' => 'single', 
                     'color' => 'F78E1E',
                     'sz' => 10,
@@ -62,6 +62,9 @@ class scoresAndPercentages
                 $scoresAndPercentages_docx->addBreak('line');
                 $scoresAndPercentages_docx->addDOCX($sap_docx);                   
                 $scoresAndPercentages_docx->addBreak('page');
+                if (preg_match('/scores$/', $groupname)){
+                    $count++;
+                }
             }
         }
         $scoresAndPercentages_docx->createDocx($temp.'scoresAndPercentages');

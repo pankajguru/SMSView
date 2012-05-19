@@ -12,6 +12,7 @@ class satisfaction
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
         $schoolname     = $data['schoolnaam'];
+        $scale_factor = $data["question.type.$type.scalefactor"];
         $importance_categories = get_importance_categories($data);
         $column_count   = 0;
         
@@ -120,13 +121,16 @@ class satisfaction
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
             foreach ($satisfaction_data as $key => $satisfaction_column){
+                if ($key == '_empty_'){
+                    continue;
+                }
                 if ($key == 'alle_scholen'){
                     $paramsTextTableReference['text'] = '';
                     $text = $satisfaction_docx->addElement('addText', array());
                     $text->{'border'} = $paramsTableEmpty;
                     $satisfaction_table[$i][$count++] = $text;
                     if ($ref['alle_scholen']){
-                        $paramsTextTableReference['text'] = Scale10($satisfaction_column[$i][2], 4);
+                        $paramsTextTableReference['text'] = Scale10($satisfaction_column[$i][2], $scale_factor); 
                     } else {
                         $paramsTextTableReference['text'] = '-';
                     }
@@ -134,7 +138,7 @@ class satisfaction
                     $text->{'border'} = $paramsTableReference;
                     $satisfaction_table[$i][$count++] = $text;
                 } else {
-                    $paramsTextTable['text'] = Scale10($satisfaction_column[$i][2], 4);
+                    $paramsTextTable['text'] = Scale10($satisfaction_column[$i][2], $scale_factor);
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
                     $text->{'border'} = $paramsTable;
                     $satisfaction_table[$i][$count++] = $text;
@@ -148,6 +152,9 @@ class satisfaction
         $satisfaction_titles[0][] = $text;
         
         foreach ($satisfaction_data as $key => $satisfaction_column){
+                if ($key == '_empty_'){
+                    continue;
+                }
                 $column_count++;
                 if ($key == 'alle_scholen'){
                     $paramsTextTableReference['text'] = '';

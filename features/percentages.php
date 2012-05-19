@@ -3,11 +3,12 @@
 class percentages
 {
 
-    function render( &$data, $ref, $category='', $target_question='', $show_legend = FALSE)
+    function render( &$data, $ref, $category='', $target_question='', $show_legend = FALSE, $example = FALSE)
     {
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
+        require_once("./features/utils.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
@@ -26,6 +27,7 @@ class percentages
         ksort($all_questions_array);
         $first = TRUE;
         $question_count = 0;
+        $targeted = FALSE;
         foreach($all_questions_array as $question_number=>$question){
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
@@ -42,9 +44,19 @@ class percentages
                 'sz' => 10,
                 'font' => 'Century Gothic'
             );
-            $invalid_question_types = array();
-            if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
-                continue;
+            if ($example != '') {
+                $valid_question_types = array('TEVREDEN', 'PTP_TEVREDEN');
+                if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
+//                    continue;
+                }
+                if ($question_number == 1){
+                    continue;
+                }
+                if ($targeted){
+                    continue;
+                } else {
+                    $targeted = TRUE;
+                }
             }
 
             if (($target_question == '') and ($first or ($question->{'group_name'} != $old_group_name))){
@@ -64,7 +76,7 @@ class percentages
             
             $text[] =
                 array(
-                    'text' => html_entity_decode($question_number.". ".$question->{'description'},null, 'UTF-8'),
+                    'text' => filter_text($question_number.". ".$question->{'description'}),
                     'b' => 'single',
                     'sz' => 10,
                     'font' => 'Century Gothic'
@@ -75,12 +87,14 @@ class percentages
             $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{'peiling'};
             $alle_scholen_distribution = $question->{'statistics'}->{'distribution'}->{'alle_scholen'};
             $answer_peiling            = array();
+            $answer_alle_scholen            = array();
             foreach ($peiling_distribution as $answer) {
                 $answer_count_peiling += $answer[2];
                 $answer_peiling[$answer[0]] = $answer;
             }
             foreach ($alle_scholen_distribution as $answer) {
                 $answer_count_alle_scholen += $answer[2];
+                $answer_alle_scholen[$answer[0]] = $answer;
             }
             $graphic_data_peiling      = array();
             $graphic_data_alle_scholen = array();
@@ -88,25 +102,27 @@ class percentages
             $graphic_answered          = array();
             $graphic_percentage        = array();
             $graphic_percentage_total  = array();
-            foreach ($alle_scholen_distribution as $answer) {
-                //get percentage for this school
-                $answered = (isset($answer_peiling[$answer[0]])) ? $answer_peiling[$answer[0]][2] : 0;
-                $percentage_peiling = $answered / $answer_count_peiling * 100;
-                array_push($graphic_data_peiling, $percentage_peiling);
-                //get perc from all schools
-                if ($ref['alle_scholen']){
-                $percentage_alle_scholen = $answer[2] / $answer_count_alle_scholen * 100;
-                    array_push($graphic_data_alle_scholen, $percentage_alle_scholen);
-                }
-                $answer_text = $answer[1];
+            //TODO:: get list of answers from definition
+//            var_dump($question->{'statistics'}->{'percentage'});
+            foreach ($question->{'statistics'}->{'percentage'} as $key=>$answer){
+                //all questions are here
+                $answer_text = $answer->{'value'}->{'description'};
                 if (strlen($answer_text)>17){
                     $answer_text = substr($answer_text, 0, 14).'...';
                 }
-                array_push($graphic_answer, htmlspecialchars_decode($answer_text));
-                array_push($graphic_answered, $answered);
-                array_push($graphic_percentage, round($percentage_peiling));
+                $graphic_answer[$key] = htmlspecialchars_decode($answer_text);
+                $answered = (isset($answer_peiling[$key])) ? $answer_peiling[$key][2] : 0;
+                $percentage_peiling = $answered / $answer_count_peiling * 100;
+                $graphic_data_peiling[$key] = $percentage_peiling;
+                //get perc from all schools
                 if ($ref['alle_scholen']){
-                    array_push($graphic_percentage_total, round($percentage_alle_scholen));
+                    $percentage_alle_scholen = $answer_alle_scholen[$key][2] / $answer_count_alle_scholen * 100;
+                    $graphic_data_alle_scholen[$key] = $percentage_alle_scholen;
+                }
+                $graphic_answered[$key] = $answered;
+                $graphic_percentage{$key} = round($percentage_peiling);
+                if ($ref['alle_scholen']){
+                    $graphic_percentage_total[$key] = round($percentage_alle_scholen);
                 }
             }
             

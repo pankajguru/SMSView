@@ -37,17 +37,28 @@ class reportmark
                     continue;
                 }
                 $average_value = round(($average[0][3]*10))/10;
+                if ($average_value == 0){
+                    continue;
+                }
+                if ($key == '_empty_'){
+                    continue;
+                }
                 if ($key == 'peiling'){
                     $text[] = "$schoolname ";
                 } elseif ($key == 'vorige_peiling') {
-                    $text[] = "Vorige peiling ";//.$peiling_averages;
+                    if (!$ref['vorige_peiling']) continue;
+                    $text[] = "Vorige peiling ";
                 } elseif ($key == 'peiling_onderbouw') {
-                    $text[] = "Onderbouw ";//.$peiling_averages;
+                    if (!$ref['obb']) continue;
+                    $text[] = "Onderbouw ";
                 } elseif ($key == 'peiling_bovenbouw') {
-                    $text[] = "Bovenbouw ";//.$peiling_averages;
+                    if (!$ref['obb']) continue;
+                    $text[] = "Bovenbouw ";
                 } elseif ($key == 'alle_scholen') {
-                    $text[] ="Alle Scholen ";//.$alle_scholen_averages;
+                    if (!$ref['alle_scholen']) continue;
+                    $text[] ="Alle Scholen ";
                 } else {
+                    if (!$ref['question_based']) continue;
                     $text[] = $key;
                 }
                 $graphic_data_reportmarks[] = $average_value;
