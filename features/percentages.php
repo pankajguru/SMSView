@@ -9,6 +9,7 @@ class percentages
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
+        require_once("./utilities/owasp-esapi-php-read-only/src/Encoder.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
