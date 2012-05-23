@@ -264,7 +264,7 @@ class Sms_model extends CI_Model {
             'vraag_groep_id' => $category_id,
             'vraag_type_id' => $vraag_type_id,
             'exclusive' => true,
-            'strict' => 1,
+            'strict' => (count($answers) == 0) ? 0 : 1, //open questions not strict
             'id' => $vraag_id,
             'neutral_description' => $new_question_text,
             'infant_description_pos' => $new_question_text,

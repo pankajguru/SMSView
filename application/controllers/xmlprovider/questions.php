@@ -164,7 +164,7 @@ class Questions extends REST_Controller {
             $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
             $xml_question->addChild('category', htmlentities($category[0]->description, null , 'UTF-8')); 
             $xml_question->addChild('category_explanation', $category[0]->description); 
-            $xml_question->addChild('required', true);  //TODO:get required
+            $xml_question->addChild('required', $question[0] -> strict);  
             $xml_question->addChild('inputnote',''); //TODO
             $priority = ($question_type[0]->DESC_CODE == 'BELANGRIJK') ? 1 : 0;
             $xml_question->addChild('priority',$priority); 

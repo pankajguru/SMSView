@@ -172,9 +172,9 @@ class scores
             $question_count++;
         }
         if ($question_count > 0){
-            $filename = urlencode($temp.'score'.$category.$target_question);
+            $filename = $temp.sanitize_filename('score'.$category.$target_question);
             
-            $scores_docx->createDocx();
+            $scores_docx->createDocx($filename);
             unset($scores_docx);
             return $filename.'.docx';
         } else {

@@ -159,8 +159,8 @@ class percentages
         }
         if ($question_count > 0){
 //            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
-            $filename = urlencode($temp.'percentage'.$category.$target_question);
-            $percentage_docx->createDocx();
+            $filename = $temp.sanitize_filename('percentage'.$category.$target_question);
+            $percentage_docx->createDocx($filename);
             unset($percentage_docx);
             return $filename.'.docx';
         } else {
