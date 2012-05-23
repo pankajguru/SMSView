@@ -103,7 +103,7 @@ class percentages
             $graphic_percentage        = array();
             $graphic_percentage_total  = array();
             //TODO:: get list of answers from definition
-//            var_dump($question->{'statistics'}->{'percentage'});
+//            var_dump($question);
             foreach ($question->{'statistics'}->{'percentage'} as $key=>$answer){
                 //all questions are here
                 $answer_text = $answer->{'value'}->{'description'};
@@ -120,12 +120,17 @@ class percentages
                     $graphic_data_alle_scholen[$key] = $percentage_alle_scholen;
                 }
                 $graphic_answered[$key] = $answered;
-                $graphic_percentage{$key} = round($percentage_peiling);
+                $graphic_percentage[$key] = round($percentage_peiling);
                 if ($ref['alle_scholen']){
                     $graphic_percentage_total[$key] = round($percentage_alle_scholen);
                 }
             }
-            
+            ksort($graphic_data_peiling);
+            ksort($graphic_data_alle_scholen);
+            ksort($graphic_answer);
+            ksort($graphic_answered);
+            ksort($graphic_percentage);
+            ksort($graphic_percentage_total);            
             if (isset($all_questions_array[$question_number + 1])){
                 $next_groupname = $all_questions_array[$question_number + 1];
                 if ($all_questions_array[$question_number + 1]->{'group_name'} != $question->{'group_name'}){
@@ -170,7 +175,9 @@ class percentages
         $MyData = new pData();
         $MyData->loadPalette("./pChart/palettes/sms.color", TRUE);
         $MyData->addPoints($graphic_data_peiling, "Percentage ". $schoolname);
-        $MyData->addPoints($graphic_data_alle_scholen, "Percentage alle scholen");
+        if (count($graphic_data_alle_scholen)>0){
+            $MyData->addPoints($graphic_data_alle_scholen, "Percentage alle scholen");
+        }
 //        $MyData->setAxisName(0, "Percentages");
         $MyData->addPoints($graphic_answer, "Answers");
         $MyData->setSerieDescription("Answers", "Answers");
@@ -235,7 +242,6 @@ class percentages
 //            "OverrideColors"=>$Palette
                                     
         ));
-        
         for ($i=0;$i<count($graphic_answer);$i++){
             $myPicture->drawText(320, 40 + ($i)*31,$graphic_answer[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(400, 40 + ($i)*31,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
