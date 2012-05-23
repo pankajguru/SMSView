@@ -16,7 +16,7 @@ class satisfactionPriorityScatter {
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
-        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
+        $satisfactionPriorityScatter_docx->importStyles('./templates/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
 
         $total_x = 0;
         $total_y = 0;

@@ -12,7 +12,7 @@ class satisfactionSummary {
         //add graphic to docx
         $summary_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
-        $summary_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
+        $summary_docx->importStyles('./templates/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
 
         $paramsList = array(
             'val' => 0,
