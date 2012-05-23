@@ -113,8 +113,8 @@ class percentages
             foreach ($question->{'statistics'}->{'percentage'} as $key=>$answer){
                 //all questions are here
                 $answer_text = $answer->{'value'}->{'description'};
-                if (strlen($answer_text)>17){
-                    $answer_text = substr($answer_text, 0, 14).'...';
+                if (strlen($answer_text)>23){
+                    $answer_text = substr($answer_text, 0, 20).'...';
                 }
                 $graphic_answer[$key] = htmlspecialchars_decode($answer_text);
                 $answered = (isset($answer_peiling[$key])) ? $answer_peiling[$key][2] : 0;

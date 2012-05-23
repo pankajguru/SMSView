@@ -27,7 +27,6 @@ class questionProperties
                     foreach(array('peiling','alle_scholen') as $peiling){
                         $percentage = $percentages->{$modifier}->{$peiling}; 
                         $docx -> addTemplateVariable("class:questionProperties:$question_number:$modifier:$answer:$peiling", strval($percentage));
-                        echo "class:questionProperties:$question_number:$modifier:$answer:$peiling = $percentage \n";
                     }
                 }
             }
@@ -43,8 +42,8 @@ class questionProperties
                 $docx -> addTemplateVariable("class:questionProperties:$question_number:number_of_respondents:alle_scholen", strval($number_of_respondents_alle_scholen));
 
                 $difference = ($average_peiling == $average_alle_scholen) ? "gelijk aan" : ($average_peiling > $average_alle_scholen)
-                                ? sprintf("%.1f punt hoger dan", $average_peiling - $average_alle_scholen)
-                                : sprintf("%.1f punt lager dan", $average_alle_scholen - $average_peiling);
+                                ? sprintf("%.1f punt hoger dan", sprintf('%.1f',$average_peiling) - sprintf('%.1f',$average_alle_scholen))
+                                : sprintf("%.1f punt lager dan", sprintf('%.1f',$average_alle_scholen) - sprintf('%.1f',$average_peiling));
                 $docx -> addTemplateVariable("class:questionProperties:$question_number:difference", $difference);
                     
                 
