@@ -19,6 +19,9 @@
  *
  */
 	define('ENVIRONMENT', 'development');
+    define('LOG4PHP_DIR', './phpdocx_pro/lib/log4php');
+    
+    
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

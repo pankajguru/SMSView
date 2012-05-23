@@ -9,7 +9,6 @@ class percentages
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
-        require_once("./utilities/owasp-esapi-php-read-only/src/Encoder.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
@@ -159,7 +158,9 @@ class percentages
             $question_count++;
         }
         if ($question_count > 0){
-            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
+//            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
+            $filename = urlencode($temp.'percentage'.$category.$target_question);
+            $percentage_docx->createDocx();
             unset($percentage_docx);
             return $filename.'.docx';
         } else {

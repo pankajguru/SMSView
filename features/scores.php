@@ -9,7 +9,6 @@ class scores
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
-        require_once("./utilities/owasp-esapi-php-read-only/src/Encoder.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
@@ -173,7 +172,7 @@ class scores
             $question_count++;
         }
         if ($question_count > 0){
-            $filename = encodeForURL($temp.'score'.$category.$target_question);
+            $filename = urlencode($temp.'score'.$category.$target_question);
             
             $scores_docx->createDocx();
             unset($scores_docx);
