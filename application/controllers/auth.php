@@ -131,7 +131,8 @@ class Auth extends CI_Controller
 			}
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|min_length['.$this->config->item('password_min_length', 'tank_auth').']|max_length['.$this->config->item('password_max_length', 'tank_auth').']|alpha_dash');
-			$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean|matches[password]');
+			$this->form_validation->set_rules('schoolname', 'Schoolnaam', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('brin', 'BRIN', 'trim|required|xss_clean');
 
 			$captcha_registration	= $this->config->item('captcha_registration', 'tank_auth');
 			$use_recaptcha			= $this->config->item('use_recaptcha', 'tank_auth');
@@ -151,7 +152,9 @@ class Auth extends CI_Controller
 						$use_username ? $this->form_validation->set_value('username') : '',
 						$this->form_validation->set_value('email'),
 						$this->form_validation->set_value('password'),
-						$email_activation))) {									// success
+						$email_activation,
+                        $this->form_validation->set_value('schoolname'),
+                        $this->form_validation->set_value('brin')))) {									// success
 
 					$data['site_name'] = $this->config->item('website_name', 'tank_auth');
 

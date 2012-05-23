@@ -48,6 +48,19 @@ $captcha = array(
 	'id'	=> 'captcha',
 	'maxlength'	=> 8,
 );
+$schoolname = array(
+    'name'  => 'schoolname',
+    'id'    => 'schoolname',
+    'value' => set_value('schoolname'),
+    'size'  => 30,
+);
+$brin = array(
+    'name'  => 'brin',
+    'id'    => 'brin',
+    'value' => set_value('brin'),
+    'size'  => 30,
+);
+
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
 <table>
@@ -73,6 +86,16 @@ $captcha = array(
 		<td><?php echo form_password($confirm_password); ?></td>
 		<td style="color: red;"><?php echo form_error($confirm_password['name']); ?></td>
 	</tr>
+    <tr>
+        <td><?php echo form_label('Schoolnaam', $schoolname['id']); ?></td>
+        <td><?php echo form_input($schoolname); ?></td>
+        <td style="color: red;"><?php echo form_error($schoolname['name']); ?><?php echo isset($errors[$schoolname['name']])?$errors[$schoolname['name']]:''; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo form_label('BRIN nummer', $brin['id']); ?></td>
+        <td><?php echo form_input($brin); ?></td>
+        <td style="color: red;"><?php echo form_error($brin['name']); ?><?php echo isset($errors[$brin['name']])?$errors[$brin['name']]:''; ?></td>
+    </tr>
 
 	<?php if ($captcha_registration) {
 		if ($use_recaptcha) { ?>
