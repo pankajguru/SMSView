@@ -9,6 +9,7 @@ class scores
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
+        require_once("./utilities/owasp-esapi-php-read-only/src/Encoder.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
@@ -93,11 +94,14 @@ class scores
                 if ($reference==''){
                     continue;
                 }
+                if (count($question->{'statistics'}->{'averages'}->{$reference}) != 0){
+                    continue;
+                }
                 $average_value = $question->{'statistics'}->{'averages'}->{$reference}[0];
                 if (is_null($average_value)){
                     continue;
                 }
-                if ($key == '_empty_'){
+                if ($reference == '_empty_'){
                     continue;
                 }
                 if ($reference == 'Leerjaar 6'){
@@ -169,9 +173,11 @@ class scores
             $question_count++;
         }
         if ($question_count > 0){
-            $scores_docx->createDocx($temp.'score'.$category.$target_question);
+            $filename = encodeForURL($temp.'score'.$category.$target_question);
+            
+            $scores_docx->createDocx();
             unset($scores_docx);
-            return $temp.'score'.$category.$target_question.'.docx';
+            return $filename.'.docx';
         } else {
             unset($scores_docx);
             return null;

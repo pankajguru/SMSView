@@ -158,9 +158,9 @@ class percentages
             $question_count++;
         }
         if ($question_count > 0){
-            $percentage_docx->createDocx($temp.'percentage'.$category.$target_question);
+            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
             unset($percentage_docx);
-            return $temp.'percentage'.$category.$target_question.'.docx';
+            return $filename.'.docx';
         } else {
             unset($percentage_docx);
             return null;
