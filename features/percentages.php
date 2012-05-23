@@ -35,6 +35,12 @@ class percentages
             if (($target_question != '') and ($target_question != $question_number)){
                 continue;
             } 
+            if (!isset($question->{'statistics'}->{'percentage'})){
+                continue;
+            }
+            if (count($question->{'statistics'}->{'percentage'}) == 0){
+                continue;
+            }
             $answer_count_peiling = 0;
             $answer_count_alle_scholen = 0;
             $text = array();

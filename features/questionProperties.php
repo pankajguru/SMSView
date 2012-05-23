@@ -26,7 +26,8 @@ class questionProperties
                 foreach (array('value', 'lt', 'gte') as $modifier){
                     foreach(array('peiling','alle_scholen') as $peiling){
                         $percentage = $percentages->{$modifier}->{$peiling}; 
-                            $docx -> addTemplateVariable("class:questionProperties:$question_number:$modifier:$answer:$peiling", strval($percentage));
+                        $docx -> addTemplateVariable("class:questionProperties:$question_number:$modifier:$answer:$peiling", strval($percentage));
+                        echo "class:questionProperties:$question_number:$modifier:$answer:$peiling = $percentage \n";
                     }
                 }
             }

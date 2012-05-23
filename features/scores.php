@@ -39,6 +39,12 @@ class scores
             if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
                 continue;
             }
+            if (!isset($question->{'statistics'}->{'percentage'})){
+                continue;
+            }
+            if (count($question->{'statistics'}->{'percentage'}) == 0){
+                continue;
+            }
             if ($example != '') {
                 $valid_question_types = array('TEVREDEN', 'PTP_TEVREDEN');
                 if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
@@ -93,7 +99,13 @@ class scores
                 if ($reference==''){
                     continue;
                 }
-                if (count($question->{'statistics'}->{'averages'}->{$reference}) != 0){
+                if (is_null($question->{'statistics'}->{'averages'})){
+                    continue;
+                }
+                if (!isset($question->{'statistics'}->{'averages'}->{$reference})){
+                    continue;
+                }
+                if (count($question->{'statistics'}->{'averages'}->{$reference}) == 0){
                     continue;
                 }
                 $average_value = $question->{'statistics'}->{'averages'}->{$reference}[0];
@@ -104,7 +116,7 @@ class scores
                     continue;
                 }
                 if ($reference == 'Leerjaar 6'){
-//                    continue;
+                    continue;
                 }
                 if ($reference == 'peiling'){
                     $names[] = "$schoolname ";

@@ -32,37 +32,47 @@ class reportmark
             }
             $graphic_data_reportmarks   = array();
             $text= array();
-            foreach ($question->{'statistics'}->{'averages'} as $key => $average){
-                if (($key == 'alle_scholen') and (!$ref['alle_scholen']) ){
+//            foreach ($question->{'statistics'}->{'averages'} as $key => $average){
+            foreach ($question->{'refs'} as $reference){
+                if (($reference == 'alle_scholen') and (!$ref['alle_scholen']) ){
                     continue;
                 }
+                if (!isset($question->{'statistics'}->{'averages'}->{$reference})){
+                    continue;
+                }
+                if (count($question->{'statistics'}->{'averages'}->{$reference}) == 0){
+                    continue;
+                }
+                $average = $question->{'statistics'}->{'averages'}->{$reference};
                 $average_value = round(($average[0][3]*10))/10;
-                if ($average_value == 0){
+                
+                if (is_null($average_value)){
                     continue;
                 }
-                if ($key == '_empty_'){
+                if ($reference == '_empty_'){
                     continue;
                 }
-                if ($key == 'peiling'){
+                if ($reference == 'peiling'){
                     $text[] = "$schoolname ";
-                } elseif ($key == 'vorige_peiling') {
-                    if (!$ref['vorige_peiling']) continue;
+                } elseif ($reference == 'vorige_peiling') {
+                    if (!$reference['vorige_peiling']) continue;
                     $text[] = "Vorige peiling ";
-                } elseif ($key == 'peiling_onderbouw') {
-                    if (!$ref['obb']) continue;
+                } elseif ($reference == 'peiling_onderbouw') {
+                    if (!$reference['obb']) continue;
                     $text[] = "Onderbouw ";
-                } elseif ($key == 'peiling_bovenbouw') {
+                } elseif ($reference == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
                     $text[] = "Bovenbouw ";
-                } elseif ($key == 'alle_scholen') {
+                } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $text[] ="Alle Scholen ";
                 } else {
-                    if (!$ref['question_based']) continue;
+                    if (!$reference['question_based']) continue;
                     $text[] = $key;
                 }
                 $graphic_data_reportmarks[] = $average_value;
             }
+
                         
             $graphic_data_text          = $text;
             
@@ -80,7 +90,6 @@ class reportmark
 //                'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
-
         }
         $percentage_docx->createDocx($temp.'reportmark');
         unset($percentage_docx);

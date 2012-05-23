@@ -109,10 +109,11 @@ class Parse extends CI_Controller {
         $satisfactionTopBad_docx = $satisfactionTopBad -> render($xmlData, $ref, FALSE);
         unset($satisfactionTopBad);        
         
+               echo'##';
         $scoresAndPercentages = new scoresAndPercentages();
         $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData, $ref);
         unset($scoresAndPercentages);
-               
+               echo'##';
         $percentiles_good = new percentiles();
         $percentiles_good_docx = $percentiles_good -> render($xmlData, $ref, 'green');
         unset($percentiles_good);
