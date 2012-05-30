@@ -364,7 +364,9 @@ class Update extends CI_Controller {
             $antwoord_id=$matches[1];
             $new_question_id=$matches[2];
             $original_question_id=$matches[3];
-            
+            if ($antwoord_id<58187094) {
+		continue;
+		}
             print "$antwoord_id $original_question_id $new_question_id <br>";
             //delete old antwoord
             print "delete from antwoord where id=$antwoord_id; <br>";

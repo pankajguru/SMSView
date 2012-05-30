@@ -24,7 +24,7 @@ class Questions extends REST_Controller {
         $questions = $this -> Sms_model -> get_all_questions($type);
         foreach ($questions as $question) {
             $question -> answers = $this -> Sms_model -> get_question_properties($question -> vraag_type_id);
-            //$question -> benchmark = $this -> Sms_model -> get_question_benchmark($question->question_id);
+//            $question -> benchmark = $this -> Sms_model -> get_question_benchmark($question->question_id); TOO SLOW
         }
         if ($questions && $type) {
             $this -> response($questions, 200);
