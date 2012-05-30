@@ -83,7 +83,7 @@ class scores
             
             $text[] =
                 array(
-                    'text' => filter_text($question_number.". ".$question->{'description'}),
+                    'text' => $question_number.". ".filter_text($question->{'description'}),
                     'b' => 'single',
                     'sz' => 10,
                     'font' => 'Century Gothic'

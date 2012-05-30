@@ -1,6 +1,7 @@
 var basetype = "";
 var school_id;
-var categories = Array();
+var categories = new Array();
+var category_ids = new Object();
 
 $(document).ready(function() {
     //set all pages to display:none
@@ -79,6 +80,8 @@ function retrieve_questions_per_type(type) {
         dataType : 'xml',
         success : function(xml) {
             categories[127] = 'Schoolspecifieke zaken';
+            //we need an assiocative array because the keys are lost in sort()
+            category_ids['Schoolspecifieke zaken'] = 127;
             $(xml).find('item').each(function() {
                 var id = $(this).find('question_id').text();
                 var li = '<li title="' + $(this).find('category_name').text() + '" class="ui-state-default hide question_not_selected drags '+$(this).find('question_type_desc_code').text() + '" refid="' + $(this).find('question_id').text() + '" id="' + $(this).find('question_id').text() + '">' + $(this).find('question_description').text() + '</li>';
@@ -93,7 +96,9 @@ function retrieve_questions_per_type(type) {
                     });
                 });
                 //create array of categories
-                categories[parseInt($(this).find('category_id').text())] = $(this).find('category_name').text();
+                categories[$(this).find('category_id').text()] = $(this).find('category_name').text();
+                //we need an assiocative array because the keys are lost in sort()
+                category_ids[$(this).find('category_name').text()] = $(this).find('category_id').text();
                 
             });
             sort_on_category();
@@ -279,7 +284,7 @@ function new_question() {
     categories.sort();
     $.each(categories, function(key, category) { 
         if (category != undefined){
-            options += '<option value="' + key + '" id="' + key + '">' + category + '</option>';
+            options += '<option value="' + category_ids[category] + '" id="' + category_ids[category] + '">' + category + '</option>';
         }
     });
 

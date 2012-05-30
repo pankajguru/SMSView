@@ -32,6 +32,14 @@ class Sms_model extends CI_Model {
 
     }
 
+    function get_answers_by_question_id($question_id) {
+        $this -> db -> from (
+        'antwoord')-> where('vraag_id', $question_id);
+        $query = $this -> db -> get();
+        return $query -> result();
+
+    }
+
     function get_peiling_type_details($peiling_type_id) {
         $this -> db -> from (
         'peiling_type')-> where('id', $peiling_type_id);
@@ -114,6 +122,10 @@ class Sms_model extends CI_Model {
         $query = $this -> db -> get();
         return $query -> result();
 
+    }
+    function get_question_benchmark($question_id){
+        $this -> db -> from('antwoord') -> where('vraag_id', $question_id);
+        return $this->db->count_all_results();
     }
 
     public function insert_questionaire($questionaire_object) {
@@ -222,7 +234,7 @@ class Sms_model extends CI_Model {
         //store answers    
         //get max id van vraag
         $vraag_type_id = $this->_get_new_id('vraag_type');
-        $value = 0;
+        $value = 1;
         $label_lo = '';
         $label_hi = '';
         foreach($answers as $answer){

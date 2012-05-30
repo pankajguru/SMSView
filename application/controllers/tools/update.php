@@ -350,4 +350,54 @@ class Update extends CI_Controller {
         $this -> load -> view('welcome_message');
     }
 
+    public function otp_benchmark() {
+        /** get PHPExcel_IOFactory object */
+        $file_name = 'source_docs/benchmark.txt';
+        $file_array = file($file_name);
+
+        foreach ($file_array as $line_number => $line)
+        {
+        // Handle the line
+            print $line_number.' '.$line.'<br>';
+            $pattern = '/insert into antwoord \(id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value\) \(select (\d+), 0, 0, 0, formulier_id, (\d+), value from antwoord where vraag_id=(\d+)\);$/';
+            preg_match($pattern, $line, $matches);
+            $antwoord_id=$matches[1];
+            $new_question_id=$matches[2];
+            $original_question_id=$matches[3];
+            
+            print "$antwoord_id $original_question_id $new_question_id <br>";
+            //delete old antwoord
+            print "delete from antwoord where id=$antwoord_id; <br>";
+            $this -> Sms_model->db->delete('antwoord', array('id' => $antwoord_id)); 
+            
+            
+            //select answers
+            //select formulier_id, value from antwoord where vraag_id=3116
+            $answers = $this->Sms_model->get_answers_by_question_id($original_question_id);
+            $data = array();
+            foreach($answers as $answer){
+                //get new_id
+                $new_id = $this -> Sms_model ->_get_new_id('antwoord');
+                //$new_id++;
+                //insert new answer
+                $value = $answer->value;
+                $formulier_id = $answer->formulier_id;
+                $data[] = array(
+                              'id' => $new_id ,
+                              'survey_id' => 0 ,
+                              'peiling_id' => 0,
+                              'locatie_id' => 0,
+                              'formulier_id' => $formulier_id,
+                              'vraag_id' => $new_question_id,
+                              'value' => $value
+                           );
+
+                print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) VALUES ($new_id, 0, 0, 0, $formulier_id, $new_question_id, $value); <br>";
+            }
+            if (count($data) > 0){
+                $this -> Sms_model->db->insert_batch('antwoord', $data); 
+            }
+        }
+        $this -> load -> view('tools/default');
+    }
 }

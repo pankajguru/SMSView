@@ -24,6 +24,7 @@ class Questions extends REST_Controller {
         $questions = $this -> Sms_model -> get_all_questions($type);
         foreach ($questions as $question) {
             $question -> answers = $this -> Sms_model -> get_question_properties($question -> vraag_type_id);
+            $question -> benchmark = $this -> Sms_model -> get_question_benchmark($question->question_id);
         }
         if ($questions && $type) {
             $this -> response($questions, 200);
@@ -97,6 +98,7 @@ class Questions extends REST_Controller {
 
     public function questionaire_post() {
         $questionaire_json = $this -> post('data');
+        $this->_error_dump($questionaire_json);
         $questionaire_object = json_decode($questionaire_json);
         $result = $this -> Sms_model -> insert_questionaire($questionaire_object);
         
@@ -183,7 +185,7 @@ class Questions extends REST_Controller {
                 $xml_answer = $xml_answers->addChild('answer');
                 $xml_answer->addChild('answer', $answer->description);
                 $xml_answer->addChild('order', $answer->value);
-                $xml_answer->addChild('value', $answer->value);  //TODO:0-100
+                $xml_answer->addChild('value', $answer->value);  
             }
         }
         $xml = $xml->asXML();
@@ -197,7 +199,7 @@ class Questions extends REST_Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS, 'xml='.$xml);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
-        $response = curl_exec($ch);
+//        $response = curl_exec($ch);
         $curl_error = curl_error($ch);
         curl_close($ch);
 
