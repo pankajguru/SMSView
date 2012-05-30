@@ -1,0 +1,11 @@
+#filter_wrapper{
+        position: absolute;
+        top: 22px;
+        left: 280px;
+}
+#save_question_list{
+        position: absolute;
+        top: 25px;
+        right: 60px;
+        width: 100px;
+}
