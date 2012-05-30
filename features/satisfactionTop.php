@@ -108,7 +108,7 @@ class satisfactionTop
         foreach($all_questions as $question){
             if ($question->{'question_type'}[0][1] != $tevreden){continue;};
             $satisfaction_array[] = array(
-                'vraag' => html_entity_decode($question->{'short_description'},null, 'UTF-8'),
+                'vraag' => filter_text($question->{'short_description'}),
                 'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
                 'alle_scholen' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'}
             );

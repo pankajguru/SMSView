@@ -16,11 +16,16 @@ function filter_text($text){
     $replacements[0] = ' ';
     $patterns[1] = '/_COLON_/';
     $replacements[1] = ':';
-    $patterns[2] = '/_iuml_/';  
+    $patterns[2] = '/_iuml_/'; 
     $replacements[2] = '&iuml;';
     $patterns[3] = '/^\d+\.\s/';  
     $replacements[3] = '';
-      
+    $patterns[4] = '/_euml_/'; 
+    $replacements[4] = '&euml;';
+    $patterns[5] = '/_eacute_/'; 
+    $replacements[5] = '&eacute;';
+    $patterns[5] = '/_QUOTE_/'; 
+    $replacements[5] = '\'';
     $text = preg_replace($patterns, $replacements, $text);  
     $text = html_entity_decode($text, null, 'UTF-8');  
     return $text;
