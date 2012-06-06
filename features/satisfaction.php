@@ -138,10 +138,17 @@ class satisfaction
                     $text->{'border'} = $paramsTableReference;
                     $satisfaction_table[$i][$count++] = $text;
                 } else {
-                    $paramsTextTable['text'] = Scale10($satisfaction_column[$i][2], $scale_factor);
-                    $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
-                    $text->{'border'} = $paramsTable;
-                    $satisfaction_table[$i][$count++] = $text;
+                    if (count($satisfaction_column) == 0){
+                        $paramsTextTable['text'] = 0;
+                        $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
+                        $text->{'border'} = $paramsTable;
+                        $satisfaction_table[$i][$count++] = $text;
+                    } else {
+                        $paramsTextTable['text'] = Scale10($satisfaction_column[$i][2], $scale_factor);
+                        $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
+                        $text->{'border'} = $paramsTable;
+                        $satisfaction_table[$i][$count++] = $text;
+                    }
                 }
             }
             

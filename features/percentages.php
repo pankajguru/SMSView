@@ -112,6 +112,9 @@ class percentages
 //            var_dump($question);
             foreach ($question->{'statistics'}->{'percentage'} as $key=>$answer){
                 //all questions are here
+                if ($answer_count_peiling == 0){
+                    continue;
+                }
                 $answer_text = $answer->{'value'}->{'description'};
                 if (strlen($answer_text)>23){
                     $answer_text = substr($answer_text, 0, 20).'...';
@@ -122,8 +125,13 @@ class percentages
                 $graphic_data_peiling[$key] = $percentage_peiling;
                 //get perc from all schools
                 if ($ref['alle_scholen']){
-                    $percentage_alle_scholen = $answer_alle_scholen[$key][2] / $answer_count_alle_scholen * 100;
-                    $graphic_data_alle_scholen[$key] = $percentage_alle_scholen;
+                    if (isset($answer_alle_scholen[$key]) && ($answer_count_alle_scholen != 0)){
+                        $percentage_alle_scholen = $answer_alle_scholen[$key][2] / $answer_count_alle_scholen * 100;
+                        $graphic_data_alle_scholen[$key] = $percentage_alle_scholen;
+                    } else {
+                        $percentage_alle_scholen = 0;
+                        $graphic_data_alle_scholen[$key] = 0;
+                    }
                 }
                 $graphic_answered[$key] = $answered;
                 $graphic_percentage[$key] = round($percentage_peiling);

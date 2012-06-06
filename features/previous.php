@@ -36,7 +36,11 @@ class previous
             }
             foreach ($previous_data as $key => $previous_column){
                 if ($key == 'vorige_peiling'){
-                    $previous_table_vorige_peiling[] = Scale10($previous_column[$i][2], 4);
+                    if (count($previous_column)>0){
+                        $previous_table_vorige_peiling[] = Scale10($previous_column[$i][2], 4);
+                    } else {
+                        $previous_table_vorige_peiling[] = 0;
+                    }
                 }
                 if ($key == 'peiling'){
                     $previous_table_peiling[] = Scale10($previous_column[$i][2], 4);
