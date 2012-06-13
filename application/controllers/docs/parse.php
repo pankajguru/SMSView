@@ -42,10 +42,12 @@ class Parse extends CI_Controller {
         $xml_source = urldecode($xml_source);
         $output_file = urldecode($output_file);
         $ref = array();
-        $ref['alle_scholen'] = TRUE;
+        $ref['alle_scholen'] = FALSE;
         $ref['obb'] = TRUE;
         $ref['question_based'] = TRUE;
         $ref['vorige_peiling'] = TRUE;
+        $ref['bovenbouw'] = 'Lager onderwijs';
+        $ref['onderbouw'] = 'Kleuteronderwijs';
         
         $temp           = 'temp/';
         if (!$template) {

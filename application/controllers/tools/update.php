@@ -329,6 +329,27 @@ class Update extends CI_Controller {
         $this -> load -> view('welcome_message');
     }
 
+    public function otpb_shortdescription() {
+        /** get PHPExcel_IOFactory object */
+        $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+        $objReader -> setReadDataOnly(true);
+        $objPHPExcel = $objReader -> load("source_docs/belgie_vragen_short_discription.xlsx");
+        $objWorksheet = $objPHPExcel -> getActiveSheet();
+        foreach ($objWorksheet->getRowIterator() as $row) {
+            $answer = array();
+            $rownr = $row -> getRowIndex();
+            if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
+                //$id = $objWorksheet -> getCell('A' . $rownr) -> getValue();
+                $description = $objWorksheet -> getCell('A' . $rownr) -> getValue();
+                $short_description = $objWorksheet -> getCell('C' . $rownr) -> getValue();
+                print "update vraag set short_description='$short_description' where description='$description';<br>";
+            }
+
+        }
+
+        $this -> load -> view('tools/default');
+    }
+
     public function ptp_shortdescription() {
         /** get PHPExcel_IOFactory object */
         $objReader = PHPExcel_IOFactory::createReader('Excel2007');

@@ -125,10 +125,10 @@ class scores
                     $names[] = "Vorige peiling ".$schoolname." ";
                 } elseif ($reference == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
-                    $names[] = "Onderbouw ";
+                    $names[] = $ref['onderbouw']." ";
                 } elseif ($reference == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
-                    $names[] = "Bovenbouw ";
+                    $names[] = $ref['bovenbouw']." ";
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $names[] ="Alle Scholen ";

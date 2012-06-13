@@ -59,10 +59,10 @@ class reportmark
                     $text[] = "Vorige peiling ";
                 } elseif ($reference == 'peiling_onderbouw') {
                     if (!$reference['obb']) continue;
-                    $text[] = "Onderbouw ";
+                    $text[] = $ref['onderbouw']." ";
                 } elseif ($reference == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
-                    $text[] = "Bovenbouw ";
+                    $text[] = $ref['bovenbouw']." ";
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $text[] ="Alle Scholen ";
@@ -76,7 +76,7 @@ class reportmark
                         
             $graphic_data_text          = $text;
             
-            $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp);
+            $percentage_graphic = $this->_draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp, $ref['alle_scholen']);
     
             $paramsImg = array(
                 'name' => $percentage_graphic,
@@ -141,7 +141,7 @@ class reportmark
         
     }
 
-    private function _draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp)
+    private function _draw_graphic($graphic_data_text, $graphic_data_reportmarks, $question_number, $temp, $lastBlue)
     {
         /* Create and populate the pData object */
         $MyData = new pData();
@@ -211,10 +211,12 @@ class reportmark
 //        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         /* Create the per bar palette */
         $Palette = array(); 
-        for($i=0; $i<count($graphic_data_text)-1;$i++){
+        for($i=0; $i<count($graphic_data_text);$i++){
             $Palette[$i] = array("R"=>247,"G"=>142,"B"=>30,"Alpha"=>100);
         }
-        $Palette[count($graphic_data_text)-1] = array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100);
+        if ($lastBlue){
+            $Palette[count($graphic_data_text)-1] = array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100);
+        }
 
         /* Draw the chart */
         $myPicture->drawBarChart(array(
