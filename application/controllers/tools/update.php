@@ -340,9 +340,12 @@ class Update extends CI_Controller {
             $rownr = $row -> getRowIndex();
             if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
                 //$id = $objWorksheet -> getCell('A' . $rownr) -> getValue();
-                $description = $objWorksheet -> getCell('A' . $rownr) -> getValue();
-                $short_description = $objWorksheet -> getCell('C' . $rownr) -> getValue();
-                print "update vraag set short_description='$short_description' where description='$description';<br>";
+                $id = $objWorksheet -> getCell('A' . $rownr) -> getValue();
+                $description = $objWorksheet -> getCell('B' . $rownr) -> getValue();
+                $pattern = '/(^\d+\.\s+)/i';
+                $description1 = preg_replace($pattern, '', $description);
+                $short_description = $objWorksheet -> getCell('D' . $rownr) -> getValue();
+                print "update vraag set short_description='$short_description' where id = $id;<br>";
             }
 
         }

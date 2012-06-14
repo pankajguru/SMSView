@@ -3,7 +3,7 @@
 class mostimportant
 {
 
-    function render( $data, $ref, $top = 5)
+    function render( $data, $ref, $number_of_tops = 5)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
@@ -68,6 +68,9 @@ class mostimportant
         $most_important_table[0][2] = $text; 
         $row=1;
         foreach($peiling_top as $top){
+            if ($row > $number_of_tops){
+                continue;
+            }
             $tableStyle['cell_color'] = ($row&1)?'E6E6E6':'FFFFFF';
             $tableStyle['text'] = $row;
             $text = $mostimportant_docx->addElement('addText', array($tableStyle));
@@ -79,6 +82,9 @@ class mostimportant
         }
         $row=1;
         foreach($alle_scholen_top as $top){
+            if ($row > $number_of_tops){
+                continue;
+            }
             if ($top =='') {continue;};
             $tableStyle['cell_color'] = ($row&1)?'E6E6E6':'FFFFFF';
             $tableStyle['text'] = $top;
