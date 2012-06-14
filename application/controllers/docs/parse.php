@@ -43,7 +43,7 @@ class Parse extends CI_Controller {
         $output_file = urldecode($output_file);
         $ref = array();
         $ref['alle_scholen'] = FALSE;
-        $ref['obb'] = TRUE;
+        $ref['obb'] = FALSE;
         $ref['question_based'] = TRUE;
         $ref['vorige_peiling'] = TRUE;
         $ref['bovenbouw'] = 'Lager onderwijs';
