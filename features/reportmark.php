@@ -55,10 +55,10 @@ class reportmark
                 if ($reference == 'peiling'){
                     $text[] = "$schoolname ";
                 } elseif ($reference == 'vorige_peiling') {
-                    if (!$reference['vorige_peiling']) continue;
+                    if (!$ref['vorige_peiling']) continue;
                     $text[] = "Vorige peiling ";
                 } elseif ($reference == 'peiling_onderbouw') {
-                    if (!$reference['obb']) continue;
+                    if (!$ref['obb']) continue;
                     $text[] = $ref['onderbouw']." ";
                 } elseif ($reference == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;

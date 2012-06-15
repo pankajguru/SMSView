@@ -227,21 +227,11 @@ class satisfaction
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;
-        $paramsTextTableHeader['text'] = '';
-        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
-        $text->{'border'} = $paramsTable;
-        $satisfaction_header[0][] = $text;
-        $paramsTextTableHeader['text'] = '';
-        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
-        $text->{'border'} = $paramsTable;
-        $satisfaction_header[0][] = $text;
-        $paramsTextTableHeader['text'] = '';
-        $text = $satisfaction_docx->addElement('addText', array());
-        $text->{'border'} = $paramsTableEmpty;
-        $satisfaction_header[0][] = $text;
-        
-        
-        
+        for ($i=0; $i < $column_count-1; $i++){        $paramsTextTableHeader['text'] = '';
+            $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
+            $text->{'border'} = $paramsTable;
+            $satisfaction_header[0][] = $text;
+        }
         $paramsTextTableHeaderReference['text'] = 'Referentie';
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeaderReference));
         $text->{'border'} = $paramsTableReference;
