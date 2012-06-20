@@ -45,12 +45,8 @@ class Parse extends CI_Controller {
         $xml_source = urldecode($xml_source);
         $output_file = urldecode($output_file);
         $ref = array();
-        $ref['alle_scholen'] = FALSE;
-        $ref['obb'] = FALSE;
         $ref['question_based'] = TRUE;
         $ref['vorige_peiling'] = TRUE;
-        $ref['bovenbouw'] = 'Lager onderwijs';
-        $ref['onderbouw'] = 'Kleuteronderwijs';
         
         $temp           = 'temp/';
         if (!$template) {
@@ -69,7 +65,19 @@ class Parse extends CI_Controller {
         $xmlRaw = file_get_contents($xml_source);
 
         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
-
+        
+        //get std refs from site
+        $ref['alle_scholen'] = ($xmlData[peiling.ref_group_all] == 1);
+        $ref['obb'] = ($xmlData[peiling.ref_group_obb] == 1);
+        
+        if($xmlData['report.type'] == 'OTP_B_0412'){
+            $ref['bovenbouw'] = 'Lager onderwijs';
+            $ref['onderbouw'] = 'Kleuteronderwijs';
+        } else {
+            $ref['bovenbouw'] = 'Bovenbouw';
+            $ref['onderbouw'] = 'Onderbouw';
+        }
+        
 //        $percentages = new percentages();
 //        $percentage_docx = $percentages -> render($xmlData);
 //        unset($percentages);

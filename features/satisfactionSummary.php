@@ -24,7 +24,7 @@ class satisfactionSummary {
         foreach($all_questions as $question_number=>$question){
             $satisfactionArray = array(3,14,16,17,33,38,39,41,43,9823,46,47,9944,9948,9963,9973,9986,  10423,10421,10422,10406,10407,10408,10409,10416,10410,10412,10411); //TODO: id's>9000 are subject to change with live'
             if (in_array($question->{'id'}, $satisfactionArray)){
-                if ($question->question_type[0][1] == 'TEVREDEN'){
+                if ( ($question->question_type[0][1] == 'TEVREDEN') || ($question->question_type[0][1] == 'PTP_TEVREDEN')){
                     $satisfactionSummary[] = 
                         $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'} . '% van de ouders is tevreden over ' . html_entity_decode($question->{'short_description'},null, 'UTF-8').'.';
                 }
