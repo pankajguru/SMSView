@@ -224,7 +224,7 @@ class satisfactionImportance {
 
         /* Create the X axis and the binded series */
         $myData->addPoints($graphic_data_x, "tevreden");
-        $myData -> setAxisName(0, "Meer tevreden - Minder tevreden");
+        $myData -> setAxisName(0, "Minder tevreden - Meer tevreden");
         $myData -> setAxisXY(0, AXIS_X);
         $myData -> setAxisPosition(0, AXIS_POSITION_TOP);
 
