@@ -7,6 +7,7 @@ class summary {
         $temp = 'temp/';
         $datastring = $data['top_questions_in_groups'];
         //konqord JSON is false becuse escape character on '
+        var_dump($data);
         $datastring = str_replace('\\\'', '\'', $datastring);
         $data = json_decode($datastring);
         //add graphic to docx

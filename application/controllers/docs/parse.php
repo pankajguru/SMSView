@@ -334,9 +334,9 @@ class Parse extends CI_Controller {
 //        $previous_docx = $previous -> render($xmlData, $ref);
 //        unset($previous);
                
-//        $summary = new summary();
-//        $summary_docx = $summary -> render($xmlData, $ref);
-//        unset($summary);
+        $summary = new summary();
+        $summary_docx = $summary -> render($xmlData, $ref);
+        unset($summary);
                
 //        $satisfactionSummary = new satisfactionSummary();
 //        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
@@ -417,13 +417,13 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
                 }
                 if ($variable == "summary") {
-//                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
+                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }
                 if ($variable == "satisfactionSummary") {
 //                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
                 if ($variable == "satisfactionImportance") {
-                    $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
+ //                   $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
                 }
             }
 
