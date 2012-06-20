@@ -227,7 +227,8 @@ class satisfaction
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;
-        for ($i=0; $i < $column_count-1; $i++){        $paramsTextTableHeader['text'] = '';
+        for ($i=0; $i < $column_count-2; $i++){
+            $paramsTextTableHeader['text'] = '';
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
             $text->{'border'} = $paramsTable;
             $satisfaction_header[0][] = $text;
