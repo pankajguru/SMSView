@@ -190,8 +190,7 @@ class Questions extends REST_Controller {
         }
         $xml = $xml->asXML();
         //hack for characters: TODO::upgrade production server
-        $xml = preg_replace('/wereldori\&euml;ntatie/', 'wereldorientatie', $xml);
-        $xml = html_entity_decode($xml, ENT_NOQUOTES, 'UTF-8');
+        $xml = html_entity_decode($xml, ENT_NOQUOTES || ENT_COMPAT, 'UTF-8');
         $this->_error_dump($xml);
         //send xml to QT
         $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
