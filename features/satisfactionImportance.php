@@ -304,7 +304,7 @@ class satisfactionImportance {
             
             ));
 
-        $myPicture->drawText(30, 600,'Meer tevreden  -  Minder tevreden', array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE,  "Angle"=>90));
+        $myPicture->drawText(30, 600,'Minder tevreden  -  Meer tevreden', array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE,  "Angle"=>90));
         $myPicture->drawText(200, 30,'Minder belangrijk  -  Meer belangrijk', array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         
         //draw average X and Y

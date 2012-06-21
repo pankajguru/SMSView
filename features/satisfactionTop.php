@@ -126,7 +126,7 @@ class satisfactionTop
         usort($satisfaction_array, "cmp_percentages");
         
         if (!$top){
-            $satisfaction_array = array_reverse($satisfaction_array);
+//            $satisfaction_array = array_reverse($satisfaction_array);
         }
         $satisfaction_table = array();
         for ($i=0 ; $i < 10 ; $i++){
