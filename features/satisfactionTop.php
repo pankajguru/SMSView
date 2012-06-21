@@ -107,11 +107,19 @@ class satisfactionTop
         $satisfaction_array = array();
         foreach($all_questions as $question){
             if ($question->{'question_type'}[0][1] != $tevreden){continue;};
-            $satisfaction_array[] = array(
-                'vraag' => filter_text($question->{'short_description'}),
-                'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
-                'alle_scholen' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'}
-            );
+            if ($top){
+                $satisfaction_array[] = array(
+                    'vraag' => filter_text($question->{'short_description'}),
+                    'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
+                    'alle_scholen' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'}
+                );
+            } else {
+                $satisfaction_array[] = array(
+                    'vraag' => filter_text($question->{'short_description'}),
+                    'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'lt'}->{'peiling'},
+                    'alle_scholen' => $question->{'statistics'}->{'percentage'}->{3}->{'lt'}->{'alle_scholen'}
+                );
+            }
         }
 
 
