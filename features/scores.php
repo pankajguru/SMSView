@@ -167,9 +167,11 @@ class scores
                 $values[] = sprintf("%01.2f",$averages[3]);
                 $answered[] = $averages[5];
             }
-            
-            
-            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $ref['alle_scholen'], $legend, $temp);
+            $alle_scholen = $ref['alle_scholen'];
+            if ($question->{'statistics'}->{'averages'}->{'peiling'}[0][5] == $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][5]){
+                $alle_scholen = false; //is the same as peiling
+            }
+            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $alle_scholen, $legend, $temp);
     
             $paramsImg = array(
                 'name' => $scores_graphic,
