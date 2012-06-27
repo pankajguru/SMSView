@@ -67,10 +67,10 @@ class Parse extends CI_Controller {
         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
         
         //get std refs from site
-        $ref['alle_scholen'] = ($xmlData[peiling.ref_group_all] == 1);
-        $ref['obb'] = ($xmlData[peiling.ref_group_obb] == 1);
-        $ref['alle_scholen'] = true;
-        $ref['obb'] = true;
+        $ref['alle_scholen'] = ($xmlData['peiling.ref_group_all'] == 1);
+        $ref['obb'] = ($xmlData['peiling.ref_group_obb'] == 1);
+        //$ref['alle_scholen'] = true;
+        //$ref['obb'] = true;
         
         if($xmlData['report.type'] == 'OTP_B_0412'){
             $ref['bovenbouw'] = 'Lager onderwijs';
