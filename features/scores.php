@@ -95,6 +95,7 @@ class scores
             //gather data
             $names = array(); 
             $graphic_data_scores = array();
+            $alle_scholen = $ref['alle_scholen'];
             foreach ($question->{'refs'} as $reference){
                 if ($reference==''){
                     continue;
@@ -131,12 +132,17 @@ class scores
                     $names[] = $ref['bovenbouw']." ";
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
+                    if ($question->{'statistics'}->{'averages'}->{'peiling'}[0][5] == $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][5]){
+                        $alle_scholen = false; //is the same as peiling
+                        continue;
+                    }
                     $names[] ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
                     $names[] = $reference.' ';
                 }
                 $graphic_data_scores[] = $average_value;
+               
             }
             $min_value = $question->{'question_type'}[0][3];
             $max_value = $question->{'question_type'}[0][4];
@@ -166,10 +172,6 @@ class scores
                 $stdev_right[] = $stdev;
                 $values[] = sprintf("%01.2f",$averages[3]);
                 $answered[] = $averages[5];
-            }
-            $alle_scholen = $ref['alle_scholen'];
-            if ($question->{'statistics'}->{'averages'}->{'peiling'}[0][5] == $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][5]){
-                $alle_scholen = false; //is the same as peiling
             }
             $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $alle_scholen, $legend, $temp);
     

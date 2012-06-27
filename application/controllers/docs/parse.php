@@ -264,6 +264,13 @@ class Parse extends CI_Controller {
         $ref['obb'] = TRUE;
         $ref['question_based'] = TRUE;
         $ref['vorige_peiling'] = TRUE;
+        if($xmlData['report.type'] == 'OTP_B_0412'){
+            $ref['bovenbouw'] = 'Lager onderwijs';
+            $ref['onderbouw'] = 'Kleuteronderwijs';
+        } else {
+            $ref['bovenbouw'] = 'Bovenbouw';
+            $ref['onderbouw'] = 'Onderbouw';
+        }
 
         if (!$template) {
             die("Geef een template op!\n");
@@ -328,9 +335,9 @@ class Parse extends CI_Controller {
 //        $mostimportant_docx = $mostimportant -> render($xmlData, $ref);
 //        unset($mostimportant);
                
-//        $scoresAndPercentages = new scoresAndPercentages();
-//        $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData, $ref);
-//        unset($scoresAndPercentages);
+        $scoresAndPercentages = new scoresAndPercentages();
+        $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData, $ref);
+        unset($scoresAndPercentages);
                
 //        $percentiles_good = new percentiles();
 //        $percentiles_good_docx = $percentiles_good -> render($xmlData, $ref, 'green');

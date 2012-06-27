@@ -139,6 +139,7 @@ class percentages
                     $graphic_percentage_total[$key] = round($percentage_alle_scholen);
                 }
             }
+                var_dump($graphic_answer);
             ksort($graphic_data_peiling);
             ksort($graphic_data_alle_scholen);
             ksort($graphic_answer);
