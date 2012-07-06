@@ -80,7 +80,8 @@
             </div>
             <div class="list_container">
                 <div class="container_head">
-                    Geselecteerde vragen <div id="questionnaire_controls"></div> <button id="save_question_list" class="right">Opslaan</button>
+                    Geselecteerde vragen <div id="questionnaire_controls"></div> <button id="print_question_list"
+                    class="right">Printen</button><button id="save_question_list" class="right">Opslaan</button>
                 </div>
                 <div id="question_list_container" class="">
                     <li class="info error"></li>
