@@ -54,6 +54,7 @@
                     </ul>
             </form>
         </div>
+        <div id="print_area" data-role="page" class="hide"></div>
         <div data-role="page" id="typechoice">
             <div class="list_container">
                 <div class="container_head">

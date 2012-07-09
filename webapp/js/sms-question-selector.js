@@ -120,8 +120,21 @@ function wire_print_button() {
             string += process_print_question($(this));
         });
 
-        $('<div>' + string + '</div>').modal({position: ["50px","250px"]});
-        console.log(string);
+
+        var print =  window.open('','Print Window','width=600,height=600');
+        var html = '<html><head><title>Printen</title></head><body><div id="print_area">' + string + '</div></body></html>'
+        
+        print.document.open();
+        print.document.write(html);
+        print.print();
+        print.document.close();
+
+        return false;
+
+
+        //$('#print_area').append(string);
+        //$('.list_container').toggleClass('hide');
+        //$('#print_area').css('display', 'block');
     });
 }
 
