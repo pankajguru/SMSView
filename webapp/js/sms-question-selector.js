@@ -69,6 +69,7 @@ function select_survey_type() {
     wireTypeChange();
     wire_delete_question_button();
     wire_add_question_button();
+    wire_print_button();
 }
 
 function retrieve_questions_per_type(type) {
@@ -108,6 +109,27 @@ function retrieve_questions_per_type(type) {
             wire_save_question_list_button();
         }
     });
+}
+
+function wire_print_button() {
+    $('#print_question_list').click(function() {
+        var string = '';
+        var tmp = $('#question_list_container > ul').find('li');
+        $(tmp).children().remove();
+        $(tmp).each(function() {
+            string += process_print_question($(this));
+        });
+
+        $('<div>' + string + '</div>').modal({position: ["50px","250px"]});
+        console.log(string);
+    });
+}
+
+function process_print_question(node) {
+    var question = node;
+    var retrieved_values = 'Vraag: ' + question.text() + '<br />';
+
+    return retrieved_values;
 }
 
 function wireTypeChange() {
