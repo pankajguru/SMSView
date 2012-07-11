@@ -1,6 +1,6 @@
 <?php
 
-class scores
+class scoresBestuur
 {
 
     function render( &$data, $ref, $category='', $target_question='', $example='')
@@ -9,8 +9,9 @@ class scores
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
+        require_once ('features/scoresBestuur.php');
         $temp           = 'temp/';
-        $datastring     = $data['get_all_question_props'];
+        $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -40,10 +41,10 @@ class scores
                 continue;
             }
             if (!isset($question->{'statistics'}->{'percentage'})){
-                continue;
+//                continue;
             }
             if (count($question->{'statistics'}->{'percentage'}) == 0){
-                continue;
+//                continue;
             }
             if ($example != '') {
                 $valid_question_types = array('TEVREDEN', 'PTP_TEVREDEN');
@@ -187,7 +188,7 @@ class scores
             $question_count++;
         }
         if ($question_count > 0){
-            $filename = $temp.sanitize_filename('score'.$category.$target_question);
+            $filename = $temp.sanitize_filename('scoreBestuur'.$category.$target_question);
             
             $scores_docx->createDocx($filename);
             unset($scores_docx);

@@ -103,6 +103,7 @@ class satisfaction
         
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
+        $refs = json_decode($datastring)->{'refs'};
         $satisfaction_data  = json_decode($datastring)->{$type};
         
         //add graphic to docx
@@ -120,10 +121,15 @@ class satisfaction
             $paramsTextTable['text'] = html_entity_decode($satisfaction_data->{'peiling'}[$i][1],null, 'UTF-8');
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
-            foreach ($satisfaction_data as $key => $satisfaction_column){
+//            foreach ($question->{'refs'} as $reference){
+            foreach ($refs as $key){
                 if ($key == '_empty_'){
                     continue;
                 }
+                if (!isset($key)){
+                    continue;
+                }
+                $satisfaction_column = $satisfaction_data->{$key} ;
                 if ($key == 'alle_scholen'){
                     $paramsTextTableReference['text'] = '';
                     $text = $satisfaction_docx->addElement('addText', array());
@@ -158,10 +164,14 @@ class satisfaction
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
         $satisfaction_titles[0][] = $text;
         
-        foreach ($satisfaction_data as $key => $satisfaction_column){
+        foreach ($refs as $key){
                 if ($key == '_empty_'){
                     continue;
                 }
+                if (!isset($key)){
+                    continue;
+                }
+                $satisfaction_column = $satisfaction_data->{$key} ;
                 $column_count++;
                 if ($key == 'alle_scholen'){
                     $paramsTextTableReference['text'] = '';
@@ -233,10 +243,11 @@ class satisfaction
             $text->{'border'} = $paramsTable;
             $satisfaction_header[0][] = $text;
         }
-        $paramsTextTableHeader['text'] = '';
-        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
+        $paramsTextTableHeader['text'] = ' **';
+        $text = $satisfaction_docx->addElement('addText', array());
         $text->{'border'} = $paramsTableEmpty;
         $satisfaction_header[0][] = $text;
+
         $paramsTextTableHeaderReference['text'] = 'Referentie';
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeaderReference));
         $text->{'border'} = $paramsTableReference;

@@ -1,6 +1,6 @@
 <?php
 
-class percentages
+class percentagesBestuur
 {
 
     function render( &$data, $ref, $category='', $target_question='', $show_legend = FALSE, $example = FALSE)
@@ -10,7 +10,7 @@ class percentages
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
         $temp           = 'temp/';
-        $datastring     = $data['get_all_question_props'];
+        $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -18,6 +18,35 @@ class percentages
         //add graphic to docx
         $percentage_docx = new CreateDocx();
         
+        $paramsTextHeader = array(
+            'color' => '000000',
+            'font' => 'Century Gothic',
+            'border_color'=>'FFFFFF',
+            'sz' => 9.5,
+            'jc' => 'center'
+        );        
+
+        $paramsTextTable = array(
+            'color' => '000000',
+            'font' => 'Century Gothic',
+            'border_color'=>'000000',
+            'sz' => 9.5,
+            'jc' => 'center',
+            'border' => 'single'
+        );        
+
+        $paramsTextRefs = array(
+            'color' => '000000',
+            'font' => 'Century Gothic',
+            'border_color'=>'000000',
+            'sz' => 9.5,
+            'jc' => 'left'
+        );        
+
+        $widthTableCols = array(
+            2800,
+        );
+
         //create array iso object
         $all_questions_array = array();
         foreach($all_questions as $question_number=>$question){
@@ -27,6 +56,7 @@ class percentages
         ksort($all_questions_array);
         $first = TRUE;
         $question_count = 0;
+        $percentage_table = Array(Array(' '));
         $targeted = FALSE;
         foreach($all_questions_array as $question_number=>$question){
             if (($category != '') and ($category != $question->{'group_name'})){
@@ -41,6 +71,11 @@ class percentages
             if (count($question->{'statistics'}->{'percentage'}) == 0){
                 continue;
             }
+            $valid_question_types = array('TEVREDEN','PTP_TEVREDEN');
+            if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
+                continue;
+            }
+            $question_count++;
             $answer_count_peiling = 0;
             $answer_count_alle_scholen = 0;
             $text = array();
@@ -50,20 +85,6 @@ class percentages
                 'sz' => 10,
                 'font' => 'Century Gothic'
             );
-            if ($example != '') {
-                $valid_question_types = array('TEVREDEN', 'PTP_TEVREDEN');
-                if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-//                    continue;
-                }
-                if ($question_number == 1){
-                    continue;
-                }
-                if ($targeted){
-                    continue;
-                } else {
-                    $targeted = TRUE;
-                }
-            }
 
             if (($target_question == '') and ($first or ($question->{'group_name'} != $old_group_name))){
                 if (!$first){
@@ -87,93 +108,70 @@ class percentages
                     'sz' => 10,
                     'font' => 'Century Gothic'
             );
-            
-            $percentage_docx->addText($text);
 
-            $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{'peiling'};
-            $alle_scholen_distribution = $question->{'statistics'}->{'distribution'}->{'alle_scholen'};
-            $answer_peiling            = array();
-            $answer_alle_scholen            = array();
-            foreach ($peiling_distribution as $answer) {
-                $answer_count_peiling += $answer[2];
-                $answer_peiling[$answer[0]] = $answer;
-            }
-            foreach ($alle_scholen_distribution as $answer) {
-                $answer_count_alle_scholen += $answer[2];
-                $answer_alle_scholen[$answer[0]] = $answer;
-            }
-            $graphic_data_peiling      = array();
-            $graphic_data_alle_scholen = array();
-            $graphic_answer            = array();
-            $graphic_answered          = array();
-            $graphic_percentage        = array();
-            $graphic_percentage_total  = array();
-            //TODO:: get list of answers from definition
-//            var_dump($question);
-            foreach ($question->{'statistics'}->{'percentage'} as $key=>$answer){
-                //all questions are here
-                if ($answer_count_peiling == 0){
-                    continue;
+
+
+            $percentage_table[0][$question_count] = filter_text($question->{'short_description'});
+
+//            var_dump($question->{'statistics'}->{'distribution'});
+            $ref_count = 1;
+            $widthTableCols[$question_count] = 1000;
+            foreach ($question->{'refs'} as $reference){
+//                var_dump($question->{'statistics'}->{'distribution'}->{$reference});
+                $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{$reference};
+                $answer_peiling            = array();
+                foreach ($peiling_distribution as $answer) {
+                    $answer_count_peiling += $answer[2];
+                    $answer_peiling[$answer[0]] = $answer;
                 }
-                $answer_text = $answer->{'value'}->{'description'};
-                if (strlen($answer_text)>23){
-                    $answer_text = substr($answer_text, 0, 20).'...';
+                //add references to first column
+                $percentage_table[$ref_count][0] = filter_text($reference);
+//                var_dump($answer_peiling[4]);
+                $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
+                $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
+                if ($satisfied + $unsatisfied > 0){
+                    $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
+                    $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
+                } else {
+//                    continue;
                 }
-                $graphic_answer[$key] = htmlspecialchars_decode($answer_text);
-                $answered = (isset($answer_peiling[$key])) ? $answer_peiling[$key][2] : 0;
-                $percentage_peiling = $answered / $answer_count_peiling * 100;
-                $graphic_data_peiling[$key] = $percentage_peiling;
-                //get perc from all schools
-                if ($ref['alle_scholen']){
-                    if (isset($answer_alle_scholen[$key]) && ($answer_count_alle_scholen != 0)){
-                        $percentage_alle_scholen = $answer_alle_scholen[$key][2] / $answer_count_alle_scholen * 100;
-                        $graphic_data_alle_scholen[$key] = $percentage_alle_scholen;
-                    } else {
-                        $percentage_alle_scholen = 0;
-                        $graphic_data_alle_scholen[$key] = 0;
-                    }
+                if ($satisfied_percentage < 75){
+                    $paramsTextTable['cell_color'] = 'FF5050';
+                } elseif ($satisfied_percentage < 85) {
+                    $paramsTextTable['cell_color'] = 'FFCC66';
+                } elseif ($satisfied_percentage < 95) {
+                    $paramsTextTable['cell_color'] = 'CCFF99';
+                } else {
+                    $paramsTextTable['cell_color'] = '99CC00';
                 }
-                $graphic_answered[$key] = $answered;
-                $graphic_percentage[$key] = round($percentage_peiling);
-                if ($ref['alle_scholen']){
-                    $graphic_percentage_total[$key] = round($percentage_alle_scholen);
-                }
-            }
-            ksort($graphic_data_peiling);
-            ksort($graphic_data_alle_scholen);
-            ksort($graphic_answer);
-            ksort($graphic_answered);
-            ksort($graphic_percentage);
-            ksort($graphic_percentage_total);            
-            if (isset($all_questions_array[$question_number + 1])){
-                $next_groupname = $all_questions_array[$question_number + 1];
-                if ($all_questions_array[$question_number + 1]->{'group_name'} != $question->{'group_name'}){
-                    $show_legend = TRUE;
-                }
-            } else {
-                $show_legend = TRUE;
+                $text = $satisfied_percentage . ' / ' . $unsatisfied_percentage;
+                $paramsTextTable['text'] = $text;
+                $text_table = $percentage_docx->addElement('addText', array($paramsTextTable));
+                $percentage_table[$ref_count][$question_count] = $text_table;
+                $ref_count++;
             }
             
-            $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $schoolname, $temp);
-    
-            $paramsImg = array(
-                'name' => $percentage_graphic,
-                'scaling' => 50,
-                'spacingTop' => 0,
-                'spacingBottom' => 0,
-                'spacingLeft' => 0,
-                'spacingRight' => 0,
-                'textWrap' => 0,
-//                'border' => 0,
-//                'borderDiscontinuous' => 1
-            );
-            $percentage_docx->addImage($paramsImg);
+ 
+           
                         
-            $question_count++;
         }
+
+        //draw table
+        $paramsTable = array(
+            'border' => 'none',
+            'border_sz' => 20,
+            'border_spacing' => 0,
+            'border_color' => '000000',
+            'jc' => 'left',
+            'size_col' => $widthTableCols,
+        );
+//        var_dump($percentage_table);
+        $percentage_docx->addTable($percentage_table, $paramsTable);
+        
+            
         if ($question_count > 0){
 //            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
-            $filename = $temp.sanitize_filename('percentage'.$category.$target_question);
+            $filename = $temp.sanitize_filename('percentageBestuur'.$category.$target_question);
             $percentage_docx->createDocx($filename);
             unset($percentage_docx);
             return $filename.'.docx';

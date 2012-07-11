@@ -28,7 +28,7 @@ class satisfactionImportance {
 
         $satisfaction_data = Array();
         $importance_data = Array();
-        $category_data = Array();
+        $category_data = $satisfaction_data['refs'];
         foreach ($dataSatisfaction as $key => $reference){
             if ($key == '_empty_'){
                     continue;
@@ -50,7 +50,7 @@ class satisfactionImportance {
                     continue;
                 }
                 $importance_data[$key][] = Scale10($ref_value[2], $scale_factor_importance);
-                $category_data[$key][] = $ref_value[1];
+//                $category_data[$key][] = $ref_value[1];
             }
         }
         
