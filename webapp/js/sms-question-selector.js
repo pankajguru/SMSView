@@ -116,8 +116,10 @@ function wire_print_button() {
         var string = '';
         var tmp = $('#question_list_container > ul').find('li');
         $(tmp).children().remove();
+        var i = 1;
         $(tmp).each(function() {
-            string += process_print_question($(this));
+            string += process_print_question($(this), i);
+            i++;
         });
 
 
@@ -138,9 +140,9 @@ function wire_print_button() {
     });
 }
 
-function process_print_question(node) {
+function process_print_question(node, i) {
     var question = node;
-    var retrieved_values = 'Vraag: ' + question.text() + '<br />';
+    var retrieved_values = 'Vraag ' + i +' : ' + question.text() + '<br />';
 
     return retrieved_values;
 }
