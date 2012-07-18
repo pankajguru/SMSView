@@ -123,7 +123,7 @@ function wire_print_button() {
         });
 
 
-        var print =  window.open('','Print Window','width=600,height=600');
+        var print =  window.open('','Print','width=600,height=600');
         var html = '<html><head><title>Printen</title></head><body><div id="print_area">' + string + '</div></body></html>'
         
         print.document.open();
