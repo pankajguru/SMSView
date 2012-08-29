@@ -128,6 +128,49 @@ class Sms_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    function get_peilingen_not_calculated(){
+    	$question_results = $this -> db -> select('peiling_id')->distinct()-> from('question_result');
+		$peiling_ids = Array(0);
+		foreach ($question_results->get()->result() as $row)
+		{
+		    $peiling_ids[] = $row->peiling_id;
+		}
+        $peilingen = $this -> db -> select('id, type_id')  -> from('peiling') -> where ('status_id',6) -> where_not_in('peiling.id', $peiling_ids) -> limit(100);
+        return $peilingen->get()->result();
+    }
+
+    function set_calculated_result($peiling_id, $question_id){
+    	//first get result
+    	$data = array(
+			'peiling_id' => $peiling_id,
+			'question_id' => $question_id
+		);
+    	$query = $this -> db -> select(
+    		'vt.min_value,
+    		vt.max_value,
+    		round((avg(a.value) - (std(a.value)/2)), 4) as lower_deviation,
+			round(avg(a.value), 4) as average,
+			round((avg(a.value) + (std(a.value)/2)), 4) as upper_deviation,
+			count(*) as number_of_answers', FALSE
+			) -> from('antwoord a')
+			->join('vraag v', 'v.id = a.vraag_id')
+			->join('vraag_type vt', 'vt.id = v.vraag_type_id')
+			->join('peiling p', 'a.peiling_id=p.id')
+			->where('p.id',$peiling_id)
+			->where('a.vraag_id', $question_id)
+			->where('a.value between vt.min_value and vt.max_value')
+			->group_by(array('p.school_id','p.jaar'));
+        $query = $this -> db -> get();
+        foreach ($query -> result() as $row){
+        	$data['average'] = $row->{'average'};
+        	$data['number_of_answers'] = $row->{'number_of_answers'};
+        };
+		//then store the result
+		$this -> db -> insert('question_result', $data);
+    	return $data['average'];
+	}
+    
+
     public function insert_questionaire($questionaire_object) {
         $response = array('success' => false, 'status' => '');
         //$this->_error_dump($questionaire_object);
