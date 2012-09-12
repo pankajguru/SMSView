@@ -70,6 +70,13 @@
 	<h1>SMSView</h1>
 
 	<div id="body">
+		<p>Hieronder kunnen de waardes aangegeven worden om een grafiek voor een pannelgesprek te maken. Op elke regel moeten 3 velden staan, gescheiden door een komma:</p>
+		<ol>
+			<li>de beschrijving voor de linker aanduiding</li>
+			<li>de waarde tussen 0 en 5 en een punt als decimaal seperator (bijvoorbeeld: 3.54)</li>
+			<li>de waarde voor de rechter aanduiding</li>
+		</ol>
+		<p>Er is al een voorbeeld ingesteld. Als de waardes kloppen, klik dan op 'maak grafiek' </p>
 		<?php echo form_open('web/graphics/panelgesprekken'); ?>
 		<?php echo form_textarea(array('value' => $graphic_data, 'name' => 'input_text')); ?>
 		<?php echo form_submit('create_graphic', 'Maak grafiek'); ?>
