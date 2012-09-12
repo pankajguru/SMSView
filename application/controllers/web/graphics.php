@@ -16,6 +16,7 @@ class Graphics extends CI_Controller {
 	public function panelgesprekken()
 	{
 		$this->load->helper('form');
+		$this->load->helper('url');
 		
 		$data['content'] = '';
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -39,7 +40,7 @@ class Graphics extends CI_Controller {
 									"weinig begeleiding,4,veel begeleiding\n";
 		}
 		
-		$data['graphic'] = $this->_create_panel_gesprekken_graphic(trim($data['graphic_data']));
+		$data['graphic'] = base_url($this->_create_panel_gesprekken_graphic(trim($data['graphic_data'])));
 		
 		$this->load->view('web/panelgesprekken.php', $data);
 	}
@@ -124,7 +125,7 @@ class Graphics extends CI_Controller {
 
         $myPicture -> render("temp/previous.png");
 
-        return "/temp/previous.png";
+        return "temp/previous.png";
 	}
 }
 
