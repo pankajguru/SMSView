@@ -46,10 +46,10 @@
                 </p>
                     <ul id="login_options">
                         <li>           
-                            <a href="http://smsview/index.php/auth/forgot_password">Wachtwoord vergeten</a>   
+                            <?php echo anchor('/auth/forgot_password', 'Wachtwoord vergeten'); ?>
                         </li>
                         <li>     
-                            <a href="http://smsview/index.php/auth/register">Registreer</a>
+                            <?php echo anchor('/auth/register', 'Registreer'); ?>
                         </li>
                     </ul>
             </form>

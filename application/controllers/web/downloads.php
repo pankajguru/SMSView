@@ -9,7 +9,8 @@ class Downloads extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['content'] = 'test';
+		$this->load->view('web/default.php', $data);
 	}
 }
 

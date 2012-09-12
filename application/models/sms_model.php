@@ -135,7 +135,7 @@ class Sms_model extends CI_Model {
 		{
 		    $peiling_ids[] = $row->peiling_id;
 		}
-        $peilingen = $this -> db -> select('id, type_id')  -> from('peiling') -> where ('status_id',6) -> where_not_in('peiling.id', $peiling_ids) -> limit(100);
+        $peilingen = $this -> db -> select('id, type_id')  -> from('peiling') -> where ('status_id',6) -> where_not_in('peiling.id', $peiling_ids) -> limit(5000);
         return $peilingen->get()->result();
     }
 
