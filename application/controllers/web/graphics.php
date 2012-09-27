@@ -82,10 +82,10 @@ class Graphics extends CI_Controller {
 						$right[] = trim($line_data[1]);
 					} else {
 						if ($line_data[$ld_key] > 0){
-							$values[$ld_key - 2][] = $line_data[$ld_key];
+							$values[$ld_key - 2][$key] = $line_data[$ld_key];
 						} else {
-							$values[$ld_key - 2][] = null;
-						}
+							$values[$ld_key - 2][$key] = VOID;
+													}
 					}
 				}
 			}
@@ -140,6 +140,8 @@ class Graphics extends CI_Controller {
             "PlotSize"=>5,
             "PlotBorder"=>TRUE,
             "BorderSize"=>1,
+            "BreakVoid"=>FALSE,
+            "VoidTicks" =>0
             ));
         $myPicture->drawPlotChart(array(
             "PlotSize"=>5,
