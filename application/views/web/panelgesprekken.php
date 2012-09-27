@@ -79,6 +79,13 @@
 		<p>Er is al een voorbeeld ingesteld. Als de waardes kloppen, klik dan op 'maak grafiek' </p>
 		<?php echo form_open('web/graphics/panelgesprekken'); ?>
 		<?php echo form_textarea(array('value' => $graphic_data, 'name' => 'input_text')); ?>
+		<?php echo '<br>Teken grootte: '.form_input(array(
+              'name'        => 'fontsize',
+              'value'       => '24',
+              'maxlength'   => '100',
+              'size'        => '50',
+            ));
+		 ?>
 		<?php echo form_submit('create_graphic', 'Maak grafiek'); ?>
 		<?php echo form_close(); ?>
 		<img width="700px" src="<?php echo $graphic; ?>">

@@ -20,8 +20,10 @@ class Graphics extends CI_Controller {
 		
 		$data['content'] = '';
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$fontsize = $this->input->post('fontsize');
 			$data['graphic_data'] =  $this->input->post('input_text');
 		} else {
+			$fontsize = 24;
 			$data['graphic_data'] = "Links,rechts,lijst 1, lijst 2\n".
 									"vrij,streng,2.5,3\n".
 									"progressief,traditioneel, 3.5, 4\n".
@@ -41,12 +43,12 @@ class Graphics extends CI_Controller {
 									"weinig begeleiding,veel begeleiding,4,4\n";
 		}
 		
-		$data['graphic'] = base_url($this->_create_panel_gesprekken_graphic(trim($data['graphic_data'])));
+		$data['graphic'] = base_url($this->_create_panel_gesprekken_graphic(trim($data['graphic_data']),$fontsize));
 		
 		$this->load->view('web/panelgesprekken.php', $data);
 	}
 
-	private function _create_panel_gesprekken_graphic($graphic_data)
+	private function _create_panel_gesprekken_graphic($graphic_data, $fontsize)
 	{
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -79,7 +81,11 @@ class Graphics extends CI_Controller {
 					} elseif ($ld_key === 1) {
 						$right[] = trim($line_data[1]);
 					} else {
-						$values[$ld_key - 2][] = $line_data[$ld_key];
+						if ($line_data[$ld_key] > 0){
+							$values[$ld_key - 2][] = $line_data[$ld_key];
+						} else {
+							$values[$ld_key - 2][] = null;
+						}
 					}
 				}
 			}
@@ -119,7 +125,7 @@ class Graphics extends CI_Controller {
         $RectangleSettings = array("R"=>254,"G"=>204,"B"=>52,"Alpha"=>100,"Surrounding"=>30,"Ticks"=>2);
 		$myPicture->drawFilledRectangle(670,111,830,$pictureHeigth-100,$RectangleSettings);
 
-        $myPicture->setGraphArea(450,110,1050,$pictureHeigth-100);
+        $myPicture->setGraphArea(470,110,1030,$pictureHeigth-100);
 
         $myPicture->drawScale(array(
             "ManualScale" => $AxisBoundaries,
@@ -143,8 +149,8 @@ class Graphics extends CI_Controller {
         $myPicture->setShadow(FALSE);
 
         for ($i=0;$i<count($left);$i++){
-            $myPicture->drawText(440, 138 + ($i)*54,$left[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-            $myPicture->drawText(1060, 138 + ($i)*54,$right[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+            $myPicture->drawText(440, 138 + ($i)*54,$left[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => $fontsize, "DrawBox" => FALSE));
+            $myPicture->drawText(1060, 138 + ($i)*54,$right[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => $fontsize, "DrawBox" => FALSE));
         }
 		
 		$myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
