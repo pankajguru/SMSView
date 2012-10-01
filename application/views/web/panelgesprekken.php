@@ -80,8 +80,22 @@
 		<?php echo form_open('web/graphics/panelgesprekken'); ?>
 		<?php echo form_textarea(array('value' => $graphic_data, 'name' => 'input_text')); ?>
 		<?php echo '<br>Teken grootte: '.form_input(array(
-              'name'        => 'fontsize',
+              'name'        => $fontsize,
               'value'       => '24',
+              'maxlength'   => '100',
+              'size'        => '50',
+            ));
+		 ?>
+		<?php echo '<br>Lijn dikte (1 of 2 of 3 of ....): '.form_input(array(
+              'name'        => $linesize,
+              'value'       => '2',
+              'maxlength'   => '100',
+              'size'        => '50',
+            ));
+		 ?>
+		<?php echo '<br>Ruimte tussen stippels (1 voor hele lijn): '.form_input(array(
+              'name'        => $lineticks,
+              'value'       => '1',
               'maxlength'   => '100',
               'size'        => '50',
             ));

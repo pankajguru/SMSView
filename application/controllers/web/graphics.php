@@ -20,10 +20,15 @@ class Graphics extends CI_Controller {
 		
 		$data['content'] = '';
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$fontsize = $this->input->post('fontsize');
+			$data['fontsize'] = $this->input->post('fontsize');
 			$data['graphic_data'] =  $this->input->post('input_text');
+			$data['lineticks'] = $this->input->post('lineticks');
+			$data['linesize'] = $this->input->post('linesize');
+			
 		} else {
-			$fontsize = 24;
+			$data['fontsize'] = 24;
+			$data['lineticks'] = 1;
+			$data['linesize'] = 2;
 			$data['graphic_data'] = "Links,rechts,lijst 1, lijst 2\n".
 									"vrij,streng,2.5,3\n".
 									"progressief,traditioneel, 3.5, 4\n".
@@ -43,12 +48,12 @@ class Graphics extends CI_Controller {
 									"weinig begeleiding,veel begeleiding,4,4\n";
 		}
 		
-		$data['graphic'] = base_url($this->_create_panel_gesprekken_graphic(trim($data['graphic_data']),$fontsize));
+		$data['graphic'] = base_url($this->_create_panel_gesprekken_graphic(trim($data['graphic_data']),$data['fontsize'],$data['fontsize'],$data['lineticks']));
 		
 		$this->load->view('web/panelgesprekken.php', $data);
 	}
 
-	private function _create_panel_gesprekken_graphic($graphic_data, $fontsize)
+	private function _create_panel_gesprekken_graphic($graphic_data, $fontsize, $linesize, $lineticks)
 	{
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
@@ -91,10 +96,20 @@ class Graphics extends CI_Controller {
 			}
 		}
        	$myData = new pData();
-
+       	$myDataLine = new pData();
+		$shapes = array(SERIE_SHAPE_FILLEDCIRCLE,SERIE_SHAPE_FILLEDTRIANGLE,SERIE_SHAPE_FILLEDSQUARE,SERIE_SHAPE_FILLEDDIAMOND,SERIE_SHAPE_CIRCLE,SERIE_SHAPE_TRIANGLE,SERIE_SHAPE_SQUARE,SERIE_SHAPE_DIAMOND);
 		foreach($values as $key => $value){
-	        $myData->addPoints($values[$key],$legend[$key]);
-			$myData->setSerieWeight($legend[$key],2);
+			if ($key == 0){
+		        $myData->addPoints($values[$key],$legend[$key]);
+				$myData->setSerieWeight($legend[$key],2);
+				$myData->setSerieTicks($legend[$key],$lineticks);
+			} else {
+	    	    $myData->addPoints($values[$key],$legend[$key]);
+				$myData->setSerieWeight($legend[$key],2);
+				$myData->setSerieDrawable($legend[$key],FALSE);
+				$myData->setSerieShape($legend[$key],$shapes[$key+1]);
+			}
+			
 		}
 		
 		$myData->loadPalette("pChart/palettes/panelgesprekken.color", TRUE);
@@ -124,7 +139,7 @@ class Graphics extends CI_Controller {
 
         $RectangleSettings = array("R"=>254,"G"=>204,"B"=>52,"Alpha"=>100,"Surrounding"=>30,"Ticks"=>2);
 		$myPicture->drawFilledRectangle(670,111,830,$pictureHeigth-100,$RectangleSettings);
-
+		
         $myPicture->setGraphArea(470,110,1030,$pictureHeigth-100);
 
         $myPicture->drawScale(array(
@@ -135,6 +150,7 @@ class Graphics extends CI_Controller {
             "MinDivHeight" => 100,
             "RemoveXAxis" => TRUE
         ));
+
         $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         $myPicture->drawLineChart(array(
             "PlotSize"=>5,
@@ -143,6 +159,13 @@ class Graphics extends CI_Controller {
             "BreakVoid"=>FALSE,
             "VoidTicks" =>0
             ));
+		foreach($values as $key => $value){
+			if ($key == 0){
+				$myData->setSerieDrawable($legend[$key],FALSE);
+			} else {
+				$myData->setSerieDrawable($legend[$key],TRUE);
+			}
+		}
         $myPicture->drawPlotChart(array(
             "PlotSize"=>5,
             "PlotBorder"=>TRUE,
