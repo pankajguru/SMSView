@@ -126,6 +126,7 @@ class Graphics extends CI_Controller {
 				$myData->setSerieDrawable($legend[$key],FALSE);
 				$myData->setSerieShape($legend[$key],$shapes[$key+1]);
 			}
+			print $legend[$key]."<br>";
 			
 		}
 		
@@ -196,7 +197,7 @@ class Graphics extends CI_Controller {
         }
 		
 		$myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
-		$myPicture->drawLegend(400,$pictureHeigth-50,array("Style"=>LEGEND_ROUND,"Mode"=>LEGEND_HORIZONTAL,"R"=>173,"G"=>173,"B"=>173,"BorderR"=>255, "BorderG"=>0, "BorderB"=>0,"Margin"=>10,"Surrounding"=>200,"Family"=>LEGEND_FAMILY_CIRCLE));
+		$myPicture->drawLegend(100,$pictureHeigth-50,array("Style"=>LEGEND_ROUND,"Mode"=>LEGEND_HORIZONTAL,"R"=>173,"G"=>173,"B"=>173,"BorderR"=>255, "BorderG"=>0, "BorderB"=>0,"Margin"=>10,"Surrounding"=>200,"Family"=>LEGEND_FAMILY_CIRCLE));
 //		$myPicture->drawLegend(400,$pictureHeigth-50);
 
         $myPicture -> render("temp/previous.png");
