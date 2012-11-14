@@ -107,7 +107,8 @@ class Questions extends REST_Controller {
         } else {
             $base_dir = "/home/foo/production/sms";
             $peiling_type_id = $result['peiling_type_id'];
-            system("cp -r $base_dir/utilities/scan $base_dir/report/special/scan/MUIS_$peiling_type_id");
+            system("mkdir $base_dir/report/special/scan/MUIS_$peiling_type_id");
+            system("cp -r $base_dir/utilities/scan/* $base_dir/report/special/scan/MUIS_$peiling_type_id/");
             $questions = array();
             exec("$base_dir/tasks/foo/create-form-abstract.pl MUIS_$peiling_type_id", $questions);
             $questions_string = implode("\n",$questions);
