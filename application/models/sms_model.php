@@ -278,14 +278,23 @@ class Sms_model extends CI_Model {
         //store answers    
         //get max id van vraag
         $vraag_type_id = $this->_get_new_id('vraag_type');
-        $value = 1;
+        $value = 0;
         $label_lo = '';
         $label_hi = '';
+		if (count($answers) > 0){
+            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
+            $vraag_type_definition = array(
+                'id' => $vraag_type_definition_id,
+                'vraag_type_id' => $vraag_type_id,
+                'value' => $value++, 
+                'description' => 'Niets ingevuld'               
+            );
+            $this->db->insert('vraag_type_definition', $vraag_type_definition); 
+		}
         foreach($answers as $answer){
             $label_lo = $answers[0]; //if there are answers, the foirst one exists
             $label_hi = $answer; //label_hi will at last be set with the last answer
             //store answers
-            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
             $vraag_type_definition = array(
                 'id' => $vraag_type_definition_id,
                 'vraag_type_id' => $vraag_type_id,
