@@ -25,5 +25,19 @@ class Questions extends CI_Controller {
         }
         
     }
+
+    public function all_questions_get_by_report_type_id($report_type_id) {
+        if (!$this -> tank_auth -> is_logged_in()) {                                 // logged in
+            //$this->response($this->_log_in_first(), 200);
+        }
+
+        $questions = $this -> Sms_model -> get_all_questions_by_report_type_id($report_type_id);
+        foreach ($questions as $question) {
+            //$question -> answers = $this -> Sms_model -> get_question_properties($question -> vraag_type_id);
+            print $question->description.'<br>';
+        }
+        
+    }
+
 }
 

@@ -123,12 +123,12 @@ class reportmark
             }
             $average_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][3]*10; //should come from data
             $number_of_respondents_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][5]; //should come from data
-            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:peiling", sprintf('%.1f',$average_peiling/10));
+            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:peiling", sprintf('%.2f',$average_peiling/10));
             $docx -> addTemplateVariable("class:questionProperties:reportmark:number_of_respondents:peiling", strval($number_of_respondents_peiling));
 
             $average_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][3]*10; //should come from data
             $number_of_respondents_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][5]; //should come from data
-            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:alle_scholen", sprintf('%.1f',$average_alle_scholen/10));
+            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:alle_scholen", sprintf('%.2f',$average_alle_scholen/10));
             $docx -> addTemplateVariable("class:questionProperties:reportmark:number_of_respondents:alle_scholen", strval($number_of_respondents_alle_scholen));
 
             $difference = ($average_peiling == $average_alle_scholen) ? "gelijk aan" : ($average_peiling > $average_alle_scholen)

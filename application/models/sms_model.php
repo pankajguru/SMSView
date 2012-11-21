@@ -77,6 +77,20 @@ class Sms_model extends CI_Model {
         return $query -> result();
     }
 
+    function get_all_questions_by_report_type_id($report_type_id) {
+        //maak functie waarbij alle vragen opgehaald worden
+        $this -> db -> select('vraag_type.desc_code as question_type_desc_code, vraag.*, vraag.id as question_id, vraag.description as question_description, vraag_group.description as category_name, vraag_group.id as category_id') 
+            -> from('vraag') -> join('base_type', 'vraag.base_type_id = base_type.id') 
+            -> join('vraag_group', 'vraag_group.id=vraag_groep_id') 
+            -> join('vraag_type', 'vraag_type.id=vraag.vraag_type_id') 
+            -> join('report_type_definition', 'vraag.id=report_type_definition.question_id') 
+            -> where('report_type_definition.report_type_id', $report_type_id)
+            -> order_by('category_id', 'asc')
+            -> order_by('question_type_desc_code','desc');
+        $query = $this -> db -> get();
+        return $query -> result();
+    }
+
     function get_question_properties($question_type_id) {
         $this -> db -> from('vraag_type_definition') -> where('vraag_type_id', $question_type_id)->order_by('value');
         $query = $this -> db -> get();
