@@ -44,7 +44,7 @@ class reportmark
                     continue;
                 }
                 $average = $question->{'statistics'}->{'averages'}->{$reference};
-                $average_value = round(($average[0][3]*10))/10;
+                $average_value = round(($average[0][3]*100))/100;
                 
                 if (is_null($average_value)){
                     continue;
@@ -132,8 +132,8 @@ class reportmark
             $docx -> addTemplateVariable("class:questionProperties:reportmark:number_of_respondents:alle_scholen", strval($number_of_respondents_alle_scholen));
 
             $difference = ($average_peiling == $average_alle_scholen) ? "gelijk aan" : ($average_peiling > $average_alle_scholen)
-                                ? sprintf("%.1f punt hoger dan", (round($average_peiling) - round($average_alle_scholen))/10)
-                                : sprintf("%.1f punt lager dan", (round($average_alle_scholen) - round($average_peiling))/10);
+                                ? sprintf("%.2f punt hoger dan", (round($average_peiling) - round($average_alle_scholen))/10)
+                                : sprintf("%.2f punt lager dan", (round($average_alle_scholen) - round($average_peiling))/10);
             $docx -> addTemplateVariable("class:questionProperties:reportmark:difference", $difference);
             break;
         }
@@ -234,8 +234,12 @@ class reportmark
             "OverrideColors"=>$Palette  ,
             "Interleave"=>0                      
         ));
+		var_dump($myPicture -> DataSet -> Data["Series"]);
+		$imageData = $myPicture -> DataSet -> Data["Series"]['Answers']["ImageData"];
+		
         for ($i=0;$i<count($graphic_data_text);$i++){
-            $myPicture->drawText(20, 62 + ($i)*57,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
+            $Y = $imageData[$i][3] - 30;
+            $myPicture->drawText(20, $Y,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         }
         
         $myPicture->render($temp . "reportmark$question_number.png");

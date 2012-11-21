@@ -5286,6 +5286,7 @@ class pDraw {
                             } else {
                                 if ($RecordImageMap) { $this -> addToImageMap("RECT", floor($X + $XOffset + $XSpace) . "," . floor($Y1) . "," . floor($X + $XOffset + $XSize - $XSpace) . "," . floor($Y2), $this -> toHTMLColor($R, $G, $B), $SerieDescription, $this -> scaleFormat($Serie["Data"][$Key], $Mode, $Format, $Unit));
                                 }
+                                $this -> DataSet -> Data["Series"][$SerieName]["ImageData"][] = array($X + $XOffset + $XSpace, $Y1, $X + $XOffset + $XSize - $XSpace, $Y2);
 
                                 if ($Rounded)
                                     $this -> drawRoundedFilledRectangle($X + $XOffset + $XSpace, $Y1, $X + $XOffset + $XSize - $XSpace, $Y2, $RoundRadius, $Color);
@@ -5428,6 +5429,7 @@ class pDraw {
                             } else {
                                 if ($RecordImageMap) { $this -> addToImageMap("RECT", floor($X1) . "," . floor($Y + $YOffset + $YSpace) . "," . floor($X2) . "," . floor($Y + $YOffset + $YSize - $YSpace), $this -> toHTMLColor($R, $G, $B), $SerieDescription, $this -> scaleFormat($Serie["Data"][$Key], $Mode, $Format, $Unit));
                                 }
+                                $this -> DataSet -> Data["Series"][$SerieName]["ImageData"][$Key] = array($X1, $Y + $YOffset + $YSpace, $X2, $Y + $YOffset + $YSize - $YSpace);
 
                                 if ($Rounded)
                                     $this -> drawRoundedFilledRectangle($X1 + 1, $Y + $YOffset + $YSpace, $X2, $Y + $YOffset + $YSize - $YSpace, $RoundRadius, $Color);
