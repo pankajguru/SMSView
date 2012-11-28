@@ -4,6 +4,7 @@
 captcha/*.jpg
 .project
 .settings/*
+.DS_Store
 webapp/js/config.js
 application/config/database.php
 temp
