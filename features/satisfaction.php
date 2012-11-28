@@ -105,7 +105,7 @@ class satisfaction
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $refs = json_decode($datastring)->{'refs'};
         $satisfaction_data  = json_decode($datastring)->{$type};
-        
+
         //add graphic to docx
         $satisfaction_docx = new CreateDocx();
         
@@ -123,6 +123,7 @@ class satisfaction
             $satisfaction_table[$i][$count++] = $text; //title
 //            foreach ($question->{'refs'} as $reference){
             foreach ($refs as $key){
+            	print $key."\n";
                 if ($key == '_empty_'){
                     continue;
                 }

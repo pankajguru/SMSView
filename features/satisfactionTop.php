@@ -14,6 +14,8 @@ class satisfactionTop
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
+		$tevreden_array = preg_split('/,/', $tevreden);
+		$belangrijk_array = preg_split('/,/', $belangrijk);
 
         $paramsTextTitles = array(
             'b' => 'double',
@@ -106,7 +108,7 @@ class satisfactionTop
         //get right stuff from all_questions
         $satisfaction_array = array();
         foreach($all_questions as $question){
-            if ($question->{'question_type'}[0][1] != $tevreden){continue;};
+            if (!in_array($question->{'question_type'}[0][1], $tevreden_array)){continue;};
             if ($top){
                 $satisfaction_array[] = array(
                     'vraag' => filter_text($question->{'short_description'}),

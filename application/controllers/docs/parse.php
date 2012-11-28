@@ -315,17 +315,17 @@ class Parse extends CI_Controller {
 //        $scores_example_docx = $scoresExample -> render($xmlData, $ref, "", '', TRUE);
 //        unset($scoresExample);
 
-        $reportmark = new reportmark();
-        $reportmark_docx = $reportmark -> render($xmlData, $ref);
-        unset($reportmark);
+//        $reportmark = new reportmark();
+//        $reportmark_docx = $reportmark -> render($xmlData, $ref);
+//        unset($reportmark);
         
 //        $importance = new satisfaction();
 //        $importance_docx = $importance -> render($xmlData, $ref, 'importance');
 //        unset($importance);
 
-//        $satisfaction = new satisfaction();
-//        $satisfaction_docx = $satisfaction -> render($xmlData, $ref, 'satisfaction');
-//        unset($satisfaction);
+        $satisfaction = new satisfaction();
+        $satisfaction_docx = $satisfaction -> render($xmlData, $ref, 'satisfaction');
+        unset($satisfaction);
        
         
 //        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
@@ -417,13 +417,13 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "reportmark") {
-                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
 //                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-//                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "importance") {
 //                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');

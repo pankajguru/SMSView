@@ -41,14 +41,16 @@ function get_importance_categories($data){
     $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
     $datastring     = str_replace('\\\'', '\'', $datastring);
     $all_questions  = json_decode($datastring);
+	$tevreden_array = preg_split('/,/', $tevreden);
+	$belangrijk_array = preg_split('/,/', $belangrijk);
 
     $categories = array();
     $importance_categories = array();
     foreach($all_questions as $question_number=>$question){
-        if ($question->{'question_type'}[0][1] == $tevreden){
+        if (in_array($question->{'question_type'}[0][1], $tevreden_array)){
             $categories[$question->{'group_id'}]['satisfaction'][] = $question_number;
         }
-        if ($question->{'question_type'}[0][1] == $belangrijk){
+        if (in_array($question->{'question_type'}[0][1], $belangrijk_array)){
             $categories[$question->{'group_id'}]['importance'][] = $question_number;
         }
     };
