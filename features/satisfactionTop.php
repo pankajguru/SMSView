@@ -136,7 +136,7 @@ class satisfactionTop
                 continue;
             }
             $count = 0;
-            $paramsTextTable['text'] = ($i+1).'. '.$satisfaction_array[$i]['vraag'];
+            $paramsTextTable['text'] = ($i+1).'. '.filter_text($satisfaction_array[$i]['vraag']);
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
 
