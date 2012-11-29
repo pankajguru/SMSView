@@ -26,15 +26,15 @@ class satisfactionSummary {
             if (in_array($question->{'id'}, $satisfactionArray)){
                 if ( ($question->question_type[0][1] == 'TEVREDEN') || ($question->question_type[0][1] == 'PTP_TEVREDEN')){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'} . '% van de ouders is tevreden over ' . html_entity_decode($question->{'short_description'},null, 'UTF-8').'.';
+                        $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'} . '% van de ouders is tevreden over ' . filter_text($question->{'short_description'}).'.';
                 }
                 if ($question->question_type[0][1] == 'JA_NEE'){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . '% van de ouders  ' . html_entity_decode($question->{'short_description'},null, 'UTF-8').'.';
+                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . '% van de ouders  ' . filter_text($question->{'short_description'}).'.';
                 }
                 if ($question->question_type[0][1] == 'NEE_SOMS_VAAK'){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . '% van de ouders  ' . html_entity_decode($question->{'short_description'},null, 'UTF-8').'.';
+                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . '% van de ouders  ' . filter_text($question->{'short_description'}).'.';
                 }
             }
         }
