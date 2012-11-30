@@ -123,7 +123,6 @@ class satisfaction
             $satisfaction_table[$i][$count++] = $text; //title
 //            foreach ($question->{'refs'} as $reference){
             foreach ($refs as $key){
-            	print $key."\n";
                 if ($key == '_empty_'){
                     continue;
                 }

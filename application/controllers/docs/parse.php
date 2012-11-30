@@ -49,7 +49,7 @@ class Parse extends CI_Controller {
         $output_file = urldecode($output_file);
         $ref = array();
         $ref['question_based'] = TRUE;
-        $ref['vorige_peiling'] = TRUE;
+        $ref['vorige_peiling'] = FALSE;
         
         $temp           = 'temp/';
         if (!$template) {
@@ -270,10 +270,10 @@ class Parse extends CI_Controller {
         $output_file = urldecode($output_file);
         $temp           = 'temp/';
         $ref = array();
-        $ref['alle_scholen'] = TRUE;
+        $ref['alle_scholen'] = FALSE;
         $ref['obb'] = TRUE;
         $ref['question_based'] = TRUE;
-        $ref['vorige_peiling'] = TRUE;
+        $ref['vorige_peiling'] = FALSE;
         if($xml_source['report.type'] == 'OTP_B_0412'){
             $ref['bovenbouw'] = 'Lager onderwijs';
             $ref['onderbouw'] = 'Kleuteronderwijs';
@@ -369,9 +369,9 @@ class Parse extends CI_Controller {
 //        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
 //        unset($satisfactionSummary);
                
-//        $satisfactionImportance = new satisfactionImportance();
-//        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
-//        unset($satisfactionImportance);
+        $satisfactionImportance = new satisfactionImportance();
+        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
+        unset($satisfactionImportance);
                
 //        $scoresPercentagesBestuur = new scoresPercentagesBestuur();
 //        $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
@@ -423,7 +423,7 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "importance") {
 //                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');
@@ -454,7 +454,7 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
                 if ($variable == "satisfactionImportance") {
- //                   $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
                 }
                 if ($variable == "scoresPercentagesBestuur") {
 //                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
