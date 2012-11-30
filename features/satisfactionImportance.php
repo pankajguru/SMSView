@@ -104,16 +104,22 @@ class satisfactionImportance {
                     continue;
             }
                 if ($key == 'peiling'){
+                    $name = "$schoolname ";
                 } elseif ($key == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
+                    $name = "Vorige peiling ".$schoolname." ";
                 } elseif ($key == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
+                    $name = $ref['onderbouw']." ";
                 } elseif ($key == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
+                    $name = $ref['bovenbouw']." ";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
+                    $name ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
+                    $name = $reference.' ';
                 }
             if ($first){
                 $first = false;
@@ -132,7 +138,7 @@ class satisfactionImportance {
 
             $satisfactionImportance_docx->addText('',array());
 
-            $satisfactionImportance_docx->addText($key,array(
+            $satisfactionImportance_docx->addText($name,array(
                     'font' => 'Century Gothic',
                     'b' => 'single', 
                     'sz' => 10,
