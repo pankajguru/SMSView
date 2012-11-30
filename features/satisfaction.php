@@ -118,7 +118,7 @@ class satisfaction
             }
             $count = 0;
  //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
-            $paramsTextTable['text'] = html_entity_decode($satisfaction_data->{'peiling'}[$i][1],null, 'UTF-8');
+            $paramsTextTable['text'] = filter_text($satisfaction_data->{'peiling'}[$i][1]);
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
 //            foreach ($question->{'refs'} as $reference){

@@ -32,10 +32,10 @@ class summary {
                 $text = '';
                 foreach($category->top as $topkey => $top){
                     if ($topkey == 0){
-                        $text .= "Onze school wordt door relatief veel ouders gewaardeerd ten aanzien van '".html_entity_decode($top[1],null, 'UTF-8')."' (".round($top[2]*100)."% van de ouders is hierover tevreden).";
+                        $text .= "Onze school wordt door relatief veel ouders gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de ouders is hierover tevreden).";
                     }
                     if ($topkey == 1){
-                        $text .= "Ook zijn relatief veel ouders tevreden over '".html_entity_decode($top[1],null, 'UTF-8')."' (".round($top[2]*100)."%).";
+                        $text .= "Ook zijn relatief veel ouders tevreden over '".filter_text($top[1])."' (".round($top[2]*100)."%).";
                     }
                     
                 }
@@ -48,10 +48,10 @@ class summary {
                 $text = '';
                 foreach($category->bottom as $bottomkey => $bottom){
                     if ($bottomkey == 0){
-                        $text .= "Relatief veel ouders zijn ontevreden ten aanzien van '".html_entity_decode($bottom[1],null, 'UTF-8')."' (".round($bottom[2]*100)."%)";
+                        $text .= "Relatief veel ouders zijn ontevreden ten aanzien van '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
                     if ($bottomkey == 1){
-                        $text .= "en '".html_entity_decode($bottom[1],null, 'UTF-8')."' (".round($bottom[2]*100)."%)";
+                        $text .= "en '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
                 }
                 if ($text!= '') {
