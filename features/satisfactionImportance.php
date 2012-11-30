@@ -33,6 +33,18 @@ class satisfactionImportance {
             if ($key == '_empty_'){
                     continue;
             }
+                if ($key == 'peiling'){
+                } elseif ($key == 'vorige_peiling') {
+                    if (!$ref['vorige_peiling']) continue;
+                } elseif ($key == 'peiling_onderbouw') {
+                    if (!$ref['obb']) continue;
+                } elseif ($key == 'peiling_bovenbouw') {
+                    if (!$ref['obb']) continue;
+                } elseif ($key == 'alle_scholen') {
+                    if (!$ref['alle_scholen']) continue;
+                } else {
+                    if (!$ref['question_based']) continue;
+                }
             foreach($reference as $ref_key => $ref_value){
                 if (!in_array($ref_value[0], $importance_categories)){
                     continue;
@@ -45,6 +57,18 @@ class satisfactionImportance {
             if ($key == '_empty_'){
                     continue;
             }
+                if ($key == 'peiling'){
+                } elseif ($key == 'vorige_peiling') {
+                    if (!$ref['vorige_peiling']) continue;
+                } elseif ($key == 'peiling_onderbouw') {
+                    if (!$ref['obb']) continue;
+                } elseif ($key == 'peiling_bovenbouw') {
+                    if (!$ref['obb']) continue;
+                } elseif ($key == 'alle_scholen') {
+                    if (!$ref['alle_scholen']) continue;
+                } else {
+                    if (!$ref['question_based']) continue;
+                }
             foreach($reference as $ref_key => $ref_value){
                 if (!in_array($ref_value[0], $importance_categories)){
                     continue;
@@ -80,24 +104,17 @@ class satisfactionImportance {
                     continue;
             }
                 if ($key == 'peiling'){
-                    $name = "$schoolname ";
                 } elseif ($key == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                    $name = "Vorige peiling ".$schoolname." ";
                 } elseif ($key == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
-                    $name = $ref['onderbouw']." ";
                 } elseif ($key == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
-                    $name = $ref['bovenbouw']." ";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                    $name ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
-                    $name = $key.' ';
                 }
-            
             if ($first){
                 $first = false;
             } else {
@@ -115,7 +132,7 @@ class satisfactionImportance {
 
             $satisfactionImportance_docx->addText('',array());
 
-            $satisfactionImportance_docx->addText($name,array(
+            $satisfactionImportance_docx->addText($key,array(
                     'font' => 'Century Gothic',
                     'b' => 'single', 
                     'sz' => 10,

@@ -423,7 +423,7 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-//                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "importance") {
 //                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');

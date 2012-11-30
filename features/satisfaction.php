@@ -129,6 +129,25 @@ class satisfaction
                 if (!isset($key)){
                     continue;
                 }
+                if ($key == 'peiling'){
+                    $name = "$schoolname ";
+                } elseif ($key == 'vorige_peiling') {
+                    if (!$ref['vorige_peiling']) continue;
+                    $name = "Vorige peiling ".$schoolname." ";
+                } elseif ($key == 'peiling_onderbouw') {
+                    if (!$ref['obb']) continue;
+                    $name = $ref['onderbouw']." ";
+                } elseif ($key == 'peiling_bovenbouw') {
+                    if (!$ref['obb']) continue;
+                    $name = $ref['bovenbouw']." ";
+                } elseif ($key == 'alle_scholen') {
+                    if (!$ref['alle_scholen']) continue;
+                    $name ="Alle Scholen ";
+                } else {
+                    if (!$ref['question_based']) continue;
+                    $name = $reference.' ';
+                }
+
                 $satisfaction_column = $satisfaction_data->{$key} ;
                 if ($key == 'alle_scholen'){
                     $paramsTextTableReference['text'] = '';
@@ -171,6 +190,24 @@ class satisfaction
                 if (!isset($key)){
                     continue;
                 }
+                if ($key == 'peiling'){
+                    $name = "$schoolname ";
+                } elseif ($key == 'vorige_peiling') {
+                    if (!$ref['vorige_peiling']) continue;
+                    $name = "Vorige peiling ".$schoolname." ";
+                } elseif ($key == 'peiling_onderbouw') {
+                    if (!$ref['obb']) continue;
+                    $name = $ref['onderbouw']." ";
+                } elseif ($key == 'peiling_bovenbouw') {
+                    if (!$ref['obb']) continue;
+                    $name = $ref['bovenbouw']." ";
+                } elseif ($key == 'alle_scholen') {
+                    if (!$ref['alle_scholen']) continue;
+                    $name ="Alle Scholen ";
+                } else {
+                    if (!$ref['question_based']) continue;
+                    $name = $reference.' ';
+                }
                 $satisfaction_column = $satisfaction_data->{$key} ;
                 $column_count++;
                 if ($key == 'alle_scholen'){
@@ -188,7 +225,7 @@ class satisfaction
                     } elseif ($key == 'vorige_peiling'){
                         $paramsTextTableTitle['text'] = 'Vorige peiling';
                     } else {
-                        $paramsTextTableTitle['text'] = $key;
+                        $paramsTextTableTitle['text'] = $name;
                     }
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTableTitle));
                     $text->{'border'} = $paramsTable;
@@ -237,7 +274,8 @@ class satisfaction
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;
-        for ($i=0; $i < $column_count-1; $i++){
+		$header_columns = ($ref['alle_scholen']) ? $column_count-1 : $column_count;
+        for ($i=0; $i < $header_columns; $i++){
             $paramsTextTableHeader['text'] = '';
             $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
             $text->{'border'} = $paramsTable;
@@ -248,10 +286,12 @@ class satisfaction
         $text->{'border'} = $paramsTableEmpty;
         $satisfaction_header[0][] = $text;
 
-        $paramsTextTableHeaderReference['text'] = 'Referentie';
-        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeaderReference));
-        $text->{'border'} = $paramsTableReference;
-        $satisfaction_header[0][] = $text;
+		if ($ref['alle_scholen']){
+	        $paramsTextTableHeaderReference['text'] = 'Referentie';
+	        $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeaderReference));
+	        $text->{'border'} = $paramsTableReference;
+	        $satisfaction_header[0][] = $text;
+		}
         
         
         //$satisfaction_docx->addText($type, $paramsText);

@@ -35,7 +35,7 @@ class scores
             if (($target_question != '') and ($target_question != $question_number)){
                 continue;
             } 
-            $invalid_question_types = array('KIND_GROEP','JONGEN_MEIJSE','BEVOLKINGSGROEP','OUDERS_SCHOOLOPLEIDING', 'PTP_GENDER', 'PTP_AGE','SCHOOLOPLEIDING_OUDERS_BELGIE', 'NATIONALITEIT_BELGIE', 'KIND_GROEP_BELGIE');
+            $invalid_question_types = array('KIND_GROEP', 'KIND_GRP_BELGIE','JONGEN_MEIJSE', 'JONGEN_MEISJE' ,'BEVOLKINGSGROEP','OUDERS_SCHOOLOPLEIDING', 'PTP_GENDER', 'PTP_AGE','SCHOOLOPLEIDING_OUDERS_BELGIE', 'NATIONALITEIT_BELGIE', 'KIND_GROEP_BELGIE');
             if (in_array($question->{'question_type'}[0][1], $invalid_question_types)){
                 continue;
             }
