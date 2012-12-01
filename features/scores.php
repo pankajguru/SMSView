@@ -218,7 +218,7 @@ class scores
         $ref_count = count($names);
 
         /* Create the pChart object */
-        $myPicture = new pImage(1400, 40+$ref_count*35, $MyData);
+        $myPicture = new pImage(1400, 80+$ref_count*35, $MyData);
         $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
@@ -230,7 +230,7 @@ class scores
         ));
         
         /* Draw the chart scale */
-        $myPicture->setGraphArea(500, 30, 960, 10 + $ref_count*35);
+        $myPicture->setGraphArea(500, 30, 960, 50 + $ref_count*35);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => $min_value,
@@ -258,7 +258,8 @@ class scores
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
             "Surrounding" => 0,
-            "Interleave" => 0.5,
+//            "Interleave"=> (count($ref_count) == 1) ? 0 : 0.5 ,                    
+            "Interleave"=> (count($ref_count) == 1) ? 0 : 0.5 ,                    
             "RecordImageMap" => TRUE
         ));
         $imageData = $myPicture -> DataSet -> Data["Series"]['Values']["ImageData"];

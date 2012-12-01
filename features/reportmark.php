@@ -173,10 +173,10 @@ class reportmark
             "b" => "single"
         ));
         
-        
+        var_dump($graphic_data_text);
         /* Draw the chart scale */
         $graphic_height = count($graphic_data_text) * 60 + 40; //360
-
+print "########## $graphic_height ##### $picture_height \n";
         $myPicture->drawGradientArea(10,30,1100,$graphic_height,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
         $myPicture->drawGradientArea(10,30,1100,$graphic_height,DIRECTION_HORIZONTAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>20));
 
@@ -232,9 +232,9 @@ class reportmark
             //"DisplayPos"=>LABEL_POS_INSIDE,
             //"DisplayValues"=>TRUE,
             "OverrideColors"=>$Palette  ,
-            "Interleave"=>0                      
+            "Interleave"=> (count($graphic_data_text) == 1) ? 0.5 : 0                     
         ));
-		var_dump($myPicture -> DataSet -> Data["Series"]);
+//		var_dump($myPicture -> DataSet -> Data["Series"]);
 		$imageData = $myPicture -> DataSet -> Data["Series"]['Answers']["ImageData"];
 		
         for ($i=0;$i<count($graphic_data_text);$i++){
