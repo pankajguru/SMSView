@@ -259,7 +259,7 @@ class scores
             "Rounded" => FALSE,
             "Surrounding" => 0,
 //            "Interleave"=> (count($ref_count) == 1) ? 0 : 0.5 ,                    
-            "Interleave"=> (count($ref_count) == 1) ? 0 : 0.5 ,                    
+            "Interleave"=> ($ref_count == 1) ? 0 : 0.5,                    
             "RecordImageMap" => TRUE
         ));
         $imageData = $myPicture -> DataSet -> Data["Series"]['Values']["ImageData"];

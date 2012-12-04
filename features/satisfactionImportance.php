@@ -218,7 +218,7 @@ class satisfactionImportance {
             ));
 
 
-            $satisfactionImportance_graphic = $this->_draw_graphic($satisfaction_data[$key], $importance_data[$key], $category_data[$key], $key, $temp);
+            $satisfactionImportance_graphic = $this->_draw_graphic($importance_data[$key], $satisfaction_data[$key], $category_data[$key], $key, $temp);
             $paramsImg = array(
                 'name' => $satisfactionImportance_graphic, 
                 'scaling' => 40, 
