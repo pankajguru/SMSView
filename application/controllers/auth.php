@@ -62,7 +62,7 @@ class Auth extends CI_Controller
 			$data['errors'] = array();
 
 			if ($this->form_validation->run()) {								// validation ok
-				if ($this->tank_auth->login(
+							if ($this->tank_auth->login(
 						$this->form_validation->set_value('login'),
 						$this->form_validation->set_value('password'),
 						$this->form_validation->set_value('remember'),

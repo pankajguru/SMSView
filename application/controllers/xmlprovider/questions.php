@@ -11,6 +11,16 @@ class Questions extends REST_Controller {
         $this -> load -> library('tank_auth');
     }
 
+    public function save_questionaire_post() {
+        $questionaire_json = $this -> post('data');
+		error_log('####');
+        $this->_error_dump($questionaire_json);
+		$directory = BASEPATH.'/../json';
+		$filename = 'test.json';
+		file_put_contents($directory.'/'.$filename, $questionaire_json);
+		$this -> response(array('status' => 'success', 'responseText' => 'xxx'));
+    }
+
     /**
      * Index Page for this controller.
      *

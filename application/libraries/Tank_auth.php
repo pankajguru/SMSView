@@ -63,7 +63,7 @@ class Tank_auth
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
 				if ($hasher->CheckPassword($password, $user->password)) {		// password ok
-
+				
 					if ($user->banned == 1) {									// fail - banned
 						$this->error = array('banned' => $user->ban_reason);
 

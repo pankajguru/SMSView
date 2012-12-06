@@ -51,7 +51,7 @@ class summary {
                         $text .= "Relatief veel ouders zijn ontevreden ten aanzien van '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
                     if ($bottomkey == 1){
-                        $text .= "en '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
+                        $text .= "en '".filter_text($bottom[1],null, 'UTF-8')."' (".round($bottom[2]*100)."%)";
                     }
                 }
                 if ($text!= '') {

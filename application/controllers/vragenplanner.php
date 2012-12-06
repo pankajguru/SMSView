@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Vragenplanner extends CI_Controller {
 
     function __construct()
     {
@@ -28,7 +28,7 @@ class Welcome extends CI_Controller {
         if (!$this->tank_auth->is_logged_in()) {                                 // logged in
             redirect('/auth/login/');
         }
-		$this->load->view('welcome');
+		$this->load->view('vragenplanner');
 	}
 }
 

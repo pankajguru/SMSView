@@ -419,7 +419,7 @@ function wire_save_question_list_button() {
         });
         $.ajax({
             type : 'POST',
-            url : base_url + '/xmlprovider/questions/questionaire',
+            url : base_url + '/xmlprovider/questions/save_questionaire',
             dataType : 'json',
             data : {data: '[' + json_string.join(',') + ']'},
             success : function(data) {
