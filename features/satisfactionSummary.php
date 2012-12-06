@@ -23,7 +23,7 @@ class satisfactionSummary {
         $satisfactionSummary = array();
         foreach($all_questions as $question_number=>$question){
             $satisfactionArray = array(3,14,16,17,33,38,39,41,43,9823,46,47,9944,9948,9963,9973,9986,  10423,10421,10422,10406,10407,10408,10409,10416,10410,10412,10411
-										10936, 10937, 10938, 10929, 10948, 10949, 10950, 10951, 10955 
+										,10936, 10937, 10938, 10929, 10948, 10949, 10950, 10951, 10955 
 										); 
             if (in_array($question->{'id'}, $satisfactionArray)){
                 if ( ($question->question_type[0][1] == 'TEVREDEN') || ($question->question_type[0][1] == 'PTP_TEVREDEN')){
