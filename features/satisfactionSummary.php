@@ -26,7 +26,11 @@ class satisfactionSummary {
 										,10936, 10937, 10938, 10929, 10948, 10949, 10950, 10951, 10955 
 										); 
             if (in_array($question->{'id'}, $satisfactionArray)){
-                if ( ($question->question_type[0][1] == 'TEVREDEN') || ($question->question_type[0][1] == 'PTP_TEVREDEN')){
+                if ( ($question->question_type[0][1] == 'TEVREDEN') || ($question->question_type[0][1] == 'PTP_TEVREDEN')
+					  || ($question->question_type[0][1] == 'NOOIT_SOMS_VAAK') || ($question->question_type[0][1] == 'NIETZO_GAATWEL_JA')
+					  || ($question->question_type[0][1] == 'BNSV_REVERSED') || ($question->question_type[0][1] == 'NZGWJ_REVERSED')
+					  || ($question->question_type[0][1] == 'NOOIT_SOMS_VAAK_NOSAT') || ($question->question_type[0][1] == 'NIETZO_GAATWEL_JA_NOSAT')
+				){
                     $satisfactionSummary[] = 
                         $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'} . '% van de ouders is tevreden over ' . filter_text($question->{'short_description'}).'.';
                 }
