@@ -16,6 +16,7 @@ class satisfactionTop
         $all_questions  = json_decode($datastring);
 		$tevreden_array = preg_split('/,/', $tevreden);
 		$belangrijk_array = preg_split('/,/', $belangrijk);
+		$division 		= $data['question.type.satisfaction.scalefactor'] - 1;
 
         $paramsTextTitles = array(
             'b' => 'double',
@@ -118,8 +119,8 @@ class satisfactionTop
             } else {
                 $satisfaction_array[] = array(
                     'vraag' => filter_text($question->{'short_description'}),
-                    'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'lt'}->{'peiling'},
-                    'alle_scholen' => $question->{'statistics'}->{'percentage'}->{3}->{'lt'}->{'alle_scholen'}
+                    'peiling' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'peiling'},
+                    'alle_scholen' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'}
                 );
             }
         }

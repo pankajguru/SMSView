@@ -145,7 +145,7 @@ class satisfaction
                     $name ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
-                    $name = $reference.' ';
+                    $name = $key.' ';
                 }
 
                 $satisfaction_column = $satisfaction_data->{$key} ;
@@ -206,7 +206,7 @@ class satisfaction
                     $name ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
-                    $name = $reference.' ';
+                    $name = $key.' ';
                 }
                 $satisfaction_column = $satisfaction_data->{$key} ;
                 $column_count++;

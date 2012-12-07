@@ -30,9 +30,9 @@ class Parse extends CI_Controller {
         require_once ('features/summary.php');
         require_once ('features/satisfactionSummary.php');
         require_once ('features/satisfactionImportance.php');
-        require_once ('features/scoresPercentagesBestuur.php');
-        require_once ('features/scoresBestuur.php');
-        require_once ('features/percentagesBestuur.php');
+//        require_once ('features/scoresPercentagesBestuur.php');
+//        require_once ('features/scoresBestuur.php');
+//        require_once ('features/percentagesBestuur.php');
         
         
         
@@ -49,7 +49,7 @@ class Parse extends CI_Controller {
         $output_file = urldecode($output_file);
         $ref = array();
         $ref['question_based'] = TRUE;
-        $ref['vorige_peiling'] = FALSE;
+        $ref['vorige_peiling'] = TRUE;
         
         $temp           = 'temp/';
         if (!$template) {
@@ -156,9 +156,9 @@ class Parse extends CI_Controller {
         $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
         unset($satisfactionImportance);
                
-        $scoresPercentagesBestuur = new scoresPercentagesBestuur();
-        $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
-        unset($scoresPercentagesBestuur);
+//        $scoresPercentagesBestuur = new scoresPercentagesBestuur();
+//        $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
+//        unset($scoresPercentagesBestuur);
                
                
 
@@ -240,7 +240,7 @@ class Parse extends CI_Controller {
                     $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
                 }
                 if ($variable == "scoresPercentagesBestuur") {
-                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
                 }
                 
             }

@@ -122,7 +122,8 @@ class scores
                     $names[] = "$schoolname ";
                 } elseif ($reference == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                    $names[] = "Vorige peiling ".$schoolname." ";
+//                    $names[] = "Vorige peiling ".$schoolname." ";
+                    $names[] = "Vorige peiling ";
                 } elseif ($reference == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
                     $names[] = $ref['onderbouw']." ";

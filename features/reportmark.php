@@ -173,10 +173,9 @@ class reportmark
             "b" => "single"
         ));
         
-        var_dump($graphic_data_text);
         /* Draw the chart scale */
         $graphic_height = count($graphic_data_text) * 60 + 40; //360
-print "########## $graphic_height ##### $picture_height \n";
+
         $myPicture->drawGradientArea(10,30,1100,$graphic_height,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
         $myPicture->drawGradientArea(10,30,1100,$graphic_height,DIRECTION_HORIZONTAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>20));
 
