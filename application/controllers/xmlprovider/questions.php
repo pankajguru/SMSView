@@ -13,7 +13,7 @@ class Questions extends REST_Controller {
 
     public function save_questionaire_post() {
         $questionaire_json = $this -> post('data');
-		$filename = $this -> post('filename');
+		$filename = $this -> post('filename') . '_lijst';
 		$questionaire_object = json_decode($questionaire_json);
 		$filename = $questionaire_object[0]->{'filename'};
 //        $this->_error_dump($questionaire_json);
