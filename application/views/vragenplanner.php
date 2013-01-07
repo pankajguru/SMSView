@@ -94,6 +94,16 @@
             <?php echo anchor('/auth/logout/', 'Logout'); ?>
         </div>
     </body>
+<div id="save_questionaire" title="Sla vragenlijst op">
+    <p class="validateTips">geef de vragenlijst een naam.</p>
+ 
+    <form>
+    <fieldset>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+    </fieldset>
+    </form>
+</div>
 </html>
 
 

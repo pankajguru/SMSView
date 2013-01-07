@@ -13,14 +13,38 @@ class Questions extends REST_Controller {
 
     public function save_questionaire_post() {
         $questionaire_json = $this -> post('data');
-		error_log('####');
-        $this->_error_dump($questionaire_json);
-		$directory = BASEPATH.'/../json';
-		$filename = 'test.json';
-		file_put_contents($directory.'/'.$filename, $questionaire_json);
-		$this -> response(array('status' => 'success', 'responseText' => 'xxx'));
+		$filename = $this -> post('filename');
+		$questionaire_object = json_decode($questionaire_json);
+		$filename = $questionaire_object[0]->{'filename'};
+//        $this->_error_dump($questionaire_json);
+		$id = $this->tank_auth->get_user_id();
+		$directory = BASEPATH.'/../json'.'/'.$id;
+		$filename = $this -> _sanitize_filename($filename);
+		if (!is_dir($directory)){
+			//create the directory
+			mkdir($directory);
+		}
+		file_put_contents($directory.'/'.$filename.'.json', $questionaire_json);
+		$this -> response(array('status' => 'success', 'responseText' => $filename));
     }
 
+	public function saved_questionaires_get(){
+		$dirs = array();
+		$id = $this->tank_auth->get_user_id();
+		$directory = BASEPATH.'/../json'.'/'.$id;
+		if ($handle = opendir($directory)) {
+    		while (false !== ($entry = readdir($handle))) {
+        		if ($entry != "." && $entry != "..") {
+        			$entry = str_replace('.json','',$entry);
+            		array_push($dirs,$entry);
+        		}
+    		}
+    		closedir($handle);
+		}
+		
+		$this -> response($dirs, 200);
+		
+	}
     /**
      * Index Page for this controller.
      *
@@ -219,6 +243,31 @@ class Questions extends REST_Controller {
         $this->_error_dump($response.' '.$curl_error);
         return $response;
     }
+
+	/**
+	 * Function: sanitize
+	 * Returns a sanitized string, typically for URLs.
+	 *
+	 * Parameters:
+	 *     $string - The string to sanitize.
+	 *     $force_lowercase - Force the string to lowercase?
+	 *     $anal - If set to *true*, will remove all non-alphanumeric characters.
+	 */
+	function _sanitize_filename($string, $force_lowercase = true, $anal = false) {
+	    $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+	                   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
+	                   "â€”", "â€“", ",", "<", ".", ">", "/", "?");
+	    $clean = trim(str_replace($strip, "", strip_tags($string)));
+	    $clean = preg_replace('/\s+/', "-", $clean);
+	    $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
+	    return ($force_lowercase) ?
+	        (function_exists('mb_strtolower')) ?
+	            mb_strtolower($clean, 'UTF-8') :
+	            strtolower($clean) :
+	        $clean;
+	}
+
+
 
     function _error_dump($object) {
         ob_start();
