@@ -54,7 +54,6 @@ class Questions extends CI_Controller {
 			$questionaire_xml = file_get_contents($base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id);
 			$questionaire_xml_object = simplexml_load_string($questionaire_xml);
 			$questionaire_json = $questionaire_xml_object->item[0];
-var_dump($questionaire_json);
 			$questionaire_object = json_decode($questionaire_json);
 			$result = $this -> Sms_model -> insert_questionaire($questionaire_object);
 
