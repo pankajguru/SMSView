@@ -76,6 +76,21 @@
                                 <option value="ptp">Personeel</option>
                             </select>
                         </form>
+<!--                        <form id="survey_standard" action="#">
+                            <label id="select_standard_label" for="select_standard" class="error">Kies een standaard vragenlijst:</label>
+                            <select name="select_standard" id='select_standard'>
+                                <option value=''>Kies een type:</option>
+                                <option value="otp">Ouders</option>
+                                <option value="ltp">Leerlingen</option>
+                                <option value="ptp">Personeel</option>
+                            </select>
+                    </form> -->
+                        <form id="survey_saved" action="#">
+                            <label id="select_saved_label" for="select_saved" class="error">Kies een opgeslagen vragenlijst:</label>
+                            <select name="select_saved" id='select_saved'>
+                                <option value=''>Kies een type:</option>
+                            </select>
+                        </form>
                     <!-- All available question will be loaded here -->
                 </ul>
             </div>

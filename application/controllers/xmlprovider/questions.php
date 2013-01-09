@@ -13,7 +13,7 @@ class Questions extends REST_Controller {
 
     public function save_questionaire_post() {
         $questionaire_json = $this -> post('data');
-		$filename = $this -> post('filename') . '_lijst';
+//		$filename = $this -> post('filename') . '_lijst';
 		$questionaire_object = json_decode($questionaire_json);
 		$filename = $questionaire_object[0]->{'filename'};
 //        $this->_error_dump($questionaire_json);
@@ -43,6 +43,15 @@ class Questions extends REST_Controller {
 		}
 		
 		$this -> response($dirs, 200);
+		
+	}
+	public function saved_questionaire_get($filename){
+		$dirs = array();
+		$id = $this->tank_auth->get_user_id();
+		$directory = BASEPATH.'/../json'.'/'.$id.'/';
+		$questionaire = file_get_contents($directory.$filename.'.json');
+		
+		$this -> response($questionaire, 200);
 		
 	}
     /**

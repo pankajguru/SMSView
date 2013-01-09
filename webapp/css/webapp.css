@@ -133,14 +133,14 @@ div#question_list_container li.info {
 	color: red;
 }
 
-#choose_list, #survey_type {
+#choose_list, #survey_type, #survey_standard, #survey_saved {
 	padding: 10px;
 	margin: 0;
 	font-size: 14px;
 	font-weight: bold;
 }
 
-#survey_type {
+#survey_type, #survey_standard, #survey_saved {
 	height: 26px;
 }
 
@@ -358,4 +358,9 @@ a.wachtwoordvergeten{
 a:hover.wachtwoordvergeten{
     text-decoration: underline;   
 }
+
+#save_questionaire, #print_question_list, #save_question_list{
+	display: none;
+}
+
 

@@ -69,12 +69,14 @@ function expand_all() {
 function select_survey_type() {
 	$('#typechoice').fadeIn(500);
 	wireTypeChange();
+	wireStandardChange();
+	wireSavedChange();
 	wire_delete_question_button();
 	wire_add_question_button();
-	wire_print_button();
+	get_saved_surveys();
 }
 
-function retrieve_questions_per_type(type) {
+function retrieve_questions_per_type(type, survey) {
 	var questions = new Array();
 
 	$.ajax({
@@ -109,11 +111,17 @@ function retrieve_questions_per_type(type) {
 			new_question();
 			expand_all();
 			wire_save_question_list_button();
+			wire_print_button();
+			if (survey) {
+				set_saved_questions(survey);
+			}
+
 		}
 	});
 }
 
 function wire_print_button() {
+	$('#print_question_list').show();
 	$('#print_question_list').click(function() {
 		var string = '';
 		var tmp = $('#question_list_container > ul').find('li');
@@ -152,8 +160,102 @@ function wireTypeChange() {
 		retrieve_questions_per_type($(this).val());
 		basetype = $(this).val();
 		$('#survey_type').addClass('hide');
+		$('#survey_standard').addClass('hide');
+		$('#survey_saved').addClass('hide');
 	});
 }
+
+function wireStandardChange() {
+	$('#select_standard').change(function() {
+		retrieve_questions_per_type($(this).val());
+		basetype = $(this).val();
+		//TODO:: Get standard list
+		$('#survey_type').addClass('hide');
+		$('#survey_standard').addClass('hide');
+		$('#survey_saved').addClass('hide');
+	});
+}
+
+function wireSavedChange() {
+	$('#select_saved').change(function() {
+		savedSurvey = get_saved_survey($(this).val());
+	});
+}
+
+function get_saved_survey(survey_name) {
+	$.ajax({
+		type : 'GET',
+		url : base_url + '/xmlprovider/questions/saved_questionaire/' + survey_name,
+		dataType : 'json',
+		success : function(survey_json) {
+			survey = eval(survey_json);
+			basetype = survey[0]['basetype'];	
+			retrieve_questions_per_type(basetype, survey);
+			$('#survey_type').addClass('hide');
+			$('#survey_standard').addClass('hide');
+			$('#survey_saved').addClass('hide');
+		}
+	});
+	
+};
+
+function set_saved_questions(savedSurvey) {
+	$.each(savedSurvey, function(key,value) { 
+		if (value['id']){
+			var id = value['id'];
+			
+			var category = $('#'+id).parent().attr('id');
+			
+			var listclass = '.sortable_with_' + $('#'+id).parent().attr('id');
+			if ($(listclass).html() == ''){
+				$('<span class="category_list_name category_list_name_' + $('#'+id).parent().attr('id') + '">' + $('#'+id).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+			}
+
+			var selector = '.sortable_with_' + category;
+			$(selector).removeClass('hide');
+			//unhide when hidden
+
+			var text = $("#" + id).clone().children().remove().end().text();
+			var qtype = '';
+			if ($("#" + id).hasClass('BELANGRIJK')) {
+				qtype += 'BELANGRIJK ';
+			}
+			if ($("#" + id).hasClass('TEVREDEN')) {
+				qtype += 'TEVREDEN ';
+			}
+			if ($("#" + id).hasClass('PTP_IMPORTANCE')) {
+				qtype += 'PTP_IMPORTANCE ';
+			}
+			if ($("#" + id).hasClass('PTP_TEVREDEN')) {
+				qtype += 'PTP_TEVREDEN ';
+			}
+			var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
+			li.appendTo(selector);
+			$('#' + id).draggable('option', 'disabled', true);
+			check_for_how_important(id);
+			process_question_numbering();
+			$('#'+id).remove();
+		} 
+	});
+}
+
+function get_saved_surveys() {
+	$.ajax({
+		type : 'GET',
+		url : base_url + '/xmlprovider/questions/saved_questionaires/',
+		dataType : 'json',
+		success : function(survey_json) {
+			$.each(survey_json, function(key, value) {   
+			     $('#select_saved')
+			         .append($("<option></option>")
+			         .attr("value",value)
+			         .text(value)); 
+			});
+		}
+	});
+	
+};
+
 
 function create_drags(drag_selector, sortable_with) {
 
@@ -659,6 +761,7 @@ function select_all() {
 }
 
 function wire_save_question_list_button() {
+	$('#save_question_list').show();
 	var name = $("#name")
 	allFields = $([]).add(name), tips = $(".validateTips");
 
@@ -735,7 +838,7 @@ function wire_save_question_list_button() {
 		}
 	});
 
-	$("#save_question_list").button().click(function() {
+	$("#save_question_list").click(function() {
 		$("#save_questionaire").dialog("open");
 	});
 }
