@@ -140,6 +140,7 @@ class Questions extends CI_Controller {
         //hack for characters: TODO::upgrade production server
         $xml = html_entity_decode($xml, ENT_NOQUOTES || ENT_COMPAT, 'UTF-8');
         //send xml to QT
+        $this->_error_dump($xml);
         $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL,$url);     
@@ -152,7 +153,16 @@ class Questions extends CI_Controller {
         curl_close($ch);
 
         //return OK/NOK from QT
+        $this->_error_dump($response.' '.$curl_error);
         return $response;
+    }
+
+    function _error_dump($object) {
+        ob_start();
+        var_dump($object);
+        $contents = ob_get_contents();
+        ob_end_clean();
+        error_log($contents);
     }
 
 
