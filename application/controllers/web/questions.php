@@ -162,7 +162,7 @@ class Questions extends CI_Controller {
         var_dump($object);
         $contents = ob_get_contents();
         ob_end_clean();
-        error_log($contents);
+        error_log('error:'.$contents);
     }
 
 
