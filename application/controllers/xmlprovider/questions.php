@@ -13,10 +13,8 @@ class Questions extends REST_Controller {
 
     public function save_questionaire_post() {
         $questionaire_json = $this -> post('data');
-//		$filename = $this -> post('filename') . '_lijst';
 		$questionaire_object = json_decode($questionaire_json);
 		$filename = $questionaire_object[0]->{'filename'};
-//        $this->_error_dump($questionaire_json);
 		$id = $this->tank_auth->get_user_id();
 		$directory = BASEPATH.'/../json'.'/'.$id;
 		$filename = $this -> _sanitize_filename($filename);
@@ -54,6 +52,47 @@ class Questions extends REST_Controller {
 		$this -> response($questionaire, 200);
 		
 	}
+
+	public function accounts_admin_get(){
+		$this->load->model('tank_auth/users');
+		$accounts =	$this -> users -> get_users();
+		$users = Array();
+		foreach ($accounts as $key => $value) {
+			$directory = BASEPATH.'/../json'.'/'.$value->{'id'};
+			if (is_dir($directory)){
+				$users[] = $value;
+			}
+		}
+		$this -> response($users, 200);
+		
+	}
+
+	public function saved_questionaires_admin_get($id){
+		$dirs = array();
+		$directory = BASEPATH.'/../json'.'/'.$id;
+		if ($handle = opendir($directory)) {
+    		while (false !== ($entry = readdir($handle))) {
+        		if ($entry != "." && $entry != "..") {
+        			$entry = str_replace('.json','',$entry);
+            		array_push($dirs,$entry);
+        		}
+    		}
+    		closedir($handle);
+		}
+		
+		$this -> response($dirs, 200);
+		
+	}
+
+	public function saved_questionaire_admin_get($filename, $id){
+		$dirs = array();
+		$directory = BASEPATH.'/../json'.'/'.$id.'/';
+		$questionaire = file_get_contents($directory.$filename.'.json');
+		
+		$this -> response($questionaire, 200);
+		
+	}
+
     /**
      * Index Page for this controller.
      *
@@ -175,82 +214,6 @@ class Questions extends REST_Controller {
     private function _log_in_first() {
         $data['message'] = "U bent niet ingelogd!";
         return $data;
-    }
-
-    private function _questiontool_set_questionaire($peiling_type_id, $base_type) {
-        //get qestions id's from formulier_type_definition
-        $question_ids = $this -> Sms_model -> get_all_questions_by_peiling_type($peiling_type_id);
-        $otp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(1);
-        $ltp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(2);
-        $ptp_questions = $this -> Sms_model -> get_all_questions_by_peiling_type(3);
-        $base_question_ids = array();
-        foreach ($otp_questions as $otp_question) {
-            $base_question_ids[] = $otp_question -> question_id;
-        }
-        foreach ($ltp_questions as $ltp_question) {
-            $base_question_ids[] = $ltp_question -> question_id;
-        }
-        foreach ($ptp_questions as $ptp_question) {
-            $base_question_ids[] = $ptp_question -> question_id;
-        }
-        //foreach question, add to xml
-        $xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>");
-        $peiling_type_details = $this -> Sms_model -> get_peiling_type_details( $peiling_type_id );
-        $xml->addChild('peiling_type', $peiling_type_details[0] -> desc_code);
-        $xml->addChild('base_type', $base_type);
-        $xml_questions = $xml->addChild('questions');
-        $sort_order = 0;
-        foreach ($question_ids as $question_id) {
-            $question = $this -> Sms_model -> get_question_by_id($question_id -> question_id);
-            $answers = $this -> Sms_model -> get_answers_by_question_type_id($question[0] -> vraag_type_id);
-            $question_type = $this -> Sms_model -> get_question_type_by_id($question[0] -> vraag_type_id);
-            $xml_question = $xml_questions->addChild('question');
-            $xml_question->addChild('question', $question[0]->description);
-            $xml_question->addChild('sort_order', $sort_order++);
-            $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
-            $xml_question->addChild('category', htmlentities($category[0]->description, null , 'UTF-8')); 
-            $xml_question->addChild('category_explanation', $category[0]->description); 
-            $xml_question->addChild('required', $question[0] -> strict);  
-            $xml_question->addChild('inputnote',''); //TODO
-            $priority = ($question_type[0]->DESC_CODE == 'BELANGRIJK') ? 1 : 0;
-            $xml_question->addChild('priority',$priority); 
-            $question_type_description = (count($answers) > 0) ? 'answerlist':'open';
-            $xml_question->addChild('questiontype', $question_type_description); 
-            //$this->_error_dump($question_type);
-            $standard = (
-                (strpos($question_type[0]->DESC_CODE, 'MUIS_') === 0) || 
-                (strpos($question_type[0]->DESC_CODE, 'AVL') === 0)
-                ) ? 0 : 1;
-            $standard = (in_array($question_id -> question_id, $base_question_ids)) ? 1 : 0;
-            $xml_question->addChild('standard', $standard);  
-            //add answers
-            $xml_answers = $xml_question->addChild('answers');
-            foreach ($answers as $answer){
-                $xml_answer = $xml_answers->addChild('answer');
-                $xml_answer->addChild('answer', $answer->description);
-                $xml_answer->addChild('order', $answer->value);
-                $xml_answer->addChild('value', $answer->value);  
-            }
-        }
-        $xml = $xml->asXML();
-        //hack for characters: TODO::upgrade production server
-        $xml = html_entity_decode($xml, ENT_NOQUOTES || ENT_COMPAT, 'UTF-8');
-        $this->_error_dump($xml);
-        //send xml to QT
-        $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url);     
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'xml='.$xml);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_ENCODING, "UTF-8");
-        $response = curl_exec($ch);
-        $curl_error = curl_error($ch);
-        curl_close($ch);
-
-        //return OK/NOK from QT
-        $this->_error_dump($response.' '.$curl_error);
-        return $response;
     }
 
 	/**
