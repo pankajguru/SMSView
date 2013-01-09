@@ -306,6 +306,7 @@ class Sms_model extends CI_Model {
             $this->db->insert('vraag_type_definition', $vraag_type_definition); 
 		}
         foreach($answers as $answer){
+            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
             $label_lo = $answers[0]; //if there are answers, the foirst one exists
             $label_hi = $answer; //label_hi will at last be set with the last answer
             //store answers

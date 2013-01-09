@@ -57,7 +57,7 @@ class Questions extends CI_Controller {
 			$questionaire_object = json_decode($questionaire_json);
 			$result = $this -> Sms_model -> insert_questionaire($questionaire_object);
 
-			if (TRUE or $result['success'] === FALSE) {
+			if ($result['success'] === FALSE) {
 
 			} else {
 				$base_dir = "/home/foo/production/sms";
