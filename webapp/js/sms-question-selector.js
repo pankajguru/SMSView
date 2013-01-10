@@ -58,7 +58,8 @@ function init_login() {
 }
 
 function expand_all() {
-	$('<button id="expand" />').text('Toon').appendTo('#list_controls');
+//	$('<button id="expand" />').text('Toon').appendTo('#list_controls').addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+	$('<button id="expand" />').text('Toon').appendTo('#list_controls').button();
 
 	$('#expand').click(function() {
 		($(this).text() === 'Toon' ) ? $(this).text('Verberg') : $(this).text('Toon');
@@ -121,6 +122,7 @@ function retrieve_questions_per_type(type, survey) {
 }
 
 function wire_print_button() {
+	$('#print_question_list').button();
 	$('#print_question_list').show();
 	$('#print_question_list').click(function() {
 		var string = '';
@@ -427,7 +429,7 @@ function new_question() {
 		}
 	});
 
-	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').click(function() {
+	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').button().click(function() {
 		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div id="answer_container"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal({
 			position : ["50px", "250px"]
 		});
@@ -517,7 +519,7 @@ function wire_clear_question() {
 
 function wire_save_question_list_button_old() {
 	// This function parses the selected question list, converts the parsed object to JSON and sends it to the server.
-	$('#save_question_list').click(function() {
+	$('#save_question_list').button().click(function() {
 		var json_string = new Array();
 		json_string.push('{"basetype":"' + basetype + '"}');
 		$('#question_list_container > ul').find('li').each(function() {
@@ -761,7 +763,7 @@ function select_all() {
 }
 
 function wire_save_question_list_button() {
-	$('#save_question_list').show();
+	$('#save_question_list').button().show();
 	var name = $("#name")
 	allFields = $([]).add(name), tips = $(".validateTips");
 

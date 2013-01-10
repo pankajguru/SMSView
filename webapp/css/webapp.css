@@ -120,13 +120,17 @@ div#question_list_container li.info {
 .container_head {
 	background-color: #F78E1C;
 	padding: 10px;
-	height: 20px;
+	height: 100px;
 	color: #FFF;
 	font-size: 17px;
 	font-weight: bold;
 	-moz-border-radius: 10px 10px 0px 0px;
 	-webkit-border-radius: 10px 10px 0px 0px;
 	border-radius: 10px 10px 0px 0px;
+}
+
+.head_title {
+	margin-bottom: 20px;
 }
 
 #error, .error {

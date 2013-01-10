@@ -58,18 +58,20 @@
         <div data-role="page" id="typechoice">
             <div class="list_container">
                 <div class="container_head">
+                	<div class="head_title">
                     <span class="left"> Alle vragen </span>
-                    <span id="list_controls"></span>
                     <form class="right" id="filter_wrapper">
                         <label for="filter_field" id="filter_field_label">Filter: </label>
                         <input name="filter_field" id="filter_field" type="text" value="" />
                     </form>
                     <div class="clear"></div>
+                    </div>
+                    <div id="list_controls"></div>
                 </div>
                 <ul id="questions_container" class="">
                         <form id="survey_type" action="#">
                             <label id="select_type_label" for="select_type" class="error">Kies het type vragenlijst:</label>
-                            <select name="select_type" id='select_type'>
+                            <select name="select_type" id='select_type' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                                 <option value="otp">Ouders</option>
                                 <option value="ltp">Leerlingen</option>
@@ -87,7 +89,7 @@
                     </form> -->
                         <form id="survey_saved" action="#">
                             <label id="select_saved_label" for="select_saved" class="error">Kies een opgeslagen vragenlijst:</label>
-                            <select name="select_saved" id='select_saved'>
+                            <select name="select_saved" id='select_saved' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                             </select>
                         </form>
@@ -96,7 +98,7 @@
             </div>
             <div class="list_container">
                 <div class="container_head">
-                    Geselecteerde vragen <div id="questionnaire_controls"></div> <button id="print_question_list"
+                    <div  class="head_title">Geselecteerde vragen</div> <div id="questionnaire_controls"></div> <button id="print_question_list"
                     class="right">Printen</button><button id="save_question_list" class="right">Opslaan</button>
                 </div>
                 <div id="question_list_container" class="">
