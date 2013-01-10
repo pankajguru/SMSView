@@ -142,7 +142,7 @@ class Questions extends CI_Controller {
         //send xml to QT
         $this->_error_dump($xml);
 		file_put_contents('/tmp/testqt.xml',$xml);
-        $url = 'http://www.questiontool.nl/qt/customer/sms/muis.php';
+        $url = 'http://www.questiontool.nl/qt/customer/sms/muis2.php';
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL,$url);     
         curl_setopt($ch, CURLOPT_POST, 1);
