@@ -430,7 +430,7 @@ function new_question() {
 	});
 
 	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').button().click(function() {
-		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div id="answer_container"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal({
+		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div id="answer_container"></div><div id="answeraddcontainer"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal({
 			position : ["50px", "250px"]
 		});
 		wire_add_question();
@@ -496,8 +496,10 @@ function wire_add_question() {
 function wire_question_type() {
 	// Listen for the a change in the question type selector. If changed we need to update the possible answer fields.
 	$('#answer_type').change(function() {
+
 		if ($('#answer_type option:selected').val() === 'multiple choice') {
-			$('<button id="add_multiple_choice_answer">Voeg antwoord toe</button><div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>').appendTo('#answer_container');
+			$('<div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>').appendTo('#answer_container');
+			$('<button id="add_multiple_choice_answer">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
 		}
 
 		$("#add_multiple_choice_answer").click(function(e) {
@@ -506,6 +508,7 @@ function wire_question_type() {
 			$('<div class="block"><label for="multiple_choice_answer_' + id + '">Optie ' + id + '</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_' + id + '" />').appendTo('#answer_container');
 			e.preventDefault();
 		});
+
 	});
 }
 
@@ -632,6 +635,7 @@ function check_mandatory_questions() {
 		$('#306').draggable('option', 'disabled', true);
 		process_question_numbering();
 	}
+	$(".errorhead").html('* Deze vragen zijn verplicht').fadeOut(5000);
 	//    select_all();
 }
 
@@ -649,8 +653,9 @@ function check_for_how_important(id) {
 		//make sure, belangrijk question is always last
 		$('.sorts > li[refid="' + how_important_id + '"]').remove();
 		//        if($('.sorts > li[refid="' + how_important_id + '"]').length === 0) {
-		$('<li refid="' + how_important_id + '">' + how_important_text + '</li>').appendTo('.sortable_with_' + how_important_class);
+		$('<li class="required" refid="' + how_important_id + '">' + how_important_text + '</li>').appendTo('.sortable_with_' + how_important_class);
 		$(how_important).draggable('option', 'disabled', true);
+		$(".errorhead").show().html('* Deze vraag is verplicht').fadeOut(5000);
 		//        }
 	} else {
 		$('#notion_' + how_important_class).remove();

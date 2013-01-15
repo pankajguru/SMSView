@@ -114,7 +114,7 @@ div#question_list_container li.info {
 	padding: 10px;
 	margin: 0px;
 	color: red;
-	height: 25px;
+	height: 45px;
 }
 
 .container_head {
@@ -367,4 +367,8 @@ a:hover.wachtwoordvergeten{
 	display: none;
 }
 
+.required:after {
+	color:#F78E1C;
+	content: ' *';
+}
 

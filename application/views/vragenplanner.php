@@ -102,7 +102,7 @@
                     class="right">Printen</button><button id="save_question_list" class="right">Opslaan</button>
                 </div>
                 <div id="question_list_container" class="">
-                    <li class="info error"></li>
+                    <li class="info error"><span class='errorhead'></span></li>
                     <!-- All selected questions will be loaded here -->
                 </div>
             </div>
