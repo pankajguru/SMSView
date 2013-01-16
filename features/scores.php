@@ -17,6 +17,8 @@ class scores
         $all_questions  = json_decode($datastring);
         //add graphic to docx
         $scores_docx = new CreateDocx();
+		
+		$scores_graphics = array();
 
         //create array iso object
         $all_questions_array = array();
@@ -174,7 +176,7 @@ class scores
                 $answered[] = $averages[5];
             }
             $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $alle_scholen, $legend, $temp);
-    
+    		$scores_graphics[] = $scores_graphic;
             $paramsImg = array(
                 'name' => $scores_graphic,
                 'scaling' => 50,
@@ -188,10 +190,13 @@ class scores
             $question_count++;
         }
         if ($question_count > 0){
-            $filename = $temp.sanitize_filename('score'.$category.$target_question);
+            $filename = $temp.sanitize_filename('score'.$category.$target_question.randchars(12));
             
             $scores_docx->createDocx($filename);
             unset($scores_docx);
+			foreach ($scores_graphics as $key => $value) {
+				unlink($value);
+			}
             return $filename.'.docx';
         } else {
             unset($scores_docx);
@@ -294,8 +299,9 @@ class scores
             $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
         }
 
-        $myPicture->render($temp . "scores$question_number.png");
-        return $temp . "scores$question_number.png";
+		$filename = $temp . "scores$question_number".randchars(12).".png";
+        $myPicture->render($filename);
+        return $filename;
         
     }
 }

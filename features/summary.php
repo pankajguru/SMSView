@@ -68,10 +68,10 @@ class summary {
             
         }
  
-
-        $summary_docx -> createDocx($temp . 'summary');
+		$filename = $temp . 'summary'.randchars(12);
+        $summary_docx -> createDocx($filename);
         unset($summary_docx);
-        return $temp . 'summary.docx';
+        return $filename . '.docx';
 
     }
 

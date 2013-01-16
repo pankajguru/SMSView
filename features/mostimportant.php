@@ -105,9 +105,10 @@ class mostimportant
 
         $mostimportant_docx->addTable($most_important_table, $paramsTable);
 
-        $mostimportant_docx->createDocx($temp.'mostimportant');
+		$filename = $temp.'mostimportant'.randchars(12);
+        $mostimportant_docx->createDocx($filename);
         unset($mostimportant_docx);
-        return $temp.'mostimportant.docx';
+        return $filename.'.docx';
         
     }
     

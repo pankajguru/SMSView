@@ -235,9 +235,10 @@ class satisfactionImportance {
 
         
 
-        $satisfactionImportance_docx -> createDocx($temp . 'satisfactionImportance');
+		$filename = $temp . 'satisfactionImportance'.randchars(12);
+        $satisfactionImportance_docx -> createDocx($filename);
         unset($satisfactionImportance_docx);
-        return $temp . 'satisfactionImportance.docx';
+        return $filename.'.docx';
 
     }
 
@@ -365,10 +366,11 @@ class satisfactionImportance {
             $myPicture->drawText(900, 75 + $count*35, $count.'. '.$category, array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_TOPLEFT, "DrawBox" => FALSE));
             $count++;
         }
-        sanitize_filename($key);
-        $myPicture -> render($temp . "satisfactionImportance$key.png");
+		$filename = $temp . "satisfactionImportance$key".randchars(12).".png";
+        $filename = sanitize_filename($filename);
+        $myPicture -> render($filename);
 
-        return $temp . "satisfactionImportance$key.png";
+        return $filename;
 
     }
 

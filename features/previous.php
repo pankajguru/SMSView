@@ -109,9 +109,11 @@ class previous
 
         $previous_docx->modifyPageLayout('A4');
 
-        $previous_docx->createDocx($temp.'previous');
+		$filename = $temp.'previous'.randchars(12);
+        $previous_docx->createDocx($filename);
         unset($previous_docx);
-        return $temp.'previous.docx';
+		unlink($previous_graphic);
+        return $filename.'.docx';
         
     }
     
@@ -193,9 +195,10 @@ class previous
             }
         }
         
-        $myPicture -> render($temp . "previous.png");
+        $filename = $temp . "previous".randchars(12).".png";
+        $myPicture -> render($filename);
 
-        return $temp . "previous.png";
+        return $filename;
 
     }
 

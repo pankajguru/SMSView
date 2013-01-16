@@ -67,9 +67,13 @@ class scoresAndPercentages
                 }
             }
         }
-        $scoresAndPercentages_docx->createDocx($temp.'scoresAndPercentages');
+		$filename = $temp.'scoresAndPercentages'.randchars(12);
+        $scoresAndPercentages_docx->createDocx($filename);
         unset($scoresAndPercentages_docx);
-        return $temp.'scoresAndPercentages.docx';
+        foreach($docx_array as $groupname => $sap_docx){
+			unlink($sap_docx);
+		}
+        return $filename.'.docx';
         
     }
     function _error_dump($object) {

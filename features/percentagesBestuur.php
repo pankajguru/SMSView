@@ -171,7 +171,7 @@ class percentagesBestuur
             
         if ($question_count > 0){
 //            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
-            $filename = $temp.sanitize_filename('percentageBestuur'.$category.$target_question);
+            $filename = $temp.sanitize_filename('percentageBestuur'.$category.$target_question.randchars(12));
             $percentage_docx->createDocx($filename);
             unset($percentage_docx);
             return $filename.'.docx';

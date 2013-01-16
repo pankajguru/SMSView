@@ -51,10 +51,11 @@ class satisfactionSummary {
             }
         }
         $summary_docx -> addList($satisfactionSummary, $paramsList);
-
-        $summary_docx -> createDocx($temp . 'satisfactionSummary');
+		
+		$filename = $temp . 'satisfactionSummary'.randchars(12);
+        $summary_docx -> createDocx($filename);
         unset($summary_docx);
-        return $temp . 'satisfactionSummary.docx';
+        return $filename.'.docx';
 
     }
 

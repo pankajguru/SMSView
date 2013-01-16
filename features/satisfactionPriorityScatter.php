@@ -79,10 +79,12 @@ class satisfactionPriorityScatter {
         ));
 
         $satisfactionPriorityScatter_docx -> addList($advice_negative, $paramsList);
-
-        $satisfactionPriorityScatter_docx -> createDocx($temp . 'satisfactionPriorityScatter');
+		
+		$filename = $temp . 'satisfactionPriorityScatter'.randchars(12);
+        $satisfactionPriorityScatter_docx -> createDocx($filename);
         unset($satisfactionPriorityScatter_docx);
-        return $temp . 'satisfactionPriorityScatter.docx';
+		unlink($satisfactionPriorityScatter_graphic);
+        return $filename.'.docx';
 
     }
 
@@ -211,9 +213,10 @@ class satisfactionPriorityScatter {
             $count++;
         }
         
-        $myPicture -> render($temp . "satisfactionPriorityScatter.png");
+		$filename = $temp . "satisfactionPriorityScatter".randchars(12).".png";
+        $myPicture -> render($filename);
 
-        return $temp . "satisfactionPriorityScatter.png";
+        return $filename;
 
     }
 

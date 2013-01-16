@@ -12,6 +12,8 @@ class percentages
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
+		
+		$percentage_graphics = array();
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
@@ -156,6 +158,8 @@ class percentages
             
             $percentage_graphic = $this->_draw_graphic($question_number, $graphic_data_peiling, $graphic_data_alle_scholen, $graphic_answer, $graphic_answered, $graphic_percentage, $graphic_percentage_total, $show_legend, $schoolname, $temp);
     
+			$percentage_graphics[] = $percentage_graphic;
+			
             $paramsImg = array(
                 'name' => $percentage_graphic,
                 'scaling' => 50,
@@ -173,9 +177,12 @@ class percentages
         }
         if ($question_count > 0){
 //            $filename = encodeForURL($temp.'percentage'.$category.$target_question);
-            $filename = $temp.sanitize_filename('percentage'.$category.$target_question);
+            $filename = $temp.sanitize_filename('percentage'.$category.$target_question.randchars(12));
             $percentage_docx->createDocx($filename);
             unset($percentage_docx);
+			foreach ($percentage_graphics as $key => $value) {
+				unlink($value);
+			}
             return $filename.'.docx';
         } else {
             unset($percentage_docx);
@@ -270,9 +277,10 @@ class percentages
             $myPicture->drawLegend(10,40 + ($i)*31,array("BoxWidth"=>20,"BoxHeight"=>20,"Style"=>LEGEND_NOBORDER ,"Mode"=>LEGEND_VERTICAL, "FontR" => 0, "FontG" => 0, "FontB" => 0));
         }
         
-        $myPicture->render($temp . "percentages$question_number.png");
+		$filename = $temp . "percentages$question_number".randchars(12).".png";
+        $myPicture->render($filename);
         // var_dump($all_questions);
-        return $temp . "percentages$question_number.png";
+        return $filename;
         
     }
 

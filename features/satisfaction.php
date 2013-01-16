@@ -299,10 +299,11 @@ class satisfaction
         $table2 = $satisfaction_docx->addTable($satisfaction_titles);
         $table3 = $satisfaction_docx->addTable($satisfaction_table);
 
-
-        $satisfaction_docx->createDocx($temp.$type);
+		$filename = $temp.$type.randchars(12);
+        $satisfaction_docx->createDocx($filename);
+		
         unset($satisfaction_docx);
-        return $temp.$type.'.docx';
+        return $filename.'.docx';
         
     }
     

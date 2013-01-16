@@ -85,4 +85,16 @@ function sanitize_filename($string, $force_lowercase = true, $anal = false) {
         $clean;
 }
 
+/**
+ * Returns a random set of characters for filenames
+ */
+function randchars($num, $charset = 'abcdefghijkmnopqrstuvwxyz0123456789'){
+    $charrange = strlen($charset)-1;
+    $string = '';
+    for($i=1; $i<=$num; $i++){
+        $string .= $charset[mt_rand(0, $charrange)];
+        }
+    return $string;
+    }
+
 

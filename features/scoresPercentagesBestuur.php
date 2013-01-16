@@ -66,9 +66,10 @@ class scoresPercentagesBestuur
                 }
             }
         }
-        $scoresAndPercentages_docx->createDocx($temp.'scoresAndPercentagesBestuur');
+		$filename = $temp.'scoresAndPercentagesBestuur'.randchars(12);
+        $scoresAndPercentages_docx->createDocx($filename);
         unset($scoresAndPercentages_docx);
-        return $temp.'scoresAndPercentagesBestuur.docx';
+        return $filename.'.docx';
         
     }
     function _error_dump($object) {

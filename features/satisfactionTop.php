@@ -235,6 +235,7 @@ class satisfactionTop
         $table3 = $satisfactionTop_docx->addTable($satisfaction_table, array('size_col' => $size_col));
         
         $filename = ($top) ? 'satisfactionTopGood':'satisfactionTopBad';
+		$filename = $filename.randchars(12);
         $satisfactionTop_docx->createDocx($temp.$filename);
         unset($satisfactionTop_docx);
         return $temp.$filename.'.docx';

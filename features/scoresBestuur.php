@@ -188,7 +188,7 @@ class scoresBestuur
             $question_count++;
         }
         if ($question_count > 0){
-            $filename = $temp.sanitize_filename('scoreBestuur'.$category.$target_question);
+            $filename = $temp.sanitize_filename('scoreBestuur'.$category.$target_question.randchars(12));
             
             $scores_docx->createDocx($filename);
             unset($scores_docx);

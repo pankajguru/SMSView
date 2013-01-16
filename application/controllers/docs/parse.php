@@ -250,9 +250,9 @@ class Parse extends CI_Controller {
         $questionProperties = new questionProperties();
         $questionProperties->process($xmlData, $docx);
         $mostimportant = new mostimportant();
-        $mostimportant_docx = $mostimportant -> process($xmlData, $docx);
+        $mostimportant -> process($xmlData, $docx);
         $reportmark = new reportmark();
-        $reportmark_docx = $reportmark -> process($xmlData, $docx);
+        $reportmark -> process($xmlData, $docx);
         
 
         $docx -> addText("Created by oqdoc " . strftime("%e %B %Y"));
@@ -261,6 +261,24 @@ class Parse extends CI_Controller {
         $output_file = preg_replace('/\.docx$/','',$output_file);
         $docx -> createDocx($output_file);
 
+		//opruimen:
+        unlink($percentage_example_docx);
+        unlink($scores_example_docx);
+        unlink($reportmark_docx);
+        unlink($satisfaction_docx);
+        unlink($importance_docx);
+        unlink($satisfactionPriorityScatter_docx);
+        unlink($mostimportant_docx);
+        unlink($satisfactionTopGood_docx);
+        unlink($satisfactionTopBad_docx);
+        unlink($scoresAndPercentages_docx);
+        unlink($percentiles_good_docx);
+        unlink($percentiles_bad_docx);
+        unlink($previous_docx);
+        unlink($summary_docx);
+        unlink($satisfactionSummary_docx);
+        unlink($satisfactionImportance_docx);
+				
         echo "Done\n";
 
     }

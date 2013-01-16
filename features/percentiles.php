@@ -14,7 +14,7 @@ class percentiles
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $percentiles_data  = json_decode($datastring)->{$good};
-
+		$scores_graphics = array();
 
         $percentiles_docx = new CreateDocx();
 
@@ -76,6 +76,7 @@ n', $paramsTextHeading);
                 $answered = array($percentile_data[9], $percentile_data[13]);
 
                 $scores_graphic = $this->_draw_graphic($key, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $temp);
+				$scores_graphics[] = $scores_graphic;
                 $paramsImg = array(
                     'name' => $scores_graphic,
                     'scaling' => 40,
@@ -123,9 +124,13 @@ n', $paramsTextHeading);
             'right'=> 850,
         );
         $percentiles_docx->modifyPageLayout('A4');
-        $percentiles_docx->createDocx($temp.'percentiles'.$good, $paramsPage);
+		$filename = $temp.'percentiles'.$good.randchars(12);
+        $percentiles_docx->createDocx($filename, $paramsPage);
         unset($percentiles_docx);
-        return $temp.'percentiles'.$good.'.docx';
+		foreach ($scores_graphics as $key => $value) {
+			unlink($value);
+		}
+        return $filename.'.docx';
 
     }
                 
@@ -210,9 +215,9 @@ n', $paramsTextHeading);
         $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
         $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
         $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
-        
-        $myPicture->render($temp . "percentiles$question_number.png");
-        return $temp . "percentiles$question_number.png";
+        $filename = $temp . "percentiles$question_number".randchars(12).".png";
+        $myPicture->render($filename);
+        return $filename;
 
     }
 

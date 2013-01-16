@@ -91,9 +91,11 @@ class reportmark
             );
             $percentage_docx->addImage($paramsImg);
         }
-        $percentage_docx->createDocx($temp.'reportmark');
+		$filename = $temp.'reportmark'.randchars(12);
+        $percentage_docx->createDocx($filename);
         unset($percentage_docx);
-        return $temp.'reportmark.docx';
+		unlink($percentage_graphic);
+        return $filename.'.docx';
         
     }
     
@@ -241,9 +243,10 @@ class reportmark
             $myPicture->drawText(20, $Y,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         }
         
-        $myPicture->render($temp . "reportmark$question_number.png");
+		$filename = $temp . "reportmark$question_number".randchars(12).".png";
+        $myPicture->render($filename);
 
-        return $temp . "reportmark$question_number.png";
+        return $filename;
         
     }
 
