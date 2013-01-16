@@ -10,6 +10,7 @@ class satisfactionImportance {
         require_once("./features/utils.php");
 
         $temp = 'temp/';
+		$satisfactionImportance_graphics = array();
         $datastring     = $data['table.satisfaction.data'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
@@ -219,6 +220,7 @@ class satisfactionImportance {
 
 
             $satisfactionImportance_graphic = $this->_draw_graphic($importance_data[$key], $satisfaction_data[$key], $category_data[$key], $key, $temp);
+			$satisfactionImportance_graphics[] = $satisfactionImportance_graphic;
             $paramsImg = array(
                 'name' => $satisfactionImportance_graphic, 
                 'scaling' => 40, 
@@ -238,6 +240,9 @@ class satisfactionImportance {
 		$filename = $temp . 'satisfactionImportance'.randchars(12);
         $satisfactionImportance_docx -> createDocx($filename);
         unset($satisfactionImportance_docx);
+        foreach ($satisfactionImportance_graphics as $key => $value) {
+            unlink($value);
+        }
         return $filename.'.docx';
 
     }

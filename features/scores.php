@@ -164,14 +164,19 @@ class scores
                 if ( $max_value - $min_value >= 3 ) {
                      $extra_std_deviation = $averages[3] - $averages[2];
                 }
-                $empty[] = ($averages[2] - $min_value - $extra_std_deviation - $blocksize/2);
-                $stdev = ($averages[3] - $averages[2] - $blocksize/2 + $extra_std_deviation);
-                if ($stdev < 0) $stdev = 0;
-                $stdev_left[] = $stdev;
+				$empty_value = ($averages[2] - $min_value - $extra_std_deviation - $blocksize/2);
+                $empty[] = $empty_value;
+                $stdev_low = ($averages[3] - $averages[2] - $blocksize/2 + $extra_std_deviation);
+                if ($stdev_low < 0) $stdev_low = 0;
+                $stdev_left[] = $stdev_low;
                 $block[] = $blocksize;
-                $stdev = ($averages[4] - $averages[3] - $blocksize/2 + $extra_std_deviation);
-                if ($stdev < 0) $stdev = 0;
-                $stdev_right[] = $stdev;
+                $stdev_high = ($averages[4] - $averages[3] - $blocksize/2 + $extra_std_deviation);
+                if ($stdev_high < 0) $stdev_high = 0;
+				$total = $empty_value + $stdev_low + $blocksize + $stdev_high + $min_value;
+				if ($total > $max_value){
+					$stdev_high = $max_value - ($empty_value + $stdev_low + $blocksize + $min_value);
+				}
+                $stdev_right[] = $stdev_high;
                 $values[] = sprintf("%01.2f",$averages[3]);
                 $answered[] = $averages[5];
             }
