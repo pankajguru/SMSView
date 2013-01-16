@@ -78,15 +78,15 @@
                                 <option value="ptp">Personeel</option>
                             </select>
                         </form>
-<!--                        <form id="survey_standard" action="#">
+                        <form id="survey_standard" action="#">
                             <label id="select_standard_label" for="select_standard" class="error">Kies een standaard vragenlijst:</label>
-                            <select name="select_standard" id='select_standard'>
+                            <select name="select_standard" id='select_standard' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                                 <option value="otp">Ouders</option>
                                 <option value="ltp">Leerlingen</option>
                                 <option value="ptp">Personeel</option>
                             </select>
-                    </form> -->
+                    </form> 
                         <form id="survey_saved" action="#">
                             <label id="select_saved_label" for="select_saved" class="error">Kies een opgeslagen vragenlijst:</label>
                             <select name="select_saved" id='select_saved' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">

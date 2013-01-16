@@ -77,7 +77,7 @@ function select_survey_type() {
 	get_saved_surveys();
 }
 
-function retrieve_questions_per_type(type, survey) {
+function retrieve_questions_per_type(type, survey, standard) {
 	var questions = new Array();
 
 	$.ajax({
@@ -115,6 +115,9 @@ function retrieve_questions_per_type(type, survey) {
 			wire_print_button();
 			if (survey) {
 				set_saved_questions(survey);
+			}
+			if (standard) {
+				set_standard_questions(type);
 			}
 
 		}
@@ -169,7 +172,7 @@ function wireTypeChange() {
 
 function wireStandardChange() {
 	$('#select_standard').change(function() {
-		retrieve_questions_per_type($(this).val());
+		retrieve_questions_per_type($(this).val(), null, 1);
 		basetype = $(this).val();
 		//TODO:: Get standard list
 		$('#survey_type').addClass('hide');
@@ -239,6 +242,99 @@ function set_saved_questions(savedSurvey) {
 			$('#'+id).remove();
 		} 
 	});
+}
+
+function set_standard_questions(standard) {
+	if (standard == 'otp'){
+		standard = 'OTP_2004';
+	}
+	if (standard == 'ltp'){
+		standard = 'LTP0908';
+	}
+	if (standard == 'ptp'){
+		standard = 'PTP_2003';
+	}
+	$.ajax({
+		type : 'GET',
+		url : base_url + '/xmlprovider/questions/template/' + standard + '/',
+		dataType : 'xml',
+		success : function(questions) {
+			$(questions).find('item').each(function() {
+				var id = $(this).text();
+//				$()
+				
+				var category = $('#'+id).parent().attr('id');
+				
+				var listclass = '.sortable_with_' + $('#'+id).parent().attr('id');
+				if ($(listclass).html() == ''){
+					$('<span class="category_list_name category_list_name_' + $('#'+id).parent().attr('id') + '">' + $('#'+id).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+				}
+	
+				var selector = '.sortable_with_' + category;
+				$(selector).removeClass('hide');
+				//unhide when hidden
+	
+				var text = $("#" + id).clone().children().remove().end().text();
+				var qtype = '';
+				if ($("#" + id).hasClass('BELANGRIJK')) {
+					qtype += 'BELANGRIJK ';
+				}
+				if ($("#" + id).hasClass('TEVREDEN')) {
+					qtype += 'TEVREDEN ';
+				}
+				if ($("#" + id).hasClass('PTP_IMPORTANCE')) {
+					qtype += 'PTP_IMPORTANCE ';
+				}
+				if ($("#" + id).hasClass('PTP_TEVREDEN')) {
+					qtype += 'PTP_TEVREDEN ';
+				}
+				var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
+				li.appendTo(selector);
+				$('#' + id).draggable('option', 'disabled', true);
+				check_for_how_important(id);
+				process_question_numbering();
+//				$('#' + id).remove();
+			});
+		}
+	});
+	
+/*	$.each(savedSurvey, function(key,value) { 
+		if (value['id']){
+			var id = value['id'];
+			
+			var category = $('#'+id).parent().attr('id');
+			
+			var listclass = '.sortable_with_' + $('#'+id).parent().attr('id');
+			if ($(listclass).html() == ''){
+				$('<span class="category_list_name category_list_name_' + $('#'+id).parent().attr('id') + '">' + $('#'+id).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+			}
+
+			var selector = '.sortable_with_' + category;
+			$(selector).removeClass('hide');
+			//unhide when hidden
+
+			var text = $("#" + id).clone().children().remove().end().text();
+			var qtype = '';
+			if ($("#" + id).hasClass('BELANGRIJK')) {
+				qtype += 'BELANGRIJK ';
+			}
+			if ($("#" + id).hasClass('TEVREDEN')) {
+				qtype += 'TEVREDEN ';
+			}
+			if ($("#" + id).hasClass('PTP_IMPORTANCE')) {
+				qtype += 'PTP_IMPORTANCE ';
+			}
+			if ($("#" + id).hasClass('PTP_TEVREDEN')) {
+				qtype += 'PTP_TEVREDEN ';
+			}
+			var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
+			li.appendTo(selector);
+			$('#' + id).draggable('option', 'disabled', true);
+			check_for_how_important(id);
+			process_question_numbering();
+			$('#'+id).remove();
+		} 
+}); */
 }
 
 function get_saved_surveys() {
@@ -683,6 +779,8 @@ function check_for_how_important(id) {
 			$('<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>').appendTo('.sortable_with_' + how_important_class);
 			$('#notion_' + how_important_class).draggable('option', 'disabled', true);
 		}
+	} else {
+		$('#notion_' + how_important_class).remove();
 	}
 }
 
