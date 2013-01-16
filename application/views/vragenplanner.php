@@ -70,7 +70,7 @@
                 </div>
                 <ul id="questions_container" class="">
                         <form id="survey_type" action="#">
-                            <label id="select_type_label" for="select_type" class="error">Kies het type vragenlijst:</label>
+                            <label id="select_type_label" for="select_type" class="">Kies een leeg type vragenlijst voor een compleet eigen vragenlijst:</label>
                             <select name="select_type" id='select_type' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                                 <option value="otp">Ouders</option>
@@ -79,7 +79,7 @@
                             </select>
                         </form>
                         <form id="survey_standard" action="#">
-                            <label id="select_standard_label" for="select_standard" class="error">Kies een standaard vragenlijst:</label>
+                            <label id="select_standard_label" for="select_standard" class="">Kies hier voor een standaard lijst voor het aanpassen van enkele vragen:</label>
                             <select name="select_standard" id='select_standard' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                                 <option value="otp">Ouders</option>
@@ -88,7 +88,7 @@
                             </select>
                     </form> 
                         <form id="survey_saved" action="#">
-                            <label id="select_saved_label" for="select_saved" class="error">Kies een opgeslagen vragenlijst:</label>
+                            <label id="select_saved_label" for="select_saved" class="">Kies een opgeslagen vragenlijst:</label>
                             <select name="select_saved" id='select_saved' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                             </select>
