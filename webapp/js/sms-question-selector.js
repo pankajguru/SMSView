@@ -405,17 +405,35 @@ function sort_on_category() {
 
 function create_clicks() {
 	$('.category_name').click(function() {
-		$('.question_not_selected').addClass('hide')
 		$(this).parent().children('.ui-state-default').toggleClass('hide');
 
-		var listclass = '.sortable_with_' + $(this).parent().attr('id');
-		var check_category = '.category_list_name_' + $(this).parent().attr('id');
+//		$('.question_not_selected').addClass('hide');
+		//check each category on the right wether to show or not
+		$.each(categories, function(key, category) {
+			if (category){
+				var classname = category.replace(/ /g, "_");
+				var listclass_right = '.sortable_with_list' + classname;
+				var number_of_questions_right = $(listclass_right).children('li').length;
+				var listclass_left = '#list' + classname;
+				var number_of_questions_left = $(listclass_left).children(':not(.hide) + li + .ui-state-default').length;
+				var listclass = '.sortable_with_list' + classname;
+				var check_category = '.category_list_name_list' + classname;
+				if ( (number_of_questions_right == 0) && (number_of_questions_left <= 1) ){
+					$(listclass).hide();
+				} else {
+					//we open it, so the category should be visible on the other side
+					if ($(check_category).length === 0) {
+						$('<span class="category_list_name category_list_name_list' + classname + '">' + category + '</span>').prependTo($(listclass));
+					}
+					$(listclass).show();
+					$(check_category).show();
+				}
+				
+			}
+		});
 
-		if ($(check_category).length === 0) {
+		
 
-			$('<span class="category_list_name category_list_name_' + $(this).parent().attr('id') + '">' + $(this).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
-		}
-		$(listclass).removeClass('hide');
 	});
 }
 
@@ -430,7 +448,7 @@ function new_question() {
 	});
 
 	$('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').button().click(function() {
-		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type"><option value="open vraag" selected="selected">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div id="answer_container"></div><div id="answeraddcontainer"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" /><input id="clear_new_question" type="submit" value="Annuleren" /></div></form>').modal({
+		$('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="open vraag" selected="selected" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div id="answer_container"></div><div id="answeraddcontainer"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" class="text ui-widget-content ui-corner-all" /><input id="clear_new_question" type="submit" value="Annuleren" class="text ui-widget-content ui-corner-all" /></div></form>').modal({
 			position : ["50px", "250px"]
 		});
 		wire_add_question();
@@ -499,7 +517,7 @@ function wire_question_type() {
 
 		if ($('#answer_type option:selected').val() === 'multiple choice') {
 			$('<div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>').appendTo('#answer_container');
-			$('<button id="add_multiple_choice_answer">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
+			$('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
 		}
 
 		$("#add_multiple_choice_answer").click(function(e) {
@@ -647,20 +665,24 @@ function check_for_how_important(id) {
 	var how_important_class = $(how_important).parent().attr('id');
 	var how_important_id = $(how_important).attr('id');
 	var how_important_text = $(how_important).clone().children().remove().end().text();
-
-	if ($('.sortable_with_' + how_important_class + '> li.TEVREDEN, .sortable_with_' + how_important_class + '> li.PTP_TEVREDEN').length >= 3) {
-		$('#notion_' + how_important_class).remove();
-		//make sure, belangrijk question is always last
-		$('.sorts > li[refid="' + how_important_id + '"]').remove();
-		//        if($('.sorts > li[refid="' + how_important_id + '"]').length === 0) {
-		$('<li class="required" refid="' + how_important_id + '">' + how_important_text + '</li>').appendTo('.sortable_with_' + how_important_class);
-		$(how_important).draggable('option', 'disabled', true);
-		$(".errorhead").show().html('* Deze vraag is verplicht').fadeOut(5000);
-		//        }
-	} else {
-		$('#notion_' + how_important_class).remove();
-		$('<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>').appendTo('.sortable_with_' + how_important_class);
-		$('#notion_' + how_important_class).draggable('option', 'disabled', true);
+	var number_of_satisfied = $('.sortable_with_' + how_important_class + '> li.TEVREDEN, .sortable_with_' + how_important_class + '> li.PTP_TEVREDEN').length;
+	
+	if ( number_of_satisfied > 0 ) {
+		if ( number_of_satisfied >= 3 ) {
+			$('#notion_' + how_important_class).remove();
+			//make sure, belangrijk question is always last
+			$('.sorts > li[refid="' + how_important_id + '"]').remove();
+			//        if($('.sorts > li[refid="' + how_important_id + '"]').length === 0) {
+			$('<li class="required" refid="' + how_important_id + '">' + how_important_text + '</li>').appendTo('.sortable_with_' + how_important_class);
+			$(how_important).draggable('option', 'disabled', true);
+			$(".errorhead").show().html('* Deze vraag is verplicht').fadeOut(5000);
+			//        }
+		} else {
+			$('li[refid="'+how_important_id+'"]').removeClass('required');
+			$('#notion_' + how_important_class).remove();
+			$('<li class="info" id="notion_' + how_important_class + '">Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd</li>').appendTo('.sortable_with_' + how_important_class);
+			$('#notion_' + how_important_class).draggable('option', 'disabled', true);
+		}
 	}
 }
 
