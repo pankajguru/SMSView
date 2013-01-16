@@ -234,7 +234,11 @@ function set_saved_questions(savedSurvey) {
 			if ($("#" + id).hasClass('PTP_TEVREDEN')) {
 				qtype += 'PTP_TEVREDEN ';
 			}
-			var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
+			var required = '';
+			if ( (id == 1) || (id == 2) || (id == 68) || (id == 71) || (id == 72) || (id == 129) || (id == 200) || (id == 201) || (id == 306)  ){
+				required = 'required';
+			}
+			var li = $('<li refid="' + id + '" class="question_selected ' + qtype + ' ' + required + '">' + text + '</li>');
 			li.appendTo(selector);
 			$('#' + id).draggable('option', 'disabled', true);
 			check_for_how_important(id);
@@ -288,7 +292,11 @@ function set_standard_questions(standard) {
 				if ($("#" + id).hasClass('PTP_TEVREDEN')) {
 					qtype += 'PTP_TEVREDEN ';
 				}
-				var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
+				var required = '';
+				if ( (id == 1) || (id == 2) || (id == 68) || (id == 71) || (id == 72) || (id == 129) || (id == 200) || (id == 201) || (id == 306)  ){
+					required = 'required';
+				}
+				var li = $('<li refid="' + id + '" class="question_selected ' + qtype  + ' ' + required + '">' + text + '</li>');
 				li.appendTo(selector);
 				$('#' + id).draggable('option', 'disabled', true);
 				check_for_how_important(id);
@@ -704,7 +712,6 @@ function check_mandatory_questions() {
 	var type = $('#select_type').val();
 
 	if (type === 'otp') {
-
 		// Create mandatory question for OTP list
 		var listclass = '.sortable_with_' + $('#1').parent().attr('id');
 		$('<span class="category_list_name category_list_name_' + $('#1').parent().attr('id') + '">' + $('#1').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
@@ -740,7 +747,7 @@ function check_mandatory_questions() {
 		$('<span class="category_list_name category_list_name_' + $('#200').parent().attr('id') + '">' + $('#200').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
 		var text = $('<li refid="200" class="question_selected required">Wat is uw geslacht?</li><li refid="201" class="question_selected required">Wat is uw leeftijd?</li>');
 		text.appendTo(listclass);
-		var listclass = '.sortable_with_' + $('#301').parent().attr('id');
+		var listclass = '.sortable_with_' + $('#306').parent().attr('id');
 		$('<span class="category_list_name category_list_name_' + $('#306').parent().attr('id') + '">' + $('#306').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
 		var text = $('<li refid="306" class="question_selected required">Welk rapport cijfer geeft u aan uw school</li>');
 		text.appendTo(listclass);
@@ -965,7 +972,14 @@ function wire_save_question_list_button() {
 		}
 	});
 
-	$("#save_question_list").click(function() {
+  $('#name, #filter_field').keydown(function(event){
+    if( (event.keyCode == 13) ) {
+      event.preventDefault();
+      return false;
+    }
+  });
+  
+  $("#save_question_list").click(function() {
 		$("#save_questionaire").dialog("open");
 	});
 }
