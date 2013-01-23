@@ -175,6 +175,9 @@ class scores
 				$total = $empty_value + $stdev_low + $blocksize + $stdev_high + $min_value;
 				if ($total > $max_value){
 					$stdev_high = $max_value - ($empty_value + $stdev_low + $blocksize + $min_value);
+                    if ($stdev_high < 0){
+                        $stdev_high = 0;
+                    }
 				}
                 $stdev_right[] = $stdev_high;
                 $values[] = sprintf("%01.2f",$averages[3]);
