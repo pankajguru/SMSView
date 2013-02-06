@@ -162,6 +162,9 @@ class Questions extends REST_Controller {
         $base_questions = $this -> Sms_model -> get_all_questions_by_peiling_type_desc_code($type);
         $base_question_ids = array();
         foreach ($base_questions as $base_question) {
+            if ( ($base_question -> question_id == 69) || ($base_question -> question_id == 70) ) {
+                continue;
+            }
             $base_question_ids[] = $base_question -> question_id;
         }
 
