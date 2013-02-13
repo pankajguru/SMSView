@@ -8,8 +8,11 @@
         <link type="text/css" href="/webapp/css/webapp.css" rel="stylesheet" />
     </head>
     <body>
+            <div data-role="header" id="header">
+        <div id="logo"><a href="http://www.scholenmetsucces.nl"><img alt="Scholen met Succes" src="/templates/scholenmetsucces-frontpage/images/logo.png"></a><span style="font-size:80px; color:#fff; float:right; margin-top:17px; text-shadow: 0.1em 0.1em 0.2em grey;">Vragenplanner</span></div>
+        </div>
         <div data-role="page" id="login">
-            <h1>Welkom bij de vragenplanner<span class="copyright">&copy;</span></h1>
+            <h1>Welkom bij de Vragenplanner<span class="copyright">&copy;</span></h1>
             <p>&nbsp;</p>
            <p>Hier kunt u inloggen voor de vragenplanner.</p>
             <p>&nbsp;</p>
@@ -48,7 +51,7 @@ $captcha = array(
 );
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
-<table>
+<table class="inlogtabel">
 	<tr>
 		<td><?php echo form_label($login_label, $login['id']); ?></td>
 		<td><?php echo form_input($login); ?></td>
@@ -96,7 +99,7 @@ $captcha = array(
 	<?php }
 	} ?>
 
-    <tr>
+    <tr style="height:35px;">
         <td colspan="3">
             <?php echo form_checkbox($remember); ?>
             <?php echo form_label('Onthoud login', $remember['id']); ?>
@@ -107,9 +110,11 @@ $captcha = array(
 <?php echo form_close(); ?>
         </div>
         <div id="loginfooter">
+        <p>Nieuw bij de Vragenplanner? Maak dan eerste een account aan:</p>
         <?php if ($this->config->item('allow_registration', 'tank_auth')) echo anchor('/auth/register/', 'Registreer', array('class' => 'registreer')); ?>
             <?php echo anchor('/auth/forgot_password/', 'Wachtwoord vergeten', array('class' => 'wachtwoordvergeten')); ?>
         </div>
+       <div style="width:600px; margin:20px auto; padding:10px; background:#fff;"><div style="width:50%; float:left;"><iframe width="250" height="141" src="http://www.youtube-nocookie.com/embed/vxDahDPWB9M?rel=0" frameborder="0" allowfullscreen></iframe></div><div style="float:right; width:49%; padding-top:40px;"><p style="font-size:16px;"><img src="http://www.scholenmetsucces.nl/bijlagen/afbeeldingen/File_pdf.png" style="vertical-align: middle;"> <a href="http://www.scholenmetsucces.nl/bijlagen/pdf/Handleiding_Vragenplanner.pdf" target="_blank">Handleiding</a></p><p style="font-size:16px; margin-top:20px;">Vragen? Bel: 023 534 11 58</p></div><div style="clear:both;"></div></div>
 
     </body>
 </html>

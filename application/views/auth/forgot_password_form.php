@@ -8,8 +8,12 @@
         <link type="text/css" href="/webapp/css/webapp.css" rel="stylesheet" />
     </head>
     <body>
+                  <div data-role="header" id="header">
+        <div id="logo"><img alt="Scholen met Succes" src="/templates/scholenmetsucces-frontpage/images/logo.png"><span style="font-size:80px; color:#fff; float:right; margin-top:17px; text-shadow: 0.1em 0.1em 0.2em grey;">Vragenplanner</span></div>
+        </div>
         <div data-role="page" id="login">
-            <h1>Welkom bij de vragenplanner<span class="copyright">&copy;</span></h1>
+            <h1 style="margin-bottom:30px;">Wachtwoord vergeten?</h1>
+            <p style="margin-bottom:20px;">Voer hieronder het e-mail adres in waarmee u zich heeft geregistreerd en klik op wachtwoord aanvragen. U ontvangt per mail uw nieuwe wachtwoord.</p>
 
 <?php
 $login = array(
@@ -27,13 +31,13 @@ if ($this->config->item('use_username', 'tank_auth')) {
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
 <table>
-	<tr>
-		<td><?php echo form_label($login_label, $login['id']); ?></td>
+	<tr style="height:40px;">
+		<td style="width:60px;"><?php echo form_label($login_label, $login['id']); ?></td>
 		<td><?php echo form_input($login); ?></td>
 		<td style="color: red;"><?php echo form_error($login['name']); ?><?php echo isset($errors[$login['name']])?$errors[$login['name']]:''; ?></td>
 	</tr>
 </table>
-<?php echo form_submit('reset', 'Vraag een nieuw wachtwoord'); ?>
+<?php echo form_submit('reset', 'Wachtwoord aanvragen'); ?>
 <?php echo form_close(); ?>
         </div>
     </body>

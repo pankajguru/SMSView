@@ -21,9 +21,10 @@
     </head>
     <body>
         <div data-role="header" id="header">
+        <div id="logo"><img alt="Scholen met Succes" src="/templates/scholenmetsucces-frontpage/images/logo.png"><span style="font-size:80px; color:#fff; float:right; margin-top:17px; text-shadow: 0.1em 0.1em 0.2em grey;">Vragenplanner</span></div>
         </div>
         <div data-role="page" id="login">
-            <h1>Welkom bij de vragenplanner</h1>
+            <h1>Welkom bij de Vragenplanner</h1>
             <form id="form_login" method="post">
                 <h2>
                     Login om verder te gaan.
@@ -70,7 +71,7 @@
                 </div>
                 <ul id="questions_container" class="">
                         <form id="survey_type" action="#">
-                            <label id="select_type_label" for="select_type" class="">Kies een leeg type vragenlijst voor een compleet eigen vragenlijst:</label>
+                            <label id="select_type_label" for="select_type" class="">Stel uw lijst volledig zelf samen, voor:</label><br />
                             <select name="select_type" id='select_type' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                                 <option value="otp">Ouders</option>
@@ -79,7 +80,7 @@
                             </select>
                         </form>
                         <form id="survey_standard" action="#">
-                            <label id="select_standard_label" for="select_standard" class="">Kies hier voor een standaard lijst voor het aanpassen van enkele vragen:</label>
+                            <label id="select_standard_label" for="select_standard" class="">Gebruik onze standaard lijst en pas deze naar uw wensen aan, voor:</label>
                             <select name="select_standard" id='select_standard' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                                 <option value="otp">Ouders</option>
@@ -88,7 +89,7 @@
                             </select>
                     </form> 
                         <form id="survey_saved" action="#">
-                            <label id="select_saved_label" for="select_saved" class="">Kies een opgeslagen vragenlijst:</label>
+                            <label id="select_saved_label" for="select_saved" class="">Ga verder met een eerder opgeslagen vragenlijst:</label>
                             <select name="select_saved" id='select_saved' class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <option value=''>Kies een type:</option>
                             </select>
