@@ -162,11 +162,20 @@ class Questions extends REST_Controller {
         $base_questions = $this -> Sms_model -> get_all_questions_by_peiling_type_desc_code($type);
         $base_question_ids = array();
         foreach ($base_questions as $base_question) {
+            //custom rules
+            //do not take question 69 and 70 as standard in OTP
             if ( ($base_question -> question_id == 69) || ($base_question -> question_id == 70) ) {
                 continue;
             }
+            
             $base_question_ids[] = $base_question -> question_id;
         }
+            //add question 10014, 10017 and 10019 as standard
+        if ($type == 'OTP_2004'){
+            $base_question_ids[] = 10014;
+            $base_question_ids[] = 10017;
+            $base_question_ids[] = 10019;
+        }  
 
         if (count($base_question_ids)>0) {
             $this -> response($base_question_ids, 200);
