@@ -67,7 +67,7 @@ class reportmark
                     if (!$ref['alle_scholen']) continue;
                     $text[] ="Alle Scholen ";
                 } else {
-                    if (!$reference['question_based']) continue;
+                    if (!$ref['question_based']) continue;
                     $text[] = $reference.' ';
                 }
                 $graphic_data_reportmarks[] = $average_value;
