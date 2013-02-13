@@ -4,20 +4,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Scholen met Succes Vragenplanner</title>
                 <link type="text/css" href="http://www.scholenmetsucces.nl/templates/scholenmetsucces/css/reset.css" rel="stylesheet" />
-        <link type="text/css" href="/webapp/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-        <link type="text/css" href="/webapp/css/webapp.css" rel="stylesheet" />
+        <link type="text/css" href="<?php echo base_url();?>webapp/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+        <link type="text/css" href="<?php echo base_url();?>webapp/css/webapp.css" rel="stylesheet" />
         <!--[if IE 7]>
         <link type="text/css" href="/webapp/css/ie7.css" rel="stylesheet" />
         <script type="text/javascript" src="/webapp/js/json2.js"></script>
         <![endif]-->
-        <link type="text/css" href="/webapp/css/basic.css" rel="stylesheet" />
-        <script type="text/javascript" src="/webapp/js/jquery-1.7.1.js"></script>
-        <script type="text/javascript" src="/webapp/js/jquery-ui-1.8.16.custom.min.js"></script>
-        <script type="text/javascript" src="/webapp/js/config.js"></script>
-        <script type="text/javascript" src="/webapp/js/jquery.simplemodal.js"></script>
-        <script type="text/javascript" src="/webapp/js/basic.js"></script>
-        <script type="text/javascript" src="/webapp/js/jquery.simpletip-1.3.1.min.js"></script>
-        <script type="text/javascript" src="/webapp/js/sms-question-selector.js"></script>
+        <link type="text/css" href="<?php echo base_url();?>webapp/css/basic.css" rel="stylesheet" />
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/jquery-1.7.1.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/jquery-ui-1.8.16.custom.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/config.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/jquery.simplemodal.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/basic.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/jquery.simpletip-1.3.1.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/sms-question-selector.js"></script>
     </head>
     <body>
         <div data-role="header" id="header">
