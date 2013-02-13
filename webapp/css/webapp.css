@@ -1,15 +1,34 @@
 /*demo page css*/
 body {
 	font: 62.5% "Trebuchet MS", sans-serif;
+	background:#dddddd;
 }
 .demoHeaders {
 	margin-top: 2em;
 }
+
+#header {	
+	height:150px;	
+	background:#d7d5d5;
+	border-bottom:1px solid #f78e1e;
+}
+
+#logo {
+	width:988px;
+	margin:0 auto;
+}
+
+#typechoice {	
+	width:1024px;	
+	margin:0 auto;
+}
+
 #dialog_link {
 	padding: .4em 1em .4em 20px;
 	text-decoration: none;
 	position: relative;
 }
+
 #dialog_link span.ui-icon {
 	margin: 0 5px 0 0;
 	position: absolute;
@@ -55,6 +74,7 @@ ul {
 
 ul#question_list_container {
 	min-height: 10px;
+	padding-left: 30px;
 }
 
 div#question_list_container {
@@ -63,13 +83,14 @@ div#question_list_container {
 
 
 #questions_container, #question_list_container {
-	background-color: #F3F3F3;
+	background-color: #fff;
+	min-height:250px;
 }
 
 #questions_container li, #question_list_container li {
-	color: #29A8E3;
-	font-size: 14px;
-	font-weight: bold;
+	color: #1f1f1f;
+	font-size: 15px;
+	font-weight: normal;
 	list-style-type: disc;
 	margin: 0;
 	padding: 10px;
@@ -77,8 +98,18 @@ div#question_list_container {
 	background: transparent;
 }
 
-ul#question_list_container {
-	padding-left: 30px;
+
+ul#questions_container ul {
+	border-bottom:1px solid #F78E1E;
+	font-size:18px;
+	cursor:pointer;
+}
+
+
+ul#questions_container ul li.category_name {
+	font-size:18px;
+	font-weight:bold;
+	border-bottom:none;
 }
 
 ul#question_list_container li {
@@ -87,9 +118,8 @@ ul#question_list_container li {
 }
 
 ul#questions_container li:hover {
-	background-color: #FFB76A;
-	box-shadow: 0px 1px 0px 0px #29A8E3;
-	color: #FFF;
+	background-color: #fef2e5;
+	color: #000;
 }
 
 ul#question_list_container li.info {
@@ -100,8 +130,8 @@ ul#question_list_container li.info {
 	height: 25px;
 }
 
-div#question_list_container {
-	padding-left: 30px;
+div#question_list_container li {
+	margin-left:32px;
 }
 
 div#question_list_container li {
@@ -145,7 +175,7 @@ div#question_list_container li.info {
 }
 
 #survey_type, #survey_standard, #survey_saved {
-	height: 26px;
+	height: 50px;
 }
 
 #questions_container ul li.category_name, #question_list_container span.category_list_name {
@@ -155,8 +185,12 @@ div#question_list_container li.info {
 }
 
 #question_list_container span.category_list_name {
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: bold;
+	border-bottom:1px solid;
+	display:block;
+	margin-left:0;
+	padding:10px; 0 10px 10px;
 }
 
 #question_list_container li {
@@ -213,6 +247,7 @@ div#question_list_container li.info {
 #questions_container ul li div.active_tooltip li, #questions_container ul li div.active_tooltip li:hover  {
 	color: #FFF;
 	background-color: #29A8E3;
+	width:auto;
 }
 
 .tooltip {
@@ -248,7 +283,8 @@ div#question_list_container li.info {
 	float: right;
 	display: block;
 	margin-top: -28px;
-    z-index: 1000;
+   	z-index: 1000;
+	cursor:pointer;
 }
 
 .add_button {
@@ -259,6 +295,7 @@ div#question_list_container li.info {
 	display: block;
 	margin-top: -28px;
 	z-index: 1000;
+	cursor:pointer;
 }
 
 #questionnaire_controls {	
@@ -337,16 +374,29 @@ h2 { font-size: 24px; }
 }
 
 DIV#loginfooter {
+	position:relative;
     margin : auto;
     width : 600px;
+    margin-top:20px;
+    background:#fff;
+	height:80px;
+	padding:10px;
 }
 
+DIV#loginfooter p {
+	font-size:16px;
+	
+}
 
 a.registreer{
-    color: #00A4E4;
-    font-size:22px;  
-    text-decoration: none; 
-    float: left;  
+    background: #00A4E4;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 22px;
+    margin-top: 20px;
+    padding: 5px;
+    text-decoration: none;
 }
 
 a:hover.registreer{
@@ -354,9 +404,13 @@ a:hover.registreer{
 }
 
 a.wachtwoordvergeten{
+	position:absolute;
+	right:10px;
+	bottom:10px;
     color: #00A4E4;
     text-decoration: none;
     float: right;  
+	
 }
 
 a:hover.wachtwoordvergeten{
@@ -372,3 +426,23 @@ a:hover.wachtwoordvergeten{
 	content: ' *';
 }
 
+#select_type_label, #select_standard_label, #select_saved_label {
+	display: inline-block;
+	padding:10px 0;
+}
+
+
+.inlogtabel tr, .regtabel tr {
+height:25px;
+}
+
+.inlogtabel td {
+min-width:100px;
+}
+
+table.regtabel {
+margin-bottom:20px;
+}
+.regtabel td {
+min-width:155px;
+}

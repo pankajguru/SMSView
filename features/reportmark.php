@@ -137,6 +137,7 @@ class reportmark
                                 ? sprintf("%.2f punt hoger dan", (round($average_peiling) - round($average_alle_scholen))/10)
                                 : sprintf("%.2f punt lager dan", (round($average_alle_scholen) - round($average_peiling))/10);
             $docx -> addTemplateVariable("class:questionProperties:reportmark:difference", $difference);
+            $docx -> addTemplateVariable("class:questionProperties:reportmark:questionnumber", $question_number);
             break;
         }
         return $docx;

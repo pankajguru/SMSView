@@ -8,8 +8,11 @@
         <link type="text/css" href="/webapp/css/webapp.css" rel="stylesheet" />
     </head>
     <body>
+               <div data-role="header" id="header">
+        <div id="logo"><img alt="Scholen met Succes" src="/templates/scholenmetsucces-frontpage/images/logo.png"><span style="font-size:80px; color:#fff; float:right; margin-top:17px; text-shadow: 0.1em 0.1em 0.2em grey;">Vragenplanner</span></div>
+        </div>
         <div data-role="page" id="login">
-            <h1>Welkom bij de vragenplanner<span class="copyright">&copy;</span></h1>
+            <h1 style="margin-bottom:30px;">Maak hier uw account aan voor de Vragenplanner:</h1>
         
 
 <?php
@@ -63,7 +66,7 @@ $brin = array(
 
 ?>
 <?php echo form_open($this->uri->uri_string()); ?>
-<table>
+<table class="regtabel">
 	<?php if ($use_username) { ?>
 	<tr>
 		<td><?php echo form_label('Username', $username['id']); ?></td>
