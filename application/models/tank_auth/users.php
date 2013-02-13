@@ -400,7 +400,7 @@ class Users extends CI_Model
 	 */
 	function get_users()
 	{
-		$this->db->select('id, email');
+		$this->db->select("id, brin,email", FALSE);
 		$this->db->where('activated', 1);
 
 		$query = $this->db->get($this->table_name);

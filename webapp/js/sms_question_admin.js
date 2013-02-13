@@ -18,8 +18,9 @@ function get_accounts() {
 		success : function(xml) {
 			$(xml).find('item').each(function() {
 				var id = $(this).find('id').text();
-				var email = $(this).find('email').text();
-				$('#client').append($("<option></option>").attr("value", id).text(email));
+                var email = $(this).find('email').text();
+                var brin = $(this).find('brin').text();
+				$('#client').append($("<option></option>").attr("value", id).text(brin + ' ' + email));
 
 			});
 		},
