@@ -12,6 +12,7 @@ class satisfactionImportance {
         $temp = 'temp/';
 		$satisfactionImportance_graphics = array();
         $datastring     = $data['table.satisfaction.data'];
+        $refs = json_decode($datastring)->{'refs'};
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
         $dataImportance = json_decode($datastring)->{'importance'};
@@ -26,14 +27,15 @@ class satisfactionImportance {
         $satisfactionImportance_docx->importStyles('./templates/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
         $importance_categories = get_importance_categories($data);
 
-
-        $satisfaction_data = Array();
-        $importance_data = Array();
-        $category_data = Array();
-        foreach ($dataSatisfaction as $key => $reference){
-            if ($key == '_empty_'){
+        //create new array with categorynumber as key
+        $satisfaction_array = Array();
+        foreach ($refs as $key){
+                if ($key == '_empty_'){
                     continue;
-            }
+                }
+                if (!isset($key)){
+                    continue;
+                }
                 if ($key == 'peiling'){
                 } elseif ($key == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
@@ -46,13 +48,17 @@ class satisfactionImportance {
                 } else {
                     if (!$ref['question_based']) continue;
                 }
-            foreach($reference as $ref_key => $ref_value){
-                if (!in_array($ref_value[0], $importance_categories)){
-                    continue;
-                }
-                $satisfaction_data[$key][] = Scale10($ref_value[2], $scale_factor_satisfaction);
+            $satisfaction_column = $dataSatisfaction->{$key} ;
+            $satisfaction_average = Array();
+            foreach ($satisfaction_column as $value) {
+                $satisfaction_average[$value[0]] = $value[2];
             }
+            $satisfaction_array[$key] = $satisfaction_average;
         }
+
+        $satisfaction_data = Array();
+        $importance_data = Array();
+        $category_data = Array();
 
         foreach ($dataImportance as $key => $reference){
             if ($key == '_empty_'){
@@ -75,6 +81,7 @@ class satisfactionImportance {
                     continue;
                 }
                 $importance_data[$key][] = Scale10($ref_value[2], $scale_factor_importance);
+                $satisfaction_data[$key][] = Scale10($satisfaction_array[$key][$ref_value[0]], $scale_factor_satisfaction);
                 $category_data[$key][] = $ref_value[1];
             }
         }
@@ -200,7 +207,8 @@ class satisfactionImportance {
                     if (!$ref['obb']) continue;
                     $ref_text = "van leerlingen in de bovenbouw";
                 } elseif ($key == 'alle_scholen') {
-                    continue;
+                    if (!$ref['alle_scholen']) continue;
+                    $ref_text = "alle scholen";
                 } else {
                     if (!$ref['question_based']) continue;
                     $ref_text = "van leerlingen in $key";
