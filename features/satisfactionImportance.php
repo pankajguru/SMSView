@@ -200,7 +200,7 @@ class satisfactionImportance {
                     if (!$ref['obb']) continue;
                     $ref_text = "van leerlingen in de bovenbouw";
                 } elseif ($key == 'alle_scholen') {
-                    continue;
+                    if (!$ref['alle_scholen']) continue;
                 } else {
                     if (!$ref['question_based']) continue;
                     $ref_text = "van leerlingen in $key";
