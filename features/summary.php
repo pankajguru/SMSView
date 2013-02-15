@@ -75,6 +75,20 @@ class summary {
 
     }
 
+    function process( &$data, &$docx)
+    {
+        require_once("./features/utils.php");
+        $temp           = 'temp/';
+        $datastring     = $data['count_peiling_forms'];
+        //konqord JSON is false becuse escape character on '
+        //konqord JSON is false becuse escape character on '
+        $datastring     = str_replace('\\\'', '\'', $datastring);
+        $all_questions  = json_decode($datastring);
+
+
+        return $docx;
+        
+    }
 
     function _error_dump($object){
         ob_start();

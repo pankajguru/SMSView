@@ -48,7 +48,7 @@ class Parse extends CI_Controller {
         $xml_source = urldecode($xml_source);
         $output_file = urldecode($output_file);
         $ref = array();
-        $ref['question_based'] = TRUE;
+        $ref['question_based'] = FALSE;
         $ref['vorige_peiling'] = TRUE;
         
         $temp           = 'temp/';

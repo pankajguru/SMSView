@@ -109,6 +109,41 @@ class satisfaction
         //add graphic to docx
         $satisfaction_docx = new CreateDocx();
         
+        //create new array with categorynumber as key
+        $satisfaction_array = Array();
+        foreach ($refs as $key){
+                if ($key == '_empty_'){
+                    continue;
+                }
+                if (!isset($key)){
+                    continue;
+                }
+                if ($key == 'peiling'){
+                    $name = "$schoolname ";
+                } elseif ($key == 'vorige_peiling') {
+                    if (!$ref['vorige_peiling']) continue;
+                    $name = "Vorige peiling ".$schoolname." ";
+                } elseif ($key == 'peiling_onderbouw') {
+                    if (!$ref['obb']) continue;
+                    $name = $ref['onderbouw']." ";
+                } elseif ($key == 'peiling_bovenbouw') {
+                    if (!$ref['obb']) continue;
+                    $name = $ref['bovenbouw']." ";
+                } elseif ($key == 'alle_scholen') {
+                    if (!$ref['alle_scholen']) continue;
+                    $name ="Alle Scholen ";
+                } else {
+                    if (!$ref['question_based']) continue;
+                    $name = $key.' ';
+                }
+            $satisfaction_column = $satisfaction_data->{$key} ;
+            $satisfaction_average = Array();
+            foreach ($satisfaction_column as $value) {
+                $satisfaction_average[$value[0]] = $value[2];
+            }
+            $satisfaction_array[$key] = $satisfaction_average;
+        }
+        
         $satisfaction_table = array();
         $satisfaction_table_reference = array();
         for ($i=0 ; $i < count($satisfaction_data->{'peiling'}) ; $i++){
@@ -116,6 +151,7 @@ class satisfaction
             if (!in_array($satisfaction_data->{'peiling'}[$i][0], $importance_categories)){
                 continue;
             }
+            $category_id = $satisfaction_data->{'peiling'}[$i][0];
             $count = 0;
  //           $satisfaction_table[$i][$count++] = $i; //number, will be changed after sort
             $paramsTextTable['text'] = filter_text($satisfaction_data->{'peiling'}[$i][1]);
@@ -155,7 +191,7 @@ class satisfaction
                     $text->{'border'} = $paramsTableEmpty;
                     $satisfaction_table[$i][$count++] = $text;
                     if ($ref['alle_scholen']){
-                        $paramsTextTableReference['text'] = Scale10($satisfaction_column[$i][2], $scale_factor); 
+                        $paramsTextTableReference['text'] = Scale10($satisfaction_array[$key][$category_id], $scale_factor); 
                     } else {
                         $paramsTextTableReference['text'] = '-';
                     }
@@ -169,7 +205,8 @@ class satisfaction
                         $text->{'border'} = $paramsTable;
                         $satisfaction_table[$i][$count++] = $text;
                     } else {
-                        $paramsTextTable['text'] = Scale10($satisfaction_column[$i][2], $scale_factor);
+                        
+                        $paramsTextTable['text'] = Scale10($satisfaction_array[$key][$category_id], $scale_factor);
                         $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
                         $text->{'border'} = $paramsTable;
                         $satisfaction_table[$i][$count++] = $text;
@@ -232,7 +269,6 @@ class satisfaction
                     $satisfaction_titles[0][] = $text;
                 }
         }
-        
         usort($satisfaction_table, 'cmp_peiling');
         
         
