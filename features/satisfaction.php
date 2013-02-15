@@ -143,7 +143,7 @@ class satisfaction
             }
             $satisfaction_array[$key] = $satisfaction_average;
         }
-        
+
         $satisfaction_table = array();
         $satisfaction_table_reference = array();
         for ($i=0 ; $i < count($satisfaction_data->{'peiling'}) ; $i++){
