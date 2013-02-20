@@ -318,14 +318,24 @@ class Sms_model extends CI_Model {
             );
             $this->db->insert('vraag_type_definition', $vraag_type_definition); 
         }
+        if (count($answers) > 0){
+            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
+            $vraag_type_definition = array(
+                'id' => $vraag_type_definition_id,
+                'vraag_type_id' => $vraag_type_id,
+                'value' => $value, 
+                'description' => 'Weet niet/n.v.t.'               
+            );
+            $this->db->insert('vraag_type_definition', $vraag_type_definition); 
+        }
         $vraag_type = array(
             'id' => $vraag_type_id,
             'DESC_CODE' => 'MUIS_CUSTOM_'.$peiling_type_id.'_'.$vraag_type_id,
             'description' => 'answers '.$new_question_text,
             'min_value' => 1,
-            'max_value' => $value,
+            'max_value' => $value-1,
             'has_unknown' => 0,
-            'unknown_value' => null,
+            'unknown_value' => $value,
             'label_lo' => $label_lo,
             'label_hi' => $label_hi
         );

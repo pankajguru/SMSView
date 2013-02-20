@@ -678,6 +678,7 @@ function wire_question_type() {
         if ($('#answer_type option:selected').val() === 'multiple choice') {
             $('<div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" /></div>').appendTo('#answer_container');
             $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
+            $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer')
         }
 
         $("#add_multiple_choice_answer").click(function(e) {
