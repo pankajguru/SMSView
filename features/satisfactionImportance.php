@@ -59,24 +59,29 @@ class satisfactionImportance {
         $satisfaction_data = Array();
         $importance_data = Array();
         $category_data = Array();
-
-        foreach ($dataImportance as $key => $reference){
+        foreach ($refs as $key){
+//        foreach ($dataImportance as $key => $reference){
             if ($key == '_empty_'){
                     continue;
             }
-                if ($key == 'peiling'){
-                } elseif ($key == 'vorige_peiling') {
+            if ($key == ''){
+                    continue;
+            }
+            if ($key == 'peiling'){
+            } elseif ($key == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                } elseif ($key == 'peiling_onderbouw') {
+            } elseif ($key == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
-                } elseif ($key == 'peiling_bovenbouw') {
+            } elseif ($key == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
-                } elseif ($key == 'alle_scholen') {
+            } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                } else {
+            } else {
                     if (!$ref['question_based']) continue;
-                }
-            foreach($reference as $ref_key => $ref_value){
+            }
+            $keyref = str_replace('_', ' ', $key);
+            $dataImportance_column = $dataImportance->{$keyref};
+            foreach($dataImportance_column as $ref_key => $ref_value){
                 if (!in_array($ref_value[0], $importance_categories)){
                     continue;
                 }
@@ -127,7 +132,7 @@ class satisfactionImportance {
                     $name ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
-                    $name = $reference.' ';
+                    $name = $ref_value.' ';
                 }
             if ($first){
                 $first = false;
@@ -217,7 +222,7 @@ class satisfactionImportance {
             $satisfactionImportance_docx->addText('',array(
             ));
 
-            $satisfactionImportance_docx->addText("Hieronder staat op een schaal van 1 tot en met 10 een overzicht van het belang dat ouders $ref_text aan de genoemde onderwerpen hechtten.",array(
+            $satisfactionImportance_docx->addText("Hieronder staat op een schaal van 1 tot en met 10 een overzicht van het belang dat ouders $ref_text aan de genoemde onderwerpen hechten.",array(
                     'font' => 'Century Gothic',
                     'sz' => 10,
             ));

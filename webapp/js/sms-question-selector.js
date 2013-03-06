@@ -24,7 +24,7 @@ function load_page(page) {
 function init_login_temp() {
     $.ajax({
         type : 'GET',
-        url : base_url + '/xmlprovider/questions/school_id',
+        url : base_url + 'index.php/xmlprovider/questions/school_id',
         dataType : 'xml',
         success : function(xml) {
             $(xml).find('xml').each(function() {

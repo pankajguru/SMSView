@@ -1,0 +1,256 @@
+[
+    {
+        "basetype": "otp",
+        "filename": "oudervragenlijst"
+    }, {
+        "id": "1",
+        "question_text": "Ik vul deze lijst in voor mijn kind in groep..."
+    }, {
+        "id": "2",
+        "question_text": "Is het kind waarvoor u deze lijst invult een jongen of een meisje?"
+    }, {
+        "id": "9871",
+        "question_text": "Hoe tevreden bent u over de veiligheid in het gebouw?"
+    }, {
+        "id": "4",
+        "question_text": "Hoe tevreden bent u over de hygiëne en netheid binnen de school?"
+    }, {
+        "id": "10270",
+        "question_text": "Hoe tevreden bent u over het binnenklimaat in de lokalen?"
+    }, {
+        "id": "6",
+        "question_text": "Hoe belangrijk vindt u het schoolgebouw voor een goede school?"
+    }, {
+        "id": "9876",
+        "question_text": "Hoe tevreden bent u over het aanbieden van de leerstof in verschillende niveaus?"
+    }, {
+        "id": "13",
+        "question_text": "Hoe tevreden bent u over  de aandacht voor pestgedrag?"
+    }, {
+        "id": "14",
+        "question_text": "Hoe tevreden bent u over hoe de leerkracht met de kinderen omgaat?"
+    }, {
+        "id": "15",
+        "question_text": "Hoe belangrijk vindt u de begeleiding voor een goede school?"
+    }, {
+        "id": "9880",
+        "question_text": "Hoe tevreden bent u over de groepsgrootte?"
+    }, {
+        "id": "18",
+        "question_text": "Hoe tevreden bent u over de omgang van de kinderen met elkaar?"
+    }, {
+        "id": "17",
+        "question_text": "Hoe tevreden bent u over de rust en orde in de klas?"
+    }, {
+        "id": "20",
+        "question_text": "Hoe belangrijk vindt u de sfeer voor een goede school?"
+    }, {
+        "id": "9881",
+        "question_text": "Hoe tevreden bent u over de materialen en methodes waarmee uw kind werkt?"
+    }, {
+        "question_text": "Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd"
+    }, {
+        "id": "9887",
+        "question_text": "Hoe tevreden bent u over de aandacht voor zelfstandig werken?"
+    }, {
+        "id": "9893",
+        "question_text": "Hoe tevreden bent u over de inzet van computers en ICT middelen in het onderwijs?"
+    }, {
+        "question_text": "Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd"
+    }, {
+        "id": "33",
+        "question_text": "Hoe tevreden bent u over de huidige schooltijden?"
+    }, {
+        "question_text": "Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd"
+    }, {
+        "id": "9896",
+        "question_text": "Hoe tevreden bent u over de hoeveelheid huiswerk die uw kind meekrijgt?"
+    }, {
+        "id": "39",
+        "question_text": "Hoe tevreden bent u over de rust en orde op school?"
+    }, {
+        "id": "9898",
+        "question_text": "Wanneer er pestgedrag plaatsvindt, handelt de school dan adequaat? "
+    }, {
+        "id": "9897",
+        "question_text": "Vindt u dat de school preventief handelt op het gebied van pestgedrag? "
+    }, {
+        "question_text": "Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd"
+    }, {
+        "id": "9904",
+        "question_text": "Hoe tevreden bent u over het contact met de leerkracht(en)? "
+    }, {
+        "id": "9906",
+        "question_text": "Hoe tevreden bent u over de betrokkenheid van de leerkrachten bij de leerlingen?"
+    }, {
+        "id": "42",
+        "question_text": "Hoe tevreden bent u over de vakbekwaamheid van de leerkracht?"
+    }, {
+        "id": "9909",
+        "question_text": "Is de leerkracht voldoende in staat om uw kind persoonlijke aandacht te geven?"
+    }, {
+        "id": "9908",
+        "question_text": "Vindt u dat de teamleden goed samenwerken?"
+    }, {
+        "id": "44",
+        "question_text": "Hoe belangrijk vindt u de leerkracht voor een goede school?"
+    }, {
+        "id": "9920",
+        "question_text": "Hoe tevreden bent u over de manier waarop de school omgaat met vragen en opmerkingen van ouders?"
+    }, {
+        "id": "9910",
+        "question_text": "Hoe tevreden bent u over de manier waarop de school met u communiceert?"
+    }, {
+        "id": "9919",
+        "question_text": "Hoe tevreden bent u over de bereikbaarheid van de directeur?"
+    }, {
+        "id": "9934",
+        "question_text": "Bent u tevreden over de informatie die u vanuit de Medezeggenschapsraad krijgt?"
+    }, {
+        "id": "46",
+        "question_text": "Hoe tevreden bent u over de informatie die u krijgt over uw kind?"
+    }, {
+        "id": "9912",
+        "question_text": "Hoe tevreden bent u over de algemene ouderavonden?"
+    }, {
+        "id": "49",
+        "question_text": "Hoe belangrijk vindt u contact met de school voor een goede school?"
+    }, {
+        "id": "9941",
+        "question_text": "Hoe tevreden bent u over de inbreng en de mogelijkheid om mee te denken in de school? "
+    }, {
+        "id": "58",
+        "question_text": "Praten de ouders over het algemeen enthousiast over de school?"
+    }, {
+        "id": "54",
+        "question_text": "Staat de school volgens u bekend als een goede school?"
+    }, {
+        "id": "9965",
+        "question_text": "Dit is een school waar leerlingen zich veilig en prettig voelen."
+    }, {
+        "id": "9960",
+        "question_text": "Dit is een school die gericht is op het bijbrengen van normen en waarden."
+    }, {
+        "id": "9945",
+        "question_text": "De kwaliteit van de communicatie van de school is goed."
+    }, {
+        "id": "9944",
+        "question_text": "Op deze school gaan kinderen met veel plezier naar school."
+    }, {
+        "id": "9975",
+        "question_text": "Wij hebben gekozen voor deze school omdat andere ouders hem hebben aangeraden."
+    }, {
+        "id": "9991",
+        "question_text": "Bij het maken van de schoolkeuze hebben wij informatie over de school gekregen door de schoolgids/folder."
+    }, {
+        "id": "64",
+        "question_text": "Zou u andere ouders aanraden hun kind naar deze school te sturen?"
+    }, {
+        "id": "60",
+        "question_text": "Zou u de school (weer) kiezen om de richting van de school (openbaar, katholiek, christelijk ed)?"
+    }, {
+        "id": "68",
+        "question_text": "Welk rapport cijfer geeft u aan de school"
+    }, {
+        "id": "10010",
+        "question_text": "Hoe tevreden bent u over de begeleiding van de basisschool naar het voorgezet onderwijs?"
+    }, {
+        "id": "10011",
+        "question_text": "Voelt uw kind zich veilig op school? "
+    }, {
+        "id": "65",
+        "question_text": "Gaat uw kind over het algemeen met plezier naar school?"
+    }, {
+        "id": "10014",
+        "question_text": "Hoe tevreden bent u over de website van de school?"
+    }, {
+        "id": "10013",
+        "question_text": "Hoe tevreden bent u over de inhoud en leesbaarheid van de schoolgids?"
+    }, {
+        "id": "10016",
+        "question_text": "Hoe tevreden bent u over de nieuwsbrief?"
+    }, {
+        "id": "10015",
+        "question_text": "Hoe tevreden bent u over de telefonische bereikbaarheid van de school?"
+    }, {
+        "id": "10017",
+        "question_text": "Gebruikt u de website van de school om actuele informatie over de school te krijgen? "
+    }, {
+        "id": "10061",
+        "question_text": "Zou u (structureel) meer ouderbijdrage willen betalen, zodat we meer activiteiten voor uw kinderen kunnen ondernemen?"
+    }, {
+        "id": "10030",
+        "question_text": "Hoe tevreden bent u over de het overbliijven?"
+    }, {
+        "id": "10026",
+        "question_text": "Hoe tevreden bent u over het toezicht tijdens het buitenspelen tijdens het overblijven?"
+    }, {
+        "question_text": "Deze rubriek wordt niet meegenomen in de rubrieksstatistieken tot dat er minstens 3 vragen zijn toegevoegd"
+    }, {
+        "id": "10053",
+        "question_text": "Hoe tevreden bent u over de manier waarop de identiteit tot uitdrukking komt in de omgangsvormen en gedrag?"
+    }, {
+        "id": "10049",
+        "question_text": "Hoe tevreden bent u over de manier waarop de school inhoud geeft aan haar identiteit?"
+    }, {
+        "id": "10050",
+        "question_text": "Hoe tevreden bent u over de wijze waarop de identiteit tot uitdrukking komt bij de vieringen van feestdagen?"
+    }, {
+        "id": "10055",
+        "question_text": "Hoe tevreden bent u over de inhoud van het godsdienstonderwijs dat uw kind ontvangt?"
+    }, {
+        "id": "10057",
+        "question_text": "Hoe belangrijk vindt u de identiteit voor een goede school?"
+    }, {
+        "id": "9917",
+        "question_text": "Hoe tevreden bent u over de informatie over uw kind in het rapport?"
+    }, {
+        "id": "9923",
+        "question_text": "Hoe tevreden bent u over de afhandeling van opmerkingen/klachten door de leerkrachten?"
+    }, {
+        "id": "9926",
+        "question_text": "Hoe tevreden bent u over de mate waarin de school rekening houdt met de kenmerken van uw kind."
+    }, {
+        "id": "9913",
+        "question_text": "Hoe tevreden bent u over de 10 minuten gesprekken?"
+    }, {
+        "id": "9929",
+        "question_text": "Hoe tevreden bent u over de mate waarin de school adequate hulp biedt indien nodig."
+    }, {
+        "id": "9928",
+        "question_text": "Hoe tevreden bent u over de mate waarin de school gebruik maakt van uw kennis over uw kind."
+    }, {
+        "id": "9918",
+        "question_text": "Hoe tevreden bent u over de gelegenheid om met de intern begeleider te praten?"
+    }, {
+        "id": "9911",
+        "question_text": "Hoe tevreden bent u over de gelegenheid om met de groepsleerkracht van u kind(eren) te praten?"
+    }, {
+        "id": "10873",
+        "question_text": "Hoe belangrijk vindt u contact met de leerkracht voor een goede school?"
+    }, {
+        "id": "new",
+        "question_text": "Heeft u behoefte aan een naschoolse opvang in de school?[{\"name\":\"new_question_category\",\"value\":\"173\"},{\"name\":\"new_question_text\",\"value\":\"Heeft u behoefte aan een naschoolse opvang in de school?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"ja\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"nee\"}]",
+        "new_question": "[{\"name\":\"new_question_category\",\"value\":\"173\"},{\"name\":\"new_question_text\",\"value\":\"Heeft u behoefte aan een naschoolse opvang in de school?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"ja\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"nee\"}]"
+    }, {
+        "id": "new",
+        "question_text": "Hoeveel keer per week  heeft u behoefte aan naschoolse opvang?[{\"name\":\"new_question_category\",\"value\":\"173\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel keer per week  heeft u behoefte aan naschoolse opvang?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"0\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"2\"},{\"name\":\"multiple_choice_answer_3\",\"value\":\"3\"},{\"name\":\"multiple_choice_answer_4\",\"value\":\"4\"},{\"name\":\"multiple_choice_answer_5\",\"value\":\"5\"}]",
+        "new_question": "[{\"name\":\"new_question_category\",\"value\":\"173\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel keer per week  heeft u behoefte aan naschoolse opvang?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"0\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"2\"},{\"name\":\"multiple_choice_answer_3\",\"value\":\"3\"},{\"name\":\"multiple_choice_answer_4\",\"value\":\"4\"},{\"name\":\"multiple_choice_answer_5\",\"value\":\"5\"}]"
+    }, {
+        "id": "new",
+        "question_text": "Hoeveel bent u bereid hierin financieel bij te dragen?[{\"name\":\"new_question_category\",\"value\":\"173\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel bent u bereid hierin financieel bij te dragen?\"},{\"name\":\"answer_type\",\"value\":\"open vraag\"},{\"name\":\"answer_required\",\"value\":\"0\"}]",
+        "new_question": "[{\"name\":\"new_question_category\",\"value\":\"173\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel bent u bereid hierin financieel bij te dragen?\"},{\"name\":\"answer_type\",\"value\":\"open vraag\"},{\"name\":\"answer_required\",\"value\":\"0\"}]"
+    }, {
+        "id": "new",
+        "question_text": "Heeft u behoefte aan een voorschoolse opvang in de school?[{\"name\":\"new_question_category\",\"value\":\"235\"},{\"name\":\"new_question_text\",\"value\":\"Heeft u behoefte aan een voorschoolse opvang in de school?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"ja\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"nee\"}]",
+        "new_question": "[{\"name\":\"new_question_category\",\"value\":\"235\"},{\"name\":\"new_question_text\",\"value\":\"Heeft u behoefte aan een voorschoolse opvang in de school?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"ja\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"nee\"}]"
+    }, {
+        "id": "new",
+        "question_text": "Hoeveel keer per week  heeft u behoefte aan voorschoolse opvang?[{\"name\":\"new_question_category\",\"value\":\"235\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel keer per week  heeft u behoefte aan voorschoolse opvang?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"0\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"2\"},{\"name\":\"multiple_choice_answer_3\",\"value\":\"3\"},{\"name\":\"multiple_choice_answer_4\",\"value\":\"4\"},{\"name\":\"multiple_choice_answer_5\",\"value\":\"5\"}]",
+        "new_question": "[{\"name\":\"new_question_category\",\"value\":\"235\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel keer per week  heeft u behoefte aan voorschoolse opvang?\"},{\"name\":\"answer_type\",\"value\":\"multiple choice\"},{\"name\":\"answer_required\",\"value\":\"0\"},{\"name\":\"multiple_choice_answer_1\",\"value\":\"1\"},{\"name\":\"multiple_choice_answer_2\",\"value\":\"2\"},{\"name\":\"multiple_choice_answer_3\",\"value\":\"3\"},{\"name\":\"multiple_choice_answer_4\",\"value\":\"4\"},{\"name\":\"multiple_choice_answer_5\",\"value\":\"5\"}]"
+    }, {
+        "id": "new",
+        "question_text": "Hoeveel bent u bereid hierin financieel bij te dragen?[{\"name\":\"new_question_category\",\"value\":\"235\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel bent u bereid hierin financieel bij te dragen?\"},{\"name\":\"answer_type\",\"value\":\"open vraag\"},{\"name\":\"answer_required\",\"value\":\"0\"}]",
+        "new_question": "[{\"name\":\"new_question_category\",\"value\":\"235\"},{\"name\":\"new_question_text\",\"value\":\"Hoeveel bent u bereid hierin financieel bij te dragen?\"},{\"name\":\"answer_type\",\"value\":\"open vraag\"},{\"name\":\"answer_required\",\"value\":\"0\"}]"
+    }
+]
