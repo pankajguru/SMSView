@@ -42,6 +42,9 @@ class Downloads extends CI_Controller {
                         $xmlRaw = file_get_contents($dir.'/'.$entry);
                 
                         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
+                        if (!isset($xmlData['table.satisfaction.data'])){
+                            continue;
+                        }
 
 					    $datastring = $xmlData['table.satisfaction.data'];
                         $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -56,16 +59,18 @@ class Downloads extends CI_Controller {
                             $report->peiling_id = $peiling_id;
                             $report->schoolnaam = $schoolname;
                             $refs = $json->{'refs'};
-                            $form_open = form_open('web/downloads/download');
+                            $form_open = form_open('docs/parse/doc');
                             $form_hidden =form_hidden('xml', $entry);
                             $form_options = '';
                             foreach ($refs as $key => $value) {
                                 if ($value == '') continue;
                                 $checked = FALSE;
                                 if ($value === 'peiling') $checked = TRUE;
-                                if (($xmlData['peiling.ref_group_all'] === '1') && ($value === 'alle_scholen')) $checked = TRUE;
-                                $value = str_replace('_', ' ', $value);
-                                $form_options .= form_checkbox('ref[]', $value, $checked).$value.' ';
+                                if (isset($xmlData['peiling.ref_group_all'])){
+                                    if (($xmlData['peiling.ref_group_all'] === '1') && ($value === 'alle_scholen')) $checked = TRUE;
+                                }
+                                $str_value = str_replace('_', ' ', $value);
+                                $form_options .= form_checkbox('ref[]', $value, $checked).$str_value.' ';
                             }
                             $form_template = form_dropdown('template', $templates, '');
                             $form_button = form_submit('download', 'download');

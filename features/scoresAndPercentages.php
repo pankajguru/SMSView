@@ -71,7 +71,9 @@ class scoresAndPercentages
         $scoresAndPercentages_docx->createDocx($filename);
         unset($scoresAndPercentages_docx);
         foreach($docx_array as $groupname => $sap_docx){
-			unlink($sap_docx);
+            if ($sap_docx != null){
+    			unlink($sap_docx);
+            }
 		}
         return $filename.'.docx';
         

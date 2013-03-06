@@ -50,11 +50,24 @@ class Parse extends CI_Controller {
         $template = str_replace('___','/',$template);
         $xml_source = str_replace('___','/',$xml_source);
         $output_file = str_replace('___','/',$output_file);
-        $ref = array();
-        $ref['question_based'] = FALSE;
-        $ref['vorige_peiling'] = TRUE;
         
         $temp           = 'temp/';
+        $ref = array('alle_scholen' => FALSE, 'obb' => FALSE, 'question_based' => FALSE, 'vorige_peiling' => FALSE);
+        
+        if (!$template){
+            $template = $this->input->post('template');
+            $template = $this->config->item('template_dir').'/'.$template;
+        }
+        $inputref = $this->input->post('ref');
+        foreach ($inputref as $reference){
+            $ref[$reference] = TRUE;
+        }
+        if (!$xml_source){
+            $xml_source = $this->input->post('xml');
+            $xml_source = $this->config->item('report_dir').'/'.$xml_source;
+        }
+
+        
         if (!$template) {
             die("Geef een template op!\n");
         }
@@ -73,11 +86,6 @@ class Parse extends CI_Controller {
         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
         
         //get std refs from site
-        $ref['alle_scholen'] = ($xmlData['peiling.ref_group_all'] == 1);
-        $ref['obb'] = ($xmlData['peiling.ref_group_obb'] == 1);
-        //$ref['alle_scholen'] = true;	        
-        //$ref['obb'] = false;
-        //$ref['alle_scholen'] = false;
         if($xmlData['report.type'] == 'OTP_B_0412'){
             $ref['bovenbouw'] = 'Lager onderwijs';
             $ref['onderbouw'] = 'Kleuteronderwijs';
@@ -173,14 +181,16 @@ class Parse extends CI_Controller {
         $variables = $docx -> getTemplateVariables();
 
         foreach ($variables['document'] as $template_variable) {
-            print "got variable: " . $template_variable . "\n";
+            //print "got variable: " . $template_variable . "\n";
             $var = explode(":", $template_variable);
             $type = $var[0];
             $variable = $var[1];
-            print "got variable type: " . $type . " for variable: " . $variable . "\n";
+//            print "got variable type: " . $type . " for variable: " . $variable . "\n";
             if ($type == 'xml') {
                 //get direct from xml
-                $docx -> addTemplateVariable($template_variable, $xmlData[$variable]);
+                if (isset($xmlData[$variable])){
+                    $docx -> addTemplateVariable($template_variable, $xmlData[$variable]);
+                }
             } elseif ($type == "proc") {
                 //process
                 $docx -> addTemplateVariable('proc:datum', strftime("%e %B %Y"));
@@ -415,11 +425,11 @@ class Parse extends CI_Controller {
         print "start test: \n";
 
         foreach ($variables['document'] as $template_variable) {
-            print "got variable: " . $template_variable . "\n";
+//            print "got variable: " . $template_variable . "\n";
             $var = explode(":", $template_variable);
             $type = $var[0];
             $variable = $var[1];
-            print "got variable type: " . $type . " for variable: " . $variable . "\n";
+//            print "got variable type: " . $type . " for variable: " . $variable . "\n";
             if ($type == 'xml') {
                 //get direct from xml
                 $docx -> addTemplateVariable($template_variable, $xmlData[$variable]);

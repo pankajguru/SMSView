@@ -3874,7 +3874,7 @@ class CreateDocx extends CreateDocument
         $args = func_get_args();
 
         try {
-            $this->createDocx($args[0], $args[1]);
+            @$this->createDocx($args[0], $args[1]);
         }
         catch (Exception $e) {
             self::$log->fatal($e->getMessage());

@@ -55,7 +55,7 @@ function get_importance_categories($data){
         }
     };
     foreach($categories as $category_id => $category){
-        if ( (count($category['satisfaction']) > 2) and (count($category['importance']) > 0) ){
+        if ( isset($category['satisfaction']) && (count($category['satisfaction']) > 2) && isset($category['importance']) && (count($category['importance']) > 0) ){
             $importance_categories[] = $category_id;
         }
     }
