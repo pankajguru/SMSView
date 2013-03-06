@@ -12,7 +12,9 @@ class satisfactionPriorityScatter {
         $datastring = $data['priority.satisfaction.table.data.scatter'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
+        $importance_categories = get_importance_categories($data);
         $data = json_decode($datastring);
+        
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
@@ -22,13 +24,15 @@ class satisfactionPriorityScatter {
         $total_y = 0;
         $count = 0;
         foreach($data as $key => $row){
-            $categories[]     = ($key+1).'. '.$row[1];
-            $data[$key][1] = ($key+1).'. '.$row[1];
-            $graphic_data_x[] = $row[2];
-            $total_x += $row[2];
-            $graphic_data_y[] = $row[3];
-            $total_y += $row[3];
-            $count++;
+            if (in_array($row[0], $importance_categories)){
+                $categories[]     = ($count+1).'. '.$row[1];
+                $data[$key][1] = ($count+1).'. '.$row[1];
+                $graphic_data_x[] = $row[2];
+                $total_x += $row[2];
+                $graphic_data_y[] = $row[3];
+                $total_y += $row[3];
+                $count++;
+            }
         }
         
         $average_x = $total_x / $count;

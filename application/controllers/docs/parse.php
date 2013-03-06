@@ -52,15 +52,22 @@ class Parse extends CI_Controller {
         $output_file = str_replace('___','/',$output_file);
         
         $temp           = 'temp/';
-        $ref = array('alle_scholen' => FALSE, 'obb' => FALSE, 'question_based' => FALSE, 'vorige_peiling' => FALSE);
+        $ref = array('alle_scholen' => TRUE, 'obb' => FALSE, 'question_based' => TRUE, 'vorige_peiling' => FALSE);
         
         if (!$template){
             $template = $this->input->post('template');
             $template = $this->config->item('template_dir').'/'.$template;
         }
         $inputref = $this->input->post('ref');
-        foreach ($inputref as $reference){
-            $ref[$reference] = TRUE;
+        if (is_array($inputref)){
+            foreach ($inputref as $reference){
+                $ref[$reference] = TRUE;
+            }
+            foreach ($ref as $reference){
+                if (!isset($ref[$reference])){
+                    $ref[$reference] = FALSE;
+                }
+            }
         }
         if (!$xml_source){
             $xml_source = $this->input->post('xml');
