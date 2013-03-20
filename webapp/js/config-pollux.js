@@ -1,1 +1,1 @@
-var base_url = 'http://192.168.0.250/SMSView/index.php/';
+var base_url = '/SMSView/webapp/proxy/ba-simple-proxy.php?mode=native&url=http://www.scholenmetsucces.nl/vp2/index.php';
