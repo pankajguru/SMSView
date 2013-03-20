@@ -64,7 +64,7 @@ class Parse extends CI_Controller {
                 $ref[$reference] = TRUE;
             }
             foreach ($ref as $reference){
-                if (!isset($ref[$reference])){
+                if (!isset($inputref[$reference])){
                     $ref[$reference] = FALSE;
                 }
             }
@@ -75,15 +75,6 @@ class Parse extends CI_Controller {
             $xml_source = $this->config->item('report_dir').'/'.$xml_source;
         }
 
-        if($xml_source['report.type'] == 'OTP_B_0412'){
-            $ref['bovenbouw'] = 'Lager onderwijs';
-            $ref['onderbouw'] = 'Kleuteronderwijs';
-        } else {
-            $ref['bovenbouw'] = 'Bovenbouw';
-            $ref['onderbouw'] = 'Onderbouw';
-        }
-
-        
         if (!$template) {
             die("Geef een template op!\n");
         }
