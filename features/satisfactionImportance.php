@@ -30,7 +30,7 @@ class satisfactionImportance {
         //create new array with categorynumber as key
         $satisfaction_array = Array();
         foreach ($refs as $key){
-                $key = str_replace(' ', '_',$key);
+                $key_underscore = str_replace(' ', '_',$key);
                 if ($key == '_empty_'){
                     continue;
                 }
@@ -38,13 +38,13 @@ class satisfactionImportance {
                     continue;
                 }
                 if ($key == 'peiling'){
-                } elseif ($key == 'vorige_peiling') {
+                } elseif ($key_underscore == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                } elseif ($key == 'peiling_onderbouw') {
+                } elseif ($key_underscore == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
-                } elseif ($key == 'peiling_bovenbouw') {
+                } elseif ($key_underscore == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
-                } elseif ($key == 'alle_scholen') {
+                } elseif ($key_underscore == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                 } else {
                     if (!$ref['question_based']) continue;
@@ -54,14 +54,14 @@ class satisfactionImportance {
             foreach ($satisfaction_column as $value) {
                 $satisfaction_average[$value[0]] = $value[2];
             }
-            $satisfaction_array[$key] = $satisfaction_average;
+            $satisfaction_array[$key_underscore] = $satisfaction_average;
         }
 
         $satisfaction_data = Array();
         $importance_data = Array();
         $category_data = Array();
         foreach ($refs as $key){
-            $key = str_replace(' ', '_',$key);
+          $key_underscore = str_replace(' ', '_',$key);
             
 //        foreach ($dataImportance as $key => $reference){
             if ($key == '_empty_'){
@@ -71,13 +71,13 @@ class satisfactionImportance {
                     continue;
             }
             if ($key == 'peiling'){
-            } elseif ($key == 'vorige_peiling') {
+            } elseif ($key_underscore == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-            } elseif ($key == 'peiling_onderbouw') {
+            } elseif ($key_underscore == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
-            } elseif ($key == 'peiling_bovenbouw') {
+            } elseif ($key_underscore == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
-            } elseif ($key == 'alle_scholen') {
+            } elseif ($key_underscore == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
             } else {
                     if (!$ref['question_based']) continue;
@@ -87,9 +87,9 @@ class satisfactionImportance {
                 if (!in_array($ref_value[0], $importance_categories)){
                     continue;
                 }
-                $importance_data[$key][] = Scale10($ref_value[2], $scale_factor_importance);
-                $satisfaction_data[$key][] = Scale10($satisfaction_array[$key][$ref_value[0]], $scale_factor_satisfaction);
-                $category_data[$key][] = str_replace('_', ' ', $ref_value[1]);
+                $importance_data[$key_underscore][] = Scale10($ref_value[2], $scale_factor_importance);
+                $satisfaction_data[$key_underscore][] = Scale10($satisfaction_array[$key][$ref_value[0]], $scale_factor_satisfaction);
+                $category_data[$key_underscore][] = str_replace('_', ' ', $ref_value[1]);
             }
         }
         
