@@ -70,17 +70,17 @@ class Parse extends CI_Controller {
             }
         }
 
+        if (!$xml_source){
+            $xml_source = $this->input->post('xml');
+            $xml_source = $this->config->item('report_dir').'/'.$xml_source;
+        }
+
         if($xml_source['report.type'] == 'OTP_B_0412'){
             $ref['bovenbouw'] = 'Lager onderwijs';
             $ref['onderbouw'] = 'Kleuteronderwijs';
         } else {
             $ref['bovenbouw'] = 'Bovenbouw';
             $ref['onderbouw'] = 'Onderbouw';
-        }
-
-        if (!$xml_source){
-            $xml_source = $this->input->post('xml');
-            $xml_source = $this->config->item('report_dir').'/'.$xml_source;
         }
 
         
