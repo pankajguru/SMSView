@@ -60,12 +60,18 @@ class Parse extends CI_Controller {
         }
         $inputref = $this->input->post('ref');
         if (is_array($inputref)){
-            foreach ($inputref as $reference){
-                $ref[$reference] = TRUE;
-            }
-            foreach ($ref as $reference){
-                if (!isset($inputref[$reference])){
-                    $ref[$reference] = FALSE;
+            //foreach ($inputref as $reference){
+            //    $ref[$reference] = TRUE;
+            //}
+            foreach ($ref as $key => $reference){
+		
+error_log('inputref1:'.$key.' '.$reference);
+                if (!in_array($key,$inputref)){
+error_log('inputref3 false:'.$key);
+                    $ref[$key] = FALSE;
+                } else {
+error_log('inputref3 true:'.$key);
+                    $ref[$key] = TRUE;
                 }
             }
         }
@@ -96,7 +102,6 @@ class Parse extends CI_Controller {
         if($xmlData['report.type'] == 'OTP_B_0412'){
             $ref['bovenbouw'] = 'Lager onderwijs';
             $ref['onderbouw'] = 'Kleuteronderwijs';
-	        $ref['obb'] = true;
         } else {
             $ref['bovenbouw'] = 'Bovenbouw';
             $ref['onderbouw'] = 'Onderbouw';
