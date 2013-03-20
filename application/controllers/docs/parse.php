@@ -69,6 +69,15 @@ class Parse extends CI_Controller {
                 }
             }
         }
+
+        if($xml_source['report.type'] == 'OTP_B_0412'){
+            $ref['bovenbouw'] = 'Lager onderwijs';
+            $ref['onderbouw'] = 'Kleuteronderwijs';
+        } else {
+            $ref['bovenbouw'] = 'Bovenbouw';
+            $ref['onderbouw'] = 'Onderbouw';
+        }
+
         if (!$xml_source){
             $xml_source = $this->input->post('xml');
             $xml_source = $this->config->item('report_dir').'/'.$xml_source;
@@ -313,20 +322,34 @@ class Parse extends CI_Controller {
         $template = urldecode($template);
         $xml_source = urldecode($xml_source);
         $output_file = urldecode($output_file);
+        $template = str_replace('___','/',$template);
+        $xml_source = str_replace('___','/',$xml_source);
+        $output_file = str_replace('___','/',$output_file);
+        
         $temp           = 'temp/';
-        $ref = array();
-        $ref['alle_scholen'] = FALSE;
-        $ref['obb'] = TRUE;
-        $ref['question_based'] = TRUE;
-        $ref['vorige_peiling'] = FALSE;
-        if($xml_source['report.type'] == 'OTP_B_0412'){
-            $ref['bovenbouw'] = 'Lager onderwijs';
-            $ref['onderbouw'] = 'Kleuteronderwijs';
-        } else {
-            $ref['bovenbouw'] = 'Bovenbouw';
-            $ref['onderbouw'] = 'Onderbouw';
+        $ref = array('alle_scholen' => TRUE, 'obb' => FALSE, 'question_based' => TRUE, 'vorige_peiling' => FALSE);
+        
+        if (!$template){
+            $template = $this->input->post('template');
+            $template = $this->config->item('template_dir').'/'.$template;
+        }
+        $inputref = $this->input->post('ref');
+        if (is_array($inputref)){
+            foreach ($inputref as $reference){
+                $ref[$reference] = TRUE;
+            }
+            foreach ($ref as $reference){
+                if (!isset($ref[$reference])){
+                    $ref[$reference] = FALSE;
+                }
+            }
+        }
+        if (!$xml_source){
+            $xml_source = $this->input->post('xml');
+            $xml_source = $this->config->item('report_dir').'/'.$xml_source;
         }
 
+        
         if (!$template) {
             die("Geef een template op!\n");
         }
@@ -334,9 +357,9 @@ class Parse extends CI_Controller {
             die("Geef een xml source op!\n");
         }
         if (!$output_file) {
-            die("Geef een uitvoer bestand op!\n");
+//            die("Geef een uitvoer bestand op!\n");
         }
-        //echo "Building report with template: " . $template . " , xml source: " . $xml_source . " and output to: " . $output_file . "\n";
+        echo "Building report with template: " . $template . " , xml source: " . $xml_source . " and output to: " . $output_file . "\n";
 
         $this -> load -> library('simplexml');
 
@@ -368,14 +391,14 @@ class Parse extends CI_Controller {
 //        $importance_docx = $importance -> render($xmlData, $ref, 'importance');
 //        unset($importance);
 
-        $satisfaction = new satisfaction();
-        $satisfaction_docx = $satisfaction -> render($xmlData, $ref, 'satisfaction');
-        unset($satisfaction);
+//        $satisfaction = new satisfaction();
+//        $satisfaction_docx = $satisfaction -> render($xmlData, $ref, 'satisfaction');
+//        unset($satisfaction);
        
         
-//        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
-//        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData, $ref);
-//        unset($satisfactionPriorityScatter);
+        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
+        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData, $ref);
+        unset($satisfactionPriorityScatter);
                
 //        $satisfactionTopGood = new satisfactionTop();
 //        $satisfactionTopGood_docx = $satisfactionTopGood -> render($xmlData, $ref, TRUE);
@@ -465,10 +488,10 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
-//                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
-                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
                 if ($variable == "importance") {
 //                    $docx -> addTemplateVariable('class:importance', $importance_docx, 'docx');

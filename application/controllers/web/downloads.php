@@ -62,7 +62,7 @@ class Downloads extends CI_Controller {
                             $form_open = form_open('docs/parse/doc');
                             $form_hidden =form_hidden('xml', $entry);
                             $form_options = '';
-                            foreach ($refs as $key => $value) {
+/*                            foreach ($refs as $key => $value) {
                                 if ($value == '') continue;
                                 $checked = FALSE;
                                 if ($value === 'peiling') $checked = TRUE;
@@ -71,7 +71,17 @@ class Downloads extends CI_Controller {
                                 }
                                 $str_value = str_replace('_', ' ', $value);
                                 $form_options .= form_checkbox('ref[]', $value, $checked).$str_value.' ';
+                            } */
+                            $checked = FALSE;
+                            if (isset($xmlData['peiling.ref_group_all'])){
+                                if ($xmlData['peiling.ref_group_all'] === '1') $checked = TRUE;
                             }
+                            $form_options .= form_checkbox('ref[]', 'peiling', TRUE).'peiling ';
+                            $form_options .= form_checkbox('ref[]', 'vorige_peiling', FALSE).'vorige peiling ';
+                            $form_options .= form_checkbox('ref[]', 'obb', FALSE).'onderbouw / bovenbouw ';
+                            $form_options .= form_checkbox('ref[]', 'question_based', FALSE).'uitgesplitst ';
+                            $form_options .= form_checkbox('ref[]', 'alle_scholen', $checked).'alle scholen ';
+                            
                             $form_template = form_dropdown('template', $templates, '');
                             $form_button = form_submit('download', 'download');
                             $form_close = form_close();
