@@ -7,6 +7,7 @@ class satisfactionPriorityScatter {
         require_once ("./pChart/class/pDraw.class.php");
         require_once ("./pChart/class/pImage.class.php");
         require_once ("./pChart/class/pScatter.class.php");
+        require_once("./features/utils.php");
 
         $temp = 'temp/';
         $datastring = $data['priority.satisfaction.table.data.scatter'];
@@ -97,13 +98,13 @@ class satisfactionPriorityScatter {
         $myData = new pData();
 
         /* Create the X axis and the binded series */
-        $myData->addPoints($graphic_data_x, "tevreden");
+        $myData -> addPoints($graphic_data_x, "tevreden");
         $myData -> setAxisName(0, "Minder tevreden - Meer tevreden");
         $myData -> setAxisXY(0, AXIS_X);
         $myData -> setAxisPosition(0, AXIS_POSITION_TOP);
 
         /* Create the Y axis and the binded series */
-        $myData->addPoints($graphic_data_y, "belangrijk");
+        $myData -> addPoints($graphic_data_y, "belangrijk");
         $myData -> setSerieOnAxis("belangrijk", 1);
         $myData -> setAxisName(1, "Meer belangrijk - Minder belangrijk");
         $myData -> setAxisXY(1, AXIS_Y);
@@ -111,12 +112,14 @@ class satisfactionPriorityScatter {
 
         /* Create the 1st scatter chart binding */
         $myData -> setScatterSerie("tevreden", "belangrijk", 0);
-        $myData -> setScatterSerieColor(0, array("R" => 0, "G" => 0, "B" => 0));
+        $myData -> setScatterSerieColor(0, array("R"=>0,"G"=>164,"B"=>228));
+        $myData -> setScatterSerieShape(0,SERIE_SHAPE_FILLEDCIRCLE);
+        $myData -> setScatterSerieTicks(0,2);
 
         /* Create the pChart object */
         $myPicture = new pImage(1500, 800, $myData);
 
-        $myPicture->drawGradientArea(0,0,800,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
+        $myPicture->drawGradientArea(0,0,800,800,DIRECTION_VERTICAL,array("StartR"=>230,"StartG"=>230,"StartB"=>230,"EndR"=>230,"EndG"=>230,"EndB"=>230,"Alpha"=>100));
 
         /* Turn of Anti-aliasing */
   //      $myPicture -> Antialias = FALSE;
@@ -164,6 +167,7 @@ class satisfactionPriorityScatter {
 //        $myScatter -> drawScatterLegend(280, 380, array("Mode" => LEGEND_HORIZONTAL, "Style" => LEGEND_NOBORDER));
 
         /* Draw a scatter plot chart */
+        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
         $myScatter -> drawScatterPlotChartSms();
         
         /* Draw scales by hand */

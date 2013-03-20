@@ -30,6 +30,7 @@ class satisfactionImportance {
         //create new array with categorynumber as key
         $satisfaction_array = Array();
         foreach ($refs as $key){
+                $key = str_replace(' ', '_',$key);
                 if ($key == '_empty_'){
                     continue;
                 }
@@ -60,6 +61,8 @@ class satisfactionImportance {
         $importance_data = Array();
         $category_data = Array();
         foreach ($refs as $key){
+            $key = str_replace(' ', '_',$key);
+            
 //        foreach ($dataImportance as $key => $reference){
             if ($key == '_empty_'){
                     continue;
@@ -79,15 +82,14 @@ class satisfactionImportance {
             } else {
                     if (!$ref['question_based']) continue;
             }
-            $keyref = str_replace('_', ' ', $key);
-            $dataImportance_column = $dataImportance->{$keyref};
+            $dataImportance_column = $dataImportance->{$key};
             foreach($dataImportance_column as $ref_key => $ref_value){
                 if (!in_array($ref_value[0], $importance_categories)){
                     continue;
                 }
                 $importance_data[$key][] = Scale10($ref_value[2], $scale_factor_importance);
                 $satisfaction_data[$key][] = Scale10($satisfaction_array[$key][$ref_value[0]], $scale_factor_satisfaction);
-                $category_data[$key][] = $ref_value[1];
+                $category_data[$key][] = str_replace('_', ' ', $ref_value[1]);
             }
         }
         
@@ -132,7 +134,7 @@ class satisfactionImportance {
                     $name ="Alle Scholen ";
                 } else {
                     if (!$ref['question_based']) continue;
-                    $name = $ref_value.' ';
+                    $name = str_replace('_', ' ', $ref_value).' ';
                 }
             if ($first){
                 $first = false;
@@ -279,12 +281,13 @@ class satisfactionImportance {
 
         /* Create the 1st scatter chart binding */
         $myData -> setScatterSerie("tevreden", "belangrijk", 0);
-        $myData -> setScatterSerieColor(0, array("R" => 0, "G" => 0, "B" => 0));
+        $myData -> setScatterSerieColor(0, array("R" => 156, "G" => 12, "B" => 10));
 
         /* Create the pChart object */
         $myPicture = new pImage(1500, 800, $myData);
 
-        $myPicture->drawGradientArea(0,0,800,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
+        $myPicture->drawGradientArea(0,0,800,800,DIRECTION_VERTICAL,array("StartR"=>253,"StartG"=>204,"StartB"=>52,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
+
 
         /* Turn of Anti-aliasing */
   //      $myPicture -> Antialias = FALSE;
