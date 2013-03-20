@@ -129,6 +129,9 @@ class Questions extends CI_Controller {
             $xml_question->addChild('standard', $standard);  
             //add answers
             $xml_answers = $xml_question->addChild('answers');
+            
+            $allowmoreanswers = ($question[0] -> exclusive == 0) ? 1 : 0;
+            $xml_answers->addChild('allowmoreanswers', $allowmoreanswers);
             foreach ($answers as $answer){
                 $xml_answer = $xml_answers->addChild('answer');
                 $xml_answer->addChild('answer', $answer->description);

@@ -204,7 +204,7 @@ div#question_list_container li.info {
 }
 
 #new_question_form label {
-	width: 200px;
+	width: 270px;
 	margin-right: 10px;
 	float: left;
 	font-size: 15px;
@@ -212,7 +212,7 @@ div#question_list_container li.info {
 }
 
 #new_question_form input, #new_question_form select {
-	width: 200px;
+	width: 270px;
 }
 
 .left {
@@ -445,4 +445,15 @@ margin-bottom:20px;
 }
 .regtabel td {
 min-width:155px;
+}
+
+.editnew{
+    background-image: url('../img/edit.png');
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    float: right;
+    display: block;
+    z-index: 1000;
+    cursor:pointer;
 }

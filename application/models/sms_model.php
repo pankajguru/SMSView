@@ -223,6 +223,7 @@ class Sms_model extends CI_Model {
                 $new_question_text = $new_question_object['new_question_text'];
                 $answer_type = $new_question_object['answer_type']; // 'multiple choice' en 'open vraag'
                 $required = $new_question_object['answer_required'];
+                $multiple = $new_question_object['answer_multiple'];
                 $answers = array();
                 $count = 1;
                 //transform answers to usefull array
@@ -230,7 +231,7 @@ class Sms_model extends CI_Model {
                     array_push($answers,$new_question_object['multiple_choice_answer_'.$count]);
                     $count++;
                 }
-                $question->{"id"} = $this->_store_question($category, $new_question_text, $answer_type, $answers, $peiling_type_id, $required);
+                $question->{"id"} = $this->_store_question($category, $new_question_text, $answer_type, $answers, $peiling_type_id, $required, $multiple);
             }
         }
                  
@@ -286,7 +287,7 @@ class Sms_model extends CI_Model {
         return $response;
     }
     
-    function _store_question($category_id, $new_question_text, $answer_type, $answers, $peiling_type_id, $required = 1){
+    function _store_question($category_id, $new_question_text, $answer_type, $answers, $peiling_type_id, $required = 1, $multiple = 0){
         //create new vraag type
         //store in vraag_type
         //store answers    
@@ -353,7 +354,7 @@ class Sms_model extends CI_Model {
             'short_description' => substr($new_question_text,0,100),
             'vraag_groep_id' => $category_id,
             'vraag_type_id' => $vraag_type_id,
-            'exclusive' => true,
+            'exclusive' => ($multiple == 0),
             'strict' => $required, //open questions not strict
             'id' => $vraag_id,
             'neutral_description' => $new_question_text,
