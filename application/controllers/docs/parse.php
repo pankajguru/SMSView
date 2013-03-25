@@ -52,6 +52,14 @@ class Parse extends CI_Controller {
         $output_file = str_replace('___','/',$output_file);
         
         $temp           = 'temp/';
+
+
+        $this -> load -> library('simplexml');
+
+        $xmlRaw = file_get_contents($xml_source);
+
+        $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
+        
         $ref = array('alle_scholen' => TRUE, 'obb' => FALSE, 'question_based' => TRUE, 'vorige_peiling' => FALSE);
         
         if (!$template){
@@ -91,12 +99,6 @@ class Parse extends CI_Controller {
         }
         error_log( "Building report with template: " . $template . " , xml source: " . $xml_source . " and output to: " . $output_file . "\n");
 
-        $this -> load -> library('simplexml');
-
-        $xmlRaw = file_get_contents($xml_source);
-
-        $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
-        
         //get std refs from site
         if($xmlData['report.type'] == 'OTP_B_0412'){
             $ref['bovenbouw'] = 'Lager onderwijs';
