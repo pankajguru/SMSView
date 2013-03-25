@@ -64,16 +64,15 @@ class Parse extends CI_Controller {
             //    $ref[$reference] = TRUE;
             //}
             foreach ($ref as $key => $reference){
-		
-error_log('inputref1:'.$key.' '.$reference);
                 if (!in_array($key,$inputref)){
-error_log('inputref3 false:'.$key);
                     $ref[$key] = FALSE;
                 } else {
-error_log('inputref3 true:'.$key);
                     $ref[$key] = TRUE;
                 }
             }
+        } else {
+			$ref['alle_scholen'] = ($xmlData['peiling.ref_group_all'] == 1);
+        	$ref['obb'] = ($xmlData['peiling.ref_group_obb'] == 1);
         }
 
         if (!$xml_source){
