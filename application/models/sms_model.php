@@ -223,7 +223,11 @@ class Sms_model extends CI_Model {
                 $new_question_text = $new_question_object['new_question_text'];
                 $answer_type = $new_question_object['answer_type']; // 'multiple choice' en 'open vraag'
                 $required = $new_question_object['answer_required'];
-                $multiple = $new_question_object['answer_multiple'];
+                if (isset($new_question_object['answer_multiple'])){
+                    $multiple = $new_question_object['answer_multiple'];
+                } else {
+                    $multiple = 0;
+                }
                 $answers = array();
                 $count = 1;
                 //transform answers to usefull array
