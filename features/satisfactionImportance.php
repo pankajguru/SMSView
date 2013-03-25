@@ -88,7 +88,7 @@ class satisfactionImportance {
                     continue;
                 }
                 $importance_data[$key_underscore][] = Scale10($ref_value[2], $scale_factor_importance);
-                $satisfaction_data[$key_underscore][] = Scale10($satisfaction_array[$key][$ref_value[0]], $scale_factor_satisfaction);
+                $satisfaction_data[$key_underscore][] = Scale10($satisfaction_array[$key_underscore][$ref_value[0]], $scale_factor_satisfaction);
                 $category_data[$key_underscore][] = str_replace('_', ' ', $ref_value[1]);
             }
         }

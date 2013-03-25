@@ -308,6 +308,7 @@ function set_saved_questions(savedSurvey) {
 
         }
     });
+    wire_edit_questions();
 }
 
 function set_standard_questions(standard) {
@@ -750,11 +751,11 @@ function wire_edit_questions() {
             anwer_multiple_options = '<option value="1">Ja</option><option value="0" selected="selected">Nee</option>';
         }
         
-        var answers;
+        var answers = '';
         var option_count = 0;
         $.each(question_answers, function(key, question) {
             option_count++;
-            answers += '<div class="block"><label for="">Optie '+option_count+'</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" maxlength="30" value="'+question+'" /></div>';
+            answers += '<div class="block"><label for="">Optie '+option_count+'</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_'+option_count+'" maxlength="30" value="'+question+'" /></div>';
         });
 
         var editform = '<form id="new_question_form"><input type="hidden" name="question_number" id="question_number" value="'+question_number+'"><div class="block">';
@@ -767,6 +768,17 @@ function wire_edit_questions() {
         $(editform).modal({
             position : ["50px", "250px"]
         });
+        $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
+        $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer')
+        $('<p class="info">  * Voeg (indien mogelijk) het meest negatieve antwoord als eerste toe</p>').appendTo('#answeraddcontainer')
+
+        $("#add_multiple_choice_answer").click(function(e) {
+            var id = $('.multiple_choice_answer').length;
+            id++;
+            $('<div class="block"><label for="multiple_choice_answer_' + id + '">Optie ' + id + '</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_' + id + '" maxlength="30" />').appendTo('#answer_container');
+            e.preventDefault();
+        });
+
         wire_add_question();
         wire_clear_question();
         wire_question_type();
