@@ -132,9 +132,12 @@ class satisfaction
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $name ="Alle Scholen ";
-                } else {
+                } elseif (substr($key,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $name = substr($key,8).' ';
+                } elseif (substr($key,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $name = $key.' ';
+                    $name = substr($key,15).' ';
                 }
             $satisfaction_column = $satisfaction_data->{$key} ;
             $satisfaction_average = Array();
@@ -179,9 +182,12 @@ class satisfaction
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $name ="Alle Scholen ";
-                } else {
+                } elseif (substr($key,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $name = substr($key,8).' ';
+                } elseif (substr($key,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $name = $key.' ';
+                    $name = substr($key,15).' ';
                 }
 
                 $satisfaction_column = $satisfaction_data->{$key} ;
@@ -240,10 +246,12 @@ class satisfaction
                     $name = $ref['bovenbouw']." ";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                    $name ="Alle Scholen ";
-                } else {
+                } elseif (substr($key,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $name = substr($key,8).' ';
+                } elseif (substr($key,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $name = $key.' ';
+                    $name = substr($key,15).' ';
                 }
                 $satisfaction_column = $satisfaction_data->{$key} ;
                 $column_count++;

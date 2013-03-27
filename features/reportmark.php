@@ -66,9 +66,12 @@ class reportmark
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $text[] ="Alle Scholen ";
-                } else {
+                } elseif (substr($reference,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $text[] = substr($reference,8).' ';
+                } elseif (substr($reference,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $text[] = $reference.' ';
+                    $text[] = substr($reference,15).' ';
                 }
                 $graphic_data_reportmarks[] = $average_value;
             }

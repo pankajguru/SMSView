@@ -77,6 +77,7 @@ class Downloads extends CI_Controller {
                                 if ($xmlData['peiling.ref_group_all'] === '1') $checked = TRUE;
                             }
                             $form_options .= form_checkbox('ref[]', 'peiling', TRUE).'peiling ';
+                            $form_options .= form_checkbox('ref[]', 'locaties', TRUE).'locaties ';
                             $form_options .= form_checkbox('ref[]', 'vorige_peiling', FALSE).'vorige peiling ';
                             $form_options .= form_checkbox('ref[]', 'obb', FALSE).'onderbouw / bovenbouw ';
                             $form_options .= form_checkbox('ref[]', 'question_based', FALSE).'uitgesplitst ';

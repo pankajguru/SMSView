@@ -46,7 +46,9 @@ class satisfactionImportance {
                     if (!$ref['obb']) continue;
                 } elseif ($key_underscore == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                } else {
+                } elseif (substr($key_underscore,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                } elseif (substr($key_underscore,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
                 }
             $satisfaction_column = $dataSatisfaction->{$key} ;
@@ -78,9 +80,11 @@ class satisfactionImportance {
             } elseif ($key_underscore == 'peiling_bovenbouw') {
                     if (!$ref['obb']) continue;
             } elseif ($key_underscore == 'alle_scholen') {
-                    if (!$ref['alle_scholen']) continue;
-            } else {
-                    if (!$ref['question_based']) continue;
+                if (!$ref['alle_scholen']) continue;
+            } elseif (substr($key_underscore,0,8) === 'locatie_') {
+                if (!$ref['locaties']) continue;
+            } elseif (substr($key_underscore,0,15) === 'question_based_') {
+                if (!$ref['question_based']) continue;
             }
             $dataImportance_column = $dataImportance->{$key};
             foreach($dataImportance_column as $ref_key => $ref_value){
@@ -132,9 +136,14 @@ class satisfactionImportance {
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $name ="Alle Scholen ";
-                } else {
+                } elseif (substr($key,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $name = substr($key,8).' ';
+                    $name = str_replace('_', ' ', $name).' ';
+                } elseif (substr($key,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $name = str_replace('_', ' ', $ref_value).' ';
+                    $name = substr($key,15).' ';
+                    $name = str_replace('_', ' ', $name).' ';
                 }
             if ($first){
                 $first = false;
@@ -216,11 +225,18 @@ class satisfactionImportance {
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $ref_text = "alle scholen";
-                } else {
+                } elseif (substr($key,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $name = substr($key,8).' ';
+                    $name = str_replace('_', ' ', $name).' ';
+                    $ref_text = "van leerlingen in $name";
+                } elseif (substr($key,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $ref_text = "van leerlingen in $key";
+                    $name = substr($key,15).' ';
+                    $name = str_replace('_', ' ', $name).' ';
+                    $ref_text = "van leerlingen in $name";
                 }
-    
+
             $satisfactionImportance_docx->addText('',array(
             ));
 

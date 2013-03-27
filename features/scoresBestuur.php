@@ -137,9 +137,12 @@ class scoresBestuur
                         continue;
                     }
                     $names[] ="Alle Scholen ";
-                } else {
+                } elseif (substr($reference,0,8) === 'locatie_') {
+                    if (!$ref['locaties']) continue;
+                    $names[] = substr($reference,8).' ';
+                } elseif (substr($reference,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
-                    $names[] = $reference.' ';
+                    $names[] = substr($reference,15).' ';
                 }
                 $graphic_data_scores[] = $average_value;
                
