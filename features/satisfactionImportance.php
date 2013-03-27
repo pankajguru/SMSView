@@ -2,7 +2,7 @@
 
 class satisfactionImportance {
 
-    function render($data, $ref) {
+    function render($data, $ref, $config) {
         require_once ("./pChart/class/pData.class.php");
         require_once ("./pChart/class/pDraw.class.php");
         require_once ("./pChart/class/pImage.class.php");
@@ -24,7 +24,7 @@ class satisfactionImportance {
         
         //add graphic to docx
         $satisfactionImportance_docx = new CreateDocx();
-        $satisfactionImportance_docx->importStyles('./templates/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
+        $satisfactionImportance_docx->importStyles($config->item('template_dir').'/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
         $importance_categories = get_importance_categories($data);
 
         //create new array with categorynumber as key

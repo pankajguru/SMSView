@@ -51,6 +51,7 @@ class Parse extends CI_Controller {
         $xml_source = str_replace('___','/',$xml_source);
         $output_file = str_replace('___','/',$output_file);
         
+        
         $temp           = 'temp/';
 
 
@@ -73,9 +74,6 @@ class Parse extends CI_Controller {
         }
         $inputref = $this->input->post('ref');
         if (is_array($inputref)){
-            //foreach ($inputref as $reference){
-            //    $ref[$reference] = TRUE;
-            //}
             foreach ($ref as $key => $reference){
                 if (!in_array($key,$inputref)){
                     $ref[$key] = FALSE;
@@ -138,7 +136,7 @@ class Parse extends CI_Controller {
         unset($importance);
                 
         $satisfactionPriorityScatter = new satisfactionPriorityScatter();
-        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData, $ref);
+        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData, $ref, $this->config);
         unset($satisfactionPriorityScatter);        
         
         $mostimportant = new mostimportant();
@@ -170,15 +168,15 @@ class Parse extends CI_Controller {
         unset($previous);
                        
         $summary = new summary();
-        $summary_docx = $summary -> render($xmlData, $ref);
+        $summary_docx = $summary -> render($xmlData, $ref, $this->config);
         unset($summary);
 
         $satisfactionSummary = new satisfactionSummary();
-        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
+        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref, $this->config);
         unset($satisfactionSummary);
                
         $satisfactionImportance = new satisfactionImportance();
-        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
+        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref, $this->config);
         unset($satisfactionImportance);
                
 //        $scoresPercentagesBestuur = new scoresPercentagesBestuur();

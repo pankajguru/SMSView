@@ -2,7 +2,7 @@
 
 class summary {
 
-    function render($data, $ref) {
+    function render($data, $ref, $config) {
 
         $temp = 'temp/';
         $datastring = $data['top_questions_in_groups'];
@@ -12,7 +12,7 @@ class summary {
         //add graphic to docx
         $summary_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
-        $summary_docx->importStyles('./templates/muis-style.docx', 'merge', array('Normal'));
+        $summary_docx->importStyles($config->item('template_dir').'/muis-style.docx', 'merge', array('Normal'));
         $data_array = array();
         foreach($data as $key => $category){
             $data_array[$key] = $category;
