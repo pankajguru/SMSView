@@ -54,6 +54,11 @@ class Parse extends CI_Controller {
         $temp           = 'temp/';
 
 
+        if (!$xml_source){
+            $xml_source = $this->input->post('xml');
+            $xml_source = $this->config->item('report_dir').'/'.$xml_source;
+        }
+
         $this -> load -> library('simplexml');
 
         $xmlRaw = file_get_contents($xml_source);
@@ -83,10 +88,6 @@ class Parse extends CI_Controller {
         	$ref['obb'] = ($xmlData['peiling.ref_group_obb'] == 1);
         }
 
-        if (!$xml_source){
-            $xml_source = $this->input->post('xml');
-            $xml_source = $this->config->item('report_dir').'/'.$xml_source;
-        }
 
         if (!$template) {
             die("Geef een template op!\n");
