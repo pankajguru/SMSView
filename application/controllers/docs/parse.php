@@ -289,7 +289,7 @@ class Parse extends CI_Controller {
                 $docx -> createDocx($output_file);
         } else {
             //Not in cli-mode
-                $docx -> createDocxAndDownload($output_file);
+                $docx -> createDocxAndDownload();
         }
 
 		//opruimen:

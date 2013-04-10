@@ -821,7 +821,10 @@ function wire_save_question_list_button_old() {
         var json_string = new Array();
         json_string.push('{"basetype":"' + basetype + '"}');
         $('#question_list_container > ul').find('li').each(function() {
-            json_string.push(process_question($(this)));
+            var question_json = process_question($(this));
+            if (question_json !== ''){
+                json_string.push();
+            }
         });
         $.ajax({
             type : 'POST',
@@ -863,7 +866,11 @@ function process_question(node) {
     node.find('> .new_question_div').each(function() {
         retrieved_values.new_question = $(this).text();
     });
-    return JSON.stringify(retrieved_values);
+    if ($(this).text() !== ''){
+        return '';    
+    } else {
+        return JSON.stringify(retrieved_values);
+    }
 }
 
 function wire_answer_mouseover() {
