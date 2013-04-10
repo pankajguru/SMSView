@@ -12,6 +12,9 @@ class satisfaction
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
         $schoolname     = $data['schoolnaam'];
+        if (!isset($data["question.type.$type.scalefactor"])){
+            return '';
+        }
         $scale_factor = $data["question.type.$type.scalefactor"];
         $importance_categories = get_importance_categories($data);
         $column_count   = 0;

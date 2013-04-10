@@ -292,22 +292,22 @@ class Parse extends CI_Controller {
                 $docx -> createDocxAndDownload();
         }
 		//opruimen:
-        unlink($percentage_example_docx);
-        unlink($scores_example_docx);
-        unlink($reportmark_docx);
-        unlink($satisfaction_docx);
-        unlink($importance_docx);
-        unlink($satisfactionPriorityScatter_docx);
-        unlink($mostimportant_docx);
-        unlink($satisfactionTopGood_docx);
-        unlink($satisfactionTopBad_docx);
-        unlink($scoresAndPercentages_docx);
-        unlink($percentiles_good_docx);
-        unlink($percentiles_bad_docx);
-        unlink($previous_docx);
-        unlink($summary_docx);
-        unlink($satisfactionSummary_docx);
-        unlink($satisfactionImportance_docx);
+        if (file_exists($percentage_example_docx)) unlink($percentage_example_docx);
+        if (file_exists($scores_example_docx)) unlink($scores_example_docx);
+        if (file_exists($reportmark_docx)) unlink($reportmark_docx);
+        if (file_exists($satisfaction_docx)) unlink($satisfaction_docx);
+        if (file_exists($importance_docx)) unlink($importance_docx);
+        if (file_exists($satisfactionPriorityScatter_docx)) unlink($satisfactionPriorityScatter_docx);
+        if (file_exists($mostimportant_docx)) unlink($mostimportant_docx);
+        if (file_exists($satisfactionTopGood_docx)) unlink($satisfactionTopGood_docx);
+        if (file_exists($satisfactionTopBad_docx)) unlink($satisfactionTopBad_docx);
+        if (file_exists($scoresAndPercentages_docx)) unlink($scoresAndPercentages_docx);
+        if (file_exists($percentiles_good_docx)) unlink($percentiles_good_docx);
+        if (file_exists($percentiles_bad_docx)) unlink($percentiles_bad_docx);
+        if (file_exists($previous_docx)) unlink($previous_docx);
+        if (file_exists($summary_docx)) unlink($summary_docx);
+        if (file_exists($satisfactionSummary_docx)) unlink($satisfactionSummary_docx);
+        if (file_exists($satisfactionImportance_docx)) unlink($satisfactionImportance_docx);
 				
 /*
 */

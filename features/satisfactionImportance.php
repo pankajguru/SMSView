@@ -17,6 +17,9 @@ class satisfactionImportance {
         $datastring = str_replace('\\\'', '\'', $datastring);
         $dataImportance = json_decode($datastring)->{'importance'};
         $dataSatisfaction = json_decode($datastring)->{'satisfaction'};
+        if (!isset($data["question.type.importance.scalefactor"])){
+            return '';
+        }
         $scale_factor_importance = $data["question.type.importance.scalefactor"];
         $scale_factor_satisfaction = $data["question.type.satisfaction.scalefactor"];
         $schoolname     = $data['schoolnaam'];

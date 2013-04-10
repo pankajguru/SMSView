@@ -9,6 +9,10 @@ class satisfactionPriorityScatter {
         require_once ("./pChart/class/pScatter.class.php");
         require_once("./features/utils.php");
 
+        if (!isset($data["priority.satisfaction.table.data.scatter"])){
+            return '';
+        }
+
         $temp = 'temp/';
         $datastring = $data['priority.satisfaction.table.data.scatter'];
         //konqord JSON is false becuse escape character on '
@@ -34,6 +38,9 @@ class satisfactionPriorityScatter {
                 $total_y += $row[3];
                 $count++;
             }
+        }
+        if ($count === 0){
+            return "";
         }
         
         $average_x = $total_x / $count;

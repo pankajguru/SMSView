@@ -37,6 +37,10 @@ function filter_text($text){
 function get_importance_categories($data){
     $datastring     = $data['get_all_question_props'];
         //konqord JSON is false becuse escape character on '
+    $importance_categories = array();
+    if (!isset($data['question.type.satisfaction'])){
+        return $importance_categories;
+    }
     $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
     $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
     $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -45,7 +49,6 @@ function get_importance_categories($data){
 	$belangrijk_array = preg_split('/,/', $belangrijk);
 
     $categories = array();
-    $importance_categories = array();
     foreach($all_questions as $question_number=>$question){
         if (in_array($question->{'question_type'}[0][1], $tevreden_array)){
             $categories[$question->{'group_id'}]['satisfaction'][] = $question_number;

@@ -9,6 +9,9 @@ class satisfactionTop
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $schoolname     = $data['schoolnaam'];
+        if (!isset($data['question.type.satisfaction'])){
+            return "";
+        }
         $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
         $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
         //konqord JSON is false becuse escape character on '

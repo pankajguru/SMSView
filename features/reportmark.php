@@ -93,12 +93,13 @@ class reportmark
 //                'borderDiscontinuous' => 1
             );
             $percentage_docx->addImage($paramsImg);
+            $filename = $temp.'reportmark'.randchars(12);
+            $percentage_docx->createDocx($filename);
+            unset($percentage_docx);
+            unlink($percentage_graphic);
+            return $filename.'.docx';
         }
-		$filename = $temp.'reportmark'.randchars(12);
-        $percentage_docx->createDocx($filename);
-        unset($percentage_docx);
-		unlink($percentage_graphic);
-        return $filename.'.docx';
+        return '';
         
     }
     
