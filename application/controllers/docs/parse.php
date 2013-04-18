@@ -65,7 +65,8 @@ class Parse extends CI_Controller {
 
         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
         
-        $ref = array('alle_scholen' => TRUE, 'obb' => FALSE, 'question_based' => FALSE, 'locaties' => TRUE, 'vorige_peiling' => FALSE);
+        $ref = array('alle_scholen' => TRUE, 'obb' => FALSE, 'question_based' => FALSE, 'locaties' => TRUE,
+        'vorige_peiling' => TRUE);
         
         if (!$template){
             $template = $this->input->post('template');

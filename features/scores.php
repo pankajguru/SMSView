@@ -124,8 +124,8 @@ class scores
                     $names[] = "$schoolname ";
                 } elseif ($reference == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-//                    $names[] = "Vorige peiling ".$schoolname." ";
-                    $names[] = "Vorige peiling ";
+                    $names[] = "Vorige peiling ".$schoolname." ";
+//                    $names[] = "Vorige peiling ";
                 } elseif ($reference == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;
                     $names[] = $ref['onderbouw']." ";
@@ -139,7 +139,7 @@ class scores
                         continue;
                     }
                     $names[] ="Alle Scholen ";
-                } elseif (substr($reference,0,8) === 'locatie_') {
+                } elseif ((substr($reference,0,8) === 'locatie_') && ($reference !== 'locatie_') ) {
                     if (!$ref['locaties']) continue;
                     $names[] = substr($reference,8).' ';
                 } elseif (substr($reference,0,15) === 'question_based_') {

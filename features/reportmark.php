@@ -52,6 +52,9 @@ class reportmark
                 if ($reference == '_empty_'){
                     continue;
                 }
+                if ($reference == ''){
+                    continue;
+                }
                 if ($reference == 'peiling'){
                     $text[] = "$schoolname ";
                 } elseif ($reference == 'vorige_peiling') {
