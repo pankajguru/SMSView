@@ -117,6 +117,9 @@ class scores
                 if ($reference == '_empty_'){
                     continue;
                 }
+                if ($reference == 'locatie_'){
+                    continue;
+                }
                 if ($reference == 'Leerjaar 6'){
                     continue;
                 }

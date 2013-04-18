@@ -185,6 +185,9 @@ var_dump($mostimportant_table->toXMLString());
         }
         if (isset($mostimportant_data)){
             for ($i = 0; $i <= 9; $i++) {
+                if (!isset($mostimportant_data[$i]['peiling'])){
+                    continue;
+                }
                     $category_peiling = strtolower($mostimportant_data[$i]['peiling']);
                     $category_alle_scholen = strtolower($mostimportant_data[$i]['alle_scholen']);
                     $difference = ($category_peiling == $category_alle_scholen) ? 'Net als' : 'In tegenstelling tot';

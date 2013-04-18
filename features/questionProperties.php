@@ -21,7 +21,9 @@ class questionProperties
         
         ksort($all_questions_array);
         foreach($all_questions_array as $question_number=>$question){
-            
+            if (!isset($question->{'statistics'}->{"percentage"} )){
+                continue;
+            }
             foreach ($question->{'statistics'}->{"percentage"} as $answer => $percentages) {
                 foreach (array('value', 'lt', 'gte') as $modifier){
                     foreach(array('peiling','alle_scholen') as $peiling){

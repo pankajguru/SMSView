@@ -52,6 +52,9 @@ class reportmark
                 if ($reference == '_empty_'){
                     continue;
                 }
+                if ($reference == 'locatie_'){
+                    continue;
+                }
                 if ($reference == ''){
                     continue;
                 }
