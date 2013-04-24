@@ -116,8 +116,8 @@ class Questions extends CI_Controller {
             $xml_question->addChild('question', $question[0]->description);
             $xml_question->addChild('sort_order', $sort_order++);
             $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
-            $xml_question->addChild('category', htmlentities($category[0]->description, null , 'UTF-8')); 
-            $xml_question->addChild('category_explanation', htmlentities($category[0]->description, null , 'UTF-8')); 
+            $xml_question->addChild('category', xmlentities(htmlentities($category[0]->description, null , 'UTF-8'))); 
+            $xml_question->addChild('category_explanation', xmlentities(htmlentities($category[0]->description, null , 'UTF-8'))); 
             $xml_question->addChild('required', $question[0] -> strict);  
             $xml_question->addChild('inputnote',''); //TODO
             $priority = ($question_type[0]->DESC_CODE == 'BELANGRIJK') ? 1 : 0;
@@ -175,3 +175,7 @@ class Questions extends CI_Controller {
 
 
 }
+
+function xmlentities($string) { 
+   return str_replace ( array ( '&', '"', "'", '<', '>', '�' ), array ( '&amp;' , '&quot;', '&apos;' , '&lt;' , '&gt;', '&apos;' ), $string ); 
+} 
