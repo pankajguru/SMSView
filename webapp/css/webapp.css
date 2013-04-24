@@ -457,3 +457,7 @@ min-width:155px;
     z-index: 1000;
     cursor:pointer;
 }
+
+.simplemodal-wrap {
+    overflow: auto;
+}

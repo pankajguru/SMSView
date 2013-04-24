@@ -213,29 +213,32 @@ class Sms_model extends CI_Model {
             if ($question->{"id"} == 'new'){
                 //new question, store question and answers in db and use newly created id
                 $text = $question->{"new_question"}; 
-                $new_question = json_decode($text);
-                $new_question_object = array();
-                //transform array to usefull array
-                foreach ($new_question as $value) {
-                    $new_question_object[$value->{'name'}] = $value->{'value'};
+                error_log($text);
+                if ($text != '[]'){
+                    $new_question = json_decode($text);
+                    $new_question_object = array();
+                    //transform array to usefull array
+                    foreach ($new_question as $value) {
+                        $new_question_object[$value->{'name'}] = $value->{'value'};
+                    }
+                    $category = $new_question_object['new_question_category'];
+                    $new_question_text = $new_question_object['new_question_text'];
+                    $answer_type = $new_question_object['answer_type']; // 'multiple choice' en 'open vraag'
+                    $required = $new_question_object['answer_required'];
+                    if (isset($new_question_object['answer_multiple'])){
+                        $multiple = $new_question_object['answer_multiple'];
+                    } else {
+                        $multiple = 0;
+                    }
+                    $answers = array();
+                    $count = 1;
+                    //transform answers to usefull array
+                    while (isset($new_question_object['multiple_choice_answer_'.$count])){
+                        array_push($answers,$new_question_object['multiple_choice_answer_'.$count]);
+                        $count++;
+                    }
+                    $question->{"id"} = $this->_store_question($category, $new_question_text, $answer_type, $answers, $peiling_type_id, $required, $multiple);
                 }
-                $category = $new_question_object['new_question_category'];
-                $new_question_text = $new_question_object['new_question_text'];
-                $answer_type = $new_question_object['answer_type']; // 'multiple choice' en 'open vraag'
-                $required = $new_question_object['answer_required'];
-                if (isset($new_question_object['answer_multiple'])){
-                    $multiple = $new_question_object['answer_multiple'];
-                } else {
-                    $multiple = 0;
-                }
-                $answers = array();
-                $count = 1;
-                //transform answers to usefull array
-                while (isset($new_question_object['multiple_choice_answer_'.$count])){
-                    array_push($answers,$new_question_object['multiple_choice_answer_'.$count]);
-                    $count++;
-                }
-                $question->{"id"} = $this->_store_question($category, $new_question_text, $answer_type, $answers, $peiling_type_id, $required, $multiple);
             }
         }
                  

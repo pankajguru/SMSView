@@ -273,7 +273,7 @@ function set_saved_questions(savedSurvey) {
                     };
                     
                 }
-                var classname = category.replace(/ /g, "_");
+                var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
                 // Create the selector so we know where we have to append to.
                 var parent_selector = '.sortable_with_list' + classname;
                 var selector = '.category_list_name_list' + classname;
@@ -519,7 +519,7 @@ function sort_on_category() {
     $('#questions_container > li').each(function() {
         var li = $(this);
         var title = $(this).attr('title');
-        var classname = title.replace(/ /g, "_");
+        var classname = title.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
         var li_group = 'list' + $(this).attr('title');
 
         if (!groups[li_group]) {
@@ -574,7 +574,7 @@ function create_clicks() {
         //check each category on the right wether to show or not
         $.each(categories, function(key, category) {
             if (category) {
-                var classname = category.replace(/ /g, "_");
+                var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
                 var listclass_right = '.sortable_with_list' + classname;
                 var number_of_questions_right = $(listclass_right).children('li').length;
                 var listclass_left = '#list' + classname;
@@ -612,6 +612,7 @@ function new_question() {
         $('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" maxlength="255" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="open vraag" selected="selected" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div class="block"><label for="answer_multiple">Zijn meerdere antwoorden mogelijk?:</label><select name="answer_multiple" id="answer_multiple" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1">Ja</option><option value="0" selected="selected">Nee</option></select></div><div id="answer_container"></div><div id="answeraddcontainer"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" class="text ui-widget-content ui-corner-all" /><input id="clear_new_question" type="submit" value="Annuleren" class="text ui-widget-content ui-corner-all" /></div></form>').modal({
             position : ["50px", "250px"]
         });
+        $('.simplemodal-wrap').css('overflow','auto');
         wire_add_question();
         wire_clear_question();
         wire_question_type();
@@ -623,7 +624,7 @@ function wire_add_question() {
         event.preventDefault();
         // Get the values of the new question fields.
         var category = $('#new_question_category option:selected').text();
-        var classname = category.replace(/ /g, "_");
+        var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
         var question = $('#new_question_text').val();
         var question_type = $('#answer_type').val();
         
@@ -754,8 +755,10 @@ function wire_edit_questions() {
         var answers = '';
         var option_count = 0;
         $.each(question_answers, function(key, question) {
-            option_count++;
-            answers += '<div class="block"><label for="">Optie '+option_count+'</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_'+option_count+'" maxlength="30" value="'+question+'" /></div>';
+            if (question !== ''){
+                option_count++;
+                answers += '<div class="block"><label for="">Optie '+option_count+'</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_'+option_count+'" maxlength="30" value="'+question+'" /></div>';
+            }
         });
 
         var editform = '<form id="new_question_form"><input type="hidden" name="question_number" id="question_number" value="'+question_number+'"><div class="block">';
@@ -921,7 +924,7 @@ function check_mandatory_questions() {
         $('#129').draggable('option', 'disabled', true);
         process_question_numbering();
 
-    } else {
+    } else if (type === 'ptp') {
         // Create mandatory question for PTP list
         var listclass = '.sortable_with_' + $('#200').parent().attr('id');
         $('<span class="category_list_name category_list_name_' + $('#200').parent().attr('id') + '">' + $('#200').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
@@ -943,7 +946,7 @@ function check_mandatory_questions() {
 function check_for_how_important(id) {
 
     //var how_important = $('#' + id).parent().children(':contains("Hoe belangrijk")');
-    var how_important = $('#' + id).parent().children('.BELANGRIJK, .PTP_IMPORTANCE');
+    var how_important = $('#' + id).parent().children('.BELANGRIJK:first, .PTP_IMPORTANCE:first');
 
     var how_important_class = $(how_important).parent().attr('id');
     var how_important_id = $(how_important).attr('id');

@@ -105,6 +105,10 @@ class Questions extends CI_Controller {
         $xml_questions = $xml->addChild('questions');
         $sort_order = 0;
         foreach ($question_ids as $question_id) {
+            if ($question_id -> question_id == 0){
+                continue;
+            }
+            $this->_error_dump($question_id);
             $question = $this -> Sms_model -> get_question_by_id($question_id -> question_id);
             $answers = $this -> Sms_model -> get_answers_by_question_type_id($question[0] -> vraag_type_id);
             $question_type = $this -> Sms_model -> get_question_type_by_id($question[0] -> vraag_type_id);
@@ -113,7 +117,7 @@ class Questions extends CI_Controller {
             $xml_question->addChild('sort_order', $sort_order++);
             $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
             $xml_question->addChild('category', htmlentities($category[0]->description, null , 'UTF-8')); 
-            $xml_question->addChild('category_explanation', $category[0]->description); 
+            $xml_question->addChild('category_explanation', htmlentities($category[0]->description, null , 'UTF-8')); 
             $xml_question->addChild('required', $question[0] -> strict);  
             $xml_question->addChild('inputnote',''); //TODO
             $priority = ($question_type[0]->DESC_CODE == 'BELANGRIJK') ? 1 : 0;
