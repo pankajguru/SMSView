@@ -234,7 +234,7 @@ class Sms_model extends CI_Model {
                         $answers = array();
                         $count = 1;
                         //transform answers to usefull array
-                        while (isset($new_question_object['multiple_choice_answer_'.$count])){
+                        while (isset($new_question_object['multiple_choice_answer_'.$count]) && ($new_question_object['multiple_choice_answer_'.$count] != '')){
                             array_push($answers,$new_question_object['multiple_choice_answer_'.$count]);
                             $count++;
                         }
