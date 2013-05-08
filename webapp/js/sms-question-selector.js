@@ -679,8 +679,8 @@ function wire_add_question() {
     });
 }
 
-function wire_edit_questions() {
-    $('.editnew').click(function(event){
+
+function editnew() {
 //        var string = $(this).parent().find('div').html();
         var question_json = $(this).parent().find('div').html();
         var question_number = $(this).parent().val();
@@ -785,7 +785,11 @@ function wire_edit_questions() {
         wire_add_question();
         wire_clear_question();
         wire_question_type();
-    })
+};
+    
+function wire_edit_questions() {
+    $('.editnew').off("click", editnew);
+    $('.editnew').on("click", editnew);
 }
 
 
