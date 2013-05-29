@@ -73,7 +73,7 @@ class Questions extends REST_Controller {
 		if ($handle = opendir($directory)) {
     		while (false !== ($entry = readdir($handle))) {
         		if ($entry != "." && $entry != "..") {
-        		    $date = date ("d-m-y", filemtime($directory.'/'.$entry));
+        		    $date = date ("d-m-y H:i", filemtime($directory.'/'.$entry));
         			$entry = str_replace('.json','-'.$date,$entry);
             		array_push($dirs,$entry);
         		}
@@ -89,7 +89,7 @@ class Questions extends REST_Controller {
 		$dirs = array();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
         //get rid of date after file
-        $filename = substr($filename,0,-9);
+        $filename = substr($filename,0,-15);
 		$questionaire = file_get_contents($directory.$filename.'.json');
 		
 		$this -> response($questionaire, 200);
