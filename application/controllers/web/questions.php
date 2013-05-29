@@ -47,8 +47,10 @@ class Questions extends CI_Controller {
 		$data['content'] = 'Kies de klant en de vragenlijst';
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$filename = $_POST['filename'];
-			$id = $_POST['client'];
-
+    		$id = $_POST['client'];
+            //get rid of date after file
+            $filename = substr($filename,0,-15);
+            print $filename;
 			//get the json from the server
 			$base_url = $this->config->item('vragenplanner_url');
 			$questionaire_xml = file_get_contents($base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id);

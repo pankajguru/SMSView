@@ -88,8 +88,7 @@ class Questions extends REST_Controller {
 	public function saved_questionaire_admin_get($filename, $id){
 		$dirs = array();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
-        //get rid of date after file
-        $filename = substr($filename,0,-15);
+        
 		$questionaire = file_get_contents($directory.$filename.'.json');
 		
 		$this -> response($questionaire, 200);
