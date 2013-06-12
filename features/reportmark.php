@@ -251,7 +251,7 @@ class reportmark
 		
         for ($i=0;$i<count($graphic_data_text);$i++){
             $Y = $imageData[$i][3] - 30;
-            $myPicture->drawText(20, $Y,$graphic_data_text[$i]."; ".$graphic_data_reportmarks[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
+            $myPicture->drawText(20, $Y,$graphic_data_text[$i]."; ".sprintf('%.2f',$graphic_data_reportmarks[$i]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE));
         }
         
 		$filename = $temp . "reportmark$question_number".randchars(12).".png";

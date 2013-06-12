@@ -18,6 +18,17 @@ class summary {
             $data_array[$key] = $category;
         }
         ksort($data_array);
+        
+        $basetype = $data['report.type.basetype'];
+        
+        if ($basetype == 1){
+            $target = 'ouders'; //afhankelijk van basetype
+        } elseif ($basetype == 2) {
+            $target = 'leerlingen'; //afhankelijk van basetype
+        } elseif ($basetype == 2) {
+            $target = 'medewerkers'; //afhankelijk van basetype
+        }
+        
         foreach($data_array as $key => $category){
             if ($key == "number_of_groups"){
                 continue;
@@ -32,10 +43,10 @@ class summary {
                 $text = '';
                 foreach($category->top as $topkey => $top){
                     if ($topkey == 0){
-                        $text .= "Onze school wordt door relatief veel ouders gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de ouders is hierover tevreden).";
+                        $text .= "Onze school wordt door relatief veel $target gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de $target is hierover tevreden).";
                     }
                     if ($topkey == 1){
-                        $text .= "Ook zijn relatief veel ouders tevreden over '".filter_text($top[1])."' (".round($top[2]*100)."%).";
+                        $text .= "Ook zijn relatief veel $target tevreden over '".filter_text($top[1])."' (".round($top[2]*100)."%).";
                     }
                     
                 }
@@ -48,7 +59,7 @@ class summary {
                 $text = '';
                 foreach($category->bottom as $bottomkey => $bottom){
                     if ($bottomkey == 0){
-                        $text .= "Relatief veel ouders zijn ontevreden ten aanzien van '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
+                        $text .= "Relatief veel $target zijn ontevreden ten aanzien van '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
                     if ($bottomkey == 1){
                         $text .= "en '".filter_text($bottom[1],null, 'UTF-8')."' (".round($bottom[2]*100)."%)";
