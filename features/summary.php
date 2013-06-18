@@ -6,6 +6,7 @@ class summary {
 
         $temp = 'temp/';
         $datastring = $data['top_questions_in_groups'];
+        $basetype = $data['basetype'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
         $data = json_decode($datastring);
@@ -19,7 +20,6 @@ class summary {
         }
         ksort($data_array);
         
-        $basetype = $data['report.type.basetype'];
         
         if ($basetype == 1){
             $target = 'ouders'; //afhankelijk van basetype
