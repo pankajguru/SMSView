@@ -242,7 +242,7 @@ class scores
         $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
-            "FontSize" => 24,
+            "FontSize" => 22,
 //            "R" => 255,
 //            "G" => 255,
 //            "B" => 255,

@@ -25,7 +25,7 @@ class summary {
             $target = 'ouders'; //afhankelijk van basetype
         } elseif ($basetype == 2) {
             $target = 'leerlingen'; //afhankelijk van basetype
-        } elseif ($basetype == 2) {
+        } elseif ($basetype == 3) {
             $target = 'medewerkers'; //afhankelijk van basetype
         }
         

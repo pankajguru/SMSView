@@ -26,8 +26,11 @@ function filter_text($text){
     $replacements[] = '&eacute;';
     $patterns[] = '/_QUOTE_/'; 
     $replacements[] = '\'';
+    $patterns[] = '/&quot;/'; 
+    $replacements[] = '\'';
     $patterns[] = '/&#039;/'; 
     $replacements[] = '\'';
+    
     
     $text = preg_replace($patterns, $replacements, $text);  
     $text = html_entity_decode($text, null, 'UTF-8');  

@@ -220,7 +220,7 @@ class percentages
         $myPicture = new pImage(1200, $picture_height, $MyData);
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
-            "FontSize" => 20,
+            "FontSize" => 22,
             "R" => 255,
             "G" => 255,
             "B" => 255,
