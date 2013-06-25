@@ -83,7 +83,11 @@ class Parse extends CI_Controller {
             }
         } else {
 			$ref['alle_scholen'] = ($xmlData['peiling.ref_group_all'] == 1);
-        	$ref['obb'] = ($xmlData['peiling.ref_group_obb'] == 1);
+            if($xmlData['basetype'] == '1'){
+                $ref['obb'] = TRUE;
+            } else {
+                $ref['obb'] = ($xmlData['peiling.ref_group_obb'] == 1);
+            }
         }
 
 
