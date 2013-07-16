@@ -268,7 +268,7 @@ class percentages
         $count = 0;
         foreach ($graphic_answer as $i=>$graphic_answer_text) {
         #for ($i=0;$i<count($graphic_answer);$i++){
-            $myPicture->drawText(320, 40 + ($count)*31,$graphic_answer_text[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
+            $myPicture->drawText(320, 40 + ($count)*31,$graphic_answer_text,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(400, 40 + ($count)*31,$graphic_answered[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             $myPicture->drawText(490, 40 + ($count)*31,$graphic_percentage[$i]."%",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE));
             if (isset($graphic_percentage_total[$i])){
