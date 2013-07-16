@@ -277,7 +277,7 @@ class percentages
             $count++;
         }
         if ($show_legend){
-            $myPicture->drawLegend(10,40 + ($i)*31,array("BoxWidth"=>20,"BoxHeight"=>20,"Style"=>LEGEND_NOBORDER ,"Mode"=>LEGEND_VERTICAL, "FontR" => 0, "FontG" => 0, "FontB" => 0));
+            $myPicture->drawLegend(10,40 + ($count)*31,array("BoxWidth"=>20,"BoxHeight"=>20,"Style"=>LEGEND_NOBORDER ,"Mode"=>LEGEND_VERTICAL, "FontR" => 0, "FontG" => 0, "FontB" => 0));
         }
         
 		$filename = $temp . "percentages$question_number".randchars(12).".png";
