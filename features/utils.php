@@ -33,7 +33,7 @@ function filter_text($text){
     
     
     $text = preg_replace($patterns, $replacements, $text);  
-    $text = html_entity_decode($text, null, 'UTF-8');  
+    $text = strip_tags(html_entity_decode($text, null, 'UTF-8'));  
     return $text;
 }
 
@@ -61,8 +61,14 @@ function get_importance_categories($data){
         }
     };
     foreach($categories as $category_id => $category){
-        if ( isset($category['satisfaction']) && (count($category['satisfaction']) > 2) && isset($category['importance']) && (count($category['importance']) > 0) ){
-            $importance_categories[] = $category_id;
+        if ($data['basetype'] == 2) { //ltp has no importance
+            if ( isset($category['satisfaction']) && (count($category['satisfaction']) > 2) ){
+                $importance_categories[] = $category_id;
+            }
+        } else {
+            if ( isset($category['satisfaction']) && (count($category['satisfaction']) > 2) && isset($category['importance']) && (count($category['importance']) > 0) ){
+                $importance_categories[] = $category_id;
+            }
         }
     }
     return $importance_categories;    

@@ -105,7 +105,7 @@ n', $paramsTextHeading);
             )));
             } else {
             $percentiles_docx->addText(array(array(
-                'text' => 'Onze school zou landelijk gezien meer aandacht kunnen bestden aan:',
+                'text' => 'Onze school zou landelijk gezien meer aandacht kunnen besteden aan:',
                 'sz' => 10,
                 'font' => 'Century Gothic'
             )));
