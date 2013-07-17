@@ -55,6 +55,8 @@ n', $paramsTextHeading);
                 $blocksize = ($max_value - $min_value) / 30;
 
                 $extra_std_deviation = 0;
+                $extra_std_deviation1 = 0;
+                $extra_std_deviation2 = 0;
                 if ( $max_value - $min_value >= 3 ) {
                      $extra_std_deviation1 = $percentile_data[7] - $percentile_data[6];
                      $extra_std_deviation2 = $percentile_data[11] - $percentile_data[10];

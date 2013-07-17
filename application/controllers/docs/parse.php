@@ -159,7 +159,7 @@ class Parse extends CI_Controller {
         $scoresAndPercentages_docx = $scoresAndPercentages -> render($xmlData, $ref);
         unset($scoresAndPercentages);
 
-        if ($xmlData['basetype'] != 2) { //ltp has no percentiles
+        //if ($xmlData['basetype'] != 2) { //ltp has no percentiles
             $percentiles_good = new percentiles();
             $percentiles_good_docx = $percentiles_good -> render($xmlData, $ref, 'green');
             unset($percentiles_good);
@@ -167,7 +167,7 @@ class Parse extends CI_Controller {
             $percentiles_bad = new percentiles();
             $percentiles_bad_docx = $percentiles_bad -> render($xmlData, $ref, 'red');
             unset($percentiles_bad);
-        }
+        //}
                
         $previous = new previous();
         $previous_docx = $previous -> render($xmlData, $ref);
@@ -251,14 +251,14 @@ class Parse extends CI_Controller {
                 if ($variable == "scoresAndPercentages") {
                     $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
                 }
-                if ($xmlData['basetype'] != 2) { //ltp has no percentiles
+                //if ($xmlData['basetype'] != 2) { //ltp has no percentiles
                     if ($variable == "percentiles") {
                         $docx -> addTemplateVariable('class:percentiles:good', $percentiles_good_docx, 'docx');
                     }
                     if ($variable == "percentiles") {
                         $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                     }
-                }
+                //}
                 if ($variable == "previous") {
                     $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
                 }
@@ -311,10 +311,10 @@ class Parse extends CI_Controller {
         if (file_exists($satisfactionTopGood_docx)) unlink($satisfactionTopGood_docx);
         if (file_exists($satisfactionTopBad_docx)) unlink($satisfactionTopBad_docx);
         if (file_exists($scoresAndPercentages_docx)) unlink($scoresAndPercentages_docx);
-        if ($xmlData['basetype'] != 2) { //ltp has no percentiles
+        //if ($xmlData['basetype'] != 2) { //ltp has no percentiles
             if (file_exists($percentiles_good_docx)) unlink($percentiles_good_docx);
             if (file_exists($percentiles_bad_docx)) unlink($percentiles_bad_docx);
-        }
+        //}
         if (file_exists($previous_docx)) unlink($previous_docx);
         if (file_exists($summary_docx)) unlink($summary_docx);
         if (file_exists($satisfactionSummary_docx)) unlink($satisfactionSummary_docx);
