@@ -59,6 +59,7 @@ class percentagesBestuur
         $percentage_table = Array(Array(' '));
         $targeted = FALSE;
         foreach($all_questions_array as $question_number=>$question){
+           print 'ennuden' . $question_number. ' '.$question->{'question_type'}[0][1];
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
             } 
@@ -73,7 +74,7 @@ class percentagesBestuur
             }
             $valid_question_types = array('TEVREDEN','PTP_TEVREDEN');
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-                continue;
+//                continue;
             }
             $question_count++;
             $answer_count_peiling = 0;

@@ -132,10 +132,10 @@ class scoresBestuur
                     $names[] = $ref['bovenbouw']." ";
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                    if ($question->{'statistics'}->{'averages'}->{'peiling'}[0][5] == $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][5]){
-                        $alle_scholen = false; //is the same as peiling
-                        continue;
-                    }
+//                    if ($question->{'statistics'}->{'averages'}->{'peiling'}[0][5] == $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][5]){
+//                        $alle_scholen = false; //is the same as peiling
+//                        continue;
+//                    }
                     $names[] ="Alle Scholen ";
                 } elseif (substr($reference,0,8) === 'locatie_') {
                     if (!$ref['locaties']) continue;
