@@ -59,7 +59,6 @@ class percentagesBestuur
         $percentage_table = Array(Array(' '));
         $targeted = FALSE;
         foreach($all_questions_array as $question_number=>$question){
-           print 'ennuden' . $question_number. ' '.$question->{'question_type'}[0][1];
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
             } 
@@ -72,9 +71,9 @@ class percentagesBestuur
             if (count($question->{'statistics'}->{'percentage'}) == 0){
                 continue;
             }
-            $valid_question_types = array('TEVREDEN','PTP_TEVREDEN');
+            $valid_question_types = array('TEVREDEN','PTP_TEVREDEN',"LEUK","NIETZO_GAATWEL_JA","NOOIT_SOMS_VAAK","BNSV_REVERSED","NZBM_REVERSED","NZGWJ_REVERSED");
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-//                continue;
+                continue;
             }
             $question_count++;
             $answer_count_peiling = 0;

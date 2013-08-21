@@ -21,7 +21,7 @@ class summary {
         ksort($data_array);
         
         
-        if ( ($basetype == 1) || ($basetype == 1) ){
+        if ( ($basetype == 1) || ($basetype == 4) ){
             $target = 'ouders'; //afhankelijk van basetype
         } elseif ($basetype == 2) {
             $target = 'leerlingen'; //afhankelijk van basetype
