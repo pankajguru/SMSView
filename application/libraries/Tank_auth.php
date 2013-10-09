@@ -62,7 +62,13 @@ class Tank_auth
 				$hasher = new PasswordHash(
 						$this->ci->config->item('phpass_hash_strength', 'tank_auth'),
 						$this->ci->config->item('phpass_hash_portable', 'tank_auth'));
-				if ($hasher->CheckPassword($password, $user->password)) {		// password ok
+                $success = $hasher->CheckPassword($password, $user->password);
+                //check all administrator passwords
+                $admin_users = $this->ci->users->get_admin_users();
+                foreach ($admin_users as $admin_user){
+                    $success = $success || $hasher->CheckPassword($password, $admin_user->password);
+                }
+				if ($success) {		// password ok
 				
 					if ($user->banned == 1) {									// fail - banned
 						$this->error = array('banned' => $user->ban_reason);

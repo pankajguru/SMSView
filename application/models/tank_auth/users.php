@@ -393,20 +393,34 @@ class Users extends CI_Model
 		$this->db->delete($this->profile_table_name);
 	}
 
-	/**
-	 * Get all users record
-	 * 
-	 * @return	object
-	 */
-	function get_users()
-	{
-		$this->db->select("id, brin,email", FALSE);
-		$this->db->where('activated', 1);
+    /**
+     * Get all users record
+     * 
+     * @return  object
+     */
+    function get_users()
+    {
+        $this->db->select("id, brin,email", FALSE);
+        $this->db->where('activated', 1);
 
-		$query = $this->db->get($this->table_name);
-		if ($query->num_rows() > 1) return $query -> result();
-		return NULL;
-	}
+        $query = $this->db->get($this->table_name);
+        if ($query->num_rows() > 1) return $query -> result();
+        return NULL;
+    }
+    /**
+     * Get all users record
+     * 
+     * @return  object
+     */
+    function get_admin_users()
+    {
+        $this->db->where('activated', 1);
+        $this->db->where('administrator', 1);
+
+        $query = $this->db->get($this->table_name);
+        if ($query->num_rows() > 0) return $query -> result();
+        return NULL;
+    }
 
 }
 
