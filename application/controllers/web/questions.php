@@ -49,7 +49,7 @@ class Questions extends CI_Controller {
 			$filename = $_POST['filename'];
     		$id = $_POST['client'];
             //get rid of date after file
-            $filename = substr($filename,0,-15);
+            $filename = substr($filename,15);
             print $filename;
 			//get the json from the server
 			$base_url = $this->config->item('vragenplanner_url');

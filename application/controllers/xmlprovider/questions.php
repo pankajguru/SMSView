@@ -22,8 +22,43 @@ class Questions extends REST_Controller {
 			//create the directory
 			mkdir($directory);
 		}
-		file_put_contents($directory.'/'.$filename.'.json', $questionaire_json);
-		$this -> response(array('status' => 'success', 'responseText' => $filename));
+        //add version numbers so nothing gets overridden
+        $directory = BASEPATH.'/../json'.'/'.$id;
+        $version = 0;
+        $old_version = -1;
+        $new_filename = $filename.' v1';
+        if ($handle = opendir($directory)) {
+            while (false !== ($entry = readdir($handle))) {
+                if ($entry != "." && $entry != "..") {
+                    $pos = strrpos($filename, " v");
+                    $new_entry = str_replace('.json','',$entry);
+                    preg_match('/\sv(\d+)/', $new_entry, $matches);
+                    if (isset($matches[1])){
+                        $version = $matches[1];
+                    } else {
+                        $version = 0;
+                    }
+                    $new_entry = preg_replace('/\sv(\d+)/', '', $new_entry);
+                    $filename = preg_replace('/\sv(\d+)/', '', $filename);
+                    error_log($version.' '.$old_version);
+                    error_log($filename.'=='.$new_entry);
+                    if ( ($version > $old_version) && ($filename == $new_entry) ){
+                        error_log($filename);
+                        $old_version = $version;
+                        $version++;
+                        $new_filename = $filename.' v'.$version;
+                        error_log($filename);
+                    }
+
+                }
+            }
+            closedir($handle);
+        }
+                
+        
+        
+		file_put_contents($directory.'/'.$new_filename.'.json', $questionaire_json);
+		$this -> response(array('status' => 'success', 'responseText' => $new_filename));
     }
 
 	public function saved_questionaires_get(){
@@ -73,14 +108,15 @@ class Questions extends REST_Controller {
 		if ($handle = opendir($directory)) {
     		while (false !== ($entry = readdir($handle))) {
         		if ($entry != "." && $entry != "..") {
-        		    $date = date ("d-m-y H:i", filemtime($directory.'/'.$entry));
-        			$entry = str_replace('.json','-'.$date,$entry);
+        		    $date = date ("y-m-d H:i", filemtime($directory.'/'.$entry));
+                    $entry = str_replace('.json','',$entry);
+        			$entry = $date.' '.$entry;
             		array_push($dirs,$entry);
         		}
     		}
     		closedir($handle);
 		}
-		
+		sort($dirs);
 		$this -> response($dirs, 200);
 		
 	}
