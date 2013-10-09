@@ -119,6 +119,12 @@ class scoresBestuur
                 if ($reference == 'Leerjaar 6'){
                     continue;
                 }
+                if ($reference == 'BS De Octopus'){
+                    continue;
+                }
+                if ($reference == 'Bs De Poel'){
+                    continue;
+                }
                 if ($reference == 'peiling'){
                     $names[] = "$schoolname ";
                 } elseif ($reference == 'vorige_peiling') {

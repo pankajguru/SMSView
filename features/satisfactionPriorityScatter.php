@@ -78,14 +78,14 @@ class satisfactionPriorityScatter {
             'font' => 'Century Gothic',
         );
         
-        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Meer tevreden\':',array(
+        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk/Meer tevreden\':',array(
                 'sz' => 10,
                 'font' => 'Century Gothic'
         ));
 
         $satisfactionPriorityScatter_docx -> addList($advice_positive, $paramsList);
 
-        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk / Minder tevreden\':',array(
+        $satisfactionPriorityScatter_docx->addText('De school scoort op de volgende rubrieken \'Meer belangrijk/Minder tevreden\':',array(
                 'sz' => 10,
                 'font' => 'Century Gothic'
         ));

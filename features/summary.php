@@ -34,7 +34,7 @@ class summary {
                 continue;
             }
             if ((count($category->top) > 0) or (count($category->bottom) > 0)){
-                $summary_docx->addText($category->groupname,array(
+                $summary_docx->addText(filter_text($category->groupname),array(
                     'sz' => 10,
                     'color' => 'F78E1E',
                     'b' => 'double',
@@ -43,10 +43,10 @@ class summary {
                 $text = '';
                 foreach($category->top as $topkey => $top){
                     if ($topkey == 0){
-                        $text .= "Onze school wordt door relatief veel $target gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de $target is hierover tevreden).";
+                        $text .= "Onze school wordt door relatief veel $target gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de $target is hierover tevreden). ";
                     }
                     if ($topkey == 1){
-                        $text .= "Ook zijn relatief veel $target tevreden over '".filter_text($top[1])."' (".round($top[2]*100)."%).";
+                        $text .= "Ook zijn relatief veel $target tevreden over '".filter_text($top[1])."' (".round($top[2]*100)."%). ";
                     }
                     
                 }
@@ -62,11 +62,11 @@ class summary {
                         $text .= "Relatief veel $target zijn ontevreden ten aanzien van '".filter_text($bottom[1])."' (".round($bottom[2]*100)."%)";
                     }
                     if ($bottomkey == 1){
-                        $text .= "en '".filter_text($bottom[1],null, 'UTF-8')."' (".round($bottom[2]*100)."%)";
+                        $text .= " en '".filter_text($bottom[1],null, 'UTF-8')."' (".round($bottom[2]*100)."%)";
                     }
                 }
                 if ($text!= '') {
-                    $text .= '.';
+                    $text .= '. ';
                     $summary_docx->addText($text,array(
                             'sz' => 10,
                             'font' => 'Century Gothic'

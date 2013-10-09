@@ -73,7 +73,7 @@ class percentagesBestuur
             }
             $valid_question_types = array('TEVREDEN','PTP_TEVREDEN',"LEUK","NIETZO_GAATWEL_JA","NOOIT_SOMS_VAAK","BNSV_REVERSED","NZBM_REVERSED","NZGWJ_REVERSED");
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-                continue;
+                //continue;
             }
             $question_count++;
             $answer_count_peiling = 0;
@@ -117,7 +117,32 @@ class percentagesBestuur
             $ref_count = 1;
             $widthTableCols[$question_count] = 1000;
             foreach ($question->{'refs'} as $reference){
+                if ($reference==''){
+                    continue;
+                }
+                if (is_null($question->{'statistics'}->{'averages'})){
+                    continue;
+                }
+                if (!isset($question->{'statistics'}->{'averages'}->{$reference})){
+                    continue;
+                }
+                if (count($question->{'statistics'}->{'averages'}->{$reference}) == 0){
+                    continue;
+                }
+                $average_value = $question->{'statistics'}->{'averages'}->{$reference}[0];
+                if (is_null($average_value)){
+                    continue;
+                }
+                if ($reference == '_empty_'){
+                    continue;
+                }
 //                var_dump($question->{'statistics'}->{'distribution'}->{$reference});
+                if ($reference == 'BS De Octopus'){
+                    continue;
+                }
+                if ($reference == 'Bs De Poel'){
+                    continue;
+                }
                 $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{$reference};
                 $answer_peiling            = array();
                 foreach ($peiling_distribution as $answer) {
@@ -126,23 +151,49 @@ class percentagesBestuur
                 }
                 //add references to first column
                 $percentage_table[$ref_count][0] = filter_text($reference);
-//                var_dump($answer_peiling[4]);
-                $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
-                $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
-                if ($satisfied + $unsatisfied > 0){
-                    $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
-                    $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
+                $basetype = $data['basetype'];
+                if ($basetype == '2') {
+                    $satisfied = isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0;
+                    $unsatisfied = isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0;
+                    $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
+                                    //(isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
+                                    (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0);
+                    $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
+                    $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
+                    if ($satisfied_percentage < 70){
+                        $paramsTextTable['cell_color'] = 'FF5050';
+                    } elseif ($satisfied_percentage < 80) {
+                        $paramsTextTable['cell_color'] = 'FFCC66';
+                    } elseif ($satisfied_percentage < 95) {
+                        $paramsTextTable['cell_color'] = 'CCFF99';
+                    } else {
+                       $paramsTextTable['cell_color'] = '99CC00';
+                    }
+                    $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
+                                       (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
+                                       (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
+                                       (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
+                                       (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0);
+                    $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
+                    $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
                 } else {
-//                    continue;
-                }
-                if ($satisfied_percentage < 75){
-                    $paramsTextTable['cell_color'] = 'FF5050';
-                } elseif ($satisfied_percentage < 85) {
-                    $paramsTextTable['cell_color'] = 'FFCC66';
-                } elseif ($satisfied_percentage < 95) {
-                    $paramsTextTable['cell_color'] = 'CCFF99';
-                } else {
-                    $paramsTextTable['cell_color'] = '99CC00';
+                    $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
+                    $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
+                    if ($satisfied + $unsatisfied > 0){
+                        $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
+                        $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
+                    } else {
+//                        continue;
+                    }
+                    if ($satisfied_percentage < 75){
+                        $paramsTextTable['cell_color'] = 'FF5050';
+                    } elseif ($satisfied_percentage < 85) {
+                        $paramsTextTable['cell_color'] = 'FFCC66';
+                    } elseif ($satisfied_percentage < 95) {
+                        $paramsTextTable['cell_color'] = 'CCFF99';
+                    } else {
+                       $paramsTextTable['cell_color'] = '99CC00';
+                    }
                 }
                 $text = $satisfied_percentage . ' / ' . $unsatisfied_percentage;
                 $paramsTextTable['text'] = $text;
