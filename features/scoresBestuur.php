@@ -153,6 +153,9 @@ class scoresBestuur
             }
             $min_value = $question->{'question_type'}[0][3];
             $max_value = $question->{'question_type'}[0][4];
+            if ($min_value == $max_value){
+                continue;
+            }
             $blocksize = ($max_value - $min_value) / 30;
             $empty = array();
             $stdev_left = array();

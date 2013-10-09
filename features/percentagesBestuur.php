@@ -183,7 +183,7 @@ class percentagesBestuur
                         $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
                         $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
                     } else {
-//                        continue;
+                        continue;
                     }
                     if ($satisfied_percentage < 75){
                         $paramsTextTable['cell_color'] = 'FF5050';
