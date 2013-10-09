@@ -641,7 +641,24 @@ function wire_add_question() {
         var form_node = $('#new_question_form');
 
         var li = $('<li refid="new" class="question_selected">' + question + '<span class="editnew" title="bewerk deze vraag"> </span></li>');
-        if ($(selector).length !== 0) {
+        if (question_number) {
+            // The category already exists in the list so we can append our LI element directly.
+            $(parent_selector).removeClass('hide');
+            //unhide when hidden
+            if ($('li[value="'+(parseInt(question_number-1))+'"]').parent().hasClass('sortable_with_list' + classname)){
+                alert(1);
+                li.insertAfter('li[value="'+(question_number-1)+'"]');
+            } else if ($('li[value="'+(parseInt(question_number)+1)+'"]').parent().hasClass('sortable_with_list' + classname)){
+                alert(2);
+                li.insertBefore('li[value="'+(parseInt(question_number)+1)+'"]');
+            } else {
+                alert(3);
+                li.appendTo(parent_selector);
+            }
+            var string = JSON.stringify(form_node.serializeArray());
+            var div = $('<div class="new_question_div hide">' + string + '</div>');
+            div.appendTo(li);
+        } else if ($(selector).length !== 0) {
             // The category already exists in the list so we can append our LI element directly.
             $(parent_selector).removeClass('hide');
             //unhide when hidden
@@ -771,9 +788,9 @@ function editnew() {
         $(editform).modal({
             position : ["50px", "250px"]
         });
-        $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
-        $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer')
-        $('<p class="info">  * Voeg (indien mogelijk) het meest negatieve antwoord als eerste toe</p>').appendTo('#answeraddcontainer')
+        $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer');
+        $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer');
+        $('<p class="info">  * Voeg (indien mogelijk) het meest negatieve antwoord als eerste toe</p>').appendTo('#answeraddcontainer');
 
         $("#add_multiple_choice_answer").click(function(e) {
             var id = $('.multiple_choice_answer').length;
@@ -799,9 +816,9 @@ function wire_question_type() {
 
         if ($('#answer_type option:selected').val() === 'multiple choice') {
             $('<div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" maxlength="30" /></div>').appendTo('#answer_container');
-            $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer')
-            $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer')
-            $('<p class="info">  * Voeg (indien mogelijk) het meest negatieve antwoord als eerste toe</p>').appendTo('#answeraddcontainer')
+            $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer');
+            $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer');
+            $('<p class="info">  * Voeg (indien mogelijk) het meest negatieve antwoord als eerste toe</p>').appendTo('#answeraddcontainer');
         }
 
         $("#add_multiple_choice_answer").click(function(e) {
@@ -908,9 +925,16 @@ function check_mandatory_questions() {
         $('<span class="category_list_name category_list_name_' + $('#68').parent().attr('id') + '">' + $('#68').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         var text = $('<li refid="68" class="question_selected required">Welk rapport cijfer geeft u aan de school</li>');
         text.appendTo(listclass);
+
+        var listclass = '.sortable_with_' + $('#10872').parent().attr('id');
+        $('<span class="category_list_name category_list_name_' + $('#10872').parent().attr('id') + '">' + $('#10872').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        var text = $('<li refid="10872" class="question_selected required">Indien u nog opmerkingen of andere sugeesties heeft over de vragenlijst, kunt u die hier plaatsen</li>');
+        text.appendTo(listclass);
+
         $('#1').draggable('option', 'disabled', true);
         $('#2').draggable('option', 'disabled', true);
         $('#68').draggable('option', 'disabled', true);
+        $('#10872').draggable('option', 'disabled', true);
         process_question_numbering();
 
     } else if (type === 'ltp') {
@@ -938,9 +962,14 @@ function check_mandatory_questions() {
         $('<span class="category_list_name category_list_name_' + $('#306').parent().attr('id') + '">' + $('#306').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
         var text = $('<li refid="306" class="question_selected required">Welk rapport cijfer geeft u aan uw school</li>');
         text.appendTo(listclass);
+        var listclass = '.sortable_with_' + $('#13509').parent().attr('id');
+        $('<span class="category_list_name category_list_name_' + $('#13509').parent().attr('id') + '">' + $('#13509').parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+        var text = $('<li refid="13509" class="question_selected required">Indien u nog opmerkingen of andere sugeesties heeft over de vragenlijst, kunt u die hier plaatsen</li>');
+        text.appendTo(listclass);
         $('#200').draggable('option', 'disabled', true);
         $('#201').draggable('option', 'disabled', true);
         $('#306').draggable('option', 'disabled', true);
+        $('#13509').draggable('option', 'disabled', true);
         process_question_numbering();
     }
     $(".errorhead").html('* Deze vragen zijn verplicht').fadeOut(5000);

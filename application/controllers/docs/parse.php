@@ -28,6 +28,7 @@ class Parse extends CI_Controller {
         require_once ('features/percentiles.php');
         require_once ('features/previous.php');
         require_once ('features/summary.php');
+        require_once ('features/questionList.php');
         require_once ('features/satisfactionSummary.php');
         require_once ('features/satisfactionImportance.php');
         require_once ('features/scoresPercentagesBestuur.php');
@@ -177,6 +178,10 @@ class Parse extends CI_Controller {
         $summary_docx = $summary -> render($xmlData, $ref, $this->config);
         unset($summary);
 
+        $questionList = new questionList();
+        $questionList_docx = $questionList -> render($xmlData, $ref);
+        unset($questionList);
+
         $satisfactionSummary = new satisfactionSummary();
         $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref, $this->config);
         unset($satisfactionSummary);
@@ -189,7 +194,6 @@ class Parse extends CI_Controller {
         $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
         unset($scoresPercentagesBestuur);
                
-
         $docx = new CreateDocx();
         
         $docx->setTemplateSymbol('TTT');
@@ -198,7 +202,7 @@ class Parse extends CI_Controller {
         $variables = $docx -> getTemplateVariables();
 
         foreach ($variables['document'] as $template_variable) {
-            //print "got variable: " . $template_variable . "\n";
+//            print "got variable: " . $template_variable . "\n";
             $var = explode(":", $template_variable);
             $type = $var[0];
             $variable = $var[1];
@@ -264,6 +268,9 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "summary") {
                     $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
+                }
+                if ($variable == "questionList") {
+                    $docx -> addTemplateVariable('class:questionList', $questionList_docx, 'docx');
                 }
                 if ($variable == "satisfactionSummary") {
                     $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
@@ -402,9 +409,9 @@ class Parse extends CI_Controller {
 //        unset($satisfaction);
        
         
-        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
-        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData, $ref);
-        unset($satisfactionPriorityScatter);
+//        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
+//        $satisfactionPriorityScatter_docx = $satisfactionPriorityScatter -> render($xmlData, $ref);
+//        unset($satisfactionPriorityScatter);
                
 //        $satisfactionTopGood = new satisfactionTop();
 //        $satisfactionTopGood_docx = $satisfactionTopGood -> render($xmlData, $ref, TRUE);
@@ -443,9 +450,13 @@ class Parse extends CI_Controller {
 //        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
 //        unset($satisfactionSummary);
                
-        $satisfactionImportance = new satisfactionImportance();
-        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
-        unset($satisfactionImportance);
+        $questionList = new questionList();
+        $questionList_docx = $questionList -> render($xmlData, $ref);
+        unset($questionList);
+
+//        $satisfactionImportance = new satisfactionImportance();
+//        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
+//        unset($satisfactionImportance);
                
         $scoresPercentagesBestuur = new scoresPercentagesBestuur();
         $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
@@ -523,6 +534,9 @@ class Parse extends CI_Controller {
                 }
                 if ($variable == "summary") {
 //                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
+                }
+                if ($variable == "questionlist") {
+                    $docx -> addTemplateVariable('class:questionList', $questionList_docx, 'docx');
                 }
                 if ($variable == "satisfactionSummary") {
 //                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');

@@ -118,6 +118,12 @@ class satisfaction
                 if ($key == '_empty_'){
                     continue;
                 }
+                if ($key == ''){
+                    continue;
+                }
+                if ($key == 'locatie_'){
+                    continue;
+                }
                 if (!isset($key)){
                     continue;
                 }
@@ -168,7 +174,13 @@ class satisfaction
                 if ($key == '_empty_'){
                     continue;
                 }
+                if ($key == ''){
+                    continue;
+                }
                 if (!isset($key)){
+                    continue;
+                }
+                if ($key == 'locatie_'){
                     continue;
                 }
                 if ($key == 'peiling'){
@@ -233,7 +245,13 @@ class satisfaction
                 if ($key == '_empty_'){
                     continue;
                 }
+                if ($key == ''){
+                    continue;
+                }
                 if (!isset($key)){
+                    continue;
+                }
+                if ($key == 'locatie_'){
                     continue;
                 }
                 if ($key == 'peiling'){

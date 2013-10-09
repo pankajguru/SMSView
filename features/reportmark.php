@@ -133,19 +133,19 @@ class reportmark
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
                 continue;
             }
-            $average_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][3]*10; //should come from data
+            $average_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][3]*100; //should come from data
             $number_of_respondents_peiling = $question->{'statistics'}->{"averages"}->{'peiling'}[0][5]; //should come from data
-            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:peiling", sprintf('%.2f',$average_peiling/10));
+            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:peiling", sprintf('%.2f',$average_peiling/100));
             $docx -> addTemplateVariable("class:questionProperties:reportmark:number_of_respondents:peiling", strval($number_of_respondents_peiling));
 
-            $average_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][3]*10; //should come from data
+            $average_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][3]*100; //should come from data
             $number_of_respondents_alle_scholen = $question->{'statistics'}->{"averages"}->{'alle_scholen'}[0][5]; //should come from data
-            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:alle_scholen", sprintf('%.2f',$average_alle_scholen/10));
+            $docx -> addTemplateVariable("class:questionProperties:reportmark:average:alle_scholen", sprintf('%.2f',$average_alle_scholen/100));
             $docx -> addTemplateVariable("class:questionProperties:reportmark:number_of_respondents:alle_scholen", strval($number_of_respondents_alle_scholen));
 
             $difference = ($average_peiling == $average_alle_scholen) ? "gelijk aan" : ($average_peiling > $average_alle_scholen)
-                                ? sprintf("%.2f punt hoger dan", (round($average_peiling) - round($average_alle_scholen))/10)
-                                : sprintf("%.2f punt lager dan", (round($average_alle_scholen) - round($average_peiling))/10);
+                                ? sprintf("%.2f punt hoger dan", (round($average_peiling) - round($average_alle_scholen))/100)
+                                : sprintf("%.2f punt lager dan", (round($average_alle_scholen) - round($average_peiling))/100);
             $docx -> addTemplateVariable("class:questionProperties:reportmark:difference", $difference);
             $docx -> addTemplateVariable("class:questionProperties:reportmark:questionnumber", strval($question_number));
             break;

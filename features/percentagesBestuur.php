@@ -158,8 +158,12 @@ class percentagesBestuur
                     $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
                                     //(isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
                                     (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0);
-                    $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
-                    $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
+                    if ($satisfied_total != 0){
+                        $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
+                        $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
+                    } else {
+                        continue;
+                    }
                     if ($satisfied_percentage < 70){
                         $paramsTextTable['cell_color'] = 'FF5050';
                     } elseif ($satisfied_percentage < 80) {
