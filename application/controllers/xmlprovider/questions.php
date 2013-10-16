@@ -68,7 +68,7 @@ class Questions extends REST_Controller {
 		if ($handle = opendir($directory)) {
     		while (false !== ($entry = readdir($handle))) {
         		if ($entry != "." && $entry != "..") {
-        			$entry = str_replace('.json','',$entry);
+        			$entry = str_replace('.json','',urlencode($entry));
             		array_push($dirs,$entry);
         		}
     		}
@@ -110,7 +110,7 @@ class Questions extends REST_Controller {
         		if ($entry != "." && $entry != "..") {
         		    $date = date ("y-m-d H:i", filemtime($directory.'/'.$entry));
                     $entry = str_replace('.json','',$entry);
-        			$entry = $date.' '.urlencode($entry);
+        			$entry = $date.' '.$entry;
             		array_push($dirs,$entry);
         		}
     		}
