@@ -82,7 +82,7 @@ class Questions extends REST_Controller {
 		$dirs = array();
 		$id = $this->tank_auth->get_user_id();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
-		$questionaire = file_get_contents($directory.$filename.'.json');
+		$questionaire = file_get_contents($directory.urldecode($filename).'.json');
 		
 		$this -> response($questionaire, 200);
 		
@@ -110,7 +110,7 @@ class Questions extends REST_Controller {
         		if ($entry != "." && $entry != "..") {
         		    $date = date ("y-m-d H:i", filemtime($directory.'/'.$entry));
                     $entry = str_replace('.json','',$entry);
-        			$entry = $date.' '.$entry;
+        			$entry = $date.' '.urlencode($entry);
             		array_push($dirs,$entry);
         		}
     		}
@@ -125,7 +125,7 @@ class Questions extends REST_Controller {
 		$dirs = array();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
         
-		$questionaire = file_get_contents($directory.$filename.'.json');
+		$questionaire = file_get_contents($directory.urldecode($filename).'.json');
 		
 		$this -> response($questionaire, 200);
 		
