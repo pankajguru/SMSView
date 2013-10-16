@@ -82,7 +82,7 @@ class Questions extends REST_Controller {
 		$dirs = array();
 		$id = $this->tank_auth->get_user_id();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
-		$questionaire = file_get_contents($directory.$filename.'.json');
+		$questionaire = file_get_contents($directory.rawurldecode($filename).'.json');
 		
 		$this -> response($questionaire, 200);
 		
