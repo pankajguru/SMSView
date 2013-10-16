@@ -68,7 +68,7 @@ class Questions extends REST_Controller {
 		if ($handle = opendir($directory)) {
     		while (false !== ($entry = readdir($handle))) {
         		if ($entry != "." && $entry != "..") {
-        			$entry = str_replace('.json','',urlencode($entry));
+        			$entry = str_replace('.json','',$entry);
             		array_push($dirs,$entry);
         		}
     		}
@@ -82,7 +82,7 @@ class Questions extends REST_Controller {
 		$dirs = array();
 		$id = $this->tank_auth->get_user_id();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
-		$questionaire = file_get_contents($directory.urldecode($filename).'.json');
+		$questionaire = file_get_contents($directory.$filename.'.json');
 		
 		$this -> response($questionaire, 200);
 		
@@ -125,7 +125,7 @@ class Questions extends REST_Controller {
 		$dirs = array();
 		$directory = BASEPATH.'/../json'.'/'.$id.'/';
         
-		$questionaire = file_get_contents($directory.urldecode($filename).'.json');
+		$questionaire = file_get_contents($directory.rawurldecode($filename).'.json');
 		
 		$this -> response($questionaire, 200);
 		
