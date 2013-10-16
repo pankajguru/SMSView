@@ -50,9 +50,9 @@ class Questions extends CI_Controller {
     		$id = $_POST['client'];
             //get rid of date after file
             $filename = substr($filename,15);
-            print $base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id;
 			//get the json from the server
 			$base_url = $this->config->item('vragenplanner_url');
+            print $base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id;
 			$questionaire_xml = file_get_contents($base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id);
 			$questionaire_xml_object = simplexml_load_string($questionaire_xml);
 			$questionaire_json = $questionaire_xml_object->item[0];
