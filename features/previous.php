@@ -50,6 +50,10 @@ class previous
             
         }
         
+        if (count($previous_table_vorige_peiling) == 0){
+            return 0;
+        }
+        
         $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $schoolname, $temp);
 
         $paramsImg = array(

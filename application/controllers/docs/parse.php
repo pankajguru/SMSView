@@ -263,7 +263,7 @@ class Parse extends CI_Controller {
                         $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                     }
                 //}
-                if ($variable == "previous") {
+                if (($previous_docx != 0) && ($variable == "previous")) {
                     $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
                 }
                 if ($variable == "summary") {
@@ -326,6 +326,7 @@ class Parse extends CI_Controller {
         if (file_exists($summary_docx)) unlink($summary_docx);
         if (file_exists($satisfactionSummary_docx)) unlink($satisfactionSummary_docx);
         if (file_exists($satisfactionImportance_docx)) unlink($satisfactionImportance_docx);
+        if (file_exists($scoresPercentagesBestuur_docx)) unlink($scoresPercentagesBestuur_docx);
 				
 /*
 */
@@ -529,7 +530,7 @@ class Parse extends CI_Controller {
                 if ($variable == "percentiles") {
 //                    $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                 }
-                if ($variable == "previous") {
+                if (($previous_docx != 0) && ($variable == "previous")) {
 //                    $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
                 }
                 if ($variable == "summary") {

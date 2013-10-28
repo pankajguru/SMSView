@@ -50,7 +50,7 @@ class scores
             if ($example != '') {
                 $valid_question_types = array('TEVREDEN', 'PTP_TEVREDEN');
                 if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-//                    continue;
+                    continue;
                 }
                 if ($question_number == 1){
                     continue;
@@ -90,7 +90,6 @@ class scores
                     'sz' => 10,
                     'font' => 'Century Gothic'
             );
-            
             $scores_docx->addText($text);
             $legend = array($question->{'question_type'}[0][7],$question->{'question_type'}[0][8]);
             //gather data
@@ -137,6 +136,10 @@ class scores
                     $names[] = $ref['bovenbouw']." ";
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
+                    if (isset($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0])){
+                        $alle_scholen = false; //is the same as peiling
+                        continue;
+                    }
                     if ($question->{'statistics'}->{'averages'}->{'peiling'}[0][5] == $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0][5]){
                         $alle_scholen = false; //is the same as peiling
                         continue;
@@ -161,6 +164,7 @@ class scores
             $stdev_right = array();
             $values = array();
             $answered = array();
+            
             foreach($graphic_data_scores as $averages){
 //            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
                 if (!is_array($averages)){

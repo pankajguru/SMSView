@@ -273,7 +273,7 @@ function set_saved_questions(savedSurvey) {
                     };
                     
                 }
-                var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
+                var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_").replace(/\//g, "_");
                 // Create the selector so we know where we have to append to.
                 var parent_selector = '.sortable_with_list' + classname;
                 var selector = '.category_list_name_list' + classname;
@@ -519,7 +519,7 @@ function sort_on_category() {
     $('#questions_container > li').each(function() {
         var li = $(this);
         var title = $(this).attr('title');
-        var classname = title.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
+        var classname = title.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_").replace(/\//g, "_");
         var li_group = 'list' + $(this).attr('title');
 
         if (!groups[li_group]) {
@@ -536,6 +536,7 @@ function sort_on_category() {
         groupname = groupname.replace(/\//g, "_");
         groupname = groupname.replace(/&/g, "_");
         groupname = groupname.replace(/'/g, "_");
+        groupname = groupname.replace(/\//g, "_");
         var sortable_with = '.sortable_with_' + groupname;
         var ul = $('<ul class="sortable_with_' + groupname + ' sorts" />');
         ul.appendTo('#question_list_container');
@@ -549,6 +550,7 @@ function sort_on_category() {
         groupname = groupname.replace(/\//g, "_");
         groupname = groupname.replace(/&/g, "_");
         groupname = groupname.replace(/'/g, "_");
+        groupname = groupname.replace(/\//g, "_");
         var ul = $('<ul class="drag_container_' + groupname + '" />').attr('id', groupname);
         var lis = groups[group];
 
@@ -574,7 +576,7 @@ function create_clicks() {
         //check each category on the right wether to show or not
         $.each(categories, function(key, category) {
             if (category) {
-                var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
+                var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_").replace(/\//g, "_");
                 var listclass_right = '.sortable_with_list' + classname;
                 var number_of_questions_right = $(listclass_right).children('li').length;
                 var listclass_left = '#list' + classname;
@@ -624,7 +626,7 @@ function wire_add_question() {
         event.preventDefault();
         // Get the values of the new question fields.
         var category = $('#new_question_category option:selected').text();
-        var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_");
+        var classname = category.replace(/ /g, "_").replace(/,/g, "_").replace(/&/g, "_").replace(/'/g, "_").replace(/\//g, "_");
         var question = $('#new_question_text').val();
         var question_type = $('#answer_type').val();
         
