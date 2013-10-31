@@ -34,13 +34,13 @@ class questionList {
         foreach($all_questions_array as $question_number=>$question){
             if (($first or ($question->{'group_name'} != $old_group_name))){
                     //create group heading
-                $question_list_docx->addTitle($question->{'group_name'},$paramsText);
+                $question_list_docx->addTitle($question->{'group_name'},$paramsTitle );
                 $question_count = 0;
                 
                 $first = false;
                 $old_group_name = $question->{'group_name'};
             }            
-            $question_list_docx->addText(filter_text($question_number.". ".filter_text($question->{'description'})),$paramsTitle);
+            $question_list_docx->addText(filter_text($question_number.". ".filter_text($question->{'description'})),$paramsText);
                 $question_list_docx->addBreak('line');
             
         };
