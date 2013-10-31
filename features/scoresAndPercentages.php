@@ -6,6 +6,7 @@ class scoresAndPercentages
     function render( &$data, $ref)
     {
         require_once("./features/utils.php");
+        require_once("./features/utils.php");
         $temp           = 'temp/';
         $datastring     = $data['get_all_question_props'];
         $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -53,7 +54,7 @@ class scoresAndPercentages
             //create group heading
             if ($sap_docx != null){
                 $scoresAndPercentages_docx->addText(array(array(
-                    'text' => 'Rubriek '.$count.' '.$groupname, 
+                    'text' => 'Rubriek '.$count.' '.filter_text($groupname), 
                     'b' => 'single', 
                     'color' => 'F78E1E',
                     'sz' => 10,
