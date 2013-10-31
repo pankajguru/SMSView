@@ -183,18 +183,20 @@ class scoresBestuur
                 $values[] = sprintf("%01.2f",$averages[3]);
                 $answered[] = $averages[5];
             }
-            $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $alle_scholen, $legend, $temp);
-    
-            $paramsImg = array(
-                'name' => $scores_graphic,
-                'scaling' => 50,
-                'spacingTop' => 0,
-                'spacingBottom' => 0,
-                'spacingLeft' => 0,
-                'spacingRight' => 0,
-                'textWrap' => 0,
-            );
-            $scores_docx->addImage($paramsImg);
+            if (count($names) > 0){
+                $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $alle_scholen, $legend, $temp);
+                
+                $paramsImg = array(
+                    'name' => $scores_graphic,
+                    'scaling' => 50,
+                    'spacingTop' => 0,
+                    'spacingBottom' => 0,
+                    'spacingLeft' => 0,
+                    'spacingRight' => 0,
+                    'textWrap' => 0,
+                );
+                $scores_docx->addImage($paramsImg);
+            }
             $question_count++;
         }
         if ($question_count > 0){

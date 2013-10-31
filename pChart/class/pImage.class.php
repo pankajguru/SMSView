@@ -276,7 +276,7 @@
 
      if ($StorageMode == IMAGE_MAP_STORAGE_SESSION)
       {
-       if(!isset($_SESSION)) { session_start(); }
+       if(!isset($_SESSION)) { @session_start(); }
        $_SESSION[$this->ImageMapIndex]    = NULL;
       }
      elseif($StorageMode == IMAGE_MAP_STORAGE_FILE)

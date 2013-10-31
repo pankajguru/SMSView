@@ -49,7 +49,7 @@ class previous
             }
             
         }
-        
+
         if (count($previous_table_vorige_peiling) == 0){
             return 0;
         }
