@@ -648,13 +648,10 @@ function wire_add_question() {
             $(parent_selector).removeClass('hide');
             //unhide when hidden
             if ($('li[value="'+(parseInt(question_number-1))+'"]').parent().hasClass('sortable_with_list' + classname)){
-                alert(1);
                 li.insertAfter('li[value="'+(question_number-1)+'"]');
             } else if ($('li[value="'+(parseInt(question_number)+1)+'"]').parent().hasClass('sortable_with_list' + classname)){
-                alert(2);
                 li.insertBefore('li[value="'+(parseInt(question_number)+1)+'"]');
             } else {
-                alert(3);
                 li.appendTo(parent_selector);
             }
             var string = JSON.stringify(form_node.serializeArray());
