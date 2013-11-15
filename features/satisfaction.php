@@ -219,6 +219,17 @@ class satisfaction
                     $text = $satisfaction_docx->addElement('addText', array($paramsTextTableReference));
                     $text->{'border'} = $paramsTableReference;
                     $satisfaction_table[$i][$count++] = $text;
+                } elseif ($key == 'vorige_peiling'){
+                    $previous_number = '-';
+                    foreach ($satisfaction_data->{'vorige_peiling'} as $previous){
+                        if ($previous[0] == $category_id){
+                            $previous_number = Scale10($previous[2], $scale_factor);
+                        }
+                    }
+                    $paramsTextTable['text'] = $previous_number;
+                    $text = $satisfaction_docx->addElement('addText', array($paramsTextTable));
+                    $text->{'border'} = $paramsTable;
+                    $satisfaction_table[$i][$count++] = $text;
                 } else {
                     if (count($satisfaction_column) == 0){
                         $paramsTextTable['text'] = 0;

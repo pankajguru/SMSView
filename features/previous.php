@@ -12,6 +12,7 @@ class previous
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data'];
         $schoolname     = $data['schoolnaam'];
+        $scale_factor   = $data["question.type.$type.scalefactor"];
         $importance_categories = get_importance_categories($data);
         $column_count   = 0;
         
@@ -26,7 +27,6 @@ class previous
         $previous_table_text = array();
         $previous_table_peiling = array();
         $previous_table_vorige_peiling = array();
-        var_dump($previous_data);
         $count = 0;
         foreach ($previous_data->{'peiling'} as $key => $previous){
             if (!isset($previous[1])){
@@ -39,11 +39,11 @@ class previous
             $previous_number = 0;
             foreach ($previous_data->{'vorige_peiling'} as $previous){
                 if ($previous[0] == $previous_data->{'peiling'}[$key][0]){
-                    $previous_number = Scale10($previous[2], 4);
+                    $previous_number = Scale10($previous[2], $scale_factor);
                 }
             }
             $previous_table_vorige_peiling[] = $previous_number;
-            $previous_table_peiling[] = Scale10($previous_data->{'peiling'}[$key][2], 4);
+            $previous_table_peiling[] = Scale10($previous_data->{'peiling'}[$key][2], $scale_factor);
             $previous_table_text[] = $previous_data->{'peiling'}[$key][1];
         }
 
@@ -72,7 +72,6 @@ class previous
         $bad = array();
         $equal = array();
         foreach ($previous_table_peiling as $key => $previous_peiling){
-//        for($i=0;$i<count($previous_table_peiling);$i++){
             $difference = sprintf("%01.1f",$previous_table_peiling[$key]) - sprintf("%01.1f",$previous_table_vorige_peiling[$key]);
             if (abs($difference) < 0.05){
                 $equal[] = $previous_table_text[$key];
