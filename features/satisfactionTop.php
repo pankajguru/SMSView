@@ -114,16 +114,26 @@ class satisfactionTop
         foreach($all_questions as $question){
             if (!in_array($question->{'question_type'}[0][1], $tevreden_array)){continue;};
             if ($top){
+                if (isset($question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'})){
+                    $alle_scholen_perc = $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'};
+                } else {
+                    $alle_scholen_perc = '-';
+                }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text($question->{'short_description'}),
                     'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
-                    'alle_scholen' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'}
+                    'alle_scholen' => $alle_scholen_perc
                 );
             } else {
+                if (isset($question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'})){
+                    $alle_scholen_perc = $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'};
+                } else {
+                    $alle_scholen_perc = '-';
+                }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text($question->{'short_description'}),
                     'peiling' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'peiling'},
-                    'alle_scholen' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'}
+                    'alle_scholen' => $alle_scholen_perc
                 );
             }
         }

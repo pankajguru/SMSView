@@ -213,7 +213,6 @@ class Sms_model extends CI_Model {
             if ($question->{"id"} == 'new'){
                 //new question, store question and answers in db and use newly created id
                 $text = $question->{"new_question"}; 
-                error_log($text);
                 if ($text != '[]'){
                     $new_question = json_decode($text);
                     if ($new_question){

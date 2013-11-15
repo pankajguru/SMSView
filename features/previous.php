@@ -26,31 +26,30 @@ class previous
         $previous_table_text = array();
         $previous_table_peiling = array();
         $previous_table_vorige_peiling = array();
-        for ($i=0 ; $i < count($previous_data->{'peiling'}) ; $i++){
-            if (!isset($previous_data->{'peiling'}[$i][1])){
+        var_dump($previous_data);
+        $count = 0;
+        foreach ($previous_data->{'peiling'} as $key => $previous){
+            if (!isset($previous[1])){
                 continue;
             }
             //do not take categories wich are not ment to be categories:
-            if (!in_array($previous_data->{'peiling'}[$i][0], $importance_categories)){
+            if (!in_array($previous[0], $importance_categories)){
                 continue;
             }
-            foreach ($previous_data as $key => $previous_column){
-                if ($key == 'vorige_peiling'){
-                    if (count($previous_column)>0){
-                        $previous_table_vorige_peiling[] = Scale10($previous_column[$i][2], 4);
-                    } else {
-                        $previous_table_vorige_peiling[] = 0;
-                    }
+            $previous_number = 0;
+            foreach ($previous_data->{'vorige_peiling'} as $previous){
+                if ($previous[0] == $previous_data->{'peiling'}[$key][0]){
+                    $previous_number = Scale10($previous[2], 4);
                 }
-                if ($key == 'peiling'){
-                    $previous_table_peiling[] = Scale10($previous_column[$i][2], 4);
-                    $previous_table_text[] = $previous_data->{'peiling'}[$i][1];
-                }   
             }
-            
+            $previous_table_vorige_peiling[] = $previous_number;
+            $previous_table_peiling[] = Scale10($previous_data->{'peiling'}[$key][2], 4);
+            $previous_table_text[] = $previous_data->{'peiling'}[$key][1];
         }
 
+
         if (count($previous_table_vorige_peiling) == 0){
+            print "no previous";
             return 0;
         }
         
@@ -72,14 +71,15 @@ class previous
         $good = array();
         $bad = array();
         $equal = array();
-        for($i=0;$i<count($previous_table_peiling);$i++){
-            $difference = $previous_table_peiling[$i] - $previous_table_vorige_peiling[$i];
+        foreach ($previous_table_peiling as $key => $previous_peiling){
+//        for($i=0;$i<count($previous_table_peiling);$i++){
+            $difference = sprintf("%01.1f",$previous_table_peiling[$key]) - sprintf("%01.1f",$previous_table_vorige_peiling[$key]);
             if (abs($difference) < 0.05){
-                $equal[] = $previous_table_text[$i];
+                $equal[] = $previous_table_text[$key];
             } elseif ($difference < 0){
-                $bad[] = $previous_table_text[$i].'   '.sprintf("%01.1f",$difference);
+                $bad[] = $previous_table_text[$key].'   '.sprintf("%01.1f",$difference);
             }else{
-                $good[] = $previous_table_text[$i].'   '.sprintf("%01.1f",$difference);
+                $good[] = $previous_table_text[$key].'   '.sprintf("%01.1f",$difference);
             }
             
         }
@@ -185,17 +185,18 @@ class previous
         $myPicture->drawText(1300, 70,"nu:",array("R"=>254,"G"=>204,"B"=>52,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         //$myPicture->drawText(800, 80,"5",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
         //$myPicture->drawText(1200, 80,"10",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-        for ($i=0;$i<count($previous_table_text);$i++){
-            $myPicture->drawText(120, 138 + ($i)*54,$previous_table_text[$i],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
-            $myPicture->drawText(770, 138 + ($i)*54,sprintf("%01.1f",$previous_table_vorige_peiling[$i]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-            $myPicture->drawText(1300, 138 + ($i)*54,sprintf("%01.1f",$previous_table_peiling[$i]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-            $difference = $previous_table_peiling[$i] - $previous_table_vorige_peiling[$i];
+        foreach($previous_table_text as $key => $previous_table_text_item){
+        //for ($i=0;$i<count($previous_table_text);$i++){
+            $myPicture->drawText(120, 138 + ($key)*54,$previous_table_text[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+            $myPicture->drawText(770, 138 + ($key)*54,sprintf("%01.1f",$previous_table_vorige_peiling[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+            $myPicture->drawText(1300, 138 + ($key)*54,sprintf("%01.1f",$previous_table_peiling[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+            $difference = $previous_table_peiling[$key] - $previous_table_vorige_peiling[$key];
             if (abs($difference) < 0.05){
-                $myPicture->drawText(1500, 138 + ($i)*54,"-",array("R"=>0,"G"=>112,"B"=>192,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+                $myPicture->drawText(1500, 138 + ($key)*54,"-",array("R"=>0,"G"=>112,"B"=>192,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
             } elseif ($difference < 0){
-                $myPicture->drawText(1500, 138 + ($i)*54,sprintf("%01.1f",$difference),array("R"=>142,"G"=>10,"B"=>8,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+                $myPicture->drawText(1500, 138 + ($key)*54,sprintf("%01.1f",$difference),array("R"=>142,"G"=>10,"B"=>8,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
             }else{
-                $myPicture->drawText(1500, 138 + ($i)*54,'+'.sprintf("%01.1f",$difference),array("R"=>158,"G"=>238,"B"=>122,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+                $myPicture->drawText(1500, 138 + ($key)*54,'+'.sprintf("%01.1f",$difference),array("R"=>158,"G"=>238,"B"=>122,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
             }
         }
         
@@ -207,3 +208,14 @@ class previous
     }
 
 }
+
+function arr_reindex( $arr ) 
+{
+    ksort($arr);
+    $arr2 = array();
+    foreach($arr as $key => $value)
+    { 
+        $arr2[] = $value;     
+    } 
+    return $arr2; 
+} 

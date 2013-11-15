@@ -42,7 +42,7 @@ class questionList {
                 $old_group_name = $question->{'group_name'};
             }            
             $question_list_docx->addText($question_number.". ".filter_text($question->{'description'}),$paramsText);
-                $question_list_docx->addBreak('line');
+//                $question_list_docx->addBreak('line');
             
         };
             

@@ -286,9 +286,11 @@ class Parse extends CI_Controller {
                 if ($variable == "summary") {
                     $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }
+
                 if ($variable == "questionLists") {
                     $docx -> addTemplateVariable('class:questionLists', $questionList_docx, 'docx');
                 }
+              
                 if ($variable == "satisfactionSummary") {
                     $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
@@ -298,7 +300,6 @@ class Parse extends CI_Controller {
                 if ($variable == "scoresPercentagesBestuur") {
                     $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
                 }
-                
             }
 
         }
@@ -344,6 +345,8 @@ class Parse extends CI_Controller {
         if (file_exists($satisfactionSummary_docx)) unlink($satisfactionSummary_docx);
         if (file_exists($satisfactionImportance_docx)) unlink($satisfactionImportance_docx);
         if (file_exists($scoresPercentagesBestuur_docx)) unlink($scoresPercentagesBestuur_docx);
+        if (file_exists($questionList_docx)) unlink($questionList_docx);
+        
 				
 /*
 */
