@@ -206,7 +206,7 @@ class Parse extends CI_Controller {
         $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref, $this->config);
         unset($satisfactionImportance);
                
-        if ($verbose) { print 'scoresPercentagesBestuur';}
+        if ($verbose) { print "scoresPercentagesBestuur\n";}
         $scoresPercentagesBestuur = new scoresPercentagesBestuur();
         $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
         unset($scoresPercentagesBestuur);
@@ -242,62 +242,80 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "scoreExample") {
+                    if ($verbose) { print "scoreExample\n";}
                     $docx -> addTemplateVariable('class:scoreExample', $scores_example_docx, 'docx');
                 }
                 if ($variable == "percentageExample") {
+                    if ($verbose) { print "percentageExample\n";}
                     $docx -> addTemplateVariable('class:percentageExample', $percentage_example_docx, 'docx');
                 }
                 if ($variable == "scoresAndPercentages") {
+                    if ($verbose) { print "scoresAndPercentages\n";}
                     $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
                 }
                 if ($variable == "reportmark") {
+                    if ($verbose) { print "reportmark\n";}
                     $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
+                    if ($verbose) { print "satisfaction\n";}
                     $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
-                if ($variable == "satisfactionimportance") {
+                if (($importance_docx !== 0) && ($variable == "satisfactionimportance")) {
+                    if ($verbose) { print "satisfactionimportance $importance_docx\n";}
                     $docx -> addTemplateVariable('class:satisfactionimportance', $importance_docx, 'docx');
                 }
-                if ($variable == "satisfactionPriorityScatter") {
+                if (($satisfactionPriorityScatter_docx !== 0) && ($variable == "satisfactionPriorityScatter")) {
+                    if ($verbose) { print "satisfactionPriorityScatter $satisfactionPriorityScatter_docx\n";}
                     $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "mostimportance") {
+                    if ($verbose) { print "mostimportance\n";}
                     $docx -> addTemplateVariable('class:mostimportance', $mostimportant_docx, 'docx');
                 }
                 if ($variable == "satisfactionTop") {
+                    if ($verbose) { print "satisfactionTop\n";}
                     $docx -> addTemplateVariable('class:satisfactionTop:good', $satisfactionTopGood_docx, 'docx');
                     $docx -> addTemplateVariable('class:satisfactionTop:bad', $satisfactionTopBad_docx, 'docx');
                 }
                 if ($variable == "scoresAndPercentages") {
+                    if ($verbose) { print "scoresAndPercentages\n";}
                     $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
                 }
                 //if ($xmlData['basetype'] != 2) { //ltp has no percentiles
                     if ($variable == "percentiles") {
+                        if ($verbose) { print "percentiles\n";}
                         $docx -> addTemplateVariable('class:percentiles:good', $percentiles_good_docx, 'docx');
                     }
                     if ($variable == "percentiles") {
+                        if ($verbose) { print "percentiles\n";}
                         $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                     }
                 //}
                 if (($previous_docx !== 0) && ($variable == "previous")) {
+                    if ($verbose) { print "previous $previous_docx \n";}
                     $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
                 }
                 if ($variable == "summary") {
+                    if ($verbose) { print "summary\n";}
                     $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }
 
                 if ($variable == "questionLists") {
+                    if ($verbose) { print "questionLists\n";}
                     $docx -> addTemplateVariable('class:questionLists', $questionList_docx, 'docx');
                 }
               
                 if ($variable == "satisfactionSummary") {
+                    if ($verbose) { print "satisfactionSummary\n";}
                     $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
                 if ($variable == "satisfactionImportance") {
+                    if ($verbose) { print "satisfactionImportance\n";}
                     $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
                 }
                 if ($variable == "scoresPercentagesBestuur") {
+                    if ($verbose) { print "scoresPercentagesBestuur\n";}
                     $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
                 }
             }

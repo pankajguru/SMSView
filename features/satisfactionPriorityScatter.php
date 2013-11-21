@@ -40,7 +40,7 @@ class satisfactionPriorityScatter {
             }
         }
         if ($count === 0){
-            return "";
+            return 0;
         }
         
         $average_x = $total_x / $count;
