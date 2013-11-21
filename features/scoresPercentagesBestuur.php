@@ -7,6 +7,9 @@ class scoresPercentagesBestuur
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
+        if (!isset($data['all.questions.bestuur'])){
+            return 0;
+        };
         $datastring     = $data['all.questions.bestuur'];
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
