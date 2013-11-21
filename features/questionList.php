@@ -36,12 +36,14 @@ class questionList {
 
                     //create group heading
                 $question_list_docx->addText(filter_text($question->{'group_name'}),$paramsTitle );
+//                print filter_text($question->{'group_name'})."\n";
                 $question_count = 0;
                 
                 $first = false;
                 $old_group_name = $question->{'group_name'};
             }            
             $question_list_docx->addText($question_number.". ".filter_text($question->{'description'}),$paramsText);
+//            print $question_number.". ".filter_text($question->{'description'})."\n";
 //                $question_list_docx->addBreak('line');
             
         };

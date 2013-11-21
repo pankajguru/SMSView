@@ -18,6 +18,9 @@ class scoresPercentagesBestuur
             );
         //create array iso object
         $all_questions_array = array();
+        if (count($all_questions) == 0){
+            return 0;
+        }
         foreach($all_questions as $question_number=>$question){
             $all_questions_array[intval($question_number)] = $question;
         };

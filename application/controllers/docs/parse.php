@@ -281,6 +281,7 @@ class Parse extends CI_Controller {
                     if ($verbose) { print "scoresAndPercentages\n";}
                     $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
                 }
+
                 //if ($xmlData['basetype'] != 2) { //ltp has no percentiles
                     if ($variable == "percentiles") {
                         if ($verbose) { print "percentiles\n";}
@@ -313,10 +314,11 @@ class Parse extends CI_Controller {
                     if ($verbose) { print "satisfactionImportance\n";}
                     $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
                 }
-                if ($variable == "scoresPercentagesBestuur") {
+                if (($scoresPercentagesBestuur_docx !== 0 ) && ($variable == "scoresPercentagesBestuur")) {
                     if ($verbose) { print "scoresPercentagesBestuur\n";}
                     $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
                 }
+
             }
 
         }
