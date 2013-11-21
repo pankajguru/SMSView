@@ -91,7 +91,6 @@ class Parse extends CI_Controller {
             }
         }
 
-
         if (!$template) {
             die("Geef een template op!\n");
         }

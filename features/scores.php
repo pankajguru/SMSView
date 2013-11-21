@@ -136,7 +136,7 @@ class scores
                     $names[] = $ref['bovenbouw']." ";
                 } elseif ($reference == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                    if (isset($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0])){
+                    if (!isset($question->{'statistics'}->{'averages'}->{'alle_scholen'}[0])){
                         $alle_scholen = false; //is the same as peiling
                         continue;
                     }
