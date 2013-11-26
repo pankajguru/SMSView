@@ -197,7 +197,7 @@ class scores
     		$scores_graphics[] = $scores_graphic;
             $paramsImg = array(
                 'name' => $scores_graphic,
-                'scaling' => 50,
+                'scaling' => 40,
                 'spacingTop' => 0,
                 'spacingBottom' => 0,
                 'spacingLeft' => 0,

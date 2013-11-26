@@ -37,6 +37,9 @@ class satisfactionImportance {
                 if ($key == '_empty_'){
                     continue;
                 }
+                if ($key == ''){
+                    continue;
+                }
                 if (!isset($key)){
                     continue;
                 }
@@ -123,6 +126,9 @@ class satisfactionImportance {
         $first = true;
         foreach ($category_data as $key => $ref_value){
             if ($key == '_empty_'){
+                    continue;
+            }
+            if ($key == ''){
                     continue;
             }
                 if ($key == 'peiling'){

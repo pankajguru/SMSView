@@ -69,21 +69,40 @@ n', $paramsTextHeading);
                      $extra_std_deviation1 = $percentile_data[7] - $percentile_data[6];
                      $extra_std_deviation2 = $percentile_data[11] - $percentile_data[10];
                 }
+                
+                $empty_value1 = $percentile_data[6] - $min_value - $extra_std_deviation1 - $blocksize/2;
+                $empty_value2 = $percentile_data[10] -$min_value - $extra_std_deviation2 - $blocksize/2;
+                $stdev_left1 = ($percentile_data[7] - $percentile_data[6] + $extra_std_deviation1);
+                $stdev_left2 = ($percentile_data[11] - $percentile_data[10] + $extra_std_deviation2);
+                if ($stdev_left1 < 0) $stdev_left1 = 0;
+                if ($stdev_left2 < 0) $stdev_left2 = 0;
+                $stdev_right1 = ($percentile_data[8] - $percentile_data[7] + $extra_std_deviation1);
+                $stdev_right2 = ($percentile_data[12] - $percentile_data[11] + $extra_std_deviation2);
+                if ($stdev_right1 < 0) $stdev_right1 = 0;
+                if ($stdev_right2 < 0) $stdev_right2 = 0;
 
-                $empty = array(($percentile_data[6] - $min_value - $extra_std_deviation1 - $blocksize/2),($percentile_data[10] -$min_value - $extra_std_deviation2 - $blocksize/2));
-                $stdev1 = ($percentile_data[7] - $percentile_data[6] + $extra_std_deviation1);
-                $stdev2 = ($percentile_data[11] - $percentile_data[10] + $extra_std_deviation2);
-                if ($stdev1 < 0) $stdev1 = 0;
-                if ($stdev2 < 0) $stdev2 = 0;
-                $stdev_left = array($stdev1,$stdev2);
+                $total1 = $empty_value1 + $stdev_left1 + $blocksize + $stdev_right1 + $min_value;
+                if ($total1 > $max_value){
+                    $stdev_right1 = $max_value - ($empty_value1 + $stdev_left1 + $blocksize + $min_value);
+                    if ($stdev_right1 < 0){
+                        $stdev_right1 = 0;
+                    }
+                }
+                $total2 = $empty_value2 + $stdev_left2 + $blocksize + $stdev_right2 + $min_value;
+                if ($total2 > $max_value){
+                    $stdev_right2 = $max_value - ($empty_value2 + $stdev_left2 + $blocksize + $min_value);
+                    if ($stdev_right2 < 0){
+                        $stdev_right2 = 0;
+                    }
+                }
+
+                $empty = array($empty_value1,$empty_value2);
+                $stdev_left = array($stdev_left1,$stdev_left2);
                 $block = array(($blocksize),($blocksize));
-                $stdev1 = ($percentile_data[8] - $percentile_data[7] + $extra_std_deviation1);
-                $stdev2 = ($percentile_data[12] - $percentile_data[11] + $extra_std_deviation2);
-                if ($stdev1 < 0) $stdev1 = 0;
-                if ($stdev2 < 0) $stdev2 = 0;
-                $stdev_right = array($stdev1,$stdev2);
+                $stdev_right = array($stdev_right1,$stdev_right2);
                 $values = array(sprintf("%01.2f",$percentile_data[7]), sprintf("%01.2f",$percentile_data[11]));
                 $answered = array($percentile_data[9], $percentile_data[13]);
+
 
                 $scores_graphic = $this->_draw_graphic($key, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $temp);
 				$scores_graphics[] = $scores_graphic;
