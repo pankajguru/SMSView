@@ -72,13 +72,13 @@ class previous
         $bad = array();
         $equal = array();
         foreach ($previous_table_peiling as $key => $previous_peiling){
-            $difference = sprintf("%01.1f",$previous_table_peiling[$key]) - sprintf("%01.1f",$previous_table_vorige_peiling[$key]);
+            $difference = (round(10*$previous_table_peiling[$key])/10 - round(10*$previous_table_vorige_peiling[$key])/10);
             if (abs($difference) < 0.05){
                 $equal[] = $previous_table_text[$key];
             } elseif ($difference < 0){
-                $bad[] = $previous_table_text[$key].'   '.sprintf("%01.1f",$difference);
+                $bad[] = filter_text($previous_table_text[$key]).'   '.sprintf("%01.1f",$difference);
             }else{
-                $good[] = $previous_table_text[$key].'   '.sprintf("%01.1f",$difference);
+                $good[] = filter_text($previous_table_text[$key]).'   '.sprintf("%01.1f",$difference);
             }
             
         }
@@ -189,7 +189,7 @@ class previous
             $myPicture->drawText(120, 138 + ($key)*54,$previous_table_text[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
             $myPicture->drawText(770, 138 + ($key)*54,sprintf("%01.1f",$previous_table_vorige_peiling[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
             $myPicture->drawText(1300, 138 + ($key)*54,sprintf("%01.1f",$previous_table_peiling[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-            $difference = $previous_table_peiling[$key] - $previous_table_vorige_peiling[$key];
+            $difference = (round(10*$previous_table_peiling[$key])/10 - round(10*$previous_table_vorige_peiling[$key])/10);
             if (abs($difference) < 0.05){
                 $myPicture->drawText(1500, 138 + ($key)*54,"-",array("R"=>0,"G"=>112,"B"=>192,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
             } elseif ($difference < 0){
