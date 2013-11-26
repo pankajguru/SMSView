@@ -246,8 +246,90 @@ class Update extends CI_Controller {
         print "update vraag set description = 'Hoe belangrijk vindt u de inzetbaarheid van de computers bij het vak wereldori&amp;euml;ntatie?' where description ='Hoe belangrijk vindt u de inzetbaarheid van de computers bij het vak ntatie?';";
         print '</code>';
 
-        $this -> load -> view('welcome_message');
+        $this -> load -> view('tools/update', $data);
     }
+
+    public function ptp_benchmark() {
+        /** get PHPExcel_IOFactory object */
+        $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+        $objReader -> setReadDataOnly(true);
+        $objPHPExcel = $objReader -> load("source_docs/ptp_benchmark.xlsx");
+        $objWorksheet = $objPHPExcel -> getActiveSheet();
+        $vraag_group_id = 100;
+        $new_answer_id =  $this -> Sms_model ->_get_new_id('antwoord'); //set to new id!!!!!!!
+        print '<code>';
+        //get rid of old answers
+        print "Delete from antwoord where id>=58187168 and id <=58187479;<br>";
+        foreach ($objWorksheet->getRowIterator() as $row) {
+            $answer = array();
+            $rownr = $row -> getRowIndex();
+            if ((intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) !=0) 
+                    and (intval($objWorksheet -> getCell('B' . $rownr) -> getValue()) > 308)
+                    and ($vraag_group_id != 968) ){
+                $id1 = $objWorksheet -> getCell('B' . $rownr) -> getValue();
+                $id2 = $objWorksheet -> getCell('C' . $rownr) -> getValue();
+                $id3 = $objWorksheet -> getCell('D' . $rownr) -> getValue();
+                $id4 = $objWorksheet -> getCell('E' . $rownr) -> getValue();
+                $id5 = $objWorksheet -> getCell('F' . $rownr) -> getValue();
+                $question = $objWorksheet -> getCell('G' . $rownr) -> getValue();
+                //get new id
+                $new_id = $objWorksheet -> getCell('A' . $rownr) -> getValue();
+//                print $rownr.' '.$new_id.' '. "<br>";
+/*                print "insert into vraag (id,abstract, description, short_description, vraag_groep_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, base_type_id)
+                (select $new_id, abstract, '$question', short_description, $vraag_group_id, vraag_type_id, exclusive, strict, neutral_description, infant_description_pos, infant_description_neg, 3
+                    from vraag where vraag.id=$id1);<br>";
+ */ 
+                if ($id1 != ''){
+                    $answers = $this -> Sms_model -> get_answers($id1);
+                    foreach($answers as $answer){
+                        print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) VALUES ($new_answer_id,0,0,0,".$answer->{'formulier_id'}.",$new_id,".$answer->{'value'}.");<br>";
+                        $new_answer_id++;
+                    }
+                    $new_answer_id++;
+                }
+                if ($id2 != ''){
+                    $answers = $this -> Sms_model -> get_answers($id2);
+                    foreach($answers as $answer){
+                        print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) VALUES ($new_answer_id,0,0,0,".$answer->{'formulier_id'}.",$new_id,".$answer->{'value'}.");<br>";
+                        $new_answer_id++;
+                    }
+                    $new_answer_id++;
+                }
+                if ($id3 != ''){
+                    $answers = $this -> Sms_model -> get_answers($id3);
+                    foreach($answers as $answer){
+                        print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) VALUES ($new_answer_id,0,0,0,".$answer->{'formulier_id'}.",$new_id,".$answer->{'value'}.");<br>";
+                        $new_answer_id++;
+                    }
+                    $new_answer_id++;
+                }
+                if ($id4 != ''){
+                    $answers = $this -> Sms_model -> get_answers($id4);
+                    foreach($answers as $answer){
+                        print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) VALUES ($new_answer_id,0,0,0,".$answer->{'formulier_id'}.",$new_id,".$answer->{'value'}.");<br>";
+                        $new_answer_id++;
+                    }
+                    $new_answer_id++;
+                }
+                if ($id5 != ''){
+                    $answers = $this -> Sms_model -> get_answers($id5);
+                    foreach($answers as $answer){
+                        print "insert into antwoord (id, survey_id, peiling_id, locatie_id, formulier_id, vraag_id, value) VALUES ($new_answer_id,0,0,0,".$answer->{'formulier_id'}.",$new_id,".$answer->{'value'}.");<br>";
+                        $new_answer_id++;
+                    }
+                    $new_answer_id++;
+                }
+                                          
+                
+            }
+
+        }
+        print "update sequence set sequence_no=$new_answer_id where table_name='antwoord';<br>";
+        print '</code>';
+        $data = '';
+        $this -> load -> view('tools/update', $data);
+    }
+
 
     public function ltp() {
         /** get PHPExcel_IOFactory object */
@@ -274,7 +356,7 @@ class Update extends CI_Controller {
             }
             if (intval($objWorksheet -> getCell('A' . $rownr) -> getValue()) !=0){
                 $id = intval($objWorksheet -> getCell('A' . $rownr) -> getValue());
-                print "update vraag set base_type_id=2, vraag_groep_id=$vraag_group_id, description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;') where id=$id;<br>";
+                //print "update vraag set base_type_id=2, vraag_groep_id=$vraag_group_id, description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;') where id=$id;<br>";
             }
         }
         print "update vraag,report_type_definition set description = REPLACE(REPLACE(SUBSTRING(description,locate(' ', description)+1), '_SPACE_',' '),'_COLON_','&#58;') where vraag.id=report_type_definition.question_id and report_type_definition.report_type_id =324;<br>";
@@ -426,4 +508,6 @@ class Update extends CI_Controller {
         }
         $this -> load -> view('tools/default');
     }
+
+
 }

@@ -137,6 +137,7 @@ class Sms_model extends CI_Model {
         return $query -> result();
 
     }
+
     function get_question_benchmark($question_id){
         $this -> db -> from('antwoord') -> where('vraag_id', $question_id);
         return $this->db->count_all_results();
@@ -152,6 +153,13 @@ class Sms_model extends CI_Model {
         $peilingen = $this -> db -> select('id, type_id')  -> from('peiling') -> where ('status_id',6) -> where_not_in('peiling.id', $peiling_ids) -> limit(5000);
         return $peilingen->get()->result();
     }
+
+    function get_answers($question_id){
+        $this -> db -> from('antwoord') -> where('vraag_id', $question_id);
+        return $this->db->get()->result();
+    }
+
+
 
     function set_calculated_result($peiling_id, $question_id){
     	//first get result
