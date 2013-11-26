@@ -132,17 +132,40 @@ function wire_print_button() {
     $('#print_question_list').button();
     $('#print_question_list').show();
     $('#print_question_list').click(function() {
-        var string = '';
+        var string = '<h1>Vragenlijst</h1>';
         var tmp = $('#question_list_container > ul').find('li');
-        $(tmp).children().remove();
         var i = 1;
+        var old_category = '';
         $(tmp).each(function() {
+            var category = $(this).parent().children('span').text();
+            if (old_category != category){
+                string += '<br><b>' + category + '</b><br>';
+                old_category = category;
+            }
             string += process_print_question($(this), i);
+            var refid = $(this).attr('refid');
+            var value = $(this).attr('value');
+            var answer_string = '';
+            if (refid == 'new'){
+                var json_text = $(this).children('.new_question_div').text();
+                var question_properties = eval( json_text );
+                for (var j=0;j<question_properties.length;j++){
+                    if (question_properties[j].name.substring(0,23) == 'multiple_choice_answer_'){
+                        answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;' + question_properties[j].value + '</span>&nbsp;';
+                    };
+                }
+            } else {
+                var answers = $('#answer_container_'+refid);
+                $('#answer_container_'+refid+' li').each(function() {
+                    answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;' + $(this).text() + '</span>&nbsp;';
+                });
+            } 
+            string += answer_string + '<br>';
             i++;
         });
 
         var print = window.open('', 'Print', 'width=600,height=600');
-        var html = '<html><head><title>Printen</title></head><body><div id="print_area">' + string + '</div></body></html>'
+        var html = '<html><head><title>Printen</title></head><body><div id="print_area">' + string + '</div></body></html>';
 
         print.document.open();
         print.document.write(html);
@@ -157,9 +180,20 @@ function wire_print_button() {
     });
 }
 
+jQuery.fn.justtext = function() {
+
+    return $(this).clone()
+            .children()
+            .remove()
+            .end()
+            .text();
+
+};
+
+
 function process_print_question(node, i) {
     var question = node;
-    var retrieved_values = 'Vraag ' + i + ' : ' + question.text() + '<br />';
+    var retrieved_values = 'Vraag ' + i + ' : ' + question.justtext() + '<br />';
 
     return retrieved_values;
 }
