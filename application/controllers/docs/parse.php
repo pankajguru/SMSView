@@ -569,9 +569,9 @@ class Parse extends CI_Controller {
                 if ($variable == "percentiles") {
 //                    $docx -> addTemplateVariable('class:percentiles:bad', $percentiles_bad_docx, 'docx');
                 }
-                if (($previous_docx != 0) && ($variable == "previous")) {
+//                if (($previous_docx != 0) && ($variable == "previous")) {
 //                    $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
-                }
+//                }
                 if ($variable == "summary") {
 //                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }

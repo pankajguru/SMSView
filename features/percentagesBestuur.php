@@ -49,9 +49,21 @@ class percentagesBestuur
 
         //create array iso object
         $all_questions_array = array();
+        $refs = array();
+        $refcount = 0;            
         foreach($all_questions as $question_number=>$question){
             $all_questions_array[intval($question_number)] = $question;
+            $refs_reversed = array_reverse($question->{'refs'});
+            foreach ($refs_reversed as $reference){
+                if (!array_key_exists($reference, $refs)){
+                    $refs["$reference"] = $refcount;
+                    $refcount--;
+                }
+            }
         };
+        foreach ($refs as $key => $reference){
+            $refs[$key] = $reference + abs($refcount);
+        }
         
         ksort($all_questions_array);
         $first = TRUE;
@@ -59,6 +71,7 @@ class percentagesBestuur
         $percentage_table = Array(Array(' '));
         $targeted = FALSE;
         foreach($all_questions_array as $question_number=>$question){
+            $question_count++;
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
             } 
@@ -73,9 +86,8 @@ class percentagesBestuur
             }
             $valid_question_types = array('TEVREDEN','PTP_TEVREDEN',"LEUK","NIETZO_GAATWEL_JA","NOOIT_SOMS_VAAK","BNSV_REVERSED","NZBM_REVERSED","NZGWJ_REVERSED");
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-                //continue;
+                continue;
             }
-            $question_count++;
             $answer_count_peiling = 0;
             $answer_count_alle_scholen = 0;
             $text = array();
@@ -117,93 +129,98 @@ class percentagesBestuur
             $ref_count = 1;
             $widthTableCols[$question_count] = 1000;
             foreach ($question->{'refs'} as $reference){
+                $empty = false;
                 if ($reference==''){
-                    continue;
-                }
-                if (is_null($question->{'statistics'}->{'averages'})){
-                    continue;
-                }
-                if (!isset($question->{'statistics'}->{'averages'}->{$reference})){
-                    continue;
-                }
-                if (count($question->{'statistics'}->{'averages'}->{$reference}) == 0){
-                    continue;
-                }
-                $average_value = $question->{'statistics'}->{'averages'}->{$reference}[0];
-                if (is_null($average_value)){
                     continue;
                 }
                 if ($reference == '_empty_'){
                     continue;
                 }
-//                var_dump($question->{'statistics'}->{'distribution'}->{$reference});
-                if ($reference == 'BS De Octopus'){
-                    continue;
+                $ref_count = $refs[$reference];
+                if (is_null($question->{'statistics'}->{'averages'})){
+                    $empty = true;
                 }
-                if ($reference == 'Bs De Poel'){
-                    continue;
+                if (!isset($question->{'statistics'}->{'averages'}->{$reference})){
+                    $empty = true;
                 }
-                $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{$reference};
-                $answer_peiling            = array();
-                foreach ($peiling_distribution as $answer) {
-                    $answer_count_peiling += $answer[2];
-                    $answer_peiling[$answer[0]] = $answer;
+                if (!$empty && count($question->{'statistics'}->{'averages'}->{$reference}) == 0){
+                    $empty = true;
+                }
+                if (!$empty){
+                    $average_value = $question->{'statistics'}->{'averages'}->{$reference}[0];
+                    if (is_null($average_value)){
+                        $empty = true;
+                    }
                 }
                 //add references to first column
-                $percentage_table[$ref_count][0] = filter_text($reference);
-                $basetype = $data['basetype'];
-                if ($basetype == '2') {
-                    $satisfied = isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0;
-                    $unsatisfied = isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0;
-                    $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
-                                    //(isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
-                                    (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0);
-                    if ($satisfied_total != 0){
+                if ($reference == 'alle_scholen'){
+                    $percentage_table[$ref_count][0] = 'Alle scholen';
+                } else {
+                    $percentage_table[$ref_count][0] = filter_text($reference);
+                }
+                if (!$empty){
+                    $peiling_distribution      = $question->{'statistics'}->{'distribution'}->{$reference};
+                    $answer_peiling            = array();
+                    foreach ($peiling_distribution as $answer) {
+                        $answer_count_peiling += $answer[2];
+                        $answer_peiling[$answer[0]] = $answer;
+                    }
+                    $basetype = $data['basetype'];
+                    if ($basetype == '2') {
+                        $satisfied = isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0;
+                        $unsatisfied = isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0;
+                        $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
+                                        //(isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
+                                        (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0);
+                        if ($satisfied_total != 0){
+                            $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
+                            $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
+                        } else {
+                            continue;
+                        }
+                        if ($satisfied_percentage < 70){
+                            $paramsTextTable['cell_color'] = 'FF5050';
+                        } elseif ($satisfied_percentage < 80) {
+                            $paramsTextTable['cell_color'] = 'FFCC66';
+                        } elseif ($satisfied_percentage < 95) {
+                            $paramsTextTable['cell_color'] = 'CCFF99';
+                        } else {
+                           $paramsTextTable['cell_color'] = '99CC00';
+                        }
+                        $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
+                                           (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
+                                           (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
+                                           (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
+                                           (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0);
                         $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
                         $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
                     } else {
-                        continue;
+                        $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
+                        $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
+                        if ($satisfied + $unsatisfied > 0){
+                            $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
+                            $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
+                        } else {
+                            continue;
+                        }
+                        if ($satisfied_percentage < 75){
+                            $paramsTextTable['cell_color'] = 'FF5050';
+                        } elseif ($satisfied_percentage < 85) {
+                            $paramsTextTable['cell_color'] = 'FFCC66';
+                        } elseif ($satisfied_percentage < 95) {
+                            $paramsTextTable['cell_color'] = 'CCFF99';
+                        } else {
+                           $paramsTextTable['cell_color'] = '99CC00';
+                        }
                     }
-                    if ($satisfied_percentage < 70){
-                        $paramsTextTable['cell_color'] = 'FF5050';
-                    } elseif ($satisfied_percentage < 80) {
-                        $paramsTextTable['cell_color'] = 'FFCC66';
-                    } elseif ($satisfied_percentage < 95) {
-                        $paramsTextTable['cell_color'] = 'CCFF99';
-                    } else {
-                       $paramsTextTable['cell_color'] = '99CC00';
-                    }
-                    $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
-                                       (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
-                                       (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
-                                       (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
-                                       (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0);
-                    $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
-                    $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
+                    $text = $satisfied_percentage . ' / ' . $unsatisfied_percentage;
                 } else {
-                    $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
-                    $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
-                    if ($satisfied + $unsatisfied > 0){
-                        $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
-                        $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
-                    } else {
-                        continue;
-                    }
-                    if ($satisfied_percentage < 75){
-                        $paramsTextTable['cell_color'] = 'FF5050';
-                    } elseif ($satisfied_percentage < 85) {
-                        $paramsTextTable['cell_color'] = 'FFCC66';
-                    } elseif ($satisfied_percentage < 95) {
-                        $paramsTextTable['cell_color'] = 'CCFF99';
-                    } else {
-                       $paramsTextTable['cell_color'] = '99CC00';
-                    }
+                    $text = ' - / -' ;
+                    $paramsTextTable['cell_color'] = 'FFFFFF';
                 }
-                $text = $satisfied_percentage . ' / ' . $unsatisfied_percentage;
                 $paramsTextTable['text'] = $text;
                 $text_table = $percentage_docx->addElement('addText', array($paramsTextTable));
                 $percentage_table[$ref_count][$question_count] = $text_table;
-                $ref_count++;
             }
             
  
