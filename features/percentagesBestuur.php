@@ -86,7 +86,7 @@ class percentagesBestuur
             }
             $valid_question_types = array('TEVREDEN','PTP_TEVREDEN',"LEUK","NIETZO_GAATWEL_JA","NOOIT_SOMS_VAAK","BNSV_REVERSED","NZBM_REVERSED","NZGWJ_REVERSED");
             if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-                continue;
+//                continue;
             }
             $answer_count_peiling = 0;
             $answer_count_alle_scholen = 0;

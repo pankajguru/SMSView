@@ -49,7 +49,7 @@ class scoresBestuur
             if ($example != '') {
                 $valid_question_types = array('LEUK', 'TEVREDEN', 'PTP_TEVREDEN');
                 if (!in_array($question->{'question_type'}[0][1], $valid_question_types)){
-                    continue;
+//                    continue;
                 }
                 if ($question_number == 1){
                     continue;
