@@ -127,7 +127,7 @@ class percentages
                 $graphic_data_peiling[$key] = $percentage_peiling;
                 //get perc from all schools
                 if ($ref['alle_scholen']){
-                    if (isset($answer_alle_scholen[$key]) && ($answer_count_alle_scholen != 0)){
+                    if (isset($answer_alle_scholen[$key]) && ($answer_count_alle_scholen != $answer_count_peiling)){
                         $percentage_alle_scholen = $answer_alle_scholen[$key][2] / $answer_count_alle_scholen * 100;
                         $graphic_data_alle_scholen[$key] = $percentage_alle_scholen;
                     } else {
