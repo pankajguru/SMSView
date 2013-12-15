@@ -37,9 +37,11 @@ class previous
                 continue;
             }
             $previous_number = 0;
-            foreach ($previous_data->{'vorige_peiling'} as $previous){
-                if ($previous[0] == $previous_data->{'peiling'}[$key][0]){
-                    $previous_number = Scale10($previous[2], $scale_factor);
+            if (isset($previous_data->{'vorige_peiling'})){
+                foreach ($previous_data->{'vorige_peiling'} as $previous){
+                    if ($previous[0] == $previous_data->{'peiling'}[$key][0]){
+                        $previous_number = Scale10($previous[2], $scale_factor);
+                    }
                 }
             }
             $previous_table_vorige_peiling[] = $previous_number;

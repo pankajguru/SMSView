@@ -242,7 +242,11 @@ class scores
         $ref_count = count($names);
 
         /* Create the pChart object */
-        $myPicture = new pImage(1400, 80+$ref_count*35, $MyData);
+        $extra_space = 0;
+        if ($ref_count == 1){
+            $extra_space = 70;
+        }
+        $myPicture = new pImage(1400, 80+$ref_count*35 + $extra_space, $MyData);
         $myPicture -> Antialias = FALSE;
         $myPicture->setFontProperties(array(
             "FontName" => "./pChart/fonts/calibri.ttf",
@@ -254,7 +258,7 @@ class scores
         ));
         
         /* Draw the chart scale */
-        $myPicture->setGraphArea(500, 30, 960, 50 + $ref_count*35);
+        $myPicture->setGraphArea(500, 30, 960, 50 + $ref_count*35 + $extra_space);
         $AxisBoundaries = array(
             0 => array(
                 "Min" => $min_value,
@@ -282,7 +286,8 @@ class scores
             "DisplayValues" => FALSE,
             "Rounded" => FALSE,
             "Surrounding" => 0,
-//            "Interleave"=> (count($ref_count) == 1) ? 0 : 0.5 ,                    
+            "InnerSurrounding" => 0,
+//            "Interleave"=>  0.5 ,                    
             "Interleave"=> ($ref_count == 1) ? 0 : 0.5,                    
             "RecordImageMap" => TRUE
         ));
@@ -298,8 +303,8 @@ class scores
         }
         
         //draw legend:
-        $myPicture->drawText(500, 10,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE,"FontSize" => 14));
-        $myPicture->drawText(960, 10,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE,"FontSize" => 14));
+        $myPicture->drawText(500, 10,$legend[0].' ',array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "DrawBox" => FALSE,"FontSize" => 14));
+        $myPicture->drawText(960, 10,$legend[1].' ',array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "DrawBox" => FALSE,"FontSize" => 14));
                 
         $alle_scholen_ref = $ref_count-1;
 
@@ -315,6 +320,7 @@ class scores
             $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
             $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
             $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        } else {
         }
 
 		$filename = $temp . "scores$question_number".randchars(12).".png";

@@ -12,9 +12,9 @@ class satisfactionImportance {
         $temp = 'temp/';
 		$satisfactionImportance_graphics = array();
         $datastring     = $data['table.satisfaction.data'];
-        $refs = json_decode($datastring)->{'refs'};
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
+        $refs = json_decode($datastring)->{'refs'};
         $dataImportance = json_decode($datastring)->{'importance'};
         $dataSatisfaction = json_decode($datastring)->{'satisfaction'};
         if (!isset($data["question.type.importance.scalefactor"])){
