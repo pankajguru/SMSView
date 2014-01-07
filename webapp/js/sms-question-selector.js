@@ -645,7 +645,16 @@ function new_question() {
     });
 
     $('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').button().click(function() {
-        $('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" maxlength="255" /></div><div class="block"><label for="answer_type">Kies een antwoordtype:</label><select name="answer_type" id="answer_type" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="open vraag" selected="selected" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option><option value="multiple choice">Multiple Choice</option></select></div><div class="block"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div><div class="block"><label for="answer_multiple">Zijn meerdere antwoorden mogelijk?:</label><select name="answer_multiple" id="answer_multiple" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1">Ja</option><option value="0" selected="selected">Nee</option></select></div><div id="answer_container"></div><div id="answeraddcontainer"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" class="text ui-widget-content ui-corner-all" /><input id="clear_new_question" type="submit" value="Annuleren" class="text ui-widget-content ui-corner-all" /></div></form>').modal({
+        $('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" maxlength="255" /></div>'+
+          '<div class="block"><label for="answer_type">Kies een antwoordtype:</label>'+
+            '<select name="answer_type" id="answer_type" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">'+
+              '<option value="open vraag" selected="selected" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option>'+
+              '<option value="satisfaction">Tevredenheid </option>'+
+              '<option value="multiple choice">Multiple Choice</option>'+
+            '</select>'+
+          '</div>'+
+          '<div class="block" id="block_answer_required"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div>'+
+          '<div class="block" id="block_answer_multiple"><label for="answer_multiple">Zijn meerdere antwoorden mogelijk?:</label><select name="answer_multiple" id="answer_multiple" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1">Ja</option><option value="0" selected="selected">Nee</option></select></div><div id="answer_container"></div><div id="answeraddcontainer"></div><div class="block"><input id="add_new_question" type="submit" value="Opslaan" class="text ui-widget-content ui-corner-all" /><input id="clear_new_question" type="submit" value="Annuleren" class="text ui-widget-content ui-corner-all" /></div></form>').modal({
             position : ["50px", "250px"]
         });
         $('.simplemodal-wrap').css('overflow','auto');
@@ -782,12 +791,18 @@ function editnew() {
         var answer_type_options;
         if (question_type === 'open vraag'){
             answer_type_options = '<option value="open vraag" selected="selected" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option>';
+            answer_type_options +=  '<option value="satisfaction">Tevredenheid</option>';
             answer_type_options +=  '<option value="multiple choice">Multiple Choice</option>';
-        } else {
+        } else if (question_type === 'multiple choice'){
             answer_type_options = '<option value="open vraag" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option>';
+            answer_type_options +=  '<option value="satisfaction">Tevredenheid</option>';
             answer_type_options +=  '<option value="multiple choice" selected="selected" >Multiple Choice</option>';
+        } else if (question_type === 'satisfaction'){
+            answer_type_options = '<option value="open vraag" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option>';
+            answer_type_options +=  '<option value="satisfaction" selected="selected">Tevredenheid</option>';
+            answer_type_options +=  '<option value="multiple choice">Multiple Choice</option>';
         }
-        
+                
         var anwer_required_options;
         if (question_required == 1){
             answer_required_options = '<option value="1" selected="selected">Ja</option><option value="0">Nee</option>';
@@ -846,12 +861,36 @@ function wire_edit_questions() {
 function wire_question_type() {
     // Listen for the a change in the question type selector. If changed we need to update the possible answer fields.
     $('#answer_type').change(function() {
-
+        $('#answeraddcontainer').empty();
         if ($('#answer_type option:selected').val() === 'multiple choice') {
-            $('<div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" maxlength="30" /></div>').appendTo('#answer_container');
+            $('#block_answer_required').show();
+            $('#block_answer_multiple').show();
+            $('#answer_container').show();
+            if ($('#answer_container').children().length == 0){
+                $('<div class="block"><label for="">Optie 1</label><input class="multiple_choice_answer" type="text" name="multiple_choice_answer_1" maxlength="30" /></div>').appendTo('#answer_container');
+            }
             $('<button id="add_multiple_choice_answer" class="text ui-widget-content ui-corner-all">Voeg antwoord toe</button>').appendTo('#answeraddcontainer');
             $('<p class="info">  * Als laatste vraag wordt automatisch de optie "Weet niet/n.v.t." toegevoegd</p>').appendTo('#answeraddcontainer');
             $('<p class="info">  * Voeg (indien mogelijk) het meest negatieve antwoord als eerste toe</p>').appendTo('#answeraddcontainer');
+        }
+
+        if ($('#answer_type option:selected').val() === 'satisfaction') {
+            $('#block_answer_required').hide();
+            $('#block_answer_multiple').hide();
+            $('#answer_container').hide();
+            if (basetype == 'ltp'){
+                $('<p class="info">Antwoorden: Niet zo - Gaat wel - Leuk</p>').appendTo('#answeraddcontainer');
+            } else {
+                $('<p class="info">Antwoorden: Erg ontevreden - Ontevreden - Tevreden - Erg tevreden - Weet niet/n.v.t</p>').appendTo('#answeraddcontainer');
+            }
+            
+            $('<p class="info"> * Deze vraag wordt meegenomen in de tevredenheidsstatistieken</p>').appendTo('#answeraddcontainer');
+        }
+
+        if ($('#answer_type option:selected').val() === 'open vraag') {
+            $('#block_answer_required').show();
+            $('#block_answer_multiple').hide();
+            $('#answer_container').hide();
         }
 
         $("#add_multiple_choice_answer").click(function(e) {

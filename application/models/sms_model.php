@@ -214,7 +214,11 @@ class Sms_model extends CI_Model {
             'web_type' => 'MUIS_'.$peiling_type_id
         );
         $this->db->insert('web_peiling', $web_peiling); 
+        $basetype = '';
         foreach ($questionaire_object as $question) {
+            if (isset($question->{"basetype"})){
+                $basetype = $question->{"basetype"};
+            }
             if (!isset($question->{"id"})){
                 continue;
             }
@@ -231,7 +235,8 @@ class Sms_model extends CI_Model {
                         }
                         $category = $new_question_object['new_question_category'];
                         $new_question_text = $new_question_object['new_question_text'];
-                        $answer_type = $new_question_object['answer_type']; // 'multiple choice' en 'open vraag'
+                        $answer_type = $new_question_object['answer_type']; // 'multiple choice' en 'open vraag' en 'satisfaction'
+                        
                         $required = $new_question_object['answer_required'];
                         if (isset($new_question_object['answer_multiple'])){
                             $multiple = $new_question_object['answer_multiple'];
@@ -245,7 +250,7 @@ class Sms_model extends CI_Model {
                             array_push($answers,$new_question_object['multiple_choice_answer_'.$count]);
                             $count++;
                         }
-                        $question->{"id"} = $this->_store_question($category, $new_question_text, $answer_type, $answers, $peiling_type_id, $required, $multiple);
+                        $question->{"id"} = $this->_store_question($category, $new_question_text, $answer_type, $answers, $peiling_type_id, $required, $multiple, $basetype);
                     }
                 }
             }
@@ -303,60 +308,79 @@ class Sms_model extends CI_Model {
         return $response;
     }
     
-    function _store_question($category_id, $new_question_text, $answer_type, $answers, $peiling_type_id, $required = 1, $multiple = 0){
-        //create new vraag type
-        //store in vraag_type
-        //store answers    
-        //get max id van vraag
-        $vraag_type_id = $this->_get_new_id('vraag_type');
+    function _store_question($category_id, $new_question_text, $answer_type, $answers, $peiling_type_id, $required = 1, $multiple = 0, $basetype){
         $value = 0;
         $label_lo = '';
         $label_hi = '';
-		if (count($answers) > 0){
-            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
-            $vraag_type_definition = array(
-                'id' => $vraag_type_definition_id,
-                'vraag_type_id' => $vraag_type_id,
-                'value' => $value++, 
-                'description' => 'Niets ingevuld'               
+        if ($answer_type = 'multiple choice'){
+            //create new vraag type
+            //store in vraag_type
+            //store answers    
+            //get max id van vraag
+            $vraag_type_id = $this->_get_new_id('vraag_type');
+            //make new question type
+            if (count($answers) > 0){
+                $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
+                $vraag_type_definition = array(
+                    'id' => $vraag_type_definition_id,
+                    'vraag_type_id' => $vraag_type_id,
+                    'value' => $value++, 
+                    'description' => 'Niets ingevuld'               
+                );
+                $this->db->insert('vraag_type_definition', $vraag_type_definition); 
+            }
+            foreach($answers as $answer){
+                $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
+                $label_lo = $answers[0]; //if there are answers, the foirst one exists
+                $label_hi = $answer; //label_hi will at last be set with the last answer
+                //store answers
+                $vraag_type_definition = array(
+                    'id' => $vraag_type_definition_id,
+                    'vraag_type_id' => $vraag_type_id,
+                    'value' => $value++, 
+                    'description' => $answer               
+                );
+                $this->db->insert('vraag_type_definition', $vraag_type_definition); 
+            }
+            if (count($answers) > 0){
+                $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
+                $vraag_type_definition = array(
+                    'id' => $vraag_type_definition_id,
+                    'vraag_type_id' => $vraag_type_id,
+                    'value' => $value, 
+                    'description' => 'Weet niet/n.v.t.'               
+                );
+                $this->db->insert('vraag_type_definition', $vraag_type_definition); 
+            }
+            $vraag_type = array(
+                'id' => $vraag_type_id,
+                'DESC_CODE' => 'MUIS_CUSTOM_'.$peiling_type_id.'_'.$vraag_type_id,
+                'description' => 'answers '.$new_question_text,
+                'min_value' => ($value == 0) ? 0 : 1,
+                'max_value' => ($value == 0) ? 0 : $value-1,
+                'has_unknown' => 0,
+                'unknown_value' => $value,
+                'label_lo' => $label_lo,
+                'label_hi' => $label_hi
             );
-            $this->db->insert('vraag_type_definition', $vraag_type_definition); 
-		}
-        foreach($answers as $answer){
-            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
-            $label_lo = $answers[0]; //if there are answers, the foirst one exists
-            $label_hi = $answer; //label_hi will at last be set with the last answer
-            //store answers
-            $vraag_type_definition = array(
-                'id' => $vraag_type_definition_id,
-                'vraag_type_id' => $vraag_type_id,
-                'value' => $value++, 
-                'description' => $answer               
-            );
-            $this->db->insert('vraag_type_definition', $vraag_type_definition); 
+            $this->db->insert('vraag_type', $vraag_type); 
+        } elseif ($answer_type = 'satisfaction'){
+            if ($basetype = 'ltp'){
+                $vraag_type_id = 12;
+            } elseif ($basetype = 'otp'){
+                $vraag_type_id = 4;
+            } elseif ($basetype = 'ptp'){
+                $vraag_type_id = 107;
+            } elseif ($basetype = 'ltpb'){
+                $vraag_type_id = 0; //to be defined!!!
+            } elseif ($basetype = 'otpb'){
+                $vraag_type_id = 0;//to be defined!!!
+            } elseif ($basetype = 'ptpb'){
+                $vraag_type_id = 0;//to be defined!!!
+            }
+        } elseif ($answer_type = 'open vraag'){
+            $vraag_type_id = 2219;
         }
-        if (count($answers) > 0){
-            $vraag_type_definition_id = $this->_get_new_id('vraag_type_definition');
-            $vraag_type_definition = array(
-                'id' => $vraag_type_definition_id,
-                'vraag_type_id' => $vraag_type_id,
-                'value' => $value, 
-                'description' => 'Weet niet/n.v.t.'               
-            );
-            $this->db->insert('vraag_type_definition', $vraag_type_definition); 
-        }
-        $vraag_type = array(
-            'id' => $vraag_type_id,
-            'DESC_CODE' => 'MUIS_CUSTOM_'.$peiling_type_id.'_'.$vraag_type_id,
-            'description' => 'answers '.$new_question_text,
-            'min_value' => ($value == 0) ? 0 : 1,
-            'max_value' => ($value == 0) ? 0 : $value-1,
-            'has_unknown' => 0,
-            'unknown_value' => $value,
-            'label_lo' => $label_lo,
-            'label_hi' => $label_hi
-        );
-        $this->db->insert('vraag_type', $vraag_type); 
         //store in vraag
         //get category
         $query = $this->db->get_where('vraag_group', array('id'=>$category_id));
