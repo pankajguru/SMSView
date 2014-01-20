@@ -53,7 +53,9 @@ class Questions extends CI_Controller {
 			//get the json from the server
 			$base_url = $this->config->item('vragenplanner_url');
             print $base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id;
+            $filename = str_replace(' ', '%20', $filename) ;
 			$questionaire_xml = file_get_contents($base_url.'/xmlprovider/questions/saved_questionaire_admin/' . $filename . '/' . $id);
+//            error_log($questionaire_xml);
 			$questionaire_xml_object = simplexml_load_string($questionaire_xml);
 			$questionaire_json = $questionaire_xml_object->item[0];
 			$questionaire_object = json_decode($questionaire_json);
@@ -78,7 +80,7 @@ class Questions extends CI_Controller {
 			}
 
 			$data['content'] = 'De vragenlijst ' . $filename . ' is toegevoegd als: ' . $result['status'];
-		}
+        }
 		$this -> load -> view('web/questions.php', $data);
 	}
 

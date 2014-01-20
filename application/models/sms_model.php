@@ -365,17 +365,17 @@ class Sms_model extends CI_Model {
             );
             $this->db->insert('vraag_type', $vraag_type); 
         } elseif ($answer_type == 'satisfaction'){
-            if ($basetype = 'ltp'){
+            if ($basetype == 'ltp'){
                 $vraag_type_id = 12;
-            } elseif ($basetype = 'otp'){
+            } elseif ($basetype == 'otp'){
                 $vraag_type_id = 4;
-            } elseif ($basetype = 'ptp'){
+            } elseif ($basetype == 'ptp'){
                 $vraag_type_id = 107;
-            } elseif ($basetype = 'ltpb'){
+            } elseif ($basetype == 'ltpb'){
                 $vraag_type_id = 0; //to be defined!!!
-            } elseif ($basetype = 'otpb'){
+            } elseif ($basetype == 'otpb'){
                 $vraag_type_id = 0;//to be defined!!!
-            } elseif ($basetype = 'ptpb'){
+            } elseif ($basetype == 'ptpb'){
                 $vraag_type_id = 0;//to be defined!!!
             }
         } elseif ($answer_type = 'open vraag'){
