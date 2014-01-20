@@ -112,7 +112,7 @@ function retrieve_questions_per_type(type, survey, standard) {
 
             });
             sort_on_category();
-            check_mandatory_questions()
+            check_mandatory_questions();
             new_question();
             expand_all();
             wire_save_question_list_button();
@@ -149,10 +149,28 @@ function wire_print_button() {
             if (refid == 'new'){
                 var json_text = $(this).children('.new_question_div').text();
                 var question_properties = eval( json_text );
+                //if satisfaction!!!!
+                var answer_type;
                 for (var j=0;j<question_properties.length;j++){
-                    if (question_properties[j].name.substring(0,23) == 'multiple_choice_answer_'){
-                        answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;' + question_properties[j].value + '</span>&nbsp;';
-                    };
+                    if (question_properties[j].name == 'answer_type'){
+                        answer_type = question_properties[j].value;
+                    }
+                }
+                if (answer_type == 'satisfaction'){
+                    answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;Erg ontevreden</span>&nbsp;';
+                    answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;Ontevreden</span>&nbsp;';
+                    answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;Tevreden</span>&nbsp;';
+                    answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;Erg Tevreden</span>&nbsp;';
+                    answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;Weet niet/n.v.t.</span>&nbsp;';
+                } else {
+                    for (var j=0;j<question_properties.length;j++){
+                        if (question_properties[j].name.substring(0,23) == 'multiple_choice_answer_'){
+                            answer_string += '<span style="font-size: 8pt">&#9633;&nbsp;' + question_properties[j].value + '</span>&nbsp;';
+                        };
+                        if (question_properties[j].name == 'answer_type'){
+                            answer_type = question_properties[j].value;
+                        }
+                    }
                 }
             } else {
                 var answers = $('#answer_container_'+refid);

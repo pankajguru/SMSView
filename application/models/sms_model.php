@@ -312,7 +312,7 @@ class Sms_model extends CI_Model {
         $value = 0;
         $label_lo = '';
         $label_hi = '';
-        if ($answer_type = 'multiple choice'){
+        if ($answer_type == 'multiple choice'){
             //create new vraag type
             //store in vraag_type
             //store answers    
@@ -364,7 +364,7 @@ class Sms_model extends CI_Model {
                 'label_hi' => $label_hi
             );
             $this->db->insert('vraag_type', $vraag_type); 
-        } elseif ($answer_type = 'satisfaction'){
+        } elseif ($answer_type == 'satisfaction'){
             if ($basetype = 'ltp'){
                 $vraag_type_id = 12;
             } elseif ($basetype = 'otp'){
