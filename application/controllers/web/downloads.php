@@ -8,12 +8,12 @@ class Downloads extends CI_Controller {
 	 *
 	 * Create web interface for report downloads 
 	 */
-	public function index($sort_by = 'sample_date', $sort_order = 'asc', $offset = 0)
+	public function index($sort_by = 'schoolnaam', $sort_order = 'asc', $offset = 0)
 	{
 		$this->config->load('sms');
         $this->load->helper('url');
         $this->load->helper('form');
-        $limit = 20;
+        $limit = 2000;
 
         $data['fields'] = array(
             'id' => 'tech',
@@ -42,23 +42,23 @@ class Downloads extends CI_Controller {
                         $xmlRaw = file_get_contents($dir.'/'.$entry);
                 
                         $xmlData = $this -> simplexml -> xml_parse($xmlRaw);
-                        if (!isset($xmlData['table.satisfaction.data'])){
-                            continue;
+                        if (isset($xmlData['table.satisfaction.data'])){
+//                            continue;
+					    $datastring = $xmlData['table.satisfaction.data'];
                         }
 
-					    $datastring = $xmlData['table.satisfaction.data'];
-                        $datastring     = str_replace('\\\'', '\'', $datastring);
-                        $json = json_decode($datastring);
+                        //$datastring     = str_replace('\\\'', '\'', $datastring);
+                        //$json = json_decode($datastring);
                         $schoolname = $xmlData['schoolnaam'];
                         $techid = $xmlData['peiling.id'];
                         preg_match("/MUIS_(\d+)_(\d+).docx.xml/",$entry, $matches);
                         $peiling_id = $matches[1];
-                        if (isset($json->{'refs'})){
+                        //if (isset($json->{'refs'})){
                             $report = new stdClass();
                             $report->id = $techid;
                             $report->peiling_id = $peiling_id;
                             $report->schoolnaam = $schoolname;
-                            $refs = $json->{'refs'};
+                        //    $refs = $json->{'refs'};
                             $form_open = form_open('docs/parse/doc');
                             $form_hidden =form_hidden('xml', $entry);
                             $form_options = '';
@@ -89,7 +89,7 @@ class Downloads extends CI_Controller {
                             $download_form = $form_open.$form_hidden.$form_options.$form_template.$form_button.$form_close;
                             $report->download = $download_form;
                             array_push($reports,$report);
-                        }
+                        //}
 			        }
 			    }
 			    closedir($handle);
@@ -100,7 +100,7 @@ class Downloads extends CI_Controller {
         // pagination
         $this->load->library('pagination');
         $config = array();
-        $config['base_url'] = site_url("main/index/$sort_by/$sort_order");
+        $config['base_url'] = site_url("web/downloads/index/$sort_by/$sort_order");
         $config['total_rows'] = count($reports);
         $data['num_results'] = count($reports);
         $config['per_page'] = $limit;
