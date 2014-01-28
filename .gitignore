@@ -14,3 +14,4 @@ templates/Thumbs.db
 templates/Thumbs.db
 json
 sms.php
+application/config/sms.php

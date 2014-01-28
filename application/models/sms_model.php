@@ -113,7 +113,11 @@ class Sms_model extends CI_Model {
 
     function get_all_questions_by_peiling_type_desc_code($type) {
         //maak functie waarbij alle vragen uit een peiling opgehaald worden
-        $this -> db -> select('formulier_type_definition.question_id') -> from('formulier_type_definition') -> join('formulier_type', 'formulier_type_definition.formulier_type_id= formulier_type.id') -> where('formulier_type.desc_code', $type);
+        $this -> db -> select('formulier_type_definition.question_id') 
+                -> from('formulier_type_definition') 
+                -> join('formulier_type', 'formulier_type_definition.formulier_type_id= formulier_type.id') 
+                -> where('formulier_type.desc_code', $type)
+                -> order_by('formulier_question_id','asc');
         $query = $this -> db -> get();
         return $query -> result();
     }

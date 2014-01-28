@@ -123,10 +123,12 @@ class scores
                     continue;
                 }
                 if ($reference == 'peiling'){
-                    $names[] = "$schoolname ";
+                    $this_year = $data['peiling.jaar'];
+                    $names[] = "$schoolname ".$this_year;
                 } elseif ($reference == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                    $names[] = "Vorige peiling ".$schoolname." ";
+                    $previous_year = $data['previous.survey.year.first.notype'];
+                    $names[] = $schoolname." ".$previous_year;
 //                    $names[] = "Vorige peiling ";
                 } elseif ($reference == 'peiling_onderbouw') {
                     if (!$ref['obb']) continue;

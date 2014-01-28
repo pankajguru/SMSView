@@ -140,7 +140,7 @@ class Questions extends CI_Controller {
             $xml_answers->addChild('allowmoreanswers', $allowmoreanswers);
             foreach ($answers as $answer){
                 $xml_answer = $xml_answers->addChild('answer');
-                $xml_answer->addChild('answer', $answer->description);
+                $xml_answer->addChild('answer', xmlentities(htmlentities($answer->description)));
                 $xml_answer->addChild('order', $answer->value);
                 $xml_answer->addChild('value', $answer->value);  
             }

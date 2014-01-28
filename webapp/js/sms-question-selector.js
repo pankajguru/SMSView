@@ -24,7 +24,7 @@ function load_page(page) {
 function init_login_temp() {
     $.ajax({
         type : 'GET',
-        url : base_url + 'index.php/xmlprovider/questions/school_id',
+        url : base_url + '/index.php/xmlprovider/questions/school_id',
         dataType : 'xml',
         success : function(xml) {
             $(xml).find('xml').each(function() {
@@ -192,9 +192,6 @@ function wire_print_button() {
 
         return false;
 
-        //$('#print_area').append(string);
-        //$('.list_container').toggleClass('hide');
-        //$('#print_area').css('display', 'block');
     });
 }
 
@@ -421,43 +418,7 @@ function set_standard_questions(standard) {
         }
     });
 
-    /*	$.each(savedSurvey, function(key,value) {
-     if (value['id']){
-     var id = value['id'];
-
-     var category = $('#'+id).parent().attr('id');
-
-     var listclass = '.sortable_with_' + $('#'+id).parent().attr('id');
-     if ($(listclass).html() == ''){
-     $('<span class="category_list_name category_list_name_' + $('#'+id).parent().attr('id') + '">' + $('#'+id).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
-     }
-
-     var selector = '.sortable_with_' + category;
-     $(selector).removeClass('hide');
-     //unhide when hidden
-
-     var text = $("#" + id).clone().children().remove().end().text();
-     var qtype = '';
-     if ($("#" + id).hasClass('BELANGRIJK')) {
-     qtype += 'BELANGRIJK ';
-     }
-     if ($("#" + id).hasClass('TEVREDEN')) {
-     qtype += 'TEVREDEN ';
-     }
-     if ($("#" + id).hasClass('PTP_IMPORTANCE')) {
-     qtype += 'PTP_IMPORTANCE ';
-     }
-     if ($("#" + id).hasClass('PTP_TEVREDEN')) {
-     qtype += 'PTP_TEVREDEN ';
-     }
-     var li = $('<li refid="' + id + '" class="question_selected ' + qtype + '">' + text + '</li>');
-     li.appendTo(selector);
-     $('#' + id).draggable('option', 'disabled', true);
-     check_for_how_important(id);
-     process_question_numbering();
-     $('#'+id).remove();
-     }
-     }); */
+  
 }
 
 function get_saved_surveys() {
@@ -550,18 +511,21 @@ function create_sorts(ul) {
 function filter_questions() {
     $('#filter_field').keyup(function() {
         var re = $('#filter_field').val();
-
-        $('.question_not_selected').each(function() {
-
-            var str = $(this).text();
-            var match = str.search(re);
-
-            if (match == -1) {
-                $(this).addClass('hide');
-            } else {
-                $(this).removeClass('hide');
-            }
-        });
+        if (re == 'selectall'){
+            select_all();            
+        } else {
+            $('.question_not_selected').each(function() {
+    
+                var str = $(this).text();
+                var match = str.search(re);
+    
+                if (match == -1) {
+                    $(this).addClass('hide');
+                } else {
+                    $(this).removeClass('hide');
+                }
+            });
+        }
     });
 }
 
@@ -1072,7 +1036,7 @@ function check_mandatory_questions() {
 function check_for_how_important(id) {
 
     //var how_important = $('#' + id).parent().children(':contains("Hoe belangrijk")');
-    var how_important = $('#' + id).parent().children('.BELANGRIJK:first, .PTP_IMPORTANCE:first');
+    var how_important = $('#' + id).parent().children('.BELANGRIJK:first, .PTP_IMPORTANCE:last');
 
     var how_important_class = $(how_important).parent().attr('id');
     var how_important_id = $(how_important).attr('id');
@@ -1176,7 +1140,48 @@ function wire_add_question_button() {
 
 function select_all() {
     alert('selectall');
-    $('.question_not_selected').each(function() {
+    $('.question_not_selected:not(.ui-state-disabled)').each(function() {
+            var id = $(this).attr('refid');
+                var category = $('#' + id).parent().attr('id');
+
+                var listclass = '.sortable_with_' + $('#' + id).parent().attr('id');
+                if ($(listclass).html() == '') {
+                    $('<span class="category_list_name category_list_name_' + $('#' + id).parent().attr('id') + '">' + $('#' + id).parent().find('.category_name').text() + '</span>').prependTo($(listclass));
+                }
+
+                var selector = '.sortable_with_' + category;
+                $(selector).removeClass('hide');
+                //unhide when hidden
+
+                var text = $("#" + id).clone().children().remove().end().text();
+                var qtype = '';
+                if ($("#" + id).hasClass('BELANGRIJK')) {
+                    qtype += 'BELANGRIJK ';
+                }
+                if ($("#" + id).hasClass('TEVREDEN')) {
+                    qtype += 'TEVREDEN ';
+                }
+                if ($("#" + id).hasClass('PTP_IMPORTANCE')) {
+                    qtype += 'PTP_IMPORTANCE ';
+                }
+                if ($("#" + id).hasClass('PTP_TEVREDEN')) {
+                    qtype += 'PTP_TEVREDEN ';
+                }
+                var required = '';
+                if ((id == 1) || (id == 2) || (id == 68) || (id == 71) || (id == 72) || (id == 129) || (id == 200) || (id == 201) || (id == 306)) {
+                    required = 'required';
+                }
+                var li = $('<li refid="' + id + '" class="question_selected ' + qtype + ' ' + required + '">' + text + '</li>');
+                li.appendTo(selector);
+                $('#' + id).draggable('option', 'disabled', true);
+                check_for_how_important(id);
+                process_question_numbering();
+                
+                
+                
+
+
+/*
         var category = $(this).parent().attr('id');
         var id = $(this).attr('refid');
         var selector = '.sortable_with_' + category;
@@ -1199,8 +1204,8 @@ function select_all() {
         $('#' + id).draggable('option', 'disabled', true);
         check_for_how_important(id);
         process_question_numbering();
-        $(this).remove();
-    });
+        $(this).remove();*/
+    }); 
 };
 
 function wire_save_question_list_button() {
