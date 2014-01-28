@@ -117,7 +117,6 @@ class Tank_auth
 	function logout()
 	{
 		$this->delete_autologin();
-
 		// See http://codeigniter.com/forums/viewreply/662369/ as the reason for the next line
 		$this->ci->session->set_userdata(array('user_id' => '', 'username' => '', 'status' => ''));
 
@@ -549,6 +548,7 @@ class Tank_auth
 			$this->ci->user_autologin->delete($data['user_id'], md5($data['key']));
 
 			delete_cookie($this->ci->config->item('autologin_cookie_name', 'tank_auth'));
+            
 		}
 	}
 

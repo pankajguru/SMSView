@@ -210,9 +210,9 @@ class Questions extends REST_Controller {
         }
             //add question 10014, 10017 and 10019 as standard
         if ($type == 'OTP_2004'){
-            $base_question_ids[] = 10014;
-            $base_question_ids[] = 10017;
             $base_question_ids[] = 10019;
+            $base_question_ids[] = 10017;
+            $base_question_ids[] = 10014;
         }  
 
         if (count($base_question_ids)>0) {

@@ -302,7 +302,7 @@ function set_saved_questions(savedSurvey) {
                 $('#' + id).draggable('option', 'disabled', true);
                 check_for_how_important(id);
                 process_question_numbering();
-                $('#' + id).remove();
+//                $('#' + id).remove();
             } else if (id == 'new') {
                 //self made question
                 question_json = value['new_question'];
@@ -661,14 +661,17 @@ function new_question() {
             options += '<option value="' + category_ids[category] + '" id="' + category_ids[category] + '">' + category + '</option>';
         }
     });
-
+    var satisfaction_option ='';
+    if (basetype != 'ltp'){
+        satisfaction_option = '<option value="satisfaction">Tevredenheidsvraag</option>';
+    }
     $('<button id="new_question" />').text('Nieuwe vraag').appendTo('#questionnaire_controls').button().click(function() {
         $('<form id="new_question_form"><div class="block"><label for="new_question_category">Kies een categorie:</label><select name="new_question_category" id="new_question_category" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">' + options + '</select></div><div class="block"><label for="new_question_text">Nieuwe vraag:</label><input name="new_question_text" id="new_question_text" type="text" maxlength="255" /></div>'+
           '<div class="block"><label for="answer_type">Kies een antwoordtype:</label>'+
             '<select name="answer_type" id="answer_type" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">'+
               '<option value="open vraag" selected="selected" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Open vraag</option>'+
-              '<option value="satisfaction">Tevredenheid </option>'+
-              '<option value="multiple choice">Multiple Choice</option>'+
+              satisfaction_option +
+              '<option value="multiple choice">Andere antwoordcategorie</option>'+
             '</select>'+
           '</div>'+
           '<div class="block" id="block_answer_required"><label for="answer_type">Is de vraag verplicht?:</label><select name="answer_required" id="answer_required" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><option value="1" selected="selected">Ja</option><option value="0">Nee</option></select></div>'+
@@ -897,7 +900,7 @@ function wire_question_type() {
             $('#block_answer_multiple').hide();
             $('#answer_container').hide();
             if (basetype == 'ltp'){
-                $('<p class="info">Antwoorden: Niet zo - Gaat wel - Leuk</p>').appendTo('#answeraddcontainer');
+//                $('<p class="info">Antwoorden: Niet zo - Gaat wel - Leuk</p>').appendTo('#answeraddcontainer');
             } else {
                 $('<p class="info">Antwoorden: Erg ontevreden - Ontevreden - Tevreden - Erg tevreden - Weet niet/n.v.t</p>').appendTo('#answeraddcontainer');
             }
@@ -1168,8 +1171,8 @@ function wire_add_question_button() {
             process_question_numbering();
             $(this).remove();
         });
-    })
-}
+    });
+};
 
 function select_all() {
     alert('selectall');
@@ -1197,12 +1200,12 @@ function select_all() {
         check_for_how_important(id);
         process_question_numbering();
         $(this).remove();
-    })
-}
+    });
+};
 
 function wire_save_question_list_button() {
     $('#save_question_list').button().show();
-    var name = $("#name")
+    var name = $("#name");
     allFields = $([]).add(name), tips = $(".validateTips");
 
     function checkLength(o, n, min, max) {

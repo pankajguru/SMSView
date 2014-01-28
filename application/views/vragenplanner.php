@@ -17,7 +17,7 @@
         <script type="text/javascript" src="<?php echo base_url();?>webapp/js/jquery.simplemodal.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>webapp/js/basic.js"></script>
         <script type="text/javascript" src="<?php echo base_url();?>webapp/js/jquery.simpletip-1.3.1.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/sms-question-selector.js?v=1"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>webapp/js/sms-question-selector.js?v=<?php echo rand();?>"></script>
     </head>
     <body>
         <div data-role="header" id="header">
