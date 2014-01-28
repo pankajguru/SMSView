@@ -115,7 +115,7 @@ class Questions extends CI_Controller {
             $answers = $this -> Sms_model -> get_answers_by_question_type_id($question[0] -> vraag_type_id);
             $question_type = $this -> Sms_model -> get_question_type_by_id($question[0] -> vraag_type_id);
             $xml_question = $xml_questions->addChild('question');
-            $xml_question->addChild('question', $question[0]->description);
+            $xml_question->addChild('question', xmlentities(htmlentities($question[0]->description)));
             $xml_question->addChild('sort_order', $sort_order++);
             $category = $this -> Sms_model -> get_category_details($question[0]->vraag_groep_id);
             $xml_question->addChild('category', xmlentities(htmlentities($category[0]->description, null , 'UTF-8'))); 
