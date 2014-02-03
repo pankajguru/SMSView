@@ -1208,7 +1208,7 @@ function select_all() {
     }); 
 };
 
-function wire_save_question_list_button() {
+function wire_save_question_list_button(){
     $('#save_question_list').button().show();
     var name = $("#name");
     allFields = $([]).add(name), tips = $(".validateTips");
@@ -1262,8 +1262,10 @@ function wire_save_question_list_button() {
                             console.log(data.responseText);
                             smsrespons = data.responseText.split(';');
                             muiscode = smsrespons[0];
-                            alert('De peiling is succesvol opgeslagen onder naam: ' + muiscode.replace('MUIS_', ''));
-                            window.open('http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL=' + smsrespons[0], '_top');
+                            var order = confirm('De peiling is succesvol opgeslagen onder naam: ' + muiscode.replace('MUIS_', '') + 'wilt u deze lijst bestellen?');
+                            if (order){
+                                window.open('http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL=' + smsrespons[0], '_top');
+                            }
                         },
                         error : function(data) {
                             $(data).each(function() {

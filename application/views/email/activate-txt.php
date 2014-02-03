@@ -1,6 +1,6 @@
-Welkom bij <?php echo $site_name; ?>,
+Welkom bij de <?php echo $site_name; ?>,
 
-Bedankt voor uw aanmelding bij <?php echo $site_name; ?>. We hebben onderstaande gegevens opgeslagen, bewaar deze goed.<br />
+Bedankt voor uw aanmelding bij de <?php echo $site_name; ?>. We hebben onderstaande gegevens opgeslagen, bewaar deze goed.<br />
 Klik op onderstaande link om uw e-mail adres te verifieren:
 
 <?php echo site_url('/auth/activate/'.$user_id.'/'.$new_email_key); ?>
@@ -19,6 +19,5 @@ Your password: <?php echo $password; ?>
 <?php */ } ?>
 
 
-
-Succes!
-<?php echo $site_name; ?>
+Vriendelijke groet,
+Scholen met Succes

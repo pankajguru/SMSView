@@ -99,8 +99,9 @@
             </div>
             <div class="list_container">
                 <div class="container_head">
-                    <div  class="head_title">Geselecteerde vragen</div> <div id="questionnaire_controls"></div> <button id="print_question_list"
-                    class="right">Printen</button><button id="save_question_list" class="right">Opslaan</button>
+                    <div  class="head_title">Geselecteerde vragen</div> <div id="questionnaire_controls"></div> 
+                        <button id="print_question_list" class="right">Printen</button>
+                        <button id="save_question_list" class="right">Opslaan</button>
                 </div>
                 <div id="question_list_container" class="">
                     <li class="info error"><span class='errorhead'></span></li>

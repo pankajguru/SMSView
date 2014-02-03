@@ -11,6 +11,7 @@
                <div data-role="header" id="header">
         <div id="logo"><img alt="Scholen met Succes" src="/templates/scholenmetsucces-frontpage/images/logo.png"><span style="font-size:80px; color:#fff; float:right; margin-top:17px; text-shadow: 0.1em 0.1em 0.2em grey;">Vragenplanner</span></div>
         </div>
+		<div id="container">
         <div data-role="page" id="login">
             <h1 style="margin-bottom:30px;">Maak hier uw account aan voor de Vragenplanner:</h1>
         
@@ -138,6 +139,7 @@ $brin = array(
 </table>
 <?php echo form_submit('register', 'Registreer'); ?>
 <?php echo form_close(); ?>
+</div>
         </div>
     </body>
 </html>

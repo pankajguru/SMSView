@@ -7,7 +7,7 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Welkom bij de Vragenplanner van Scholen met Succes';
+$config['website_name'] = 'Vragenplanner';
 $config['webmaster_email'] = 'info@scholenmetsucces.nl';
 
 /*

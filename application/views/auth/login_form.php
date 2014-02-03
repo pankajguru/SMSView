@@ -11,6 +11,7 @@
             <div data-role="header" id="header">
         <div id="logo"><a href="http://www.scholenmetsucces.nl"><img alt="Scholen met Succes" src="/templates/scholenmetsucces-frontpage/images/logo.png"></a><span style="font-size:80px; color:#fff; float:right; margin-top:17px; text-shadow: 0.1em 0.1em 0.2em grey;">Vragenplanner</span></div>
         </div>
+		<div id="container">
         <div data-role="page" id="login">
             <h1>Welkom bij de Vragenplanner<span class="copyright">&copy;</span></h1>
             <p>&nbsp;</p>
@@ -114,7 +115,8 @@ $captcha = array(
         <?php if ($this->config->item('allow_registration', 'tank_auth')) echo anchor('/auth/register/', 'Registreer', array('class' => 'registreer')); ?>
             <?php echo anchor('/auth/forgot_password/', 'Wachtwoord vergeten', array('class' => 'wachtwoordvergeten')); ?>
         </div>
-       <div style="width:600px; margin:20px auto; padding:10px; background:#fff;"><div style="width:50%; float:left;"><iframe width="250" height="141" src="http://www.youtube-nocookie.com/embed/vxDahDPWB9M?rel=0" frameborder="0" allowfullscreen></iframe></div><div style="float:right; width:49%; padding-top:40px;"><p style="font-size:16px;"><img src="http://www.scholenmetsucces.nl/bijlagen/afbeeldingen/File_pdf.png" style="vertical-align: middle;"> <a href="http://www.scholenmetsucces.nl/bijlagen/pdf/Handleiding_Vragenplanner.pdf" target="_blank">Handleiding</a></p><p style="font-size:16px; margin-top:20px;">Vragen? Bel: 023 534 11 58</p></div><div style="clear:both;"></div></div>
-
+		<div id="handleiding"><p style="font-size:16px;"><img src="http://www.scholenmetsucces.nl/bijlagen/afbeeldingen/File_pdf.png" style="vertical-align: middle;"> <a href="http://www.scholenmetsucces.nl/bijlagen/pdf/Handleiding_Vragenplanner.pdf" target="_blank">Handleiding</a></p><p style="font-size:16px; margin-top:20px;">Vragen? Bel: 023 534 11 58</p></div>
+       <div id="video"><iframe width="940" height="530" src="http://www.youtube-nocookie.com/embed/vxDahDPWB9M?rel=0" frameborder="0" allowfullscreen></iframe></div>
+</div> <!-- Container -->
     </body>
 </html>

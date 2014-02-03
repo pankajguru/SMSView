@@ -105,8 +105,7 @@ class Auth extends CI_Controller
 	{
 		$this->tank_auth->logout();
 
-//		$this->_show_message($this->lang->line('auth_message_logged_out'));
-        $this->load->view('/auth/logout');
+		$this->_show_message($this->lang->line('auth_message_logged_out'));
 	}
 
 	/**
@@ -246,7 +245,7 @@ class Auth extends CI_Controller
 		// Activate user
 		if ($this->tank_auth->activate_user($user_id, $new_email_key)) {		// success
 			$this->tank_auth->logout();
-			$this->_show_message($this->lang->line('auth_message_activation_completed').' '.anchor('/auth/login/', 'Login'));
+			$this->_show_message($this->lang->line('auth_message_activation_completed').' '.anchor('/auth/login/', 'Login'));  
 
 		} else {																// fail
 			$this->_show_message($this->lang->line('auth_message_activation_failed'));
@@ -280,7 +279,7 @@ class Auth extends CI_Controller
 					// Send email with password activation link
 					$this->_send_email('forgot_password', $data['email'], $data);
 
-					$this->_show_message($this->lang->line('auth_message_new_password_sent'));
+					$this->_show_message($this->lang->line('auth_message_new_password_sent').' '.anchor('/auth/login/', 'Login'));
 
 				} else {
 					$errors = $this->tank_auth->get_error_message();

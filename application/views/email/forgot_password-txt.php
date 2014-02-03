@@ -1,13 +1,12 @@
-Hi<?php if (strlen($username) > 0) { ?> <?php echo $username; ?><?php } ?>,
+Nieuw wachtwoord aanvragen.
 
-Forgot your password, huh? No big deal.
-To create a new password, just follow this link:
+Om een nieuw wachtwoord aan te vragen klik op onderstaande link:
 
 <?php echo site_url('/auth/reset_password/'.$user_id.'/'.$new_pass_key); ?>
 
 
-You received this email, because it was requested by a <?php echo $site_name; ?> user. This is part of the procedure to create a new password on the system. If you DID NOT request a new password then please ignore this email and your password will remain the same.
+Als u uw wachtwoord voor de vragenplanner niet wilt aanpassen kunt u deze e-mail negeren.
 
 
-Thank you,
-The <?php echo $site_name; ?> Team
+Vriendelijke groet,
+Scholen met Succes
