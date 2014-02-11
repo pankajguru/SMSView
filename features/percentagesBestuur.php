@@ -172,6 +172,12 @@ class percentagesBestuur
                         $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
                                         //(isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
                                         (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0);
+/*                        $unsatisfied_answer = $question->{'question_type'}[0][3];
+                        $satisfied_answer = $question->{'question_type'}[0][4];
+                        $satisfied = isset($answer_peiling[$satisfied_answer][2]) ? $answer_peiling[$satisfied_answer][2] : 0;
+                        $unsatisfied = isset($answer_peiling[$unsatisfied_answer][2]) ? $answer_peiling[$unsatisfied_answer][2] : 0;
+                        $satisfied_total = (isset($answer_peiling[$unsatisfied_answer][2]) ? $answer_peiling[$unsatisfied_answer][2] : 0) +
+                                        (isset($answer_peiling[$satisfied_answer][2]) ?$answer_peiling[$satisfied_answer][2] : 0); */
                         if ($satisfied_total != 0){
                             $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
                             $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
@@ -187,19 +193,38 @@ class percentagesBestuur
                         } else {
                            $paramsTextTable['cell_color'] = '99CC00';
                         }
+                        //colors are based on total percentage up to 100%, real numbers are not
                         $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
                                            (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
                                            (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
                                            (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
-                                           (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0);
+                                           (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0); 
                         $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
                         $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
                     } else {
-                        $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
-                        $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
+                        if (($question->{'question_type'}[0][1] == 'AVLOTP_2007_116_13QD_NOOIT_SOMS_VAAK') OR ($question->{'question_type'}[0][1] == 'NEE_SOMS_VAAK') ){
+                            //nee soms vaak
+                            // AVLOTP_2007_116_13QD_NOOIT_SOMS_VAAK  
+                            $satisfied = (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
+                            $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0);
+                        } elseif ($question->{'question_type'}[0][1] == 'JA_NEE'){
+                            //yes no
+                            $satisfied = (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
+                            $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0);
+                        } else {
+                            //satisfied
+                            $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
+                            $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) + (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
+                        }
+                        $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
+                                           (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
+                                           (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
+                                           (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
+                                           (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + 
+                                           (isset($answer_peiling[5][2]) ? $answer_peiling[5][2] : 0); 
                         if ($satisfied + $unsatisfied > 0){
-                            $satisfied_percentage = round($satisfied / ($satisfied + $unsatisfied) * 100);
-                            $unsatisfied_percentage = round($unsatisfied / ($satisfied + $unsatisfied) * 100);
+                            $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
+                            $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
                         } else {
                             continue;
                         }

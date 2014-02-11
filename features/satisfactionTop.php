@@ -111,8 +111,11 @@ class satisfactionTop
 
         //get right stuff from all_questions
         $satisfaction_array = array();
-        foreach($all_questions as $question){
+        foreach($all_questions as $question_id => $question){
             if (!in_array($question->{'question_type'}[0][1], $tevreden_array)){continue;};
+            $forbidden_in_top = array(101,102,7692,137,138,139,140,141,142);
+            if (in_array($question_id,$forbidden_in_top)){continue;}; 
+            
             if ($top){
                 if (isset($question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'})){
                     $alle_scholen_perc = $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'};
@@ -120,7 +123,7 @@ class satisfactionTop
                     $alle_scholen_perc = '-';
                 }
                 $satisfaction_array[] = array(
-                    'vraag' => filter_text($question->{'short_description'}),
+                    'vraag' => filter_text($question->{'neutral_description'}),
                     'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
                     'alle_scholen' => $alle_scholen_perc
                 );
@@ -131,7 +134,7 @@ class satisfactionTop
                     $alle_scholen_perc = '-';
                 }
                 $satisfaction_array[] = array(
-                    'vraag' => filter_text($question->{'short_description'}),
+                    'vraag' => filter_text($question->{'neutral_description'}),
                     'peiling' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'peiling'},
                     'alle_scholen' => $alle_scholen_perc
                 );

@@ -19,6 +19,7 @@ class Parse extends CI_Controller {
         require_once ('features/percentages.php');
         require_once ('features/scores.php');
         require_once ('features/reportmark.php');
+        require_once ('features/reportmarkBestuur.php');
         require_once ('features/satisfaction.php');
         require_once ('features/mostimportant.php');
         require_once ('features/satisfactionPriorityScatter.php');
@@ -29,6 +30,7 @@ class Parse extends CI_Controller {
         require_once ('features/previous.php');
         require_once ('features/summary.php');
         require_once ('features/questionList.php');
+        require_once ('features/satisfactionSummaryBestuur.php');
         require_once ('features/satisfactionSummary.php');
         require_once ('features/satisfactionImportance.php');
         require_once ('features/scoresPercentagesBestuur.php');
@@ -134,6 +136,11 @@ class Parse extends CI_Controller {
         $reportmark_docx = $reportmark -> render($xmlData, $ref);
         unset($reportmark);
         
+        if ($verbose) { print 'reportmark bestuur';}
+        $reportmarkBestuur = new reportmarkBestuur();
+        $reportmarkBestuur_docx = $reportmarkBestuur -> render($xmlData, $ref);
+        unset($reportmarkBestuur);
+        
         if ($verbose) { print 'satisfaction';}
         $satisfaction = new satisfaction();
         $satisfaction_docx = $satisfaction -> render($xmlData, $ref, 'satisfaction');
@@ -200,6 +207,11 @@ class Parse extends CI_Controller {
         $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref, $this->config);
         unset($satisfactionSummary);
         
+        if ($verbose) { print 'satisfactionSummaryBestuur';}
+        $satisfactionSummaryBestuur = new satisfactionSummaryBestuur();
+        $satisfactionSummaryBestuur_docx = $satisfactionSummaryBestuur -> render($xmlData, $ref, $this->config);
+        unset($satisfactionSummaryBestuur);
+        
         if ($verbose) { print 'satisfacitonImportance';}           
         $satisfactionImportance = new satisfactionImportance();
         $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref, $this->config);
@@ -256,6 +268,10 @@ class Parse extends CI_Controller {
                     if ($verbose) { print "reportmark\n";}
                     $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
                 }
+                if ($variable == "reportmarkBestuur") {
+                    if ($verbose) { print "reportmarkBestuur\n";}
+                    $docx -> addTemplateVariable('class:reportmarkBestuur', $reportmarkBestuur_docx, 'docx');
+                }
                 if ($variable == "satisfaction") {
                     if ($verbose) { print "satisfaction\n";}
                     $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
@@ -300,15 +316,19 @@ class Parse extends CI_Controller {
                     if ($verbose) { print "summary\n";}
                     $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }
+                if ($variable == "summary") {
+                    if ($verbose) { print "summary\n";}
+                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
+                }
 
                 if ($variable == "questionLists") {
                     if ($verbose) { print "questionLists\n";}
                     $docx -> addTemplateVariable('class:questionLists', $questionList_docx, 'docx');
                 }
               
-                if ($variable == "satisfactionSummary") {
-                    if ($verbose) { print "satisfactionSummary\n";}
-                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
+                if ($variable == "satisfactionSummaryBestuur") {
+                    if ($verbose) { print "satisfactionSummaryBestuur\n";}
+                    $docx -> addTemplateVariable('class:satisfactionSummaryBestuur', $satisfactionSummaryBestuur_docx, 'docx');
                 }
                 if ($variable == "satisfactionImportance") {
                     if ($verbose) { print "satisfactionImportance\n";}
@@ -348,6 +368,7 @@ class Parse extends CI_Controller {
         if (file_exists($percentage_example_docx)) unlink($percentage_example_docx);
         if (file_exists($scores_example_docx)) unlink($scores_example_docx);
         if (file_exists($reportmark_docx)) unlink($reportmark_docx);
+        if (file_exists($reportmarkBestuur_docx)) unlink($reportmarkBestuur_docx);
         if (file_exists($satisfaction_docx)) unlink($satisfaction_docx);
         if (file_exists($importance_docx)) unlink($importance_docx);
         if (file_exists($satisfactionPriorityScatter_docx)) unlink($satisfactionPriorityScatter_docx);
@@ -362,6 +383,7 @@ class Parse extends CI_Controller {
         if (file_exists($previous_docx)) unlink($previous_docx);
         if (file_exists($summary_docx)) unlink($summary_docx);
         if (file_exists($satisfactionSummary_docx)) unlink($satisfactionSummary_docx);
+        if (file_exists($satisfactionSummaryBestuur_docx)) unlink($satisfactionSummaryBestuur_docx);
         if (file_exists($satisfactionImportance_docx)) unlink($satisfactionImportance_docx);
         if (file_exists($scoresPercentagesBestuur_docx)) unlink($scoresPercentagesBestuur_docx);
         if (file_exists($questionList_docx)) unlink($questionList_docx);
@@ -436,9 +458,13 @@ class Parse extends CI_Controller {
 //        $scores_example_docx = $scoresExample -> render($xmlData, $ref, "", '', TRUE);
 //        unset($scoresExample);
 
-//        $reportmark = new reportmark();
-//        $reportmark_docx = $reportmark -> render($xmlData, $ref);
-//        unset($reportmark);
+        $reportmark = new reportmark();
+        $reportmark_docx = $reportmark -> render($xmlData, $ref);
+        unset($reportmark);
+        
+        $reportmarkBestuur = new reportmarkBestuur();
+        $reportmarkBestuur_docx = $reportmarkBestuur -> render($xmlData, $ref);
+        unset($reportmarkBestuur);
         
 //        $importance = new satisfaction();
 //        $importance_docx = $importance -> render($xmlData, $ref, 'importance');
@@ -486,13 +512,19 @@ class Parse extends CI_Controller {
 //        $summary_docx = $summary -> render($xmlData, $ref);
 //        unset($summary);
                
+//        if ($verbose) { print 'satisfactionSummary';}
 //        $satisfactionSummary = new satisfactionSummary();
-//        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref);
+//        $satisfactionSummary_docx = $satisfactionSummary -> render($xmlData, $ref, $this->config);
 //        unset($satisfactionSummary);
+        
+        $satisfactionSummaryBestuur = new satisfactionSummaryBestuur();
+        $satisfactionSummaryBestuur_docx = $satisfactionSummaryBestuur -> render($xmlData, $ref, $this->config);
+        unset($satisfactionSummaryBestuur);
+        
                
-        $questionList = new questionList();
-        $questionList_docx = $questionList -> render($xmlData, $ref);
-        unset($questionList);
+//        $questionList = new questionList();
+//        $questionList_docx = $questionList -> render($xmlData, $ref);
+//        unset($questionList);
 
 //        $satisfactionImportance = new satisfactionImportance();
 //        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
@@ -542,10 +574,13 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:scores', $scores_docx, 'docx');
                 }
                 if ($variable == "reportmark") {
-//                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
+                    $docx -> addTemplateVariable('class:reportmark', $reportmark_docx, 'docx');
+                }
+                if ($variable == "reportmarkBestuur") {
+                    $docx -> addTemplateVariable('class:reportmarkBestuur', $reportmarkBestuur_docx, 'docx');
                 }
                 if ($variable == "satisfactionPriorityScatter") {
-                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:satisfactionPriorityScatter', $satisfactionPriorityScatter_docx, 'docx');
                 }
                 if ($variable == "satisfaction") {
 //                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
@@ -575,17 +610,23 @@ class Parse extends CI_Controller {
                 if ($variable == "summary") {
 //                    $docx -> addTemplateVariable('class:summary', $summary_docx, 'docx');
                 }
+                if ($variable == "summaryBestuur") {
+                    $docx -> addTemplateVariable('class:summaryBestuur', $summaryBestuur_docx, 'docx');
+                }
                 if ($variable == "questionlist") {
                     $docx -> addTemplateVariable('class:questionList', $questionList_docx, 'docx');
                 }
                 if ($variable == "satisfactionSummary") {
 //                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
+                if ($variable == "satisfactionSummaryBestuur") {
+                    $docx -> addTemplateVariable('class:satisfactionSummaryBestuur', $satisfactionSummaryBestuur_docx, 'docx');
+                }
                 if ($variable == "satisfactionImportance") {
-                    $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:satisfactionImportance', $satisfactionImportance_docx, 'docx');
                 }
                 if ($variable == "scoresPercentagesBestuur") {
-                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
+//                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
                 }
             }
 

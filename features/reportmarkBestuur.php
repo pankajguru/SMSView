@@ -1,6 +1,6 @@
 <?php
 
-class reportmark
+class reportmarkBestuur
 {
 
     function render( $data, $ref)
@@ -8,9 +8,8 @@ class reportmark
         require_once("./pChart/class/pData.class.php");
         require_once("./pChart/class/pDraw.class.php");
         require_once("./pChart/class/pImage.class.php");
-        require_once("./features/utils.php");
         $temp           = 'temp/';
-        $datastring     = $data['get_all_question_props'];
+        $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
@@ -79,6 +78,8 @@ class reportmark
                 } elseif (substr($reference,0,15) === 'question_based_') {
                     if (!$ref['question_based']) continue;
                     $text[] = substr($reference,15).' ';
+                } else {
+                    $text[] = $reference;
                 }
                 $graphic_data_reportmarks[] = $average_value;
             }
@@ -265,4 +266,4 @@ class reportmark
         
 }
 
-        function YAxisFormat($Value) { return(round($Value)); } 
+ 
