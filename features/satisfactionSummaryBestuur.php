@@ -5,6 +5,9 @@ class satisfactionSummaryBestuur {
     function render($data, $ref, $config) {
 
         $temp = 'temp/';
+        if (!isset($data['all.questions.bestuur'])){
+            return 0;
+        }
         $datastring = $data['all.questions.bestuur'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);

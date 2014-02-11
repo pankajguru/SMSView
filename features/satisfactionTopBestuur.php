@@ -1,13 +1,16 @@
 <?php
 
-class satisfactionTop
+class satisfactionTopBestuur
 {
 
     function render( &$data, $ref, $top = TRUE)
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
-        $datastring     = $data['get_all_question_props'];
+        if (!isset($data['all.questions.bestuur'])){
+            return 0;
+        }
+        $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
         if (!isset($data['question.type.satisfaction'])){
             return "";
@@ -260,10 +263,3 @@ class satisfactionTop
         
 
 }
-        function cmp_percentages($a, $b)
-        {
-            if ($a['peiling'] == $b['peiling']) {
-                return 0;
-            }
-            return ($a['peiling'] < $b['peiling']) ? 1 : -1;
-        }

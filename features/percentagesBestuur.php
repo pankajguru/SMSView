@@ -10,6 +10,9 @@ class percentagesBestuur
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
         $temp           = 'temp/';
+        if (!isset($data['all.questions.bestuur'])){
+            return 0;
+        }
         $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
@@ -178,27 +181,30 @@ class percentagesBestuur
                         $unsatisfied = isset($answer_peiling[$unsatisfied_answer][2]) ? $answer_peiling[$unsatisfied_answer][2] : 0;
                         $satisfied_total = (isset($answer_peiling[$unsatisfied_answer][2]) ? $answer_peiling[$unsatisfied_answer][2] : 0) +
                                         (isset($answer_peiling[$satisfied_answer][2]) ?$answer_peiling[$satisfied_answer][2] : 0); */
-                        if ($satisfied_total != 0){
-                            $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
-                            $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
-                        } else {
-                            continue;
-                        }
-                        if ($satisfied_percentage < 70){
-                            $paramsTextTable['cell_color'] = 'FF5050';
-                        } elseif ($satisfied_percentage < 80) {
-                            $paramsTextTable['cell_color'] = 'FFCC66';
-                        } elseif ($satisfied_percentage < 95) {
-                            $paramsTextTable['cell_color'] = 'CCFF99';
-                        } else {
-                           $paramsTextTable['cell_color'] = '99CC00';
-                        }
                         //colors are based on total percentage up to 100%, real numbers are not
                         $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
                                            (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
                                            (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
                                            (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
                                            (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0); 
+                        if ($satisfied_total != 0){
+                            $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
+                            $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
+                        } else {
+                            continue;
+                        }
+                        if ($satisfied_percentage + $unsatisfied_percentage > 0){
+                            $satisfaction_rate = ($satisfied_percentage / ($satisfied_percentage + $unsatisfied_percentage) ) * 100;
+                            if ($satisfaction_rate < 70){
+                                $paramsTextTable['cell_color'] = 'FF5050';
+                            } elseif ($satisfaction_rate < 80) {
+                                $paramsTextTable['cell_color'] = 'FFCC66';
+                            } elseif ($satisfaction_rate < 95) {
+                                $paramsTextTable['cell_color'] = 'CCFF99';
+                            } else {
+                               $paramsTextTable['cell_color'] = '99CC00';
+                            }
+                        }
                         $satisfied_percentage = round($satisfied / ($satisfied_total) * 100);
                         $unsatisfied_percentage = round($unsatisfied / ($satisfied_total) * 100);
                     } else {
@@ -219,7 +225,7 @@ class percentagesBestuur
                         $satisfied_total = (isset($answer_peiling[0][2]) ? $answer_peiling[0][2] : 0) +
                                            (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
                                            (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0) + 
-                                           (isset($answer_peiling[3][2]) ?$answer_peiling[3][2] : 0) +
+                                           (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0) +
                                            (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + 
                                            (isset($answer_peiling[5][2]) ? $answer_peiling[5][2] : 0); 
                         if ($satisfied + $unsatisfied > 0){
@@ -228,14 +234,17 @@ class percentagesBestuur
                         } else {
                             continue;
                         }
-                        if ($satisfied_percentage < 75){
-                            $paramsTextTable['cell_color'] = 'FF5050';
-                        } elseif ($satisfied_percentage < 85) {
-                            $paramsTextTable['cell_color'] = 'FFCC66';
-                        } elseif ($satisfied_percentage < 95) {
-                            $paramsTextTable['cell_color'] = 'CCFF99';
-                        } else {
-                           $paramsTextTable['cell_color'] = '99CC00';
+                        if (($satisfied_percentage + $unsatisfied_percentage) > 0){
+                        $satisfaction_rate = ($satisfied_percentage / ($satisfied_percentage + $unsatisfied_percentage) ) * 100;
+                            if ($satisfaction_rate < 75){
+                                $paramsTextTable['cell_color'] = 'FF5050';
+                            } elseif ($satisfaction_rate < 85) {
+                                $paramsTextTable['cell_color'] = 'FFCC66';
+                            } elseif ($satisfaction_rate < 95) {
+                                $paramsTextTable['cell_color'] = 'CCFF99';
+                            } else {
+                               $paramsTextTable['cell_color'] = '99CC00';
+                            }
                         }
                     }
                     $text = $satisfied_percentage . ' / ' . $unsatisfied_percentage;

@@ -11,6 +11,9 @@ class scoresBestuur
         require_once("./features/utils.php");
         require_once ('features/scoresBestuur.php');
         $temp           = 'temp/';
+        if (!isset($data['all.questions.bestuur'])){
+            return 0;
+        };
         $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
