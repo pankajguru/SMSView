@@ -10,8 +10,9 @@ class satisfactionTopBestuur
         if (!isset($data['all.questions.bestuur'])){
             return 0;
         }
-        $datastring     = $data['all.questions.bestuur'];
-        $schoolname     = $data['schoolnaam'];
+        $datastring     = $data['get_all_question_props'];
+//        $datastring     = $data['all.questions.bestuur'];
+        $schoolname     = $data['bestuur.name'];
         if (!isset($data['question.type.satisfaction'])){
             return "";
         }
@@ -109,6 +110,7 @@ class satisfactionTopBestuur
 
 
         $satisfactionTop_docx = new CreateDocx();
+        $satisfactionTop_docx->addBreak('line');
         
         $satisfactionTop_table = array();
 
@@ -156,6 +158,7 @@ class satisfactionTopBestuur
                 continue;
             }
             $count = 0;
+            
             $paramsTextTable['text'] = ($i+1).'. '.filter_text($satisfaction_array[$i]['vraag']);
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
@@ -253,7 +256,9 @@ class satisfactionTopBestuur
         $table2 = $satisfactionTop_docx->addTable($satisfaction_titles);
         $table3 = $satisfactionTop_docx->addTable($satisfaction_table, array('size_col' => $size_col));
         
-        $filename = ($top) ? 'satisfactionTopGood':'satisfactionTopBad';
+        $satisfactionTop_docx->addBreak('line');
+
+        $filename = ($top) ? 'satisfactionTopGoodBestuur':'satisfactionTopBadBestuur';
 		$filename = $filename.randchars(12);
         $satisfactionTop_docx->createDocx($temp.$filename);
         unset($satisfactionTop_docx);

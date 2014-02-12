@@ -332,7 +332,7 @@ class Parse extends CI_Controller {
 
                 if ($variable == "questionLists") {
                     if ($verbose) { print "questionLists\n";}
-                    //$docx -> addTemplateVariable('class:questionLists', $questionList_docx, 'docx');
+                    $docx -> addTemplateVariable('class:questionLists', $questionList_docx, 'docx');
                 }
               
                 if ($variable == "satisfactionImportance") {
