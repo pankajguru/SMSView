@@ -118,8 +118,8 @@ class satisfactionTopBestuur
         $satisfaction_array = array();
         foreach($all_questions as $question_id => $question){
             if (!in_array($question->{'question_type'}[0][1], $tevreden_array)){continue;};
-            $forbidden_in_top = array(101,102,7692,137,138,139,140,141,142);
-            if (in_array($question_id,$forbidden_in_top)){continue;}; 
+            $forbidden_in_top = array(101,102,7692,137,138,139,140,141,142, 7692, 7691);
+            if (in_array($question->id,$forbidden_in_top)){continue;}; 
             
             if ($top){
                 if (isset($question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'})){
