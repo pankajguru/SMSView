@@ -560,9 +560,9 @@ class Parse extends CI_Controller {
         unset($satisfactionSummaryBestuur);
         
                
-//        $questionList = new questionList();
-//        $questionList_docx = $questionList -> render($xmlData, $ref);
-//        unset($questionList);
+        $questionList = new questionList();
+        $questionList_docx = $questionList -> render($xmlData, $ref);
+        unset($questionList);
 
 //        $satisfactionImportance = new satisfactionImportance();
 //        $satisfactionImportance_docx = $satisfactionImportance -> render($xmlData, $ref);
@@ -655,9 +655,10 @@ class Parse extends CI_Controller {
                 if ($variable == "summaryBestuur") {
 //                    $docx -> addTemplateVariable('class:summaryBestuur', $summaryBestuur_docx, 'docx');
                 }
-                if ($variable == "questionlist") {
-                    $docx -> addTemplateVariable('class:questionList', $questionList_docx, 'docx');
+                if ($variable == "questionLists") {
+                    $docx -> addTemplateVariable('class:questionLists', $questionList_docx, 'docx');
                 }
+              
                 if ($variable == "satisfactionSummary") {
 //                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
                 }
