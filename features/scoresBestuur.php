@@ -16,6 +16,7 @@ class scoresBestuur
         };
         $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['schoolnaam'];
+        $bestuur_name   = $data['bestuur.name'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
         $all_questions  = json_decode($datastring);
@@ -84,7 +85,6 @@ class scoresBestuur
                 $first = false;
                 $old_group_name = $question->{'group_name'};
             }            
-            
             $text[] =
                 array(
                     'text' => $question_number.". ".filter_text($question->{'description'}),
@@ -119,35 +119,8 @@ class scoresBestuur
                 if ($reference == '_empty_'){
                     continue;
                 }
-                if ($reference == 'Leerjaar 6'){
-                    continue;
-                }
-                if ($reference == 'BS De Octopus'){
-                    continue;
-                }
-                if ($reference == 'Bs De Poel'){
-                    continue;
-                }
-                if ($reference == 'peiling'){
-                    $names[] = "$schoolname ";
-                } elseif ($reference == 'vorige_peiling') {
-                    if (!$ref['vorige_peiling']) continue;
-                    $names[] = "Vorige peiling ".$schoolname." ";
-                } elseif ($reference == 'peiling_onderbouw') {
-                    if (!$ref['obb']) continue;
-                    $names[] = $ref['onderbouw']." ";
-                } elseif ($reference == 'peiling_bovenbouw') {
-                    if (!$ref['obb']) continue;
-                    $names[] = $ref['bovenbouw']." ";
-                } elseif ($reference == 'alle_scholen') {
-                    if (!$ref['alle_scholen']) continue;
-                    $names[] ="Alle Scholen ";
-                } elseif (substr($reference,0,8) === 'locatie_') {
-                    if (!$ref['locaties']) continue;
-                    $names[] = substr($reference,8).' ';
-                } elseif (substr($reference,0,15) === 'question_based_') {
-                    if (!$ref['question_based']) continue;
-                    $names[] = substr($reference,15).' ';
+                if (($reference == 'peiling') || ($reference == 'bestuur')){
+                    $names[] = "$bestuur_name ";
                 } else {
                     $names[] = $reference;
                 }
@@ -157,7 +130,7 @@ class scoresBestuur
             $min_value = $question->{'question_type'}[0][3];
             $max_value = $question->{'question_type'}[0][4];
             if ($min_value == $max_value){
-                continue;
+                $max_value += 0.01;
             }
             $blocksize = ($max_value - $min_value) / 30;
             $empty = array();
@@ -169,7 +142,7 @@ class scoresBestuur
             foreach($graphic_data_scores as $averages){
 //            foreach(array($peiling_averages,$alle_scholen_averages) as $averages){
                 if (!is_array($averages)){
-                    continue;
+//                    continue;
                 }
                 $extra_std_deviation = 0;
                 if ( $max_value - $min_value >= 3 ) {
@@ -301,11 +274,19 @@ class scoresBestuur
             $myPicture->drawLine($X, 36, $X, $Y, array("Weight"=>1, "R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
             $myPicture -> Antialias = FALSE;
         
-            //Make alle scholen bleu
-            $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
-            $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
-            $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
-            $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+            if (isset($myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"])){
+                //Make alle scholen bleu
+                $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
+                if (isset($imageData[$alle_scholen_ref][0])){
+                    $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+                }
+            } 
+            if (isset($myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"])){
+                $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
+                if (isset($imageData[$alle_scholen_ref][0])){
+                    $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+                }
+            }
         }
 
         $myPicture->render($temp . "scores$question_number.png");

@@ -15,6 +15,7 @@ class satisfactionPriorityScatter {
 
         $temp = 'temp/';
         $datastring = $data['priority.satisfaction.table.data.scatter'];
+        $basetype = $data['basetype'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
         $importance_categories = get_importance_categories($data);

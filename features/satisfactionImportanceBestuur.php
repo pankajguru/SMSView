@@ -206,6 +206,7 @@ class satisfactionImportanceBestuur {
                     $ref_text = "alle scholen";
                 } else {
                     $name = $key;
+                    $ref_text = $name;
                 }
 
             $satisfactionImportance_docx->addText('',array(

@@ -15,11 +15,11 @@ class satisfactionPriorityScatterBestuur {
 
         $temp = 'temp/';
         $datastring = $data['priority.satisfaction.table.data.scatter.bestuur'];
+        $basetype = $data['basetype'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
         $importance_categories = get_importance_categories($data);
         $data = json_decode($datastring);
-        $basetype = $data['basetype'];
         
         //add graphic to docx
         $satisfactionPriorityScatter_docx = new CreateDocx();
