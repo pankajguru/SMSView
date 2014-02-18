@@ -1,6 +1,6 @@
 <?php
 
-class satisfactionImportance {
+class satisfactionImportanceBestuur {
 
     function render($data, $ref, $config) {
         require_once ("./pChart/class/pData.class.php");
@@ -11,7 +11,10 @@ class satisfactionImportance {
 
         $temp = 'temp/';
 		$satisfactionImportance_graphics = array();
-        $datastring     = $data['table.satisfaction.data'];
+        if (!isset($data["table.satisfaction.data.bestuur"])){
+            return '';
+        }
+        $datastring     = $data['table.satisfaction.data.bestuur'];
         $basetype = $data['basetype'];
         //konqord JSON is false becuse escape character on '
         $datastring = str_replace('\\\'', '\'', $datastring);
@@ -23,9 +26,8 @@ class satisfactionImportance {
         }
         $scale_factor_importance = $data["question.type.importance.scalefactor"];
         $scale_factor_satisfaction = $data["question.type.satisfaction.scalefactor"];
-        $schoolname     = $data['schoolnaam'];
+        $bestuur_name   = $data['bestuur.name'];
         $schoolyear     = $data['peiling.jaar'];
-        
         $target = '';
         if ( ($basetype == 1) || ($basetype == 4) ){
             $target = 'ouders'; //afhankelijk van basetype
@@ -34,7 +36,7 @@ class satisfactionImportance {
         } elseif ($basetype == 3) {
             $target = 'medewerkers'; //afhankelijk van basetype
         }
-        
+                
         //add graphic to docx
         $satisfactionImportance_docx = new CreateDocx();
         $satisfactionImportance_docx->importStyles($config->item('template_dir').'/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
@@ -53,19 +55,10 @@ class satisfactionImportance {
                 if (!isset($key)){
                     continue;
                 }
-                if ($key == 'peiling'){
-                } elseif ($key_underscore == 'vorige_peiling') {
-                    if (!$ref['vorige_peiling']) continue;
-                } elseif ($key_underscore == 'peiling_onderbouw') {
-                    if (!$ref['obb']) continue;
-                } elseif ($key_underscore == 'peiling_bovenbouw') {
-                    if (!$ref['obb']) continue;
+                if (($key == 'peiling') || ($key == 'bestuur') ){
                 } elseif ($key_underscore == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
-                } elseif (substr($key_underscore,0,8) === 'locatie_') {
-                    if (!$ref['locaties']) continue;
-                } elseif (substr($key_underscore,0,15) === 'question_based_') {
-                    if (!$ref['question_based']) continue;
+                } else {
                 }
             $satisfaction_column = $dataSatisfaction->{$key} ;
             $satisfaction_average = Array();
@@ -88,19 +81,10 @@ class satisfactionImportance {
             if ($key == ''){
                     continue;
             }
-            if ($key == 'peiling'){
-            } elseif ($key_underscore == 'vorige_peiling') {
-                    if (!$ref['vorige_peiling']) continue;
-            } elseif ($key_underscore == 'peiling_onderbouw') {
-                    if (!$ref['obb']) continue;
-            } elseif ($key_underscore == 'peiling_bovenbouw') {
-                    if (!$ref['obb']) continue;
+            if (($key == 'peiling') || ($key == 'bestuur') ){
             } elseif ($key_underscore == 'alle_scholen') {
                 if (!$ref['alle_scholen']) continue;
-            } elseif (substr($key_underscore,0,8) === 'locatie_') {
-                if (!$ref['locaties']) continue;
-            } elseif (substr($key_underscore,0,15) === 'question_based_') {
-                if (!$ref['question_based']) continue;
+            } else {
             }
             $dataImportance_column = $dataImportance->{$key};
             foreach($dataImportance_column as $ref_key => $ref_value){
@@ -141,28 +125,13 @@ class satisfactionImportance {
             if ($key == ''){
                     continue;
             }
-                if ($key == 'peiling'){
-                    $name = "$schoolname ";
-                } elseif ($key == 'vorige_peiling') {
-                    if (!$ref['vorige_peiling']) continue;
-                    $name = "Vorige peiling ".$schoolname." ";
-                } elseif ($key == 'peiling_onderbouw') {
-                    if (!$ref['obb']) continue;
-                    $name = $ref['onderbouw']." ";
-                } elseif ($key == 'peiling_bovenbouw') {
-                    if (!$ref['obb']) continue;
-                    $name = $ref['bovenbouw']." ";
+                if (($key == 'peiling') || ($key == 'bestuur')){
+                    $name = "$bestuur_name ";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $name ="Alle Scholen ";
-                } elseif (substr($key,0,8) === 'locatie_') {
-                    if (!$ref['locaties']) continue;
-                    $name = substr($key,8).' ';
-                    $name = str_replace('_', ' ', $name).' ';
-                } elseif (substr($key,0,15) === 'question_based_') {
-                    if (!$ref['question_based']) continue;
-                    $name = substr($key,15).' ';
-                    $name = str_replace('_', ' ', $name).' ';
+                } else {
+                    $name = $key;
                 }
             if ($first){
                 $first = false;
@@ -230,30 +199,13 @@ class satisfactionImportance {
     
             $satisfactionImportance_docx->addTable($most_important_table, $paramsTable);
 
-                if ($key == 'peiling'){
-                    $ref_text = "van $schoolname";
-                } elseif ($key == 'vorige_peiling') {
-                    if (!$ref['vorige_peiling']) continue;
-                    $ref_text = "van $schoolname in de vorige peiling";
-                } elseif ($key == 'peiling_onderbouw') {
-                    if (!$ref['obb']) continue;
-                    $ref_text = "van leerlingen in de onderbouw";
-                } elseif ($key == 'peiling_bovenbouw') {
-                    if (!$ref['obb']) continue;
-                    $ref_text = "van leerlingen in de bovenbouw";
+                if (($key == 'peiling') || ($key == 'bestuur')){
+                    $ref_text = "van $bestuur_name";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $ref_text = "alle scholen";
-                } elseif (substr($key,0,8) === 'locatie_') {
-                    if (!$ref['locaties']) continue;
-                    $name = substr($key,8).' ';
-                    $name = str_replace('_', ' ', $name).' ';
-                    $ref_text = "van leerlingen in $name";
-                } elseif (substr($key,0,15) === 'question_based_') {
-                    if (!$ref['question_based']) continue;
-                    $name = substr($key,15).' ';
-                    $name = str_replace('_', ' ', $name).' ';
-                    $ref_text = "van leerlingen in $name";
+                } else {
+                    $name = $key;
                 }
 
             $satisfactionImportance_docx->addText('',array(

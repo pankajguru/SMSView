@@ -10,6 +10,9 @@ class satisfactionPerCategoryBestuur
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
         $temp           = 'temp/';
+        if (!isset($data["table.satisfaction.data.bestuur"])){
+            return '';
+        }
         $datastring     = $data['table.satisfaction.data.bestuur'];
         $bestuur_name   = $data['bestuur.name'];
         if (!isset($data["question.type.$type.scalefactor"])){
@@ -86,7 +89,6 @@ class satisfactionPerCategoryBestuur
         $category_key_count = 1;
         foreach ($category_array as $category_key => $category_name){
             //start with legend
-            print $category_name.' ';
             $paramsTextTable['text'] = $category_name;
             $text_table = $satisfactionPerCategoryBestuur_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[0][$category_key_count] = $text_table;
@@ -95,10 +97,8 @@ class satisfactionPerCategoryBestuur
         $paramsTextTable['text'] = 'Totaal gemiddelde';
         $text_table = $satisfactionPerCategoryBestuur_docx->addElement('addText', array($paramsTextTable));
         $satisfaction_table[0][$category_key_count] = $text_table;
-        print "\n";
         $ref_count = 1;
         foreach ($refs as $key=>$ref){
-            print $ref.' ';
             if (($ref == 'bestuur') || ($ref == 'peiling') ){
                 $paramsTextTable['text'] = $bestuur_name;
             } else {
@@ -131,14 +131,11 @@ class satisfactionPerCategoryBestuur
                 $text_table = $satisfactionPerCategoryBestuur_docx->addElement('addText', array($paramsTextTable));
                 $satisfaction_table[$ref_count][$category_key_count] = $text_table;
                 $category_key_count++;
-                print $value.' ';
             }
             $value = number_format(($total_value/$total),1,'.','');
             $paramsTextTable['text'] = $value;
             $text_table = $satisfactionPerCategoryBestuur_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$ref_count][$category_key_count] = $text_table;
-            print $value.' ';
-            print "\n";
             $ref_count++;
         }
 

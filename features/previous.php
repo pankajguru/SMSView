@@ -131,8 +131,8 @@ class previous
 
         $myData->addPoints($previous_table_text,"rubriek");
         $myData->setAbscissa("rubriek");
-        $myData->setPalette("nu",array("R"=>254,"G"=>204,"B"=>52));
-        $myData->setPalette("vorig",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $myData->setPalette("nu",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        $myData->setPalette("vorig",array("R"=>254,"G"=>204,"B"=>52));
         
 //        $myData->setSerieTicks("nu",5);
 //        $myData->setSerieTicks("vorig",5);
@@ -157,7 +157,7 @@ class previous
 
         $AxisBoundaries = array(
             0 => array(
-                "Min" => 5,
+                "Min" => 0,
                 "Max" => 10
             )
         );
@@ -165,8 +165,8 @@ class previous
         $myPicture->setGraphArea(800,110,1200,$pictureHeigth);
 //        $myPicture->drawFilledRectangle(500,60,670,190,array("R"=>255,"G"=>255,"B"=>255,"Surrounding"=>-200,"Alpha"=>10));
         $myPicture->drawScale(array(
-//            "ManualScale" => $AxisBoundaries,
-//            "Mode" => SCALE_MODE_MANUAL,
+            "ManualScale" => $AxisBoundaries,
+            "Mode" => SCALE_MODE_MANUAL,
             "Pos"=>SCALE_POS_TOPBOTTOM,
             "DrawSubTicks"=>FALSE,
             "MinDivHeight" => 100,
@@ -182,8 +182,8 @@ class previous
 
         $myPicture->drawText(120, 30,$schoolname,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
         $myPicture->drawText(120, 70,"Rubriek",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
-        $myPicture->drawText(770, 70,"vorig:",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-        $myPicture->drawText(1300, 70,"nu:",array("R"=>254,"G"=>204,"B"=>52,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(770, 70,"vorig:",array("R"=>254,"G"=>204,"B"=>52,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(1300, 70,"nu:",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         //$myPicture->drawText(800, 80,"5",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
         //$myPicture->drawText(1200, 80,"10",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         foreach($previous_table_text as $key => $previous_table_text_item){

@@ -13,6 +13,17 @@ class satisfactionSummary {
         $summary_docx = new CreateDocx();
 //        $satisfactionPriorityScatter_docx->importStyles('./templates/otp-muis.docx', 'merge', array('Normal','ListParagraphPHPDOCX'));
         $summary_docx->importStyles($config->item('template_dir').'/muis-style.docx', 'merge', array('Normal', 'List Paragraph PHPDOCX'));
+        $basetype = $data['basetype'];
+
+        $target = '';
+        if ( ($basetype == 1) || ($basetype == 4) ){
+            $target = 'ouders'; //afhankelijk van basetype
+        } elseif ($basetype == 2) {
+            $target = 'leerlingen'; //afhankelijk van basetype
+        } elseif ($basetype == 3) {
+            $target = 'medewerkers'; //afhankelijk van basetype
+        }
+
 
         $paramsList = array(
             'val' => 0,
@@ -32,22 +43,22 @@ class satisfactionSummary {
 					  || ($question->question_type[0][1] == 'NOOIT_SOMS_VAAK_NOSAT') || ($question->question_type[0][1] == 'NIETZO_GAATWEL_JA_NOSAT')
 				){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'} . '% van de ouders is tevreden over ' . filter_text($question->{'short_description'}).'.';
+                        $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'} . "% van de $target is tevreden over " . filter_text($question->{'short_description'}).'.';
                 }
                 if ($question->question_type[0][1] == 'JA_NEE'){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . '% van de ouders  ' . filter_text($question->{'short_description'}).'.';
+                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . "% van de $target  " . filter_text($question->{'short_description'}).'.';
                 }
                 if ($question->question_type[0][1] == 'NEE_SOMS_VAAK'){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . '% van de ouders  ' . filter_text($question->{'short_description'}).'.';
+                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'} . "% van de $target  " . filter_text($question->{'short_description'}).'.';
                 }
             }
         }
         foreach($all_questions as $question_number=>$question){
             if ($question->{'id'} == 65){
                 $satisfactionSummary[] = 
-                    $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'}.' procent van de ouders ziet hun kind met plezier naar school gaan (landelijk is dit '.$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
+                    $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'}." procent van de $target ziet hun kind met plezier naar school gaan (landelijk is dit ".$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
             }
         }
         $summary_docx -> addList($satisfactionSummary, $paramsList);
