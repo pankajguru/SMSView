@@ -48,14 +48,16 @@ n', $paramsTextHeading);
                 //gather data
                 //$peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
                 //$alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-                $advice[] =$percentile_data[15];
+                $advice[] =$percentile_data[15].'(Beter dan '.round($percentile_data[0]).'%)';
                 $description = $percentile_data[15];
                 
                 $description = str_replace("'", "", $description);
                 if (strlen($description)>40){
                     //try to cut off at next space
                     $pos = strpos($description, ' ', 40);
-                    $description = substr($description, 0, $pos).'...';
+                    if ($pos < 39){
+                        $description = substr($description, 0, $pos).'...';
+                    }
                 }
                 $names = array(($key+1).'. '.$description, round($percentile_data[0]));
                 $min_value = $percentile_data[3];

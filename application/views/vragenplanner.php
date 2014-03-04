@@ -123,6 +123,11 @@
     </fieldset>
     </form>
 </div>
+
+<div id="dialog-confirm" title="bestellen">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>De peiling is succesvol opgeslagen onder naam: <span id="questionaire_name"></span>. Wilt u deze vragenlijst bestellen?</p>
+</div>
+
 </html>
 
 

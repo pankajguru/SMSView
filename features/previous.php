@@ -105,7 +105,7 @@ class previous
         $previous_docx->addText($text);
         $previous_docx->addList($bad, $paramsList);
         $text[] = array(
-            'text' => 'Deze rubrieken worden hetzelfde beoordeeld als bij de vorige peiling.:',
+            'text' => 'Deze rubrieken worden hetzelfde beoordeeld als bij de vorige peiling.',
             'sz' => 10,
             'font' => 'Century Gothic',
         );

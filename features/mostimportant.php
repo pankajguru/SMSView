@@ -190,7 +190,7 @@ var_dump($mostimportant_table->toXMLString());
                 }
                     $category_peiling = strtolower($mostimportant_data[$i]['peiling']);
                     $category_alle_scholen = strtolower($mostimportant_data[$i]['alle_scholen']);
-                    $difference = ($category_peiling == $category_alle_scholen) ? 'Net als' : 'In tegenstelling tot';
+                    $difference = (trim($category_peiling) == trim($category_alle_scholen)) ? 'Net als' : 'In tegenstelling tot';
                     $docx -> addTemplateVariable("class:mostimportantProperties:category:$i:peiling", strval($category_peiling));
                     $docx -> addTemplateVariable("class:mostimportantProperties:category:$i:allescholen", strval($category_peiling));
                     $docx -> addTemplateVariable("class:mostimportantProperties:difference:$i", strval($difference));

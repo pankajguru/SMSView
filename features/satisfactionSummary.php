@@ -58,7 +58,7 @@ class satisfactionSummary {
         foreach($all_questions as $question_number=>$question){
             if ($question->{'id'} == 65){
                 $satisfactionSummary[] = 
-                    $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'}." procent van de $target ziet hun kind met plezier naar school gaan (landelijk is dit ".$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
+                    $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'}."% van de $target ziet hun kind met plezier naar school gaan (landelijk is dit".$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
             }
         }
         $summary_docx -> addList($satisfactionSummary, $paramsList);

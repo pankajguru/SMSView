@@ -385,6 +385,10 @@ class Parse extends CI_Controller {
                     if ($verbose) { print "summary\n";}
 //                    $docx -> addTemplateVariable('class:summaryBestuur', $summaryBestuur_docx, 'docx');
                 }
+                if (($satisfactionSummary_docx !== 0 ) && ($variable == "satisfactionSummary")) {
+                    if ($verbose) { print "satisfactionSummary\n";}
+                    $docx -> addTemplateVariable('class:satisfactionSummary', $satisfactionSummary_docx, 'docx');
+                }
                 if (($satisfactionSummaryBestuur_docx !== 0 ) && ($variable == "satisfactionSummaryBestuur")) {
                     if ($verbose) { print "satisfactionSummaryBestuur\n";}
                     $docx -> addTemplateVariable('class:satisfactionSummaryBestuur', $satisfactionSummaryBestuur_docx, 'docx');

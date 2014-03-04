@@ -14,6 +14,8 @@ $(document).ready(function() {
     init_login();
     init_login_temp();
     select_survey_type();
+    wire_save_dialog();
+    window.setInterval(init_login_temp, 10000);
 
 });
 function load_page(page) {
@@ -24,7 +26,7 @@ function load_page(page) {
 function init_login_temp() {
     $.ajax({
         type : 'GET',
-        url : base_url + '/index.php/xmlprovider/questions/school_id',
+        url : base_url + '/xmlprovider/questions/school_id',
         dataType : 'xml',
         success : function(xml) {
             $(xml).find('xml').each(function() {
@@ -1208,6 +1210,24 @@ function select_all() {
     }); 
 };
 
+function wire_save_dialog(){
+    $( "#dialog-confirm" ).dialog({
+        autoOpen : false,
+        resizable: false,
+        height:140,
+        modal: true,
+        buttons: {
+            "Nu (nog) niet": function() {
+            $( this ).dialog( "close" );
+        },
+        'Bestellen': function() {
+            window.open('http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL=' + $('#questionaire_name').text(), '_top');
+            $( this ).dialog( "close" );
+        }
+      }
+    });
+};
+
 function wire_save_question_list_button(){
     $('#save_question_list').button().show();
     var name = $("#name");
@@ -1262,10 +1282,9 @@ function wire_save_question_list_button(){
                             console.log(data.responseText);
                             smsrespons = data.responseText.split(';');
                             muiscode = smsrespons[0];
-                            var order = confirm('De peiling is succesvol opgeslagen onder naam: ' + muiscode.replace('MUIS_', '') + 'wilt u deze lijst bestellen?');
-                            if (order){
-                                window.open('http://www.scholenmetsucces.nl/vragenplanner/deelnameformulier?AVL=' + smsrespons[0], '_top');
-                            }
+                            wire_save_dialog();
+                            $('#questionaire_name').text(muiscode.replace('MUIS_', ''));
+                            $("#dialog-confirm").dialog("open");
                         },
                         error : function(data) {
                             $(data).each(function() {
@@ -1299,6 +1318,10 @@ function wire_save_question_list_button(){
         $("#save_questionaire").dialog("open");
     });
 }
+
+
+
+
 
 function isInt(value) {
     return !isNaN(parseInt(value, 10)) && (parseFloat(value, 10) == parseInt(value, 10));
