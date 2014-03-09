@@ -213,13 +213,3 @@ class previousBestuur
 
 }
 
-function arr_reindex( $arr ) 
-{
-    ksort($arr);
-    $arr2 = array();
-    foreach($arr as $key => $value)
-    { 
-        $arr2[] = $value;     
-    } 
-    return $arr2; 
-} 
