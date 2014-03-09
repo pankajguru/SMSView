@@ -11,7 +11,7 @@ class satisfactionPerCategoryBestuur
         require_once("./features/utils.php");
         $temp           = 'temp/';
         if (!isset($data["table.satisfaction.data.bestuur"])){
-            return '';
+            return 0;
         }
         $datastring     = $data['table.satisfaction.data.bestuur'];
         $bestuur_name   = $data['bestuur.name'];
