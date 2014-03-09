@@ -3841,6 +3841,7 @@ class CreateDocx extends CreateDocument
                                 'word/' . $files['dest_file'], $files['src_string']
                             );
                         } elseif (isset($files['src_file'])) {
+//                            echo $files['src_file']. " == ".$files['dest_file']."\n";
                             $zipDocxTemplate->addFile($files['src_file'], 'word/' . $files['dest_file']);
                         }
                     }

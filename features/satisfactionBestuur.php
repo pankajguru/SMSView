@@ -12,8 +12,11 @@ class satisfactionBestuur
         $temp           = 'temp/';
         $datastring     = $data['table.satisfaction.data.bestuur'];
         $bestuur_name   = $data['bestuur.name'];
+        if (!isset($data['table.satisfaction.data.bestuur'])){
+            return 0;
+        }
         if (!isset($data["question.type.$type.scalefactor"])){
-            return '';
+            return 0;
         }
         $scale_factor = $data["question.type.$type.scalefactor"];
         $importance_categories = get_importance_categories($data);
@@ -178,7 +181,7 @@ class satisfactionBestuur
                     $name = "$bestuur_name ";
                 } elseif ($key == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                    $name = "Vorige peiling ".$schoolname." ";
+                    $name = "Vorige peiling ".$bestuur_name." ";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                     $name ="Alle Scholen ";
@@ -251,7 +254,7 @@ class satisfactionBestuur
                     $name = "$bestuur_name ";
                 } elseif ($key == 'vorige_peiling') {
                     if (!$ref['vorige_peiling']) continue;
-                    $name = "Vorige peiling ".$schoolname." ";
+                    $name = "Vorige peiling ".$bestuur_name." ";
                 } elseif ($key == 'alle_scholen') {
                     if (!$ref['alle_scholen']) continue;
                 } else {

@@ -42,7 +42,7 @@ class previousBestuur
             $previous_number = 0;
             if (isset($previous_data->{'vorige_peiling'})){
                 foreach ($previous_data->{'vorige_peiling'} as $previous){
-                    if ($previous[0] == $previous_data->{'peiling'}[$key][0]){
+                    if ($previous[0] == $previous_data->{'bestuur'}[$key][0]){
                         $previous_number = Scale10($previous[2], $scale_factor);
                     }
                 }
@@ -58,7 +58,7 @@ class previousBestuur
             return 0;
         }
         
-        $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $schoolname, $temp);
+        $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $bestuur_name, $temp);
 
         $paramsImg = array(
             'name' => $previous_graphic, 
@@ -117,7 +117,7 @@ class previousBestuur
 
         $previous_docx->modifyPageLayout('A4');
 
-		$filename = $temp.'previous'.randchars(12);
+		$filename = $temp.'previousBestuur'.randchars(12);
         $previous_docx->createDocx($filename);
         unset($previous_docx);
 		unlink($previous_graphic);
@@ -125,7 +125,7 @@ class previousBestuur
         
     }
     
-    private function _draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $schoolname, $temp) {
+    private function _draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $bestuur_name, $temp) {
         /* Create the pData object */
         $myData = new pData();
 
@@ -183,7 +183,7 @@ class previousBestuur
             ));
         $myPicture->setShadow(FALSE);
 
-        $myPicture->drawText(120, 30,$schoolname,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(120, 30,$bestuur_name,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
         $myPicture->drawText(120, 70,"Rubriek",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
         $myPicture->drawText(770, 70,"vorig:",array("R"=>254,"G"=>204,"B"=>52,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         $myPicture->drawText(1300, 70,"nu:",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
@@ -204,7 +204,7 @@ class previousBestuur
             }
         }
         
-        $filename = $temp . "previous".randchars(12).".png";
+        $filename = $temp . "previousBestuur".randchars(12).".png";
         $myPicture -> render($filename);
 
         return $filename;
