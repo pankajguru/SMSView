@@ -51,7 +51,7 @@ class satisfactionImportance {
                     continue;
                 }
                 if (!isset($key)){
-                    continue;
+                    continue; 
                 }
                 if ($key == 'peiling'){
                 } elseif ($key_underscore == 'vorige_peiling') {
