@@ -113,14 +113,27 @@ class satisfactionPerCategoryBestuur
                 $value = ' - ';
                 if (isset($satisfaction_array[$key][$category_key])){
                     $value = number_format(Scale10($satisfaction_array[$key][$category_key],$scale_factor),1,'.','');
-                    if ($value < 6.5){
-                        $paramsTextTable['cell_color'] = 'FF5050';
-                    } elseif ($value < 7) {
-                        $paramsTextTable['cell_color'] = 'FFCC66';
-                    } elseif ($value < 8) {
-                        $paramsTextTable['cell_color'] = 'CCFF99';
+                    $basetype = $data['basetype'];
+                    if ($basetype == '3') {
+                        if ($value < 6.0){
+                            $paramsTextTable['cell_color'] = 'FF5050';
+                        } elseif ($value < 6.5) {
+                            $paramsTextTable['cell_color'] = 'FFCC66';
+                        } elseif ($value < 7.5) {
+                            $paramsTextTable['cell_color'] = 'CCFF99';
+                        } else {
+                           $paramsTextTable['cell_color'] = '99CC00';
+                        }
                     } else {
-                       $paramsTextTable['cell_color'] = '99CC00';
+                        if ($value < 6.5){
+                            $paramsTextTable['cell_color'] = 'FF5050';
+                        } elseif ($value < 7) {
+                            $paramsTextTable['cell_color'] = 'FFCC66';
+                        } elseif ($value < 8) {
+                            $paramsTextTable['cell_color'] = 'CCFF99';
+                        } else {
+                           $paramsTextTable['cell_color'] = '99CC00';
+                        }
                     }
                     $paramsTextTable['text'] = $value;
                     $total_value += $value;
