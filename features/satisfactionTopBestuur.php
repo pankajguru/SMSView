@@ -14,7 +14,7 @@ class satisfactionTopBestuur
 //        $datastring     = $data['all.questions.bestuur'];
         $schoolname     = $data['bestuur.name'];
         if (!isset($data['question.type.satisfaction'])){
-            return "";
+            return 0;
         }
         $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
         $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
@@ -129,7 +129,7 @@ class satisfactionTopBestuur
                 }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text(isset($question->{'neutral_description'})?$question->{'neutral_description'}:$question->{'short_description'}),
-                    'peiling' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'peiling'},
+                    'bestuur' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'bestuur'},
                     'alle_scholen' => $alle_scholen_perc
                 );
             } else {
@@ -140,7 +140,7 @@ class satisfactionTopBestuur
                 }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text(isset($question->{'neutral_description'})?$question->{'neutral_description'}:$question->{'short_description'}),
-                    'peiling' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'peiling'},
+                    'bestuur' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'bestuur'},
                     'alle_scholen' => $alle_scholen_perc
                 );
             }
@@ -163,7 +163,7 @@ class satisfactionTopBestuur
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
 
-            $paramsTextTable['text'] = $satisfaction_array[$i]['peiling'].'%';
+            $paramsTextTable['text'] = $satisfaction_array[$i]['bestuur'].'%';
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
             $text->{'border'} = $paramsTable;
             $satisfaction_table[$i][$count++] = $text;
