@@ -10,7 +10,7 @@ class satisfactionPriorityScatter {
         require_once("./features/utils.php");
 
         if (!isset($data["priority.satisfaction.table.data.scatter"])){
-            return '';
+            return 0;
         }
 
         $temp = 'temp/';
@@ -58,7 +58,6 @@ class satisfactionPriorityScatter {
                 }
             }
         }
-        
         $satisfactionPriorityScatter_graphic = $this->_draw_graphic($graphic_data_x, $graphic_data_y, $categories, $temp);
 
         $paramsImg = array(

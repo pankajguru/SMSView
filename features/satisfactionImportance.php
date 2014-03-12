@@ -181,7 +181,7 @@ class satisfactionImportance {
 
             $satisfactionImportance_docx->addText('',array());
 
-            $satisfactionImportance_docx->addText($name,array(
+            $satisfactionImportance_docx->addText(str_replace('_', ' ',$name),array(
                     'font' => 'Century Gothic',
                     'b' => 'single', 
                     'sz' => 10,

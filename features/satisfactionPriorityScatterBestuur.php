@@ -10,7 +10,7 @@ class satisfactionPriorityScatterBestuur {
         require_once("./features/utils.php");
 
         if (!isset($data["priority.satisfaction.table.data.scatter.bestuur"])){
-            return '';
+            return 0;
         }
 
         $temp = 'temp/';

@@ -169,7 +169,7 @@ class percentagesBestuur
                         $answer_peiling[$answer[0]] = $answer;
                     }
                     $basetype = $data['basetype'];
-                    if ($basetype == '2') {
+                    if ($basetype != '1') {
                         $satisfied = isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0;
                         $unsatisfied = isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0;
                         $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
