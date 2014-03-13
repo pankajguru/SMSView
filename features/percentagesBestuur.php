@@ -169,7 +169,7 @@ class percentagesBestuur
                         $answer_peiling[$answer[0]] = $answer;
                     }
                     $basetype = $data['basetype'];
-                    if ($basetype != '1') {
+                    if ($basetype == '2') {
                         $satisfied = isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0;
                         $unsatisfied = isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0;
                         $satisfied_total = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0) +
@@ -235,15 +235,27 @@ class percentagesBestuur
                             continue;
                         }
                         if (($satisfied_percentage + $unsatisfied_percentage) > 0){
-                        $satisfaction_rate = ($satisfied_percentage / ($satisfied_percentage + $unsatisfied_percentage) ) * 100;
-                            if ($satisfaction_rate < 75){
-                                $paramsTextTable['cell_color'] = 'FF5050';
-                            } elseif ($satisfaction_rate < 85) {
-                                $paramsTextTable['cell_color'] = 'FFCC66';
-                            } elseif ($satisfaction_rate < 95) {
-                                $paramsTextTable['cell_color'] = 'CCFF99';
+                            $satisfaction_rate = ($satisfied_percentage / ($satisfied_percentage + $unsatisfied_percentage) ) * 100;
+                            if ($basetype == '1') {
+                                if ($satisfaction_rate < 75){
+                                    $paramsTextTable['cell_color'] = 'FF5050';
+                                } elseif ($satisfaction_rate < 85) {
+                                    $paramsTextTable['cell_color'] = 'FFCC66';
+                                } elseif ($satisfaction_rate < 95) {
+                                    $paramsTextTable['cell_color'] = 'CCFF99';
+                                } else {
+                                   $paramsTextTable['cell_color'] = '99CC00';
+                                }
                             } else {
-                               $paramsTextTable['cell_color'] = '99CC00';
+                                if ($satisfaction_rate < 70){
+                                    $paramsTextTable['cell_color'] = 'FF5050';
+                                } elseif ($satisfaction_rate < 80) {
+                                    $paramsTextTable['cell_color'] = 'FFCC66';
+                                } elseif ($satisfaction_rate < 95) {
+                                    $paramsTextTable['cell_color'] = 'CCFF99';
+                                } else {
+                                   $paramsTextTable['cell_color'] = '99CC00';
+                                }
                             }
                         }
                     }
