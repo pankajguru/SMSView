@@ -147,7 +147,7 @@ class satisfactionTopBestuur
         }
 
 
-        usort($satisfaction_array, "cmp_percentages");
+        usort($satisfaction_array, "cmp_percentages_bestuur");
         
         if (!$top){
 //            $satisfaction_array = array_reverse($satisfaction_array);
@@ -268,3 +268,12 @@ class satisfactionTopBestuur
         
 
 }
+
+        function cmp_percentages_bestuur($a, $b)
+        {
+            if ($a['peiling'] == $b['peiling']) {
+                return 0;
+            }
+            return ($a['peiling'] < $b['peiling']) ? 1 : -1;
+        }
+

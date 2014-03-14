@@ -247,11 +247,11 @@ class percentagesBestuur
                                    $paramsTextTable['cell_color'] = '99CC00';
                                 }
                             } else {
-                                if ($satisfaction_rate < 70){
+                                if ($satisfaction_rate < 65){
                                     $paramsTextTable['cell_color'] = 'FF5050';
-                                } elseif ($satisfaction_rate < 80) {
+                                } elseif ($satisfaction_rate < 75) {
                                     $paramsTextTable['cell_color'] = 'FFCC66';
-                                } elseif ($satisfaction_rate < 95) {
+                                } elseif ($satisfaction_rate < 90) {
                                     $paramsTextTable['cell_color'] = 'CCFF99';
                                 } else {
                                    $paramsTextTable['cell_color'] = '99CC00';
