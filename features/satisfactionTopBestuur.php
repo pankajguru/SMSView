@@ -271,9 +271,9 @@ class satisfactionTopBestuur
 
         function cmp_percentages_bestuur($a, $b)
         {
-            if ($a['peiling'] == $b['peiling']) {
+            if ($a['bestuur'] == $b['bestuur']) {
                 return 0;
             }
-            return ($a['peiling'] < $b['peiling']) ? 1 : -1;
+            return ($a['bestuur'] < $b['bestuur']) ? 1 : -1;
         }
 
