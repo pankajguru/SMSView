@@ -53,7 +53,7 @@ class scoresPercentagesBestuur
         }
 //        $this->_error_dump($docx_array);
         //loop through docxs
-        $count = 1;
+        $count = 0;
         foreach($docx_array as $groupname => $sap_docx){
             //create group heading
             if ($sap_docx != null){

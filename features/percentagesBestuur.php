@@ -226,7 +226,6 @@ class percentagesBestuur
                             //yes no
                             $satisfied = (isset($answer_peiling[2][2]) ? $answer_peiling[2][2] : 0);
                             $unsatisfied = (isset($answer_peiling[1][2]) ? $answer_peiling[1][2] : 0);
-                            echo $question->{'question_type'}[0][4]."=2\n";
                         } else {
                             //satisfied
                             $satisfied = (isset($answer_peiling[4][2]) ? $answer_peiling[4][2] : 0) + (isset($answer_peiling[3][2]) ? $answer_peiling[3][2] : 0);
