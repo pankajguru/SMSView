@@ -10,7 +10,7 @@ class satisfactionTopBestuur
         if (!isset($data['all.questions.bestuur'])){
             return 0;
         }
-        $datastring     = $data['get_all_question_props'];
+        $datastring     = $data['all.questions.bestuur'];
 //        $datastring     = $data['all.questions.bestuur'];
         $bestuurname     = $data['bestuur.name'];
         if (!isset($data['question.type.satisfaction'])){
@@ -143,7 +143,6 @@ class satisfactionTopBestuur
                     'bestuur' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'bestuur'},
                     'alle_scholen' => $alle_scholen_perc
                 );
-                echo $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{$bestuurname}." \n";
             }
         }
 
@@ -165,7 +164,7 @@ class satisfactionTopBestuur
             $satisfaction_table[$i][$count++] = $text; //title
 
             $paramsTextTable['text'] = $satisfaction_array[$i]['bestuur'].'%';
-            echo $satisfaction_array[$i]['bestuur']." * \n";
+
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
             $text->{'border'} = $paramsTable;
             $satisfaction_table[$i][$count++] = $text;
@@ -227,7 +226,7 @@ class satisfactionTopBestuur
         );
 
         $satisfaction_header = array();
-        $paramsTextTableHeader['text'] = 'Onze school';
+        $paramsTextTableHeader['text'] = '';
         $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableHeader));
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;

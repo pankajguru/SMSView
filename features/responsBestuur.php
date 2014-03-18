@@ -36,16 +36,16 @@ class responsBestuur
         $headerStyle['text'] = 'Respons';
         $text = $response_bestuur_docx->addElement('addText', array($headerStyle));
         $response_bestuur_table[0][2] = $text; 
-        $row=1;
+        $rowcount=1;
         foreach($response_bestuur as $key => $row){
-            $tableStyle['cell_color'] = ($row&1)?'E6E6E6':'FFFFFF';
+            $tableStyle['cell_color'] = ($rowcount&1)?'E6E6E6':'FFFFFF';
             $tableStyle['text'] = $key;
             $text = $response_bestuur_docx->addElement('addText', array($tableStyle));
-            $response_bestuur_table[$row][0] = $text ; 
+            $response_bestuur_table[$rowcount][0] = $text ; 
             $tableStyle['text'] = $row.'%';
             $text = $response_bestuur_docx->addElement('addText', array($tableStyle));
-            $response_bestuur_table[$row][1] = $text ; 
-            $row++;            
+            $response_bestuur_table[$rowcount][1] = $text ; 
+            $rowcount++;            
         }
         $size_col = array(4755, 4755);
 
