@@ -33,6 +33,10 @@ class summary {
             if ($key == "number_of_groups"){
                 continue;
             }
+            if ($category->groupname == 'Ouderbetrokkenheid'){
+                //ouderbetrokkenheid is not good in summary
+                continue;
+            }
             if ((count($category->top) > 0) or (count($category->bottom) > 0)){
                 $summary_docx->addText(filter_text($category->groupname),array(
                     'sz' => 10,
@@ -43,7 +47,7 @@ class summary {
                 $text = '';
                 foreach($category->top as $topkey => $top){
                     if ($topkey == 0){
-                        $text .= "Onze school wordt door relatief veel $target gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de $target is hierover tevreden). ";
+                        $text .= "De school wordt door relatief veel $target gewaardeerd ten aanzien van '".filter_text($top[1])."' (".round($top[2]*100)."% van de $target is hierover tevreden). ";
                     }
                     if ($topkey == 1){
                         $text .= "Ook zijn relatief veel $target tevreden over '".filter_text($top[1])."' (".round($top[2]*100)."%). ";

@@ -48,14 +48,25 @@ n', $paramsTextHeading);
                 //gather data
                 //$peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
                 //$alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-                $advice[] =$percentile_data[15].'(Beter dan '.round($percentile_data[0]).'%)';
+                if ($good='green'){
+                    $advice[] =$percentile_data[15].'(Beter dan '.round($percentile_data[0]).'%)';
+                } else {
+                    $advice[] =$percentile_data[15];
+                }
                 $description = $percentile_data[15];
                 
                 $description = str_replace("'", "", $description);
+                
                 if (strlen($description)>40){
-                    //try to cut off at next space
-                    $pos = strpos($description, ' ', 40);
-                    if ($pos < 39){
+                    //try to cut off at next space or /
+                    $pos_space = strpos($description, ' ', 40);
+                    $pos_sledge = strpos($description, '/', 40);
+                    if (($pos_space < $pos_sledge) or ($pos_sledge === false)){
+                        $pos = $pos_space;
+                    } else {
+                        $pos = $pos_sledge;
+                    }
+                    if ($pos != (strlen($description)-1)){
                         $description = substr($description, 0, $pos).'...';
                     }
                 }

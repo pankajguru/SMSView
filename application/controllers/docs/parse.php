@@ -292,7 +292,7 @@ class Parse extends CI_Controller {
             if ($type == 'xml') {
                 //get direct from xml
                 if (isset($xmlData[$variable])){
-                    $docx -> addTemplateVariable($template_variable, $xmlData[$variable]);
+                    $docx -> addTemplateVariable($template_variable, htmlentities($xmlData[$variable]));
                 }
             } elseif ($type == "proc") {
                 //process

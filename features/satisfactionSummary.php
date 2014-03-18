@@ -60,6 +60,15 @@ class satisfactionSummary {
                 $satisfactionSummary[] = 
                     $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'peiling'}."% van de $target ziet hun kind met plezier naar school gaan (landelijk is dit".$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
             }
+            //,126  Van de leerlingen vindt 70% dat je op school veel leert (landelijk is dit 76%).
+            //, 127, Volgens 82% zijn hun ouders tevreden over de school; 3% denkt dat hun ouders niet tevreden zijn (landelijk zijn deze percentages 79% en 4%).
+            //128, Van de leerlingen denkt 19% soms of vaak ‘zat ik maar op een andere school’; 81% denkt dit bijna nooit. De landelijke percentages zijn respectievelijk 29% en 70%
+            //3667,  75% van de leerlingen voelt zich veilig in de school, landelijk is dit eveneens 75%.
+            //140,   47% van de ouders is actief als hulpouder of commissielid. Landelijk is dit percentage 52%.
+            //3695,  Van de ouders helpt 92% hun kind met huiswerk als zij dit willen. Landelijk is dit 91%.
+            // 3698,  Een gesprek thuis over de gebeurtenissen op school komt bij 90% soms of vaak voor; landelijk is dit ook bij 90% van de leerlingen het geval.
+            //139,  Van de leerlingen eet 71% vaak goed voordat ze naar school gaan; 5% van de kinderen eet ’s morgens bijna nooit. Landelijk zijn deze gemiddelden respectievelijk 72% en 5%.
+            
         }
         $summary_docx -> addList($satisfactionSummary, $paramsList);
 		

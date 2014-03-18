@@ -10,11 +10,11 @@ class satisfactionBestuur
         require_once("./pChart/class/pImage.class.php");
         require_once("./features/utils.php");
         $temp           = 'temp/';
-        $datastring     = $data['table.satisfaction.data.bestuur'];
-        $bestuur_name   = $data['bestuur.name'];
         if (!isset($data['table.satisfaction.data.bestuur'])){
             return 0;
         }
+        $datastring     = $data['table.satisfaction.data.bestuur'];
+        $bestuur_name   = $data['bestuur.name'];
         if (!isset($data["question.type.$type.scalefactor"])){
             return 0;
         }

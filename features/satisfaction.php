@@ -346,7 +346,11 @@ class satisfaction
         );
 
         $satisfaction_header = array();
-        $paramsTextTableHeader['text'] = 'Onze school';
+        if ($type=='satisfaction'){
+            $paramsTextTableHeader['text'] = 'Tevredenheid';
+        } else {
+            $paramsTextTableHeader['text'] = 'Belang';
+        }
         $text = $satisfaction_docx->addElement('addText', array($paramsTextTableHeader));
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;

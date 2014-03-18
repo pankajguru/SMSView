@@ -219,7 +219,7 @@ class satisfactionTop
         );
 
         $satisfaction_header = array();
-        $paramsTextTableHeader['text'] = 'Onze school';
+        $paramsTextTableHeader['text'] = '';
         $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableHeader));
         $text->{'border'} = $paramsTable;
         $satisfaction_header[0][] = $text;
