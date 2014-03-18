@@ -50,9 +50,15 @@ class scoresAndPercentages
 //        $this->_error_dump($docx_array);
         //loop through docxs
         $count = 0;
+        $filteredgroupname = '';
         foreach($docx_array as $groupname => $sap_docx){
             //create group heading
             if ($sap_docx != null){
+                $filteredgroupname = str_replace(array('percentages','scores'), array('',''), $groupname);
+                if ($filteredgroupname != $old_groupname){
+                    $old_groupname = $filteredgroupname;
+                    $count++;
+                }
                 $scoresAndPercentages_docx->addText(array(array(
                     'text' => 'Rubriek '.$count.' '.filter_text($groupname), 
                     'b' => 'single', 
@@ -63,9 +69,6 @@ class scoresAndPercentages
                 $scoresAndPercentages_docx->addBreak('line');
                 $scoresAndPercentages_docx->addDOCX($sap_docx);                   
                 $scoresAndPercentages_docx->addBreak('page');
-                if (preg_match('/scores$/', $groupname)){
-                    $count++;
-                }
             }
         }
 		$filename = $temp.'scoresAndPercentages'.randchars(12);
