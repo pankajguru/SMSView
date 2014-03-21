@@ -49,7 +49,7 @@ class scoresAndPercentages
         }
 //        $this->_error_dump($docx_array);
         //loop through docxs
-        $count = 0;
+        $count = -1;
         $old_groupname = '';
         foreach($docx_array as $groupname => $sap_docx){
             //create group heading
