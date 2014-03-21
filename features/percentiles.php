@@ -48,7 +48,7 @@ n', $paramsTextHeading);
                 //gather data
                 //$peiling_averages = $question->{'statistics'}->{'averages'}->{'peiling'}[0];
                 //$alle_scholen_averages = $question->{'statistics'}->{'averages'}->{'alle_scholen'}[0];
-                if ($good='green'){
+                if ($good=='green'){
                     $advice[] =$percentile_data[15].'(Beter dan '.round($percentile_data[0]).'%)';
                 } else {
                     $advice[] =$percentile_data[15];
