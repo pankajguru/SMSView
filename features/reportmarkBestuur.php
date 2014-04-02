@@ -61,6 +61,9 @@ class reportmarkBestuur
                 if ($reference == ''){
                     continue;
                 }
+                if (preg_match('/\d\d\d\d$/',$reference)){
+                    continue;
+                }
                 if ($reference == 'peiling'){
                     $text[] = "$schoolname ";
                 } elseif ($reference == 'vorige_peiling') {

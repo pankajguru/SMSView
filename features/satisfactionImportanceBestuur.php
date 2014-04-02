@@ -52,6 +52,9 @@ class satisfactionImportanceBestuur {
                 if ($key == ''){
                     continue;
                 }
+                if (preg_match('/\d\d\d\d$/',$key)){
+                    continue;
+                }
                 if (!isset($key)){
                     continue;
                 }
@@ -80,6 +83,9 @@ class satisfactionImportanceBestuur {
             }
             if ($key == ''){
                     continue;
+            }
+            if (preg_match('/\d\d\d\d$/',$key)){
+                continue;
             }
             if (($key == 'peiling') || ($key == 'bestuur') ){
             } elseif ($key_underscore == 'alle_scholen') {
@@ -125,6 +131,9 @@ class satisfactionImportanceBestuur {
             if ($key == ''){
                     continue;
             }
+                if (preg_match('/\d\d\d\d$/',$key)){
+                    continue;
+                }
                 if (($key == 'peiling') || ($key == 'bestuur')){
                     $name = "$bestuur_name ";
                 } elseif ($key == 'alle_scholen') {

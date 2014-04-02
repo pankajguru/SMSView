@@ -124,6 +124,9 @@ class satisfactionBestuur
                 if ($key == ''){
                     continue;
                 }
+                if (preg_match('/\d\d\d\d$/',$key)){
+                    continue;
+                }
                 if ($key == 'locatie_'){
                     continue;
                 }
@@ -169,6 +172,9 @@ class satisfactionBestuur
                     continue;
                 }
                 if ($key == ''){
+                    continue;
+                }
+                if (preg_match('/\d\d\d\d$/',$key)){
                     continue;
                 }
                 if (!isset($key)){
@@ -242,6 +248,9 @@ class satisfactionBestuur
                     continue;
                 }
                 if ($key == ''){
+                    continue;
+                }
+                if (preg_match('/\d\d\d\d$/',$key)){
                     continue;
                 }
                 if (!isset($key)){

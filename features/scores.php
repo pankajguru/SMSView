@@ -320,9 +320,13 @@ class scores
             //Make alle scholen bleu
             if (isset($myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"])){
                 $imageData = $myPicture -> DataSet -> Data["Series"]['Min values']["ImageData"];
-                $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+                if (isset($imageData[$alle_scholen_ref][0])){
+                    $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3],array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+                }
                 $imageData = $myPicture -> DataSet -> Data["Series"]['max_values']["ImageData"];
-                $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+                if (isset($imageData[$alle_scholen_ref][0])){
+                    $myPicture->drawFilledRectangle($imageData[$alle_scholen_ref][0],$imageData[$alle_scholen_ref][1],$imageData[$alle_scholen_ref][2],$imageData[$alle_scholen_ref][3], array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+                }
             }
         } else {
         }

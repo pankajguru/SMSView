@@ -136,6 +136,9 @@ class percentagesBestuur
                 if ($reference==''){
                     continue;
                 }
+                if (preg_match('/\d\d\d\d$/',$reference)){
+                    continue;
+                }
                 if ($reference == '_empty_'){
                     continue;
                 }

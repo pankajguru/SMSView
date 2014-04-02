@@ -579,9 +579,9 @@ class Parse extends CI_Controller {
 //        $satisfaction_docx = $satisfaction -> render($xmlData, $ref, 'satisfaction');
 //        unset($satisfaction);
        
-        $satisfactionBestuur = new satisfactionBestuur();
-        $satisfactionBestuur_docx = $satisfactionBestuur -> render($xmlData, $ref, 'satisfaction');
-        unset($satisfactionBestuur);
+//        $satisfactionBestuur = new satisfactionBestuur();
+//        $satisfactionBestuur_docx = $satisfactionBestuur -> render($xmlData, $ref, 'satisfaction');
+//        unset($satisfactionBestuur);
        
                
 //        $satisfactionPriorityScatter = new satisfactionPriorityScatter();
@@ -600,13 +600,13 @@ class Parse extends CI_Controller {
 //        $satisfactionTopBad_docx = $satisfactionTopBad -> render($xmlData, $ref, FALSE);
 //        unset($satisfactionTopBad);        
         
-//        $satisfactionTopGoodBestuur = new satisfactionTopBestuur();
-//        $satisfactionTopGoodBestuur_docx = $satisfactionTopGoodBestuur -> render($xmlData, $ref, TRUE);
-//        unset($satisfactionTopGoodBestuur);        
+        $satisfactionTopGoodBestuur = new satisfactionTopBestuur();
+        $satisfactionTopGoodBestuur_docx = $satisfactionTopGoodBestuur -> render($xmlData, $ref, TRUE);
+        unset($satisfactionTopGoodBestuur);        
         
-//        $satisfactionTopBadBestuur = new satisfactionTopBestuur();
-//        $satisfactionTopBadBestuur_docx = $satisfactionTopBadBestuur -> render($xmlData, $ref, FALSE);
-//        unset($satisfactionTopBadBestuur);        
+        $satisfactionTopBadBestuur = new satisfactionTopBestuur();
+        $satisfactionTopBadBestuur_docx = $satisfactionTopBadBestuur -> render($xmlData, $ref, FALSE);
+        unset($satisfactionTopBadBestuur);        
         
                        
 //        $mostimportant = new mostimportant();
@@ -663,13 +663,13 @@ class Parse extends CI_Controller {
 //        $satisfactionImportanceBestuur_docx = $satisfactionImportanceBestuur -> render($xmlData, $ref, $this->config);
 //        unset($satisfactionImportanceBestuur);
                
-//        $scoresPercentagesBestuur = new scoresPercentagesBestuur();
-//        $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
-//        unset($scoresPercentagesBestuur);
+        $scoresPercentagesBestuur = new scoresPercentagesBestuur();
+        $scoresPercentagesBestuur_docx = $scoresPercentagesBestuur -> render($xmlData, $ref);
+        unset($scoresPercentagesBestuur);
                
-        $responsBestuur = new responsBestuur();
-        $responsBestuur_docx = $responsBestuur -> render($xmlData, $ref);
-        unset($responsBestuur);
+//        $responsBestuur = new responsBestuur();
+//        $responsBestuur_docx = $responsBestuur -> render($xmlData, $ref);
+//        unset($responsBestuur);
                
                                                                                           
         $docx = new CreateDocx();
@@ -725,9 +725,9 @@ class Parse extends CI_Controller {
                 if ($variable == "satisfaction") {
 //                    $docx -> addTemplateVariable('class:satisfaction', $satisfaction_docx, 'docx');
                 }
-                if (($satisfactionBestuur_docx !== 0) && ($variable == "satisfactionBestuur")) {
-                    $docx -> addTemplateVariable('class:satisfactionBestuur', $satisfactionBestuur_docx, 'docx');
-                }
+//                if (($satisfactionBestuur_docx !== 0) && ($variable == "satisfactionBestuur")) {
+//                    $docx -> addTemplateVariable('class:satisfactionBestuur', $satisfactionBestuur_docx, 'docx');
+//                }
                 if ($variable == "satisfactionPerCategoryBestuur") {
 //                    $docx -> addTemplateVariable('class:satisfactionPerCategoryBestuur', $satisfactionPerCategoryBestuur_docx, 'docx');
                 }
@@ -742,8 +742,8 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:satisfactionTop:bad', $satisfactionTopBad_docx, 'docx');
                 }
                 if ($variable == "satisfactionTopBestuur") {
-//                    $docx -> addTemplateVariable('class:satisfactionTopBestuur:good', $satisfactionTopGoodBestuur_docx, 'docx');
-                    //$docx -> addTemplateVariable('class:satisfactionTopBestuur:bad', $satisfactionTopBadBestuur_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfactionTopBestuur:good', $satisfactionTopGoodBestuur_docx, 'docx');
+                    $docx -> addTemplateVariable('class:satisfactionTopBestuur:bad', $satisfactionTopBadBestuur_docx, 'docx');
                 }
                 if ($variable == "scoresAndPercentages") {
 //                    $docx -> addTemplateVariable('class:scoresAndPercentages', $scoresAndPercentages_docx, 'docx');
@@ -758,8 +758,6 @@ class Parse extends CI_Controller {
 //                    $docx -> addTemplateVariable('class:previous', $previous_docx, 'docx');
 //                }
                 if (($previousBestuur_docx !== 0) && ($variable == "previousbestuur")) {
-var_dump($previousBestuur_docx);
-                    echo "prev";
                     $docx -> addTemplateVariable('class:previousbestuur', $previousBestuur_docx, 'docx');
                 }
                 if ($variable == "summary") {
@@ -785,12 +783,11 @@ var_dump($previousBestuur_docx);
 //                    $docx -> addTemplateVariable('class:satisfactionImportanceBestuur', $satisfactionImportanceBestuur_docx, 'docx');
                 }
                 if ($variable == "scoresPercentagesBestuur") {
-//                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
+                    $docx -> addTemplateVariable('class:scoresPercentagesBestuur', $scoresPercentagesBestuur_docx, 'docx');
                 }
-                if (($responsBestuur_docx !== 0 ) && ($variable == "responsBestuur")) {
-var_dump($responsBestuur_docx);
-                    $docx -> addTemplateVariable('class:responsBestuur', $responsBestuur_docx, 'docx');
-                }
+//                if (($responsBestuur_docx !== 0 ) && ($variable == "responsBestuur")) {
+//                    $docx -> addTemplateVariable('class:responsBestuur', $responsBestuur_docx, 'docx');
+//                }
             }
 
         }

@@ -93,7 +93,7 @@ class scoresBestuur
                     'font' => 'Century Gothic'
             );
             
-            $scores_docx->addText($text);
+//            $scores_docx->addText($text);
             $legend = array($question->{'question_type'}[0][7],$question->{'question_type'}[0][8]);
             //gather data
             $names = array(); 
@@ -103,6 +103,10 @@ class scoresBestuur
                 if ($reference==''){
                     continue;
                 }
+                if (preg_match('/\d\d\d\d$/',$reference)){
+                    continue;
+                }
+                
                 if (is_null($question->{'statistics'}->{'averages'})){
                     continue;
                 }
@@ -121,6 +125,8 @@ class scoresBestuur
                 }
                 if (($reference == 'peiling') || ($reference == 'bestuur')){
                     $names[] = "$bestuur_name ";
+                } elseif ($reference == 'alle_scholen') {
+                    $names[] = 'Alle scholen';
                 } else {
                     $names[] = $reference;
                 }
@@ -160,11 +166,11 @@ class scoresBestuur
                 $answered[] = $averages[5];
             }
             if (count($names) > 0){
-                $scores_graphic = $this->_draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $alle_scholen, $legend, $temp);
+                $scores_graphic = $this->_draw_graphic($names, $values, $question_number.". ".filter_text($question->{'description'}), $answered, $legend,$max_value,$min_value, $temp);
                 
                 $paramsImg = array(
                     'name' => $scores_graphic,
-                    'scaling' => 50,
+                    'scaling' => 40,
                     'spacingTop' => 0,
                     'spacingBottom' => 0,
                     'spacingLeft' => 0,
@@ -187,8 +193,82 @@ class scoresBestuur
         }
         
     }
-    
-    private function _draw_graphic($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $lastBlue, $legend, $temp)
+
+    private function _draw_graphic($names, $values, $question, $answered, $legend,$max_value,$min_value, $temp) {
+        /* Create the pData object */
+        $myData = new pData();
+
+        $myData->addPoints($values,"peiling");
+
+        $myData->addPoints($names,"rubriek");
+        $myData->setAbscissa("rubriek");
+        $myData->setPalette("peiling",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
+        
+        /* Create the pChart object */
+        $pictureHeigth = 110 + 54 * count($names);
+        $myPicture = new pImage(900, $pictureHeigth, $myData);
+
+//        $myPicture->drawGradientArea(0,0,1400,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
+
+        /* Set the default font */
+        $myPicture -> setFontProperties(array(
+            "FontName" => "./pChart/fonts/calibri.ttf", 
+            "FontSize" => 24,
+            "R" => 255,
+//            "G" => 255,
+//            "B" => 255,
+            "Alpha" => 0,
+            "b" => "double"
+            
+            ));
+
+        $AxisBoundaries = array(
+            0 => array(
+                "Min" => $min_value,
+                "Max" => $max_value
+            )
+        );
+
+        $myPicture->setGraphArea(300,110,600,$pictureHeigth);
+//        $myPicture->drawFilledRectangle(500,60,670,190,array("R"=>255,"G"=>255,"B"=>255,"Surrounding"=>-200,"Alpha"=>10));
+        $myPicture->drawScale(array(
+            "ManualScale" => $AxisBoundaries,
+            "Mode" => SCALE_MODE_MANUAL,
+            "Pos"=>SCALE_POS_TOPBOTTOM,
+            "DrawSubTicks"=>FALSE,
+            "MinDivHeight" => 100,
+            "RemoveXAxis" => TRUE,
+            "LabelSkip"=>5,
+        )); 
+        $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
+        $myPicture->drawPlotChart(array(
+            "PlotSize"=>5,
+            "PlotBorder"=>TRUE,
+            "BorderSize"=>1,
+            ));
+        $myPicture->setShadow(FALSE);
+
+        $myPicture->drawText(0, 20,$question,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(300, 70,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(600 - (count($legend[1]) * 12), 70,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(700, 70,"m",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(800, 70,"n",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        //$myPicture->drawText(800, 80,"5",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+        //$myPicture->drawText(1200, 80,"10",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        foreach($names as $key => $previous_table_text_item){
+        //for ($i=0;$i<count($previous_table_text);$i++){
+            $myPicture->drawText(0, 138 + ($key)*54,$names[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+            $myPicture->drawText(700, 138 + ($key)*54,sprintf("%01.1f",$values[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+            $myPicture->drawText(800, 138 + ($key)*54,$answered[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        }
+        
+        $filename = $temp . "scores_bestuur".randchars(12).".png";
+        $myPicture -> render($filename);
+
+        return $filename;
+
+    }
+     private function _draw_graphic_old($question_number, $names, $empty, $stdev_left, $block, $stdev_right, $min_value, $max_value,$values, $answered, $lastBlue, $legend, $temp)
     { 
         /* Create and populate the pData object */
         $MyData = new pData();
