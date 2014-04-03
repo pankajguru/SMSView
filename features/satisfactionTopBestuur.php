@@ -3,7 +3,7 @@
 class satisfactionTopBestuur
 {
 
-    function render( &$data, $ref, $top = TRUE)
+    function render( &$data, $ref, $top = TRUE, $reference = 'bestuur')
     {
         require_once("./features/utils.php");
         $temp           = 'temp/';
@@ -15,6 +15,9 @@ class satisfactionTopBestuur
         $bestuurname     = $data['bestuur.name'];
         if (!isset($data['question.type.satisfaction'])){
             return 0;
+        }
+        if ( ($reference != 'alle_scholen') && ($reference != 'vorige_peiling') ){
+            $reference      = str_replace('_', ' ',$reference);
         }
         $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
         $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
@@ -129,7 +132,7 @@ class satisfactionTopBestuur
                 }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text(isset($question->{'neutral_description'})?$question->{'neutral_description'}:$question->{'short_description'}),
-                    'bestuur' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'bestuur'},
+                    'bestuur' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{$reference},
                     'alle_scholen' => $alle_scholen_perc
                 );
             } else {
@@ -140,7 +143,7 @@ class satisfactionTopBestuur
                 }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text(isset($question->{'neutral_description'})?$question->{'neutral_description'}:$question->{'short_description'}),
-                    'bestuur' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'bestuur'},
+                    'bestuur' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{$reference},
                     'alle_scholen' => $alle_scholen_perc
                 );
             }
@@ -163,6 +166,7 @@ class satisfactionTopBestuur
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$i][$count++] = $text; //title
 
+            $test = $satisfaction_array[$i];
             $paramsTextTable['text'] = $satisfaction_array[$i]['bestuur'].'%';
 
             $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTable));
@@ -193,7 +197,11 @@ class satisfactionTopBestuur
         $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableHeader));
         $satisfaction_titles[0][] = $text;
         
-        $paramsTextTableTitle['text'] = $bestuurname;
+        if ($reference == 'bestuur'){
+            $paramsTextTableTitle['text'] = $bestuurname;
+        } else {
+            $paramsTextTableTitle['text'] = $reference;
+        }
         $text = $satisfactionTop_docx->addElement('addText', array($paramsTextTableTitle));
         $text->{'border'} = $paramsTable;
         $satisfaction_titles[0][] = $text;

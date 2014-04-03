@@ -243,6 +243,26 @@ class satisfactionImportanceBestuur {
                 'textWrap' => 0, 
             );
             $satisfactionImportance_docx -> addImage($paramsImg);
+            $satisfactionImportance_docx->addText('',array());
+            
+            //add top 10
+            $satisfactionTopGoodBestuur = new satisfactionTopBestuur();
+            $satisfactionTopGoodBestuur_docx = $satisfactionTopGoodBestuur -> render($data, $ref, TRUE, $key);
+            unset($satisfactionTopGoodBestuur);    
+            //            print $satisfactionTopGoodBestuur_docxx;
+            $satisfactionImportance_docx -> addDOCX($satisfactionTopGoodBestuur_docx);
+            $satisfactionImportance_docx->addText('',array());
+            $satisfactionImportance_docx->addText('',array());
+            $satisfactionImportance_docx->addText('',array());
+            $satisfactionImportance_docx->addText('',array());
+            //            $satisfactionImportance_docx->addBreak('line');
+            $satisfactionTopBadBestuur = new satisfactionTopBestuur();
+            $satisfactionTopBadBestuur_docx = $satisfactionTopBadBestuur -> render($data, $ref, FALSE, $key);
+            unset($satisfactionTopBadBestuur);    
+//            print $satisfactionTopGoodBestuur_docxx;
+            $satisfactionImportance_docx -> addDOCX($satisfactionTopBadBestuur_docx);
+                            
+            
             $satisfactionImportance_docx->addBreak('page');
             
         }

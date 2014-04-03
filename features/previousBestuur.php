@@ -22,6 +22,7 @@ class previousBestuur
         
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
+        $refs = json_decode($datastring)->{'refs'};
         $previous_data  = json_decode($datastring)->{$type};
         
         //add graphic to docx
@@ -31,7 +32,14 @@ class previousBestuur
         $previous_table_peiling = array();
         $previous_table_vorige_peiling = array();
         $count = 0;
-        foreach ($previous_data->{'bestuur'} as $key => $previous){
+        foreach ($refs as $ref_key){
+            //$key_underscore = str_replace(' ', '_',$key);
+            if ( (preg_match('/\d\d\d\d$/',$ref_key)) or ($ref_key == 'vorige_peiling')){
+            } else {
+                continue;
+            }
+                
+        foreach ($previous_data->{$ref_key} as $key => $previous){
             if (!isset($previous[1])){
                 continue;
             }
@@ -40,8 +48,8 @@ class previousBestuur
                 continue;
             }
             $previous_number = 0;
-            if (isset($previous_data->{'vorige_peiling'})){
-                foreach ($previous_data->{'vorige_peiling'} as $previous){
+            if (isset($previous_data->{$ref_key})){
+                foreach ($previous_data->{$ref_key} as $previous){
                     if ($previous[0] == $previous_data->{'bestuur'}[$key][0]){
                         $previous_number = Scale10($previous[2], $scale_factor);
                     }
@@ -57,8 +65,12 @@ class previousBestuur
             print "no previous";
             return 0;
         }
-        
-        $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $bestuur_name, $temp);
+        if ($ref_key == 'vorige_peiling'){
+            $name = $bestuur_name;
+        } else {
+            $name = str_replace('_', ' ',$ref_key);;
+        }
+        $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $name, $temp);
 
         $paramsImg = array(
             'name' => $previous_graphic, 
@@ -70,7 +82,7 @@ class previousBestuur
             'textWrap' => 1, 
             //'border' => 0, 
             //'borderDiscontinuous' => 0
-            );
+            );  
         $previous_docx -> addImage($paramsImg);
         
         $good = array();
@@ -114,7 +126,10 @@ class previousBestuur
         );
         $previous_docx->addText($text);
         $previous_docx->addList($equal, $paramsList);
+        $previous_docx->addText('',array());
 
+        }
+        
         $previous_docx->modifyPageLayout('A4');
 
 		$filename = $temp.'previousBestuur'.randchars(12);

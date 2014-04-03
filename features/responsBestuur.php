@@ -12,7 +12,9 @@ class responsBestuur
         $schoolname     = $data['schoolnaam'];
         //konqord JSON is false becuse escape character on '
         $datastring     = str_replace('\\\'', '\'', $datastring);
+       
         $response_bestuur = json_decode($datastring);
+        $response_array =  $response_bestuur->{'response'};
         $headerStyle = array(
             'b' => 'double',
             'sz' => 10,
@@ -37,12 +39,12 @@ class responsBestuur
         $text = $response_bestuur_docx->addElement('addText', array($headerStyle));
         $response_bestuur_table[0][2] = $text; 
         $rowcount=1;
-        foreach($response_bestuur as $key => $row){
+        foreach($response_array as $key => $row){
             $tableStyle['cell_color'] = ($rowcount&1)?'E6E6E6':'FFFFFF';
-            $tableStyle['text'] = $key;
+            $tableStyle['text'] = $row[0];
             $text = $response_bestuur_docx->addElement('addText', array($tableStyle));
             $response_bestuur_table[$rowcount][0] = $text ; 
-            $tableStyle['text'] = $row.'%';
+            $tableStyle['text'] = $row[1].'%';
             $text = $response_bestuur_docx->addElement('addText', array($tableStyle));
             $response_bestuur_table[$rowcount][1] = $text ; 
             $rowcount++;            

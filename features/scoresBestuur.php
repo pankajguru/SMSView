@@ -33,6 +33,7 @@ class scoresBestuur
         $first = TRUE;
         $targeted = FALSE;
         $question_count = 0;
+        $alternate = false;
         foreach($all_questions_array as $question_number=>$question){
             if (($category != '') and ($category != $question->{'group_name'})){
                 continue;
@@ -76,6 +77,7 @@ class scoresBestuur
                 if (!$first){
                     //create pagebreak
                     $scores_docx->addBreak('page');
+                    $alternate = false;
                 }
                 if ($target_question != '') {
                     //create group heading
@@ -87,7 +89,7 @@ class scoresBestuur
             }            
             $text[] =
                 array(
-                    'text' => $question_number.". ".filter_text($question->{'description'}),
+                    'text' => $question_number.". ".filter_text($question->{'short_description'}),
                     'b' => 'single',
                     'sz' => 10,
                     'font' => 'Century Gothic'
@@ -166,8 +168,7 @@ class scoresBestuur
                 $answered[] = $averages[5];
             }
             if (count($names) > 0){
-                $scores_graphic = $this->_draw_graphic($names, $values, $question_number.". ".filter_text($question->{'description'}), $answered, $legend,$max_value,$min_value, $temp);
-                
+                $scores_graphic = $this->_draw_graphic($names, $values, $question_number.". ".filter_text($question->{'short_description'}), $answered, $legend,$max_value,$min_value, $alternate, $temp);
                 $paramsImg = array(
                     'name' => $scores_graphic,
                     'scaling' => 40,
@@ -177,6 +178,7 @@ class scoresBestuur
                     'spacingRight' => 0,
                     'textWrap' => 0,
                 );
+                $alternate = !$alternate; 
                 $scores_docx->addImage($paramsImg);
             }
             $question_count++;
@@ -194,19 +196,23 @@ class scoresBestuur
         
     }
 
-    private function _draw_graphic($names, $values, $question, $answered, $legend,$max_value,$min_value, $temp) {
+    private function _draw_graphic($names, $values, $question, $answered, $legend,$max_value,$min_value, $alternate, $temp) {
         /* Create the pData object */
         $myData = new pData();
 
         $myData->addPoints($values,"peiling");
-
-        $myData->addPoints($names,"rubriek");
-        $myData->setAbscissa("rubriek");
+        $left = 0;
+        if (!$alternate){
+            $myData->addPoints($names,"rubriek");
+            $myData->setAbscissa("rubriek");
+        } else {
+            $left = 300;
+        }
         $myData->setPalette("peiling",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100));
         
         /* Create the pChart object */
         $pictureHeigth = 110 + 54 * count($names);
-        $myPicture = new pImage(900, $pictureHeigth, $myData);
+        $myPicture = new pImage(900 - $left, $pictureHeigth, $myData);
 
 //        $myPicture->drawGradientArea(0,0,1400,800,DIRECTION_VERTICAL,array("StartR"=>240,"StartG"=>240,"StartB"=>240,"EndR"=>180,"EndG"=>180,"EndB"=>180,"Alpha"=>100));
 
@@ -215,8 +221,8 @@ class scoresBestuur
             "FontName" => "./pChart/fonts/calibri.ttf", 
             "FontSize" => 24,
             "R" => 255,
-//            "G" => 255,
-//            "B" => 255,
+            "G" => 255,
+            "B" => 255,
             "Alpha" => 0,
             "b" => "double"
             
@@ -229,7 +235,7 @@ class scoresBestuur
             )
         );
 
-        $myPicture->setGraphArea(300,110,600,$pictureHeigth);
+        $myPicture->setGraphArea(300 - $left,110,600 - $left ,$pictureHeigth);
 //        $myPicture->drawFilledRectangle(500,60,670,190,array("R"=>255,"G"=>255,"B"=>255,"Surrounding"=>-200,"Alpha"=>10));
         $myPicture->drawScale(array(
             "ManualScale" => $AxisBoundaries,
@@ -248,19 +254,22 @@ class scoresBestuur
             ));
         $myPicture->setShadow(FALSE);
 
-        $myPicture->drawText(0, 20,$question,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
-        $myPicture->drawText(300, 70,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
-        $myPicture->drawText(600 - (count($legend[1]) * 12), 70,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
-        $myPicture->drawText(700, 70,"m",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-        $myPicture->drawText(800, 70,"n",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(300 - $left, 20,$question,array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(700 - $left, 70,"m",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+        $myPicture->drawText(800 - $left, 70,"n",array("R"=>0,"G"=>164,"B"=>228,"Alpha"=>100,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         //$myPicture->drawText(800, 80,"5",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
         //$myPicture->drawText(1200, 80,"10",array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         foreach($names as $key => $previous_table_text_item){
         //for ($i=0;$i<count($previous_table_text);$i++){
-            $myPicture->drawText(0, 138 + ($key)*54,$names[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
-            $myPicture->drawText(700, 138 + ($key)*54,sprintf("%01.1f",$values[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
-            $myPicture->drawText(800, 138 + ($key)*54,$answered[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+            if (!$alternate){
+                $myPicture->drawText(0, 138 + ($key)*54,$names[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 24, "DrawBox" => FALSE));
+            }
+            $myPicture->drawText(700 - $left, 138 + ($key)*54,sprintf("%01.1f",$values[$key]),array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
+            $myPicture->drawText(800 - $left, 138 + ($key)*54,$answered[$key],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLERIGHT, "FontSize" => 24, "DrawBox" => FALSE));
         }
+        $myPicture->drawText(300 - $left, 70,$legend[0],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 15, "DrawBox" => FALSE));
+        $myPicture->drawText(600 - $left - (strlen($legend[1]) * 8), 70,$legend[1],array("R"=>0,"G"=>0,"B"=>0,'Align' => TEXT_ALIGN_MIDDLELEFT, "FontSize" => 15, "DrawBox" => FALSE));
+        
         
         $filename = $temp . "scores_bestuur".randchars(12).".png";
         $myPicture -> render($filename);

@@ -99,6 +99,9 @@ class satisfactionPerCategoryBestuur
         $satisfaction_table[0][$category_key_count] = $text_table;
         $ref_count = 1;
         foreach ($refs as $key=>$ref){
+            if (preg_match('/\d\d\d\d$/',$ref)){
+                    continue;
+            }
             if (($ref == 'bestuur') || ($ref == 'peiling') ){
                 $paramsTextTable['text'] = $bestuur_name;
             } else {
