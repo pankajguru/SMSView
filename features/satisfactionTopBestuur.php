@@ -19,6 +19,9 @@ class satisfactionTopBestuur
         if ( ($reference != 'alle_scholen') && ($reference != 'vorige_peiling') ){
             $reference      = str_replace('_', ' ',$reference);
         }
+        if ($reference == 'vorige_peiling'){
+//            $reference = $bestuurname.' '.$data['previous.survey.year.first.notype.bestuur'];
+        }
         $tevreden       = str_replace('\\\'', '',$data['question.type.satisfaction']);
         $belangrijk     = str_replace('\\\'', '',$data['question.type.importance']);
         //konqord JSON is false becuse escape character on '
@@ -126,24 +129,24 @@ class satisfactionTopBestuur
             
             if ($top){
                 if (isset($question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'})){
-                    $alle_scholen_perc = $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'};
+                    $alle_scholen_perc = round(100*$question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'alle_scholen'});
                 } else {
                     $alle_scholen_perc = '-';
                 }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text(isset($question->{'neutral_description'})?$question->{'neutral_description'}:$question->{'short_description'}),
-                    'bestuur' => $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{$reference},
+                    'bestuur' => round(100*$question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{$reference}),
                     'alle_scholen' => $alle_scholen_perc
                 );
             } else {
                 if (isset($question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'})){
-                    $alle_scholen_perc = $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'};
+                    $alle_scholen_perc = round(100*$question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{'alle_scholen'});
                 } else {
                     $alle_scholen_perc = '-';
                 }
                 $satisfaction_array[] = array(
                     'vraag' => filter_text(isset($question->{'neutral_description'})?$question->{'neutral_description'}:$question->{'short_description'}),
-                    'bestuur' => $question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{$reference},
+                    'bestuur' => round(100*$question->{'statistics'}->{'percentage'}->{$division}->{'lt'}->{$reference}),
                     'alle_scholen' => $alle_scholen_perc
                 );
             }

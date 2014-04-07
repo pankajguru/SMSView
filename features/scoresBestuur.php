@@ -26,6 +26,9 @@ class scoresBestuur
         //create array iso object
         $all_questions_array = array();
         foreach($all_questions as $question_number=>$question){
+            if ($question_number == '_empty_'){
+                continue;
+            }
             $all_questions_array[intval($question_number)] = $question;
         };
         
@@ -81,7 +84,7 @@ class scoresBestuur
                 }
                 if ($target_question != '') {
                     //create group heading
-                    $scores_docx->addTitle($question->{'group_name'},$paramsTitle);
+                    $scores_docx->addTitle(filter_text($question->{'group_name'}),$paramsTitle);
                     $question_count = 0;
                 }                
                 $first = false;
@@ -169,19 +172,43 @@ class scoresBestuur
             }
             if (count($names) > 0){
                 $scores_graphic = $this->_draw_graphic($names, $values, $question_number.". ".filter_text($question->{'short_description'}), $answered, $legend,$max_value,$min_value, $alternate, $temp);
-                $paramsImg = array(
-                    'name' => $scores_graphic,
-                    'scaling' => 40,
-                    'spacingTop' => 0,
-                    'spacingBottom' => 0,
-                    'spacingLeft' => 0,
-                    'spacingRight' => 0,
-                    'textWrap' => 0,
-                );
+                if (!$alternate){
+                     /* Create the pChart object */
+                    $pictureHeigth = 110 + 54 * count($names);
+                    $greatPicture = new pImage(1500,$pictureHeigth);
+                    $greatPicture->drawFromPNG(0,0,$scores_graphic);
+                } else {
+                    $greatPicture->drawFromPNG(900,0,$scores_graphic);
+                }
+                if ($alternate){
+                    $greatPicture->render($temp . "greatscores$question_number.png");
+                    $paramsImg = array(
+                        'name' => $temp . "greatscores$question_number.png",
+                        'scaling' => 40,
+                        'spacingTop' => 0,
+                        'spacingBottom' => 0,
+                        'spacingLeft' => 0,
+                        'spacingRight' => 0,
+                        'textWrap' => 0,
+                    );
+                    $scores_docx->addImage($paramsImg);
+                }
                 $alternate = !$alternate; 
-                $scores_docx->addImage($paramsImg);
             }
             $question_count++;
+        }
+        //add last question if uneven 
+        if ($alternate){
+                    $paramsImg = array(
+                        'name' => $scores_graphic,
+                        'scaling' => 40,
+                        'spacingTop' => 0,
+                        'spacingBottom' => 0,
+                        'spacingLeft' => 0,
+                        'spacingRight' => 0,
+                        'textWrap' => 0,
+                    );
+                    $scores_docx->addImage($paramsImg);
         }
         if ($question_count > 0){
             $filename = $temp.sanitize_filename('scoreBestuur'.$category.$target_question.randchars(12));

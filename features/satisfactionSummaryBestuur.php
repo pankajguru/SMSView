@@ -45,22 +45,22 @@ class satisfactionSummaryBestuur {
 					  || ($question->question_type[0][1] == 'NOOIT_SOMS_VAAK_NOSAT') || ($question->question_type[0][1] == 'NIETZO_GAATWEL_JA_NOSAT')
 				){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'bestuur'} . "% van de $target is tevreden over " . filter_text($question->{'short_description'}).'.';
+                        round(100*$question->{'statistics'}->{'percentage'}->{3}->{'gte'}->{'bestuur'}) . "% van de $target is tevreden over " . filter_text($question->{'short_description'}).'.';
                 }
                 if ($question->question_type[0][1] == 'JA_NEE'){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'bestuur'} . "% van de $target  " . filter_text($question->{'short_description'}).'.';
+                        round(100*$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'bestuur'}) . "% van de $target  " . filter_text($question->{'short_description'}).'.';
                 }
                 if ($question->question_type[0][1] == 'NEE_SOMS_VAAK'){
                     $satisfactionSummary[] = 
-                        $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'bestuur'} . "% van de $target  " . filter_text($question->{'short_description'}).'.';
+                        round(100*$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'bestuur'}) . "% van de $target  " . filter_text($question->{'short_description'}).'.';
                 }
             }
         }
         foreach($all_questions as $question_number=>$question){
             if ($question->{'id'} == 65){
                 $satisfactionSummary[] = 
-                    $question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'bestuur'}." procent van de $target ziet hun kind met plezier naar school gaan (landelijk is dit ".$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
+                    round(100*$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'bestuur'})." procent van de $target ziet hun kind met plezier naar school gaan (landelijk is dit ".$question->{'statistics'}->{'percentage'}->{2}->{'gte'}->{'alle_scholen'}.' %)';
             }
         }
         $summary_docx -> addList($satisfactionSummary, $paramsList);

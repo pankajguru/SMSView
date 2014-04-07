@@ -102,6 +102,7 @@ class satisfactionPerCategoryBestuur
             if (preg_match('/\d\d\d\d$/',$ref)){
                     continue;
             }
+            $paramsTextTable['cell_color'] = 'FFFFFF';
             if (($ref == 'bestuur') || ($ref == 'peiling') ){
                 $paramsTextTable['text'] = $bestuur_name;
             } else {
@@ -149,6 +150,27 @@ class satisfactionPerCategoryBestuur
                 $category_key_count++;
             }
             $value = number_format(($total_value/$total),1,'.','');
+            if ($basetype == '3') {
+                if ($value < 6.0){
+                    $paramsTextTable['cell_color'] = 'FF5050';
+                } elseif ($value < 6.5) {
+                    $paramsTextTable['cell_color'] = 'FFCC66';
+                } elseif ($value < 7.5) {
+                    $paramsTextTable['cell_color'] = 'CCFF99';
+                } else {
+                   $paramsTextTable['cell_color'] = '99CC00';
+                }
+            } else {
+                if ($value < 6.5){
+                    $paramsTextTable['cell_color'] = 'FF5050';
+                } elseif ($value < 7) {
+                    $paramsTextTable['cell_color'] = 'FFCC66';
+                } elseif ($value < 8) {
+                    $paramsTextTable['cell_color'] = 'CCFF99';
+                } else {
+                   $paramsTextTable['cell_color'] = '99CC00';
+                }
+            }
             $paramsTextTable['text'] = $value;
             $text_table = $satisfactionPerCategoryBestuur_docx->addElement('addText', array($paramsTextTable));
             $satisfaction_table[$ref_count][$category_key_count] = $text_table;

@@ -28,105 +28,104 @@ class previousBestuur
         //add graphic to docx
         $previous_docx = new CreateDocx();
         
-        $previous_table_text = array();
-        $previous_table_peiling = array();
-        $previous_table_vorige_peiling = array();
-        $count = 0;
         foreach ($refs as $ref_key){
             //$key_underscore = str_replace(' ', '_',$key);
             if ( (preg_match('/\d\d\d\d$/',$ref_key)) or ($ref_key == 'vorige_peiling')){
             } else {
                 continue;
             }
-                
-        foreach ($previous_data->{$ref_key} as $key => $previous){
-            if (!isset($previous[1])){
-                continue;
-            }
-            //do not take categories wich are not ment to be categories:
-            if (!in_array($previous[0], $importance_categories)){
-                continue;
-            }
-            $previous_number = 0;
-            if (isset($previous_data->{$ref_key})){
-                foreach ($previous_data->{$ref_key} as $previous){
-                    if ($previous[0] == $previous_data->{'bestuur'}[$key][0]){
-                        $previous_number = Scale10($previous[2], $scale_factor);
+            $previous_table_text = array();
+            $previous_table_peiling = array();
+            $previous_table_vorige_peiling = array();
+            $count = 0;
+            foreach ($previous_data->{$ref_key} as $key => $previous){
+                if (!isset($previous[1])){
+                    continue;
+                }
+                //do not take categories wich are not ment to be categories:
+                if (!in_array($previous[0], $importance_categories)){
+                    continue;
+                }
+                $previous_number = 0;
+                if (isset($previous_data->{$ref_key})){
+                    foreach ($previous_data->{$ref_key} as $previous){
+                        if ($previous[0] == $previous_data->{'bestuur'}[$key][0]){
+                            $previous_number = Scale10($previous[2], $scale_factor);
+                        }
                     }
                 }
+                $previous_table_vorige_peiling[] = $previous_number;
+                $previous_table_peiling[] = Scale10($previous_data->{'bestuur'}[$key][2], $scale_factor);
+                $previous_table_text[] = $previous_data->{'bestuur'}[$key][1];
             }
-            $previous_table_vorige_peiling[] = $previous_number;
-            $previous_table_peiling[] = Scale10($previous_data->{'bestuur'}[$key][2], $scale_factor);
-            $previous_table_text[] = $previous_data->{'bestuur'}[$key][1];
-        }
-
-
-        if (count($previous_table_vorige_peiling) == 0){
-            print "no previous";
-            return 0;
-        }
-        if ($ref_key == 'vorige_peiling'){
-            $name = $bestuur_name;
-        } else {
-            $name = str_replace('_', ' ',$ref_key);;
-        }
-        $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $name, $temp);
-
-        $paramsImg = array(
-            'name' => $previous_graphic, 
-            'scaling' => 50, 
-            'spacingTop' => 0, 
-            'spacingBottom' => 20, 
-            'spacingLeft' => 0, 
-            'spacingRight' => 20, 
-            'textWrap' => 1, 
-            //'border' => 0, 
-            //'borderDiscontinuous' => 0
-            );  
-        $previous_docx -> addImage($paramsImg);
-        
-        $good = array();
-        $bad = array();
-        $equal = array();
-        foreach ($previous_table_peiling as $key => $previous_peiling){
-            $difference = (round(10*$previous_table_peiling[$key])/10 - round(10*$previous_table_vorige_peiling[$key])/10);
-            if (abs($difference) < 0.05){
-                $equal[] = $previous_table_text[$key];
-            } elseif ($difference < 0){
-                $bad[] = filter_text($previous_table_text[$key]).'   '.sprintf("%01.1f",$difference);
-            }else{
-                $good[] = filter_text($previous_table_text[$key]).'   '.sprintf("%01.1f",$difference);
+    
+    
+            if (count($previous_table_vorige_peiling) == 0){
+                print "no previous";
+                return 0;
             }
+            if ($ref_key == 'vorige_peiling'){
+                $name = $bestuur_name;
+            } else {
+                $name = str_replace('_', ' ',$ref_key);;
+            }
+            $previous_graphic = $this->_draw_graphic($previous_table_text, $previous_table_peiling, $previous_table_vorige_peiling, $name, $temp);
+    
+            $paramsImg = array(
+                'name' => $previous_graphic, 
+                'scaling' => 50, 
+                'spacingTop' => 0, 
+                'spacingBottom' => 20, 
+                'spacingLeft' => 0, 
+                'spacingRight' => 20, 
+                'textWrap' => 1, 
+                //'border' => 0, 
+                //'borderDiscontinuous' => 0
+                );  
+            $previous_docx -> addImage($paramsImg);
             
-        }
-        $paramsList = array(
-            'val' => 1,
-            'sz' => 10,
-            'font' => 'Century Gothic',
-        );
-        $text = array();
-        $text[] = array(
-            'text' => 'In vergelijking met de vorige peiling wordt het bestuur beter beoordeeld op de rubrieken:',
-            'sz' => 10,
-            'font' => 'Century Gothic',
-        );
-        $previous_docx->addText($text);
-        $previous_docx->addList($good, $paramsList);
-        $text[] = array(
-            'text' => 'Minder goed beoordeeld worden de rubrieken:',
-            'sz' => 10,
-            'font' => 'Century Gothic',
-        );
-        $previous_docx->addText($text);
-        $previous_docx->addList($bad, $paramsList);
-        $text[] = array(
-            'text' => 'Deze rubrieken worden hetzelfde beoordeeld als bij de vorige peiling.',
-            'sz' => 10,
-            'font' => 'Century Gothic',
-        );
-        $previous_docx->addText($text);
-        $previous_docx->addList($equal, $paramsList);
-        $previous_docx->addText('',array());
+            $good = array();
+            $bad = array();
+            $equal = array();
+            foreach ($previous_table_peiling as $key => $previous_peiling){
+                $difference = (round(10*$previous_table_peiling[$key])/10 - round(10*$previous_table_vorige_peiling[$key])/10);
+                if (abs($difference) < 0.05){
+                    $equal[] = $previous_table_text[$key];
+                } elseif ($difference < 0){
+                    $bad[] = filter_text($previous_table_text[$key]).'   '.sprintf("%01.1f",$difference);
+                }else{
+                    $good[] = filter_text($previous_table_text[$key]).'   '.sprintf("%01.1f",$difference);
+                }
+                
+            }
+            $paramsList = array(
+                'val' => 1,
+                'sz' => 10,
+                'font' => 'Century Gothic',
+            );
+            $text = array();
+            $text[] = array(
+                'text' => 'In vergelijking met de vorige peiling wordt het bestuur beter beoordeeld op de rubrieken:',
+                'sz' => 10,
+                'font' => 'Century Gothic',
+            );
+            $previous_docx->addText($text);
+            $previous_docx->addList($good, $paramsList);
+            $text[] = array(
+                'text' => 'Minder goed beoordeeld worden de rubrieken:',
+                'sz' => 10,
+                'font' => 'Century Gothic',
+            );
+            $previous_docx->addText($text);
+            $previous_docx->addList($bad, $paramsList);
+            $text[] = array(
+                'text' => 'Deze rubrieken worden hetzelfde beoordeeld als bij de vorige peiling.',
+                'sz' => 10,
+                'font' => 'Century Gothic',
+            );
+            $previous_docx->addText($text);
+            $previous_docx->addList($equal, $paramsList);
+            $previous_docx->addText('',array());
 
         }
         

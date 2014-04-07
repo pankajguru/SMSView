@@ -108,7 +108,7 @@ class percentagesBestuur
                 }
                 if ($target_question != '') {
                     //create group heading
-                    $percentage_docx->addTitle($question->{'group_name'},$paramsTitle);
+                    $percentage_docx->addTitle(filter_text($question->{'group_name'}),$paramsTitle);
                     $question_count = 0;
                 }
                 

@@ -25,6 +25,9 @@ class scoresPercentagesBestuur
             return 0;
         }
         foreach($all_questions as $question_number=>$question){
+            if ($question_number == '_empty_'){
+                continue;
+            }
             $all_questions_array[intval($question_number)] = $question;
         };
         ksort($all_questions_array);
